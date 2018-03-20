@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+<<<<<<< HEAD
 	Rifa 
+	andar nyoba
+	test
 </body>
 </html>
