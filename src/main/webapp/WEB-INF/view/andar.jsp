@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	Halo, it is Andar!
+	Halo gaes!
 </body>
 </html>
