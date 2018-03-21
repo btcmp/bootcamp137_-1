@@ -15,7 +15,7 @@ import com.sun.istack.NotNull;
 
 @Entity
 @Table(name="pos_mst_item_variant")
-public class Varian {
+public class Variant {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id")
 	@SequenceGenerator(initialValue = 1010101, name = "id", sequenceName = "id")
@@ -45,12 +45,12 @@ public class Varian {
 	private Date modifiedOn;
 	@NotNull
 	@Column(nullable=false)
-	private int active;
+	private boolean active;
 	
 	@ManyToOne
 	private Item item;
 	
-	public Varian() {
+	public Variant() {
 		this.createdOn=new Date();
 		this.modifiedOn=new Date();
 	}
@@ -61,16 +61,6 @@ public class Varian {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-	
-
-
-	public Item getItem() {
-		return item;
-	}
-
-	public void setItem(Item item) {
-		this.item = item;
 	}
 
 	public String getName() {
@@ -129,11 +119,23 @@ public class Varian {
 		this.modifiedOn = modifiedOn;
 	}
 
-	public int getActive() {
+	public boolean isActive() {
 		return active;
 	}
 
-	public void setActive(int active) {
+	public void setActive(boolean active) {
 		this.active = active;
-	}	
+	}
+
+	public Item getItem() {
+		return item;
+	}
+
+	public void setItem(Item item) {
+		this.item = item;
+	}
+
+
+
+	
 }

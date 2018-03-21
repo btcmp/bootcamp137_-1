@@ -17,6 +17,7 @@ public class EmployeeController {
 	@Autowired
 	EmployeeService employeeService;
 	
+	@RequestMapping
 	public String index(Model model) {
 		List<Employee> employees = employeeService.selectAll();
 		model.addAttribute("employees", employees);
