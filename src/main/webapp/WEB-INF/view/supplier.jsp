@@ -47,6 +47,9 @@
 				$('#modal-create-supp').modal(); 
 			});
 			
+			$('.btn-edit').click(function(){
+				$('#modal-edit-supp').modal(); 
+			});
 		});
 	//});
 </script>
@@ -79,7 +82,7 @@
 				<td>021-5557777</td>
 				<td>mail@mail.com</td>
 				<td><center>
-					<a id="${rooms.id }" class="update btn btn-info btn-sm" href="#">Edit</a>   
+					<a id="${rooms.id }"  class="btn-edit btn btn-info btn-sm" href="#">Edit</a>   
 					</center>
 				</td>
 			</tr>
@@ -102,8 +105,8 @@
 	
 	<!-- panggil modal dari folder modal -->
 	<%@ include file="modal/supplier/create-supp.jsp" %>
-<%-- 	<%@ include file="modal/room/save-room.jsp" %>
-	<%@ include file="modal/room/delete-room.jsp" %> --%>
+	<%@ include file="modal/supplier/edit-supp.jsp" %>
+	<%-- <%@ include file="modal/room/delete-room.jsp" %> --%> 
 </div>
 </body>
 </html>

@@ -46,6 +46,9 @@
 				$('#modal-create-category').modal(); 
 			});
 			
+			$('.btn-edit').click(function(){
+				$('#modal-edit-category').modal(); 
+			});
 		});
 	//});
 </script>
@@ -53,7 +56,7 @@
 <body>
 <div class="container">
 	<div>
-		<b>Supplier</b>
+		<b>Category</b>
 	</div>
 	<div id="save-form" style="margin-top:20px; margin-bottom:20px;">
 		<form action="#">
@@ -74,7 +77,7 @@
 				<td><center>Action Figure </center></td>
 				<td><center>4 item </center></td>
 				<td><center>
-					<a id="${rooms.id }" class="update btn btn-info btn-sm" href="#">Edit</a>   
+					<a id="${rooms.id }" class="btn-edit btn btn-info btn-sm" href="#">View</a>   
 					</center>
 				</td>
 			</tr>
@@ -94,8 +97,7 @@
 	
  	<!-- panggil modal dari folder modal -->
  	<%@ include file="modal/category/create-category.jsp" %>
-	<%-- <%@ include file="modal/room/save-room.jsp" %>
-	<%@ include file="modal/room/delete-room.jsp" %> --%>
+	<%@ include file="modal/category/edit-category.jsp" %>
 </div>
 </body>
 </html>

@@ -47,6 +47,9 @@
 				$('#modal-create-outlet').modal(); 
 			});
 			
+			$('.btn-edit').click(function(){
+				$('#modal-edit-outlet').modal(); 
+			});
 		});
 	//});
 </script>
@@ -61,7 +64,6 @@
 			<input type="text" id="search" placeholder="Search" />
 			<button type="button" id="btn-create" class="btn btn-primary" style="float:right; margin-right: 0px; width:150px;">Create</button>
 			<button type="button" id="btn-export" class="btn btn-primary" style="float:right; margin-right: 50px; width: 150px;">Export</button>
-			
 		</form>
 	</div>
 	<hr>
@@ -80,7 +82,7 @@
 				<td>021-5557777</td>
 				<td>mail@mail.com</td>
 				<td><center>
-					<a id="${rooms.id }" class="update btn btn-info btn-sm" href="#">Edit</a>   
+					<a id="${rooms.id }" class="btn-edit btn btn-info btn-sm" href="#">Edit</a>   
 					</center>
 				</td>
 			</tr>
@@ -100,8 +102,8 @@
 	
  	<!-- panggil modal dari folder modal -->
 	<%@ include file="modal/outlet/create-outlet.jsp" %>
-	<%-- <%@ include file="modal/room/save-room.jsp" %>
-	<%@ include file="modal/room/delete-room.jsp" %> --%>
+	 <%@ include file="modal/outlet/edit-outlet.jsp" %>
+	<%-- <%@ include file="modal/room/delete-room.jsp" %> --%> --%>
 </div>
 </body>
 </html>
