@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -21,9 +22,6 @@ public class Varian {
 	@Column(nullable=false)
 	@NotNull
 	private int id;
-	@NotNull
-	@Column(nullable=false)
-	private int item;
 	@NotNull
 	@Column(nullable=false)
 	private String name;
@@ -49,6 +47,9 @@ public class Varian {
 	@Column(nullable=false)
 	private int active;
 	
+	@ManyToOne
+	private Item item;
+	
 	public Varian() {
 		this.createdOn=new Date();
 		this.modifiedOn=new Date();
@@ -63,11 +64,12 @@ public class Varian {
 	}
 	
 
-	public int getItem() {
+
+	public Item getItem() {
 		return item;
 	}
 
-	public void setItem(int item) {
+	public void setItem(Item item) {
 		this.item = item;
 	}
 

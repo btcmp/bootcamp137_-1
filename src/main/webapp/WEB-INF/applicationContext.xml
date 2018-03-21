@@ -36,10 +36,9 @@
 		<property name="annotatedClasses">
 			<list>
 				<value>com.xsis.mp1.model.Employee</value>
-				<!-- <value>com.xsis.ex.model.Penjualan</value>
-				<value>com.xsis.ex.model.DetailPenjualan</value>
-				<value>com.xsis.ex.model.Barang</value>
-				<value>com.xsis.ex.model.Pesanan</value> -->
+				<value>com.xsis.mp1.model.Item</value>
+				<value>com.xsis.mp1.model.Varian</value>
+			
 			</list>
 		</property>
 		<property name="hibernateProperties">
