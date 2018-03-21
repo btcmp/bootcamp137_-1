@@ -1,35 +1,34 @@
 package com.xsis.mp1.model;
 
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="pos_mst_role")
-public class Role {
+@Table(name="pos_mst_user")
+public class User {
 
 	@Id
 	@NotNull
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "idrole")
-	@SequenceGenerator(initialValue = 2121, name = "idrole", sequenceName = "idrole")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "iduser")
+	@SequenceGenerator(initialValue = 2121, name = "iduser", sequenceName = "iduser")
 	private int id;
 	
-	@Column(length=50)
-	private String name;
+	@NotNull
+	@Column(length=50, nullable=false)
+	private String username;
 	
-	@Column(length=255)
-	private String description;
+	@NotNull
+	@Column(length=255, nullable=false)
+	private String password;
 	
 	@Column(name="created_by")
 	private int createdBy;
@@ -47,15 +46,15 @@ public class Role {
 	@Column(nullable=false)
 	private boolean active;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="role", cascade=CascadeType.ALL, orphanRemoval=true)
-	private List<User> users;
+	@ManyToOne
+	private Role role;
 
-	public List<User> getUsers() {
-		return users;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	public int getId() {
@@ -66,20 +65,20 @@ public class Role {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public int getCreatedBy() {

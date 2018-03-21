@@ -36,6 +36,8 @@
 		<property name="annotatedClasses">
 			<list>
 				<value>com.xsis.mp1.model.Employee</value>
+				<value>com.xsis.mp1.model.Role</value>
+				<value>com.xsis.mp1.model.User</value>
 				<value>com.xsis.mp1.model.Item</value>
 				<value>com.xsis.mp1.model.Variant</value>
 				<value>com.xsis.mp1.model.Province</value>
