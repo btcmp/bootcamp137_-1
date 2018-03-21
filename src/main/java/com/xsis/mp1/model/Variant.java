@@ -17,8 +17,8 @@ import com.sun.istack.NotNull;
 @Table(name="pos_mst_item_variant")
 public class Variant {
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id")
-	@SequenceGenerator(initialValue = 1010101, name = "id", sequenceName = "id")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "idvar")
+	@SequenceGenerator(initialValue = 1010101, name = "idvar", sequenceName = "idvar")
 	@Column(nullable=false)
 	@NotNull
 	private int id;

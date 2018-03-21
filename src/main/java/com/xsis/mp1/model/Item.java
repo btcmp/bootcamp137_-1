@@ -22,7 +22,7 @@ import javax.validation.constraints.NotNull;
 public class Item {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id")
-	@SequenceGenerator(initialValue = 1010101, name = "id", sequenceName = "id")
+	@SequenceGenerator(initialValue = 10101, name = "id", sequenceName = "id")
 	@Column(nullable=false)
 	@NotNull
 	private int id;
