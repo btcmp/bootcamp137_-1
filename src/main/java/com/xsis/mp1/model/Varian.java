@@ -61,7 +61,6 @@ public class Varian {
 	public void setId(int id) {
 		this.id = id;
 	}
-
 	
 
 	public int getItem() {
