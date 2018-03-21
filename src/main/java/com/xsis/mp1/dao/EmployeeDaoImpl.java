@@ -40,7 +40,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public void delete(Employee employee) {
 		Session session = sessionFactory.getCurrentSession();
 		session.delete(employee);
-		;
 		session.flush();
 	}
 
