@@ -5,10 +5,12 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.xsis.mp1.model.Employee;
 import com.xsis.mp1.model.Item;
 
+@Repository
 public class ItemDaoImpl implements ItemDao {
 
 	@Autowired
