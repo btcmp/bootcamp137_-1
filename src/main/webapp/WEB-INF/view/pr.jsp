@@ -136,6 +136,7 @@
 					    	</c:forEach>
 					    </select>
 					</div>
+					
 					<div class="form-group">
 						<label for="input-name">Notes</label>
 						<input type="text" class="form-control" id="insert-name">

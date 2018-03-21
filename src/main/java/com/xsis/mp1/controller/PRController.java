@@ -22,5 +22,6 @@ public class PRController {
 		List<PurchaseRequest> prs = prService.selectAll();
 		model.addAttribute("prs", prs);
 		return "pr";
+		
 	}
 }
