@@ -37,7 +37,7 @@
 			<list>
 				<value>com.xsis.mp1.model.Employee</value>
 				<value>com.xsis.mp1.model.Item</value>
-				<value>com.xsis.mp1.model.Varian</value>
+				<value>com.xsis.mp1.model.Variant</value>
 				<value>com.xsis.mp1.model.Province</value>
 				<value>com.xsis.mp1.model.Region</value>
 				<value>com.xsis.mp1.model.District</value>

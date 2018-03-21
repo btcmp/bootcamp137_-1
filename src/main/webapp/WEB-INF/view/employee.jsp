@@ -8,10 +8,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Entry Customer</title>
-<link rel="stylesheet" href="/resources/css/bootstrap.min.css" />
-<link rel="stylesheet" href="/resources/css/bootstrap.css" />
-<link rel="stylesheet" href="/resources/css/dataTables.bootstrap4.min.css" />
+<title>Entry Employee</title>
+<link rel="stylesheet" href="resources/css/bootstrap.min.css" />
+<link rel="stylesheet" href="resources/css/bootstrap.css" />
+<link rel="stylesheet" href="resources/css/dataTables.bootstrap4.min.css" />
 <script type="text/javascript" src="${jq }"></script>
 <script type="text/javascript" src="<spring:url value="/resources/js/parsley.js"/>"></script>
 <script type="text/javascript" src="<spring:url value="/resources/js/parsley.min.js"/>"></script>
@@ -60,6 +60,9 @@
 </head>
 <body>
 <div class="container">
+	<div>
+		ADD EMPLOYEE
+	</div>
 	<div id="save-form" style="margin-top:20px; margin-bottom:20px;">
 		<form action="#">
 			<input type="text" id="name" placeholder="Name" /><br>
