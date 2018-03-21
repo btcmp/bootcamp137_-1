@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="resources/css/bootstrap.min.css" />
 <link rel="stylesheet" href="resources/css/bootstrap.css" />
 <link rel="stylesheet" href="resources/css/dataTables.bootstrap4.min.css" />
+<link rel="stylesheet" href="resources/css/fontawesome.min.css" />
 <script type="text/javascript" src="${jq }"></script>
 <script type="text/javascript" src="<spring:url value="/resources/js/parsley.js"/>"></script>
 <script type="text/javascript" src="<spring:url value="/resources/js/parsley.min.js"/>"></script>
@@ -59,20 +60,68 @@
 </script>
 </head>
 <body>
+<h5>ADD EMPLOYEE</h5>
+<hr>
 <div class="container">
-	<div>
-		ADD EMPLOYEE
+	<div class="row">
+	  <div class="col-md-3">
+	  	<div class="form-group">
+			<input type="text" class="form-control" id="insert-first-name" placeholder="First Name">
+		</div>
+	  </div>
+	  <div class="col-md-3">
+	  	<div class="form-group">
+			<input type="text" class="form-control" id="insert-last-name" placeholder="Last Name">
+		</div>
+	  </div>
+	  <div class="col-md-3">
+	  	<div class="form-group">
+			<input type="text" class="form-control" id="insert-email" placeholder="Email">
+		</div>
+	  </div>
+	  <div class="col-md-3">
+	  	<div class="form-group">
+		    <select name="title" id="insert-title" class="custom-select custom-select-md" placeholder="Title">
+		    	<c:forEach var="title" items="${titles }">
+		    		<option value="${title.id }">${title.name }</option>
+		    	</c:forEach>
+		    </select>
+		</div>
+	  </div>
 	</div>
-	<div id="save-form" style="margin-top:20px; margin-bottom:20px;">
-		<form action="#">
-			<input type="text" id="name" placeholder="Name" /><br>
-			<input type="text" id="contact" placeholder="Contact" /><br>
-			<input type="text" id="email" placeholder="Email" /><br>
-			<input type="text" id="address" placeholder="Address" /><br>
-			<button type="button" id="btn-save" class="btn btn-primary">Save</button>
-		</form>
+	<div class="row">
+	  <div class="col-md-3">
+	  	<div class="form-group">
+			<button type="button" id="btn-assign-outlet" class="btn btn-primary btn-block">Assign Outlet</button>
+		</div>
+	  </div>
+	  <div class="col-md-9">
+	  	<div class="checkbox">
+            <label style="padding-top:8px;">
+                <input type="checkbox" value="">
+                <span class="cr"></span>
+                Create Account?
+            </label>
+        </div>
+	  </div>
 	</div>
-	
+	<hr>
+	<div class="row">
+	  <div class="col-md-8">
+	  </div>
+	  <div class="col-md-2">
+	  	<div class="form-group">
+			<button type="button" id="btn-cancel" class="btn btn-primary btn-block">Cancel</button>
+		</div>
+	  </div>
+	  <div class="col-md-2">
+	  	<div class="form-group">
+	  		<button type="button" id="btn-save" class="btn btn-primary btn-block">Save</button>
+		</div>
+	  </div>
+	</div>
+	Staff List
+	<hr>
 	<table id="emp-table" class="table table-sm table-striped table-bordered" cellspacing="0" width="100%">
 		<thead class="thead-dark">
 			<th>Name</th>
