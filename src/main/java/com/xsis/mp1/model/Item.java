@@ -28,11 +28,10 @@ public class Item {
 	private int id;
 	
 	@NotNull
-	@Column(nullable=false)
 	private String name;
 	
 	@NotNull
-	@Column(nullable=false)
+	
 	private int category;
 	
 	@NotNull
@@ -50,10 +49,10 @@ public class Item {
 	
 	@NotNull
 	@Column(nullable=false)
-	private int active;
+	private boolean active;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="item", cascade=CascadeType.ALL, orphanRemoval=true)
-	private List<Varian> varians;
+	private List<Variant> varians;
 	
 	public Item() {
 		this.createdOn=new Date();
@@ -83,8 +82,6 @@ public class Item {
 	public void setCategory(int category) {
 		this.category = category;
 	}
-
-
 
 	public int getCreatedBy() {
 		return createdBy;
@@ -118,20 +115,22 @@ public class Item {
 		this.modifiedOn = modifiedOn;
 	}
 
-	public int getActive() {
+	public boolean isActive() {
 		return active;
 	}
 
-	public void setActive(int active) {
+	public void setActive(boolean active) {
 		this.active = active;
 	}
 
-	public List<Varian> getVarians() {
+	public List<Variant> getVarians() {
 		return varians;
 	}
 
-	public void setVarians(List<Varian> varians) {
+	public void setVarians(List<Variant> varians) {
 		this.varians = varians;
 	}
+
+	
 
 }
