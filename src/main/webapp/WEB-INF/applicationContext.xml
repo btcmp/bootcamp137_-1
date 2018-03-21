@@ -43,7 +43,8 @@
 				<value>com.xsis.mp1.model.Province</value>
 				<value>com.xsis.mp1.model.Region</value>
 				<value>com.xsis.mp1.model.District</value>
-			
+				<value>com.xsis.mp1.model.PurchaseRequest</value>
+				<value>com.xsis.mp1.model.PurchaseRequestDetail</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

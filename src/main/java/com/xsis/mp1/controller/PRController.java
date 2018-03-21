@@ -17,6 +17,7 @@ public class PRController {
 	@Autowired
 	PRService prService;
 	
+	@RequestMapping
 	public String index(Model model) {
 		List<PurchaseRequest> prs = prService.selectAll();
 		model.addAttribute("prs", prs);
