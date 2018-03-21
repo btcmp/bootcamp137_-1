@@ -71,6 +71,7 @@
 		</tbody>
 	</table>
 	
+	
 <%-- 	<!-- panggil modal dari folder modal -->
 	<%@ include file="modal/room/edit-room.jsp" %>
 	<%@ include file="modal/room/save-room.jsp" %>
