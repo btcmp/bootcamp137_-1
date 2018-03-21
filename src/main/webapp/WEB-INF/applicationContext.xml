@@ -35,8 +35,8 @@
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="annotatedClasses">
 			<list>
-				<!-- <value>com.xsis.ex.model.Customer</value>
-				<value>com.xsis.ex.model.Penjualan</value>
+				<value>com.xsis.mp1.model.Employee</value>
+				<!-- <value>com.xsis.ex.model.Penjualan</value>
 				<value>com.xsis.ex.model.DetailPenjualan</value>
 				<value>com.xsis.ex.model.Barang</value>
 				<value>com.xsis.ex.model.Pesanan</value> -->
