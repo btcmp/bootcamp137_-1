@@ -18,4 +18,6 @@ public class SupplierController {
 	public String index(Model model) {
 		return "supplier"; 
 	}
+	
+	
 }
