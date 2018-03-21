@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Supplier</title>
+<title>Outlet</title>
 <link rel="stylesheet" href="resources/css/bootstrap.min.css" />
 <link rel="stylesheet" href="resources/css/bootstrap.css" />
 <link rel="stylesheet" href="resources/css/dataTables.bootstrap4.min.css" />
@@ -37,14 +37,14 @@
 //jQuery(document).ready(function(){ --> dijalankan setelah DOM nya telah selesai diload
 		$(function(){
 			//setup data untuk datatable
-		$('#supplier-tbl').DataTable({
+			$('#outlet-tbl').DataTable({
 				paging : false,
 				searching : false, 
 			});	
 			
 			//button-create 
 			$('#btn-create').click(function(){
-				$('#modal-create-supp').modal(); 
+				$('#modal-create-outlet').modal(); 
 			});
 			
 		});
@@ -54,7 +54,7 @@
 <body>
 <div class="container">
 	<div>
-		<b>Supplier</b>
+		<b>Outlet</b>
 	</div>
 	<div id="save-form" style="margin-top:20px; margin-bottom:20px;">
 		<form action="#">
@@ -64,7 +64,8 @@
 			
 		</form>
 	</div>
-	<table id="supplier-tbl" class="table table-sm table-striped table-bordered" width="100%" cellspacing="0">
+	<hr>
+	<table id="outlet-tbl" class="table table-sm table-striped table-bordered" width="100%" cellspacing="0">
 		<thead class="thead-dark">
 			<th>Name</th>
 			<th>Address</th>
@@ -74,7 +75,7 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td>PT.Maju Jaya</td>
+				<td>Outlet 1</td>
 				<td>Jakarta</td>
 				<td>021-5557777</td>
 				<td>mail@mail.com</td>
@@ -90,19 +91,16 @@
 					<td>${rooms.customerName}</td>
 					<td>${rooms.fasilitas}</td>
 					<td>${rooms.status}</td>
-					<td><center>
-					<a id="${rooms.id }" class="update btn btn-warning" href="#">Edit</a>   
-					</center>
-					
+					<td><a id="${rooms.id }" class="update btn btn-warning" href="#">Edit</a>   
 					</td>
 				</tr>
 			</c:forEach> --%>
 		</tbody>
 	</table>
 	
-	<!-- panggil modal dari folder modal -->
-	<%@ include file="modal/supplier/create-supp.jsp" %>
-<%-- 	<%@ include file="modal/room/save-room.jsp" %>
+ 	<!-- panggil modal dari folder modal -->
+	<%@ include file="modal/outlet/create-outlet.jsp" %>
+	<%-- <%@ include file="modal/room/save-room.jsp" %>
 	<%@ include file="modal/room/delete-room.jsp" %> --%>
 </div>
 </body>

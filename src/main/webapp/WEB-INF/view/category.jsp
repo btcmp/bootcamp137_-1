@@ -23,7 +23,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 
-
 <style type="text/css">
 	input.parsley-error
 		{
@@ -37,14 +36,14 @@
 //jQuery(document).ready(function(){ --> dijalankan setelah DOM nya telah selesai diload
 		$(function(){
 			//setup data untuk datatable
-		$('#supplier-tbl').DataTable({
+			$('#category-tbl').DataTable({
 				paging : false,
 				searching : false, 
 			});	
 			
 			//button-create 
 			$('#btn-create').click(function(){
-				$('#modal-create-supp').modal(); 
+				$('#modal-create-category').modal(); 
 			});
 			
 		});
@@ -64,20 +63,16 @@
 			
 		</form>
 	</div>
-	<table id="supplier-tbl" class="table table-sm table-striped table-bordered" width="100%" cellspacing="0">
+	<table id="category-tbl" class="table table-sm table-striped table-bordered" width="100%" cellspacing="0">
 		<thead class="thead-dark">
-			<th>Name</th>
-			<th>Address</th>
-			<th>Phone</th>
-			<th>Email</th>
+			<th><center>Category Name</center></th>
+			<th><center>Items Stock</center></th>
 			<th>#</th>
 		</thead>
 		<tbody>
-			<tr>
-				<td>PT.Maju Jaya</td>
-				<td>Jakarta</td>
-				<td>021-5557777</td>
-				<td>mail@mail.com</td>
+		<tr>
+				<td><center>Action Figure </center></td>
+				<td><center>4 item </center></td>
 				<td><center>
 					<a id="${rooms.id }" class="update btn btn-info btn-sm" href="#">Edit</a>   
 					</center>
@@ -90,19 +85,16 @@
 					<td>${rooms.customerName}</td>
 					<td>${rooms.fasilitas}</td>
 					<td>${rooms.status}</td>
-					<td><center>
-					<a id="${rooms.id }" class="update btn btn-warning" href="#">Edit</a>   
-					</center>
-					
+					<td><a id="${rooms.id }" class="update btn btn-warning" href="#">View</a>   
 					</td>
 				</tr>
 			</c:forEach> --%>
 		</tbody>
 	</table>
 	
-	<!-- panggil modal dari folder modal -->
-	<%@ include file="modal/supplier/create-supp.jsp" %>
-<%-- 	<%@ include file="modal/room/save-room.jsp" %>
+ 	<!-- panggil modal dari folder modal -->
+ 	<%@ include file="modal/category/create-category.jsp" %>
+	<%-- <%@ include file="modal/room/save-room.jsp" %>
 	<%@ include file="modal/room/delete-room.jsp" %> --%>
 </div>
 </body>
