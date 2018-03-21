@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name="pos_mst_employee")
 public class Employee {
-	
+
 	public Employee() {
 		this.createdOn = new Date();
 		this.modifiedOn = new Date();

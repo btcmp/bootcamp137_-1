@@ -22,6 +22,6 @@ public class EmployeeController {
 		model.addAttribute("employees", employees);
 		return "employee";
 	}
-	
+
 	
 }
