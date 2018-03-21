@@ -36,11 +36,6 @@ public class Item {
 	private int category;
 	
 	@NotNull
-	@Column(nullable=false)
-	private float price;
-	@Column(name="created_by")
-	
-	@NotNull
 	private int createdBy;
 	@Column(name="created_on")
 	@NotNull
@@ -89,13 +84,7 @@ public class Item {
 		this.category = category;
 	}
 
-	public float getPrice() {
-		return price;
-	}
 
-	public void setPrice(float price) {
-		this.price = price;
-	}
 
 	public int getCreatedBy() {
 		return createdBy;
