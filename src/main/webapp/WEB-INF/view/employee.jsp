@@ -34,33 +34,28 @@
 
 <script type="text/javascript">
 	jQuery(document).ready(function(){
-		$('#btn-save').on('click', function(){
-			
-			var customer = {
-				name : $('#name').val(),
-				email : $('#email').val(),
-				contact : $('#contact').val(),
-				address : $('#address').val()
-			};
-			console.log(customer);
-			$.ajax({
-				type : 'POST',
-				url : '${pageContext.request.contextPath}/customer/save',
-				data : JSON.stringify(customer),
-				contentType : 'application/json',
-				success : function(){
-					window.location = '${pageContext.request.contextPath}/customer';
-				}, error : function(){
-					alert('save failed');
-				}
-				
-			});
+		$('#dt-table').DataTable( {
+	        "searching":   false,
+	        "info":     false
+	    });
+		
+		$('#btn-assign-outlet').on('click', function(){
+			$('#modal-assign-outlet').modal();
 		});
+		
+		$('#cb-create-account').change(function(){
+	        if(this.checked)
+	            $('#row-user').fadeIn('slow');
+	        else
+	            $('#row-user').fadeOut('slow');
+
+	    });
 	});
 </script>
 </head>
 <body>
-<h5>ADD EMPLOYEE</h5>
+<hr>
+<h6>ADD EMPLOYEE</h6>
 <hr>
 <div class="container">
 	<div class="row">
@@ -81,7 +76,8 @@
 	  </div>
 	  <div class="col-md-3">
 	  	<div class="form-group">
-		    <select name="title" id="insert-title" class="custom-select custom-select-md" placeholder="Title">
+		    <select name="title" id="insert-title" class="custom-select custom-select-md">
+		    	<option selected>Title</option>
 		    	<c:forEach var="title" items="${titles }">
 		    		<option value="${title.id }">${title.name }</option>
 		    	</c:forEach>
@@ -95,17 +91,37 @@
 			<button type="button" id="btn-assign-outlet" class="btn btn-primary btn-block">Assign Outlet</button>
 		</div>
 	  </div>
-	  <div class="col-md-9">
-	  	<div class="checkbox">
-            <label style="padding-top:8px;">
-                <input type="checkbox" value="">
-                <span class="cr"></span>
-                Create Account?
-            </label>
-        </div>
+	  <div class="col-md-8" style="padding-top:8px;">
+        <div class="custom-control custom-checkbox">
+		  <input type="checkbox" class="custom-control-input" id="cb-create-account">
+		  <label class="custom-control-label" for="cb-create-account">Create Account?</label>
+		</div>
+	</div>
+	  </div>
+	  
+	<hr>
+	<div class="row" id="row-user" style="display: none">
+	  <div class="col-md-3">
+	  	<div class="form-group">
+		    <select name="role" id="insert-role" class="custom-select custom-select-md" placeholder="Role">
+		    	<option selected>Role</option>
+		    	<c:forEach var="role" items="${roles }">
+		    		<option value="${role.id }">${role.name }</option>
+		    	</c:forEach>
+		    </select>
+		</div>
+	  </div>
+	  <div class="col-md-3">
+	  	<div class="form-group">
+			<input type="text" class="form-control" id="insert-user" placeholder="Username">
+		</div>
+	  </div>
+	  <div class="col-md-3">
+	  	<div class="form-group">
+			<input type="text" class="form-control" id="insert-pass" placeholder="Password">
+		</div>
 	  </div>
 	</div>
-	<hr>
 	<div class="row">
 	  <div class="col-md-8">
 	  </div>
@@ -122,24 +138,26 @@
 	</div>
 	Staff List
 	<hr>
-	<table id="emp-table" class="table table-sm table-striped table-bordered" cellspacing="0" width="100%">
+	<table id="dt-table" class="table table-sm table-striped table-bordered" cellspacing="0" width="100%">
 		<thead class="thead-dark">
 			<th>Name</th>
-			<th>Address</th>
 			<th>Email</th>
-			<th>Contact</th>
-			<th>Action</th>
+			<th>Have Account ?</th>
+			<th>Outlet Access</th>
+			<th>Role</th>
+			<th>#</th>
 		</thead>
 		<tbody>
-			<c:forEach items="${customers }" var="customer">
+			<c:forEach items="${employees }" var="emp">
 				<tr>
-					<td>${customer.name }</td>
-					<td>${customer.address }</td>
-					<td>${customer.email }</td>
-					<td>${customer.contact }</td>
+					<td>${emp.firstName }</td>
+					<td>${emp.email }</td>
+					<td>${emp.active }</td>
+					<td>${emp.emp_outlet.id }</td>
+					<td>${emp.role.id }</td>
 					<td>
-						<a id="${customer.id }" class="update btn btn-info btn-sm" href="#">Edit</a> |
-						<a id="${customer.id }" class="delete btn btn-danger btn-sm" href="#">Delete</a>
+						<a id="${emp.id }" class="update btn btn-info btn-sm" href="#">Edit</a> |
+						<a id="${emp.id }" class="delete btn btn-danger btn-sm" href="#">Delete</a>
 					</td>
 				</tr>
 			</c:forEach>
@@ -148,6 +166,36 @@
 </div>
 
 <!-- call modal -->
+<div class="modal fade" id="modal-assign-outlet" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+	<div class="modal-dialog " role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Assign Outlet to Employee</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			
+			<div class="modal-body">
+				<form id="target" data-parsley-validate>
+					<input type="hidden" id="input-id" name="input-id" />
+					<div class="form-group">
+						<input type="text"
+							class="form-control" id="input-supp-name" aria-describedby="emailHelp" placeholder="Supplier Name">
+					</div>
+					<div class="form-group">
+						<input type="text"
+							class="form-control" id="input-address" aria-describedby="emailHelp" placeholder="Address">
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" id="btn-save" class="btn btn-primary">Select</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 
 </body>
 </html>
