@@ -11,28 +11,29 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			
+			<form id="target" data-parsley-validate>
 			<div class="modal-body">
-				<form id="target" data-parsley-validate>
+				
 					<input type="hidden" id="input-id" name="input-id" />
 					<div class="form-group">
 						<input type="text"
 							class="form-control" id="edit-category-name" 
 							placeholder="Category Name">
 					</div>
-				</form>
+			
 			</div>
 			<div class="modal-footer">
 			<div class="col-sm-9"> 
 				<button type="button" id="btn-delete" class="btn btn-danger btn-primary">X</button>
 				</div>
 				<div class="col-sm-2" >
-				<button type="button" id="btn-cancel" class="btn btn-primary">Cancel</button>
+				<button type="reset" id="btn-cancel" class="btn btn-primary">Cancel</button>
 				</div>
 				<div class="col-sm-1"> 
-				<button type="button" id="btn-save" class="btn btn-primary">Save</button>
+				<button type="button" id="btn-save-edit" class="btn btn-primary">Save</button>
 				</div>
 			</div>
+				</form>
 		</div>
 	</div>
 </div>
