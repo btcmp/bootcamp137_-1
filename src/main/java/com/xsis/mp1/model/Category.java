@@ -25,7 +25,7 @@ public class Category {
 	@NotNull
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "idcat")
 	@SequenceGenerator(initialValue = 181818, name = "idcat", sequenceName = "idcat")
-	private long Id; 
+	private long id; 
 	@Column(nullable=false, length=50)
 	private String name; 
 	@Column(name="created_by")
@@ -50,11 +50,11 @@ public class Category {
 	}
 	
 	public long getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(long id) {
-		Id = id;
+		id = id;
 	}
 
 	public String getName() {
