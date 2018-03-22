@@ -12,13 +12,16 @@
 <link rel="stylesheet" href="resources/css/bootstrap.min.css" />
 <link rel="stylesheet" href="resources/css/bootstrap.css" />
 <link rel="stylesheet" href="resources/css/dataTables.bootstrap4.min.css" />
-<link rel="stylesheet" href="resources/css/fontawesome.min.css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<link rel="stylesheet" href="resources/css/daterangepicker.css" />
 <script type="text/javascript" src="${jq }"></script>
 <script type="text/javascript" src="<spring:url value="/resources/js/parsley.js"/>"></script>
 <script type="text/javascript" src="<spring:url value="/resources/js/parsley.min.js"/>"></script>
 <script type="text/javascript" src="<spring:url value="/resources/js/bootstrap.min.js"/>"></script>
 <script type="text/javascript" src="<spring:url value="/resources/js/jquery.dataTables.min.js"/>"></script>
 <script type="text/javascript" src="<spring:url value="/resources/js/dataTables.bootstrap4.min.js"/>"></script>
+<script type="text/javascript" src="<spring:url value="/resources/js/moment.js"/>"></script>
+<script type="text/javascript" src="<spring:url value="/resources/js/daterangepicker.js"/>"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 
@@ -39,7 +42,32 @@
 	        "info":     false
 	    });
 		
+		$(function() {
+		    $('input[name="daterange"]').daterangepicker();
+		});
+		
+		$(function() {
+		    $('input[name="target-pr"]').daterangepicker({
+		        singleDatePicker: true,
+		        showDropdowns: true
+		    });
+		});
+		
 		$('#btn-create').on('click', function(){
+			$('#modal-pr-input').modal();
+		});
+		
+		$('#btn-add-item').on('click', function(){
+			$('#modal-pr-input').modal('hide');
+			$('#modal-pr-add-item').modal();
+		});
+		
+		$('#btn-add-2').on('click', function(){
+			$('#modal-pr-add-item').modal('hide');
+			$('#modal-pr-input').modal('show');
+		});
+		
+		$('#btn-cancel-add').on('click', function(){
 			$('#modal-pr-input').modal();
 		});
 	});
@@ -53,7 +81,7 @@
 	<div class="row">
 	  <div class="col-md-3">
 	  	<div class="form-group">
-			<input type="date" class="form-control" id="insert-date" placeholder="First Name">
+			<input type="text" class="form-control" id="insert-date" name="daterange" value="01/01/2018 - 01/31/2018">
 		</div>
 	  </div>
 	  <div class="col-md-2">
@@ -111,7 +139,8 @@
 	</table>
 </div>
 
-<!-- call modal -->
+<!-- Call modal -->
+<!-- Modal Purchase Input -->
 <div class="modal fade" id="modal-pr-input" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
@@ -130,21 +159,17 @@
 					</div>
 					<div class="form-group">
 						<label for="input-name">Target Waktu Item Ready</label>
-						<select name="jurusan" id="jurusan" class="custom-select custom-select-md">
-					    	<c:forEach var="jur" items="${jurs }">
-					    		<option value="${jur.id }">${jur.nameJurusan }</option>
-					    	</c:forEach>
-					    </select>
+						<input type="text" class="form-control" id="insert-target" name="target-pr" value="03/18/2018">
 					</div>
 					
 					<div class="form-group">
-						<label for="input-name">Notes</label>
-						<input type="text" class="form-control" id="insert-name">
+						<label for="input-note">Notes</label>
+						<textarea class="form-control" id="input-note" rows="5"></textarea>
 					</div>
 					<div class="form-group">
 						<label for="input-name">Purchase Request</label>
 						<hr>
-						<button type="button" id="btn-save" class="btn btn-primary btn-block">Add Item</button>
+						<button type="button" id="btn-add-item" class="btn btn-primary btn-block">Add Item</button>
 					</div>
 				</form>
 			</div>
@@ -156,6 +181,56 @@
 	</div>
 </div>
 
-
+<!-- Modal Add Item -->
+<div class="modal fade" id="modal-pr-add-item" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Add Purchase Item</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			
+			<div class="modal-body">
+				<form id="target" data-parsley-validate>
+					<input type="hidden" id="input-id" name="input-id" />
+					<div class="form-group">
+						<label for="input-name">Item Name - Variant Name</label>
+					</div>
+					<div>
+						<table id="dt-add-item" class="table table-sm table-striped table-bordered" cellspacing="0" width="100%">
+							<thead class="thead-dark">
+								<th>Item</th>
+								<th>In Stock</th>
+								<th>Request Qty.</th>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Baju</td>
+									<td><center>2</center></td>
+									<td><center>3</center></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</form>
+			</div>
+			<div class=modal-body>
+				<div class="row">
+					<div class="col-md-5">
+						<button type="button" id="btn-cancel-add" class="btn btn-primary btn-block" data-dismiss="modal">Cancel</button>
+					</div>
+					<div class="col-md-2">
+					
+					</div>
+					<div class="col-md-5">
+						<button type="button" id="btn-add-2" class="btn btn-primary btn-block">Add</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 </body>
 </html>
