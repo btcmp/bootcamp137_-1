@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -30,9 +31,7 @@ public class Item {
 	@NotNull
 	private String name;
 	
-	@NotNull
 	
-	private int category;
 	
 	@NotNull
 	private int createdBy;
@@ -50,6 +49,10 @@ public class Item {
 	@NotNull
 	@Column(nullable=false)
 	private boolean active;
+	
+	@NotNull
+	@ManyToOne
+	private Category categoryId;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="item", cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<Variant> varians;
@@ -75,12 +78,12 @@ public class Item {
 		this.name = name;
 	}
 
-	public int getCategory() {
-		return category;
+	public Category getCategoryId() {
+		return categoryId;
 	}
 
-	public void setCategory(int category) {
-		this.category = category;
+	public void setCategoryId(Category categoryId) {
+		this.categoryId = categoryId;
 	}
 
 	public int getCreatedBy() {
@@ -131,6 +134,8 @@ public class Item {
 		this.varians = varians;
 	}
 
+	
+	
 	
 
 }

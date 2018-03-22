@@ -1,10 +1,14 @@
 package com.xsis.mp1.model;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,48 +35,82 @@ public class Category {
 	private Date modifiedOn; 
 	@Column(nullable=false)
 	private boolean active;
+	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="categoryId", cascade=CascadeType.ALL, orphanRemoval=true)
+	private List<Item> items;
+
+	public Category() {
+		this.createdOn=new Date();
+		this.modifiedOn=new Date();
+	}
+	
 	public long getId() {
 		return Id;
 	}
+
 	public void setId(long id) {
 		Id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public long getCreatedBy() {
 		return createdBy;
 	}
+
 	public void setCreatedBy(long createdBy) {
 		this.createdBy = createdBy;
 	}
+
 	public Date getCreatedOn() {
 		return createdOn;
 	}
+
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
+
 	public long getModifiedBy() {
 		return modifiedBy;
 	}
+
 	public void setModifiedBy(long modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}
+
 	public Date getModifiedOn() {
 		return modifiedOn;
 	}
+
 	public void setModifiedOn(Date modifiedOn) {
 		this.modifiedOn = modifiedOn;
 	}
+
 	public boolean isActive() {
 		return active;
 	}
+
 	public void setActive(boolean active) {
 		this.active = active;
 	}
+
+	public List<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+	
+	
+	
+	
 	
 	
 }
