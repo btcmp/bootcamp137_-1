@@ -11,15 +11,12 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			
-			
-			
 			<div class="modal-body">
 				<form id="target" data-parsley-validate>
 								
 						<div class="row col-md-12">
 							<div class="col-md-4">
-								<img src="https://www.w3schools.com/w3images/fjords.jpg" style="width: 100%;">
+								<img id="image-item" src="https://www.w3schools.com/w3images/fjords.jpg" style="width: 100%;">
 							</div>
 							<div class="col-md-8">
 								<input type="hidden" id="input-id" name="input-id" />		
@@ -27,19 +24,21 @@
 									<input type="text" class="form-control" id="input-item-name" placeholder="Item Name">
 								</div><br/>
 								<div class ="form-group">
-									<select data-parsley-required="true" name="countries" id="input-province" style="width: 100%; height: 35px;">
+									<select data-parsley-required="true" name="countries" id="input-item-category" style="width: 100%; height: 35px;">
 									<option value="" selected="selected">Category</option>
-									<%-- <c:forEach var="loc" items= "${locations}">
-										<option value="${loc.id}">${loc.streetAddress}</option>
-									</c:forEach> --%>
+									<c:forEach items= "${categories}" var="ctg">
+										<option value="${ctg.id}">${ctg.name}</option>
+									</c:forEach>
 									</select>
 								</div>
 							</div>
+						</div><br/>
+					<div class="row">
+						<div class="col-md-9"><h5>Variant</h5></div>
+						<div class="col-md-3">
+							<button type="button" id="btn-add-variant" class="btn btn-primary" style="float:right; margin-right: 0px; width:150px;">Add Variant</button>
 						</div>
-					<div>
-						<h5>Variant</h5>
-						<button type="button" id="btn-add-variant" class="btn btn-primary" style="float:right; margin-right: 0px; width:150px;">Add Variant</button>
-					</div><br/><br/>
+					</div><br/>
 					
 	<table id="emp-table" class="table table-sm table-striped table-bordered" cellspacing="0" width="100%">
 		<thead class="thead-dark">
@@ -73,7 +72,7 @@
 						<button type="button" id="btn-cancel" class="btn btn-primary" style="width:240px;" data-dismiss="modal">Cancel</button>
 					</div>
 					<div class="col-md-4">
-						<button type="button" id="btn-cancel" class="btn btn-primary" style="width:240px;" data-dismiss="modal">Save</button>
+						<button type="button" id="btn-save" class="btn btn-primary" style="width:240px;" href="#">Save</button>
 					</div>
 				</div>
 			</div>

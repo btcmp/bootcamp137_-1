@@ -36,28 +36,28 @@
 
 <script type="text/javascript">
 	jQuery(document).ready(function(){
-		/* $('#btn-save').on('click', function(){
-			
-			var customer = {
-				name : $('#name').val(),
-				email : $('#email').val(),
-				contact : $('#contact').val(),
-				address : $('#address').val()
+		 $('#btn-save').on('click', function(){
+		 	var item = {
+				name: $('#input-item-name').val(),
+				categoryId : {
+					Id: $('#input-item-category').val()
+				},
+		 		active: 0
 			};
-			console.log(customer);
+			console.log(item);
 			$.ajax({
 				type : 'POST',
-				url : '${pageContext.request.contextPath}/customer/save',
-				data : JSON.stringify(customer),
+				url : '${pageContext.request.contextPath}/item/save',
+				data : JSON.stringify(item),
 				contentType : 'application/json',
 				success : function(){
-					window.location = '${pageContext.request.contextPath}/customer';
+					//window.location = '${pageContext.request.contextPath}/customer';
 				}, error : function(){
 					alert('save failed');
 				}
 				
 			});
-		}); */
+		});
 		
 		$('#btn-create').on('click', function(){
 			$('#modal-create-item').modal('show');

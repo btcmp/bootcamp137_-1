@@ -29,30 +29,27 @@ public class Item {
 	private long id;
 	
 	@NotNull
+	
 	private String name;
 	
 	
 	@Column(name="created_by")
-	@NotNull
 	private long createdBy;
 	
 	@Column(name="created_on")
-	@NotNull
 	private Date createdOn;
 	
 	@Column(name="modified_by")
-	@NotNull
 	private long modifiedBy;
 	
 	@Column(name="modified_on")
-	@NotNull
 	private Date modifiedOn;
 	
-	@NotNull
+
 	@Column(nullable=false)
 	private boolean active;
 	
-	@NotNull
+
 	@ManyToOne
 	private Category categoryId;
 	
