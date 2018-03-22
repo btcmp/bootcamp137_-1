@@ -13,18 +13,16 @@
 			</div>
 			<form id="target" data-parsley-validate>
 			<div class="modal-body">
-				
 					<input type="hidden" id="input-id" name="input-id" />
 					<div class="form-group">
 						<input type="text"
 							class="form-control" id="edit-category-name" 
 							placeholder="Category Name">
 					</div>
-			
 			</div>
 			<div class="modal-footer">
 			<div class="col-sm-9"> 
-				<button type="button" id="btn-delete" class="btn btn-danger btn-primary">X</button>
+				<button type="button" id="btn-X" class="btn btn-danger btn-primary">X</button>
 				</div>
 				<div class="col-sm-2" >
 				<button type="reset" id="btn-cancel" class="btn btn-primary">Cancel</button>

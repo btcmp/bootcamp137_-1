@@ -28,8 +28,8 @@ public class CategoryController {
 	
 	@RequestMapping
 	public String index(Model model) {
-		List<Category> categories = categoryService.selectAll(); 
-		
+	/*	List<Category> categories = categoryService.selectAll(); */
+		List<Category> categories = categoryService.getListByStatus(); 
 		model.addAttribute("categories", categories); 
 		return "category";
 	}
@@ -50,6 +50,12 @@ public class CategoryController {
 	@ResponseStatus(HttpStatus.OK)
 	public void edit(@RequestBody Category category) {
 		categoryService.update(category); 
+	}
+	
+	@RequestMapping(value="/update-status", method=RequestMethod.PUT)
+	@ResponseStatus(HttpStatus.OK)
+	public void updateStatus(@RequestBody Category category) {
+		categoryService.updateStatus(category); 
 	}
 	
 	@RequestMapping(value="delete/{id}", method=RequestMethod.DELETE)

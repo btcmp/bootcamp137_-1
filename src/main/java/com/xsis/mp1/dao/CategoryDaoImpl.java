@@ -54,4 +54,24 @@ public class CategoryDaoImpl implements CategoryDao{
 		session.delete(category);
 	}
 
+	public List<Category> getListByStatus() {
+		// TODO Auto-generated method stub
+		Session session= sessionFactory.getCurrentSession(); 
+		String hql = "from Category c where c.active = 0"; 
+		List<Category> categories = session.createQuery(hql).list();
+		if (categories.isEmpty()) {
+			return null;
+		}else {
+			return categories; 
+		}
+	}
+
+	public void updateStatus(Category category) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession(); 
+		String hql = "update Category c set c.active= 1 where c.id = :idcat"; 
+		session.createQuery(hql).setParameter("idcat", category.getId()).executeUpdate(); 
+		session.flush();
+	}
+
 }

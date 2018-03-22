@@ -21,4 +21,8 @@ public interface CategoryDao {
 	
 	//delete 
 	public void delete(Category category);
+	
+	public List<Category> getListByStatus();
+	
+	public void updateStatus(Category category); 
 }

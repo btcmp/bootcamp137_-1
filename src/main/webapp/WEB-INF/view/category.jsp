@@ -117,6 +117,25 @@
 				});
 			}); 
 			
+			//btn-X
+			$('#btn-X').click(function(){
+				var category={
+						id : $('#input-id').val(), 
+						name : $('#edit-category-name').val(),
+				}
+				$.ajax({
+					url : '${pageContext.request.contextPath}/category/update-status', 
+					type : 'PUT', 
+					data : JSON.stringify(category), 
+					contentType : 'application/json', 
+					success : function(data){
+						window.location = '${pageContext.request.contextPath}/category'; 
+					}, error : function(){
+						alert ('update failed'); 
+					}
+				});
+			}); 
+			
 		});
 		/* function clearText() {
 		    document.getElementById("input-category-name").value=""

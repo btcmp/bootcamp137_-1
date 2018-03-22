@@ -20,11 +20,17 @@ public class CategoryService {
 		categoryDao.save(category);
 	}
 
+	public void updateStatus(Category category) {
+		// TODO Auto-generated method stub
+		categoryDao.updateStatus(category);
+	}
+	
 	public void update(Category category) {
 		// TODO Auto-generated method stub
 		categoryDao.update(category);
 	}
 
+	
 	public void delete(long id) {
 		// TODO Auto-generated method stub
 		Category categories=new Category(); 
@@ -40,5 +46,10 @@ public class CategoryService {
 		Category category = new Category(); 
 		category.setId(id);
 		return categoryDao.getOne(category); 
+	}
+
+	public List<Category> getListByStatus() {
+		// TODO Auto-generated method stub
+		return categoryDao.getListByStatus(); 
 	}
 }
