@@ -136,6 +136,7 @@
 				});
 			}); 
 			
+			
 		});
 		/* function clearText() {
 		    document.getElementById("input-category-name").value=""

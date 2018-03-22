@@ -64,7 +64,7 @@
 				email : $('#insert-email').val(),
 				title : $('#insert-title').val(),
 				haveAccount : $('#cb-have-account').val(),
-				active : 1
+				active : 0
 			};
 			console.log(employee);
 
@@ -82,31 +82,98 @@
 			});
 		});
 		
-		//delete
-		$('.delete').on('click',function(evt){
+		//edit
+		$('.update').on('click', function(evt){
+			evt.preventDefault();
+			var id = $(this).attr('id');
+			console.log(id);
+			
+			//ajax ambil data
+			$.ajax({
+				url : '${pageContext.request.contextPath}/employee/get-one/'+id,
+				type : 'GET',
+				dataType : 'json',
+				success : function(emp){
+					setEditEmployee(emp);
+					$('input[name="cb-have-account"]').prop('checked', false);
+					if(emp.haveAccount!=0){
+						$('input[name="cb-have-account"]').prop('checked', true);
+					}
+				},
+				error : function(){
+					alert('fail ambil data');
+				}
+			});
+		});
+		
+		//set edit mahasiswa
+		function setEditEmployee(emp){
+			$('#insert-id').val(emp.id);
+			$('#insert-first-name').val(emp.firstName);
+			$('#insert-last-name').val(emp.lastName);
+			$('#insert-email').val(emp.email);
+			$('#insert-title').val(emp.title);
+		}
+		
+		$('.btn-x').on('click',function(evt){
 			evt.preventDefault();
 			var id = $(this).attr('id');
 			
-			$('#btn-delete').attr('del-id', id);
-			$('#delete-data').modal();
 			console.log(id);
-		});
-		
-		//eksekusi delete
-		$('#btn-delete').on('click', function(){
-			var id = $('#btn-delete').attr('del-id');
-			console.log(id);
+			
+			//ajax ambil data
 			$.ajax({
-				url : '${pageContext.request.contextPath}/employee/delete/'+id,
-				type : 'DELETE',
-				success : function(data){
-					window.location = '${pageContext.request.contextPath}/employee';
+				url : '${pageContext.request.contextPath}/employee/get-one/'+id,
+				type : 'GET',
+				dataType : 'json',
+				success : function(emp){
+					setEditEmployee(emp);
+					$('input[name="cb-have-account"]').prop('checked', false);
+					if(emp.haveAccount!=0){
+						$('input[name="cb-have-account"]').prop('checked', true);
+					}
+					$('#delete-data').modal();
 				},
 				error : function(){
-					alert('gagal');
+					alert('fail ambil data');
 				}
-			})
-		})//end delete
+			});
+		});
+		
+		$('#btn-delete').click(function(){
+			var emp = {
+					id : $('#insert-id').val(),
+					firstName : $('#insert-first-name').val(),
+					lastName : $('#insert-last-name').val(),
+					email : $('#insert-email').val(),
+					title : $('#insert-title').val(),
+					haveAccount : $('#cb-have-account').val()
+				};
+			
+			$.ajax({
+				url : '${pageContext.request.contextPath}/employee/update-status', 
+				type : 'PUT',
+				data : JSON.stringify(emp), 
+				contentType : 'application/json', 
+				success : function(data){
+					window.location = '${pageContext.request.contextPath}/employee'; 
+				}, error : function(){
+					alert ('update failed'); 
+				}
+			});
+		});
+		
+		$('#btn-cancel').on('click', function(){
+			clearForm();	
+		});
+		
+		function clearForm() {
+			$('#insert-first-name').val('');
+			$('#insert-last-name').val('');
+			$('#insert-email').val('');
+			$('#insert-title').val('');
+			$('input[name="cb-have-account"]').prop('checked', false);
+		}
 	});
 </script>
 </head>
@@ -149,7 +216,7 @@
 	  </div>
 	  <div class="col-md-8" style="padding-top:8px;">
         <div class="custom-control custom-checkbox">
-		  <input type="checkbox" class="custom-control-input" id="cb-have-account" value="cbaccount">
+		  <input type="checkbox" class="custom-control-input" id="cb-have-account" name="cb-have-account" value="cbaccount">
 		  <label class="custom-control-label" for="cb-have-account">Create Account?</label>
 		</div>
 	</div>
@@ -195,7 +262,7 @@
 	Staff List
 	<hr>
 	<table id="dt-table" class="table table-sm table-striped table-bordered" cellspacing="0" width="100%">
-		<thead class="thead-dark">
+		<thead class="thead-dark" style="text-align: center;">
 			<th>Name</th>
 			<th>Email</th>
 			<th>Have Account ?</th>
@@ -206,18 +273,19 @@
 				<tr>
 					<td>${emp.firstName }</td>
 					<td>${emp.email }</td>
-					<td><%
-						if( "${emp.haveAccount }" == "false" )
-		           			 out.write("aaaaaa");
-				         else {
-				            out.write("&#10004");
-				        }
-					 %>
-						
+					<td><center>
+						 <script type="text/javascript">
+					        if( "${emp.haveAccount }" === "false" ) {
+					            document.write("&times;");
+					        } else {
+					            document.write("&#10004;");
+					        }
+					    </script>
+					    </center>
 					</td>
 					<td>
 						<a id="${emp.id }" class="update btn btn-info btn-sm" href="#">Edit</a> |
-						<a id="${emp.id }" class="delete btn btn-danger btn-sm" href="#">Delete</a>
+						<a id="${emp.id }" class="btn-x btn btn-danger btn-sm" href="#">Delete</a>
 					</td>
 				</tr>
 			</c:forEach>
@@ -238,7 +306,7 @@
 			
 			<div class="modal-body">
 				<form id="target" data-parsley-validate>
-					<input type="hidden" id="input-id" name="input-id" />
+					<input type="hidden" id="insert-id" name="insert-id" />
 					<div class="form-group">
 						<input type="text"
 							class="form-control" id="input-supp-name" aria-describedby="emailHelp" placeholder="Supplier Name">
