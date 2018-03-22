@@ -43,11 +43,16 @@
 			$('#modal-assign-outlet').modal();
 		});
 		
-		$('#cb-create-account').change(function(){
-	        if(this.checked)
+		$('#cb-have-account').val('false');
+		$('#cb-have-account').change(function(){
+	        if(this.checked){
 	            $('#row-user').fadeIn('slow');
-	        else
+	            $('#cb-have-account').val('true');
+	        }
+	        else{
 	            $('#row-user').fadeOut('slow');
+	            $('#cb-have-account').val('false');
+	        }
 	    });
 		
 		//save
@@ -58,7 +63,7 @@
 				lastName : $('#insert-last-name').val(),
 				email : $('#insert-email').val(),
 				title : $('#insert-title').val(),
-				haveAccount : $('#insert-have-account').val(),
+				haveAccount : $('#cb-have-account').val(),
 				active : 1
 			};
 			console.log(employee);
@@ -76,6 +81,32 @@
 				
 			});
 		});
+		
+		//delete
+		$('.delete').on('click',function(evt){
+			evt.preventDefault();
+			var id = $(this).attr('id');
+			
+			$('#btn-delete').attr('del-id', id);
+			$('#delete-data').modal();
+			console.log(id);
+		});
+		
+		//eksekusi delete
+		$('#btn-delete').on('click', function(){
+			var id = $('#btn-delete').attr('del-id');
+			console.log(id);
+			$.ajax({
+				url : '${pageContext.request.contextPath}/employee/delete/'+id,
+				type : 'DELETE',
+				success : function(data){
+					window.location = '${pageContext.request.contextPath}/employee';
+				},
+				error : function(){
+					alert('gagal');
+				}
+			})
+		})//end delete
 	});
 </script>
 </head>
@@ -118,7 +149,7 @@
 	  </div>
 	  <div class="col-md-8" style="padding-top:8px;">
         <div class="custom-control custom-checkbox">
-		  <input type="checkbox" class="custom-control-input" id="cb-have-account">
+		  <input type="checkbox" class="custom-control-input" id="cb-have-account" value="cbaccount">
 		  <label class="custom-control-label" for="cb-have-account">Create Account?</label>
 		</div>
 	</div>
@@ -168,8 +199,6 @@
 			<th>Name</th>
 			<th>Email</th>
 			<th>Have Account ?</th>
-			<th>Outlet Access</th>
-			<th>Role</th>
 			<th>#</th>
 		</thead>
 		<tbody>
@@ -177,9 +206,15 @@
 				<tr>
 					<td>${emp.firstName }</td>
 					<td>${emp.email }</td>
-					<td>${emp.active }</td>
-					<td>${emp.emp_outlet.id }</td>
-					<td>${emp.role.id }</td>
+					<td><%
+						if( "${emp.haveAccount }" == "false" )
+		           			 out.write("aaaaaa");
+				         else {
+				            out.write("&#10004");
+				        }
+					 %>
+						
+					</td>
 					<td>
 						<a id="${emp.id }" class="update btn btn-info btn-sm" href="#">Edit</a> |
 						<a id="${emp.id }" class="delete btn btn-danger btn-sm" href="#">Delete</a>
@@ -219,6 +254,30 @@
 			</div>
 		</div>
 	</div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="delete-data" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Data</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+		<div class="form-group">
+		  	<input type="hidden" class="form-control" id="delete-id" placeholder="Enter Name">
+		</div>
+        Change status to inactive?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" id="btn-delete" class="btn btn-primary">Change</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 
