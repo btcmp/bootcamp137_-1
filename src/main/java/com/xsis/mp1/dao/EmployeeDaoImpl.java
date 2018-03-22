@@ -55,5 +55,16 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		session.createQuery(hql).setParameter("idemp", employee.getId()).executeUpdate(); 
 		session.flush();		
 	}
+
+	public List<Employee> getListByStatus() {
+		Session session= sessionFactory.getCurrentSession(); 
+		String hql = "from Employee emp where emp.active = 0"; 
+		List<Employee> employees = session.createQuery(hql).list();
+		if (employees.isEmpty()) {
+			return null;
+		}else {
+			return employees; 
+		}
+	}
 	
 }

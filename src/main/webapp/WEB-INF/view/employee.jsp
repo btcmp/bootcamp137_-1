@@ -59,6 +59,7 @@
 		$('#btn-save').on('click', function(){
 			
 			var employee = {
+				id : $('#insert-emp-id').val(),
 				firstName : $('#insert-first-name').val(),
 				lastName : $('#insert-last-name').val(),
 				email : $('#insert-email').val(),
@@ -108,7 +109,7 @@
 		
 		//set edit mahasiswa
 		function setEditEmployee(emp){
-			$('#insert-id').val(emp.id);
+			$('#insert-emp-id').val(emp.id);
 			$('#insert-first-name').val(emp.firstName);
 			$('#insert-last-name').val(emp.lastName);
 			$('#insert-email').val(emp.email);
@@ -142,7 +143,7 @@
 		
 		$('#btn-delete').click(function(){
 			var emp = {
-					id : $('#insert-id').val(),
+					id : $('#insert-emp-id').val(),
 					firstName : $('#insert-first-name').val(),
 					lastName : $('#insert-last-name').val(),
 					email : $('#insert-email').val(),
@@ -184,6 +185,7 @@
 <div class="container">
 	<div class="row">
 	  <div class="col-md-3">
+	  <input type="hidden" id="insert-emp-id" name="insert-emp-id" />
 	  	<div class="form-group">
 			<input type="text" class="form-control" id="insert-first-name" placeholder="First Name">
 		</div>
@@ -306,14 +308,18 @@
 			
 			<div class="modal-body">
 				<form id="target" data-parsley-validate>
-					<input type="hidden" id="insert-id" name="insert-id" />
+					<input type="hidden" id="insert-outlet-id" name="insert-outlet-id" />
 					<div class="form-group">
 						<input type="text"
 							class="form-control" id="input-supp-name" aria-describedby="emailHelp" placeholder="Supplier Name">
 					</div>
 					<div class="form-group">
-						<input type="text"
-							class="form-control" id="input-address" aria-describedby="emailHelp" placeholder="Address">
+						<p>tekan <code>ctrl</code> dan klik pilihan dibawah lebih dari satu </p>
+							<select multiple class="form-control">
+								<option>1</option>
+								<option>2</option>
+								<option>3</option>
+							</select>
 					</div>
 				</form>
 			</div>

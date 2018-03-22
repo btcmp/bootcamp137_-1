@@ -26,7 +26,8 @@ public class EmployeeController {
 	
 	@RequestMapping
 	public String index(Model model) {
-		List<Employee> employees = employeeService.selectAll();
+		//List<Employee> employees = employeeService.selectAll();
+		List<Employee> employees = employeeService.getListByStatus();
 		model.addAttribute("employees", employees);
 		return "employee";
 	}
@@ -34,7 +35,7 @@ public class EmployeeController {
 	@RequestMapping(value="/save", method=RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public void save(@RequestBody Employee employee) {
-		employeeService.save(employee);
+		employeeService.saveOrUpdate(employee);
 	}
 	
 	@RequestMapping(value = "/get-one/{id}")

@@ -27,5 +27,7 @@ public interface EmployeeDao {
 
 	//update status employee
 	public void updateStatus(Employee employee);
+
+	public List<Employee> getListByStatus();
 	
 }

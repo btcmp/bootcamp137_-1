@@ -50,4 +50,9 @@ public class EmployeeService {
 		employeeDao.updateStatus(employee);
 	}
 
+	public List<Employee> getListByStatus() {
+		// TODO Auto-generated method stub
+		return employeeDao.getListByStatus();
+	}
+
 }
