@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -16,8 +17,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name="pos_mst_outlet")
 public class Outlet {
 	@Id
-	@GeneratedValue(generator = "system-uuid")
-	@GenericGenerator(name = "system-uuid", strategy = "uuid2")
+	@NotNull
 	private long id; 
 	@Column(nullable= false, length = 50 )
 	private String name; 

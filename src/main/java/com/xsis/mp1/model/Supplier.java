@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -17,15 +18,17 @@ import org.hibernate.annotations.GenericGenerator;
 public class Supplier {
 	
 	@Id
-	@GeneratedValue(generator = "system-uuid")
-	@GenericGenerator(name = "system-uuid", strategy = "uuid2")
+	@NotNull
 	private long id; 
 	@Column(nullable= false, length = 50 )
 	private String name; 
+	@Column(length= 255)
 	private String address; 
+	@Column(length=16)
 	private String phone;
+	@Column(length=50)
 	private String email; 
-	@Column(name ="postal_code", nullable= false, length= 50)
+	@Column(name ="postal_code", length= 6)
 	private String postalCode; 
 	@Column(name="created_by")
 	private long createdBy; 
