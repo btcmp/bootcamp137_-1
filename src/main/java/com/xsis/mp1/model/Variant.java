@@ -21,28 +21,36 @@ public class Variant {
 	@SequenceGenerator(initialValue = 1010101, name = "idvar", sequenceName = "idvar")
 	@Column(nullable=false)
 	@NotNull
-	private int id;
+	private long id;
+	
 	@NotNull
 	@Column(nullable=false)
 	private String name;
+	
 	@NotNull
 	@Column(nullable=false)
 	private String sku;
+	
 	@NotNull
 	@Column(nullable=false)
 	private float price;
+	
 	@Column(name="created_by")
 	@NotNull
-	private int createdBy;
+	private long createdBy;
+	
 	@Column(name="created_on")
 	@NotNull
 	private Date createdOn;
+	
 	@Column(name="modified_by")
 	@NotNull
-	private int modifiedBy;
+	private long modifiedBy;
+	
 	@Column(name="modified_on")
 	@NotNull
 	private Date modifiedOn;
+	
 	@NotNull
 	@Column(nullable=false)
 	private boolean active;
@@ -55,11 +63,11 @@ public class Variant {
 		this.modifiedOn=new Date();
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -87,11 +95,11 @@ public class Variant {
 		this.price = price;
 	}
 
-	public int getCreatedBy() {
+	public long getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(int createdBy) {
+	public void setCreatedBy(long createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -103,11 +111,11 @@ public class Variant {
 		this.createdOn = createdOn;
 	}
 
-	public int getModifiedBy() {
+	public long getModifiedBy() {
 		return modifiedBy;
 	}
 
-	public void setModifiedBy(int modifiedBy) {
+	public void setModifiedBy(long modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}
 
@@ -134,8 +142,6 @@ public class Variant {
 	public void setItem(Item item) {
 		this.item = item;
 	}
-
-
 
 	
 }

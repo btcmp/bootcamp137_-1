@@ -16,17 +16,25 @@
 			
 			<div class="modal-body">
 				<form id="target" data-parsley-validate>
-					<input type="hidden" id="input-id" name="input-id" />		
-					<div class="form-group">
-						<input type="text" class="form-control" id="input-item-name" placeholder="Item Name">
-					</div>			
-						<div class ="form-group" style=" width: 30px;">
-							<select data-parsley-required="true" name="countries" id="input-province" style="width: 301px;">
-							<option value="" selected="selected">Category</option>
-							<%-- <c:forEach var="loc" items= "${locations}">
-								<option value="${loc.id}">${loc.streetAddress}</option>
-							</c:forEach> --%>
-							</select>
+								
+						<div class="row col-md-12">
+							<div class="col-md-4">
+								<img src="https://www.w3schools.com/w3images/fjords.jpg" style="width: 100%;">
+							</div>
+							<div class="col-md-8">
+								<input type="hidden" id="input-id" name="input-id" />		
+								<div class="form-group">
+									<input type="text" class="form-control" id="input-item-name" placeholder="Item Name">
+								</div><br/>
+								<div class ="form-group">
+									<select data-parsley-required="true" name="countries" id="input-province" style="width: 100%; height: 35px;">
+									<option value="" selected="selected">Category</option>
+									<%-- <c:forEach var="loc" items= "${locations}">
+										<option value="${loc.id}">${loc.streetAddress}</option>
+									</c:forEach> --%>
+									</select>
+								</div>
+							</div>
 						</div>
 					<div>
 						<h5>Variant</h5>
