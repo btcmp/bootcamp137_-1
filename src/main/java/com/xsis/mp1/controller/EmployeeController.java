@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.xsis.mp1.model.Category;
 import com.xsis.mp1.model.Employee;
 import com.xsis.mp1.service.EmployeeService;
 
@@ -35,6 +37,12 @@ public class EmployeeController {
 		employeeService.save(employee);
 	}
 	
+	@RequestMapping(value = "/get-one/{id}")
+	@ResponseBody
+	public Employee getOne(@PathVariable long id) {
+		return employeeService.getOne(id);
+	}
+	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.OK)
 	public void delete(@PathVariable long id) {
@@ -45,5 +53,11 @@ public class EmployeeController {
 		employee.setHaveAccount(false);
 		employee.setActive(false);
 		employeeService.delete(employee);
+	}
+	
+	@RequestMapping(value="/update-status", method=RequestMethod.PUT)
+	@ResponseStatus(HttpStatus.OK)
+	public void updateStatus(@RequestBody Employee employee) {
+		employeeService.updateStatus(employee); 
 	}
 }

@@ -48,5 +48,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		session.saveOrUpdate(employee);
 		session.flush();
 	}
+
+	public void updateStatus(Employee employee) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update Employee emp set emp.active=1 where emp.id = :idemp"; 
+		session.createQuery(hql).setParameter("idemp", employee.getId()).executeUpdate(); 
+		session.flush();		
+	}
 	
 }

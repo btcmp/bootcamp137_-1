@@ -24,5 +24,8 @@ public interface EmployeeDao {
 
 	// save or update
 	public void saveOrUpdate(Employee employee);
+
+	//update status employee
+	public void updateStatus(Employee employee);
 	
 }

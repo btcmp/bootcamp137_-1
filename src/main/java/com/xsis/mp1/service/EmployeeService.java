@@ -46,4 +46,8 @@ public class EmployeeService {
 		employeeDao.saveOrUpdate(employee);
 	}
 
+	public void updateStatus(Employee employee) {
+		employeeDao.updateStatus(employee);
+	}
+
 }
