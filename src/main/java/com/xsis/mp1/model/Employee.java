@@ -2,11 +2,15 @@ package com.xsis.mp1.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -26,7 +30,7 @@ public class Employee {
 	@NotNull
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "idemp")
 	@SequenceGenerator(initialValue = 101, name = "idemp", sequenceName = "idemp")
-	private int id;
+	private long id;
 	
 	@NotNull
 	@Column(name="first_name", length=50, nullable = false)
@@ -49,26 +53,37 @@ public class Employee {
 	@Column(name="created_by")
 	private int createdBy;
 	
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	@Column(name="created_on")
 	private Date createdOn;
 	
 	@Column(name="modified_by")
 	private int modifiedBy;
 	
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	@Column(name="modified_on")
 	private Date modifiedOn;
 	
 	@NotNull
 	@Column(nullable = false)
 	private boolean active;
+	
+	@OneToOne(fetch = FetchType.LAZY, mappedBy="employee", cascade = CascadeType.ALL)
+	private User user;
 
-	public int getId() {
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

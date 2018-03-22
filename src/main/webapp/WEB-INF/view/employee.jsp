@@ -48,8 +48,34 @@
 	            $('#row-user').fadeIn('slow');
 	        else
 	            $('#row-user').fadeOut('slow');
-
 	    });
+		
+		//save
+		$('#btn-save').on('click', function(){
+			
+			var employee = {
+				firstName : $('#insert-first-name').val(),
+				lastName : $('#insert-last-name').val(),
+				email : $('#insert-email').val(),
+				title : $('#insert-title').val(),
+				haveAccount : $('#insert-have-account').val(),
+				active : 1
+			};
+			console.log(employee);
+
+			$.ajax({
+				type : 'POST',
+				url : '${pageContext.request.contextPath}/employee/save',
+				data : JSON.stringify(employee),
+				contentType : 'application/json',
+				success : function(){
+					window.location = '${pageContext.request.contextPath}/employee';
+				}, error : function(){
+					alert('save failed');
+				}
+				
+			});
+		});
 	});
 </script>
 </head>
@@ -78,9 +104,8 @@
 	  	<div class="form-group">
 		    <select name="title" id="insert-title" class="custom-select custom-select-md">
 		    	<option selected>Title</option>
-		    	<c:forEach var="title" items="${titles }">
-		    		<option value="${title.id }">${title.name }</option>
-		    	</c:forEach>
+		    	<option value="Mr.">Mr.</option>
+		    	<option value="Ms.">Ms.</option>
 		    </select>
 		</div>
 	  </div>
@@ -93,8 +118,8 @@
 	  </div>
 	  <div class="col-md-8" style="padding-top:8px;">
         <div class="custom-control custom-checkbox">
-		  <input type="checkbox" class="custom-control-input" id="cb-create-account">
-		  <label class="custom-control-label" for="cb-create-account">Create Account?</label>
+		  <input type="checkbox" class="custom-control-input" id="cb-have-account">
+		  <label class="custom-control-label" for="cb-have-account">Create Account?</label>
 		</div>
 	</div>
 	  </div>

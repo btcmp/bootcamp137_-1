@@ -24,7 +24,7 @@ public class EmployeeService {
 		return employeeDao.selectAll();
 	}
 
-	public Employee getOne(int id) {
+	public Employee getOne(long id) {
 		Employee employee = new Employee();
 		employee.setId(id);
 		employee.setFirstName("0");
