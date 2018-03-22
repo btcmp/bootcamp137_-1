@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="resources/css/bootstrap.min.css" />
 <link rel="stylesheet" href="resources/css/bootstrap.css" />
 <link rel="stylesheet" href="resources/css/dataTables.bootstrap4.min.css" />
+
 <script type="text/javascript" src="${jq }"></script>
 <script type="text/javascript" src="<spring:url value="/resources/js/parsley.js"/>"></script>
 <script type="text/javascript" src="<spring:url value="/resources/js/parsley.min.js"/>"></script>
@@ -41,15 +42,85 @@
 				searching : false, 
 			});	
 			
-			//button-create 
+			//button-create // modal 
 			$('#btn-create').click(function(){
 				$('#modal-create-category').modal(); 
 			});
 			
-			$('.btn-edit').click(function(){
+			/* $('#btn-view').click(function(){
 				$('#modal-edit-category').modal(); 
+			}); */
+			
+			//untuk ngesave 
+			//btn save kaya di modal save 
+			$('#btn-save').on('click', function(evt){
+				evt.preventDefault(); //ini biar gak ngeload terus setelah di klik
+				
+				var category = {
+					name : $('#input-category-name').val(),
+				}
+				console.log(category); 
+				 $.ajax({
+					url : '${pageContext.request.contextPath}/category/save',
+					type : 'POST', 
+					contentType : 'application/json',
+					data : JSON.stringify(category), 
+					success : function(data){
+						//console.log(data); 
+						window.location="${pageContext.request.contextPath}/category"
+						//alert('berhasil'); 
+					},
+					error : function(){
+						alert('save failed'); 
+					}
+				});	
 			});
+			
+			function setEditCategory(category){
+				$('#input-id').val(category.id); 
+				$('#edit-category-name').val(category.name); 
+			}
+			//btn view untuk mengedit atau update 
+			$('.btn-view').click(function(evt){
+				evt.preventDefault(); 
+				//ambil id
+				var id=  $(this).attr('id'); 
+				//console.log(id); 
+				$.ajax({
+					url : '${pageContext.request.contextPath}/category/get-one/' + id,
+					type :'PUT',
+					dataType :'json', 
+					success : function(category){
+						setEditCategory(category); 
+						 $('#modal-edit-category').modal(); 
+					}, 
+					error : function(){}
+				});
+			});
+			
+			//execute btn update 
+			$('#btn-save-edit').click(function(){
+				var category={
+						id : $('#input-id').val(), 
+						name : $('#edit-category-name').val(),
+				}
+				$.ajax({
+					url : '${pageContext.request.contextPath}/category/view', 
+					type : 'PUT', 
+					data : JSON.stringify(category), 
+					contentType : 'application/json', 
+					success : function(data){
+						window.location = '${pageContext.request.contextPath}/category'; 
+					}, error : function(){
+						alert ('update failed'); 
+					}
+				});
+			}); 
+			
 		});
+		/* function clearText() {
+		    document.getElementById("input-category-name").value=""
+		} */
 	//});
 </script>
 </head>
@@ -70,28 +141,17 @@
 		<thead class="thead-dark">
 			<th><center>Category Name</center></th>
 			<th><center>Items Stock</center></th>
-			<th>#</th>
+			<th><center>#</center></th>
 		</thead>
 		<tbody>
-		<tr>
-				<td><center>Action Figure </center></td>
-				<td><center>4 item </center></td>
-				<td><center>
-					<a id="${rooms.id }" class="btn-edit btn btn-info btn-sm" href="#">View</a>   
-					</center>
-				</td>
-			</tr>
-			<%-- <c:forEach items="${rooms}" var="rooms">
+			<c:forEach items="${categories}" var="ctg">
 				<tr>
-					<td>${rooms.name}</td>
-					<td>${rooms.type}</td>
-					<td>${rooms.customerName}</td>
-					<td>${rooms.fasilitas}</td>
-					<td>${rooms.status}</td>
-					<td><a id="${rooms.id }" class="update btn btn-warning" href="#">View</a>   
-					</td>
+					<td>${ctg.name}</td>
+					<td>-</td>
+					<td><center><a id="${ctg.id }" class=" btn-view btn btn-info" href="#">View</a>   
+					</center></td>
 				</tr>
-			</c:forEach> --%>
+			</c:forEach> 
 		</tbody>
 	</table>
 	
