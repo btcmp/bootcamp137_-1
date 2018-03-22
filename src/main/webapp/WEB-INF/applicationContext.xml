@@ -35,6 +35,7 @@
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="annotatedClasses">
 			<list>
+				<value>com.xsis.mp1.model.Outlet</value>
 				<value>com.xsis.mp1.model.Employee</value>
 				<value>com.xsis.mp1.model.Role</value>
 				<value>com.xsis.mp1.model.User</value>
@@ -43,10 +44,12 @@
 				<value>com.xsis.mp1.model.Variant</value>
 				<value>com.xsis.mp1.model.Province</value>
 				<value>com.xsis.mp1.model.Region</value>
+				<value>com.xsis.mp1.model.Supplier</value>
 				<value>com.xsis.mp1.model.District</value>
+				<value>com.xsis.mp1.model.PurchaseOrder</value>
 				<value>com.xsis.mp1.model.PurchaseRequest</value>
 				<value>com.xsis.mp1.model.PurchaseRequestDetail</value>
-				<value>com.xsis.mp1.model.Supplier</value>
+				
 			</list>
 		</property>
 		<property name="hibernateProperties">
