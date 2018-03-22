@@ -23,8 +23,8 @@ public class Category {
 	
 	@Id
 	@NotNull
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "idtsup")
-	@SequenceGenerator(initialValue = 1212, name = "idtsup", sequenceName = "idtsup")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "idcat")
+	@SequenceGenerator(initialValue = 181818, name = "idcat", sequenceName = "idcat")
 	private long Id; 
 	@Column(nullable=false, length=50)
 	private String name; 
