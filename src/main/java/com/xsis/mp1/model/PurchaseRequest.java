@@ -1,12 +1,17 @@
 package com.xsis.mp1.model;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -19,12 +24,15 @@ public class PurchaseRequest {
 		this.createdOn = new Date();
 		this.modifiedOn = new Date();
 	}
-
+	
 	@Id
 	@NotNull
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "idtpr")
 	@SequenceGenerator(initialValue = 9191, name = "idtpr", sequenceName = "idtpr")
 	private long id;
+	
+	@ManyToOne
+	private Outlet outletId;	
 	
 	@Column(name="ready_time")
 	private Date readyTime;
@@ -52,6 +60,9 @@ public class PurchaseRequest {
 	@Column(name="modified_on")
 	private Date modifiedOn;
 
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="prId", cascade=CascadeType.ALL, orphanRemoval=true)
+	private List<PurchaseOrder> purchaseOrders;
+
 	public long getId() {
 		return id;
 	}
@@ -60,6 +71,14 @@ public class PurchaseRequest {
 		this.id = id;
 	}
 
+	public Outlet getOutletId() {
+		return outletId;
+	}
+
+	public void setOutletId(Outlet outletId) {
+		this.outletId = outletId;
+	}
+	
 	public Date getReadyTime() {
 		return readyTime;
 	}
@@ -123,5 +142,14 @@ public class PurchaseRequest {
 	public void setModifiedOn(Date modifiedOn) {
 		this.modifiedOn = modifiedOn;
 	}
+
+	public List<PurchaseOrder> getPurchaseOrders() {
+		return purchaseOrders;
+	}
+
+	public void setPurchaseOrders(List<PurchaseOrder> purchaseOrders) {
+		this.purchaseOrders = purchaseOrders;
+	}
+	
 	
 }
