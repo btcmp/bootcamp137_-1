@@ -43,8 +43,7 @@ public class District {
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="district", cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<Supplier> suppliers; 
 	
-	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="province", cascade=CascadeType.ALL, orphanRemoval=true)
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="district", cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<Outlet> outlets; 
 	
 	
