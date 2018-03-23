@@ -1,11 +1,15 @@
 package com.xsis.mp1.model;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,6 +39,28 @@ public class Region {
 	
 	@ManyToOne
 	private Province province;
+	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="region", cascade=CascadeType.ALL, orphanRemoval=true)
+	private List<Supplier> suppliers; 
+	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="province", cascade=CascadeType.ALL, orphanRemoval=true)
+	private List<Outlet> outlets; 
+	
+	public List<Outlet> getOutlets() {
+		return outlets;
+	}
+
+	public void setOutlets(List<Outlet> outlets) {
+		this.outlets = outlets;
+	}
+
+	public List<Supplier> getSuppliers() {
+		return suppliers;
+	}
+
+	public void setSuppliers(List<Supplier> suppliers) {
+		this.suppliers = suppliers;
+	}
 
 	public long getId() {
 		return id;

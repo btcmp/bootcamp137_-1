@@ -39,6 +39,24 @@ public class Province {
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="province", cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<Region> regions; 
 	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="province", cascade=CascadeType.ALL, orphanRemoval=true)
+	private List<Supplier> suppliers; 
+	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="province", cascade=CascadeType.ALL, orphanRemoval=true)
+	private List<Outlet> outlets; 
+	
+	public List<Outlet> getOutlets() {
+		return outlets;
+	}
+	public void setOutlets(List<Outlet> outlets) {
+		this.outlets = outlets;
+	}
+	public List<Supplier> getSuppliers() {
+		return suppliers;
+	}
+	public void setSuppliers(List<Supplier> suppliers) {
+		this.suppliers = suppliers;
+	}
 	public List<Region> getRegions() {
 		return regions;
 	}
