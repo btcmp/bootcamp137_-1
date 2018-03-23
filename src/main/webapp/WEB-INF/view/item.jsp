@@ -36,16 +36,26 @@
 
 <script type="text/javascript">
 	jQuery(document).ready(function(){
+		/* create new item */
+		$('#btn-create').on('click', function(){
+			$('#modal-create-item').modal('show');
+		});
+		
 		 $('#btn-save').on('click', function(){
+			 //var category=  parseInt($('#input-item-category').val());
 		 	var item = {
+		 		//id:$('#input-item-id').val(),
 				name: $('#input-item-name').val(),
 				categoryId : {
-					Id: $('#input-item-category').val()
+					id:$('#input-item-category').val(),
+							
 				},
 		 		active: 0
 			};
-			console.log(item);
-			$.ajax({
+		 	
+		 	console.log(item);
+			//console.log(category);
+		 	 $.ajax({
 				type : 'POST',
 				url : '${pageContext.request.contextPath}/item/save',
 				data : JSON.stringify(item),
@@ -56,16 +66,93 @@
 					alert('save failed');
 				}
 				
-			});
+			}); 
 		});
-		
-		$('#btn-create').on('click', function(){
-			$('#modal-create-item').modal('show');
-		});
-		
-		$('#btn-add-variant').on('click', function(){
+		 
+		 /* btn show form add variant */
+		 $('#btn-add-variant').on('click', function(){
 			$('#modal-add-variant').modal('show');
 		});
+		 
+		 /* add variant */
+		 $('#btn-add-item-variant').on('click', function(){
+				var variant={
+					name: $('#input-variant-name').val(),
+					sku: $('#input-variant-sku').val(),
+					price: $('#input-variant-price').val(),
+					
+				};
+				
+				var inventory={
+					beginning: $('#input-beginning-stock').val()
+					
+				};
+				console.log(variant);
+				console.log(inventory);
+			});
+		
+	
+		/* edit item */
+		$('.btn-item-edit').on('click', function(evt){
+			evt.preventDefault();
+			
+			
+			var id = $(this).attr('id');
+			
+			//console.log(id);
+			$.ajax({
+				url:'${pageContext.request.contextPath}/item/get-one/'+id,
+				type:'PUT',
+				contentType:'application/json',
+				success : function(item){
+					$('#modal-edit-item').modal('show');
+					 $('#edit-item-id').val(item.id);
+					 $('#edit-item-name').val(item.name);
+					 $('edit-variant-category').val(item.category);
+				}, error : function(){
+					alert ('update failed'); 
+				}
+			});
+			
+		});
+		
+		/* save edit */
+		$('#btn-save-edit').on('click', function(){
+			 //var category=  parseInt($('#input-item-category').val());
+		 	var item = {
+		 		//id:$('#input-item-id').val(),
+				name: $('#edit-item-name').val(),
+				categoryId : {
+					id:$('#edit-item-category').val()
+							
+				},
+		 		active: 0
+			};
+		 	//console.log(name);
+		 	console.log(item);
+			//console.log(category);
+		 	  $.ajax({
+				type : 'POST',
+				url : '${pageContext.request.contextPath}/item/update',
+				data : JSON.stringify(item),
+				contentType : 'application/json',
+				success : function(){
+					//window.location = '${pageContext.request.contextPath}/customer';
+				}, error : function(){
+					alert('save failed');
+				} 
+			}); 
+		});
+		
+		$('#btn-edit-add-variant').on('click', function(){
+			$('#modal-edit-item').modal('hide');
+			$('#modal-add-variant').modal('show');
+		});
+		
+		$('#btn-cancel-add').on('click', function(){
+			$('#modal-edit-item').modal('show');
+		});
+		
 		
 	});
 </script>
@@ -94,16 +181,18 @@
 			<th>#</th>
 		</thead>
 		<tbody>
-			<tr>
-				<td>Toyota</td>
+			<c:forEach items="${items}" var="item">
+				<tr>
+				<td>${item.name}</td>
 				<td><center>Transportation</center></td>
 				<td><center>Rp.200000</center></td>
 				<td><center>10</center></td>
 				<td><center>Low</center></td>
 				<td><center>
-					<a id="btn-create" class="btn btn-info btn-sm" href="#">Edit</a></center>
+					<a id="${item.id}" class="btn-item-edit btn btn-info btn-sm" href="#">Edit</a></center>
 				</td>
 			</tr>
+			</c:forEach>	
 		</tbody>
 	</table>
 </div>

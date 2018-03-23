@@ -26,18 +26,24 @@ public class Category {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "idcat")
 	@SequenceGenerator(initialValue = 181818, name = "idcat", sequenceName = "idcat")
 	private long id; 
+	
 	@Column(nullable=false, length=50)
 	private String name; 
+	
 	@Column(name="created_by")
 	private long createdBy; 
+	
 	@Temporal(TemporalType.DATE)
 	@Column(name="created_on")
 	private Date createdOn; 
+	
 	@Column(name="modified_by")
 	private long modifiedBy; 
+	
 	@Temporal(TemporalType.DATE)
 	@Column(name="modified_on")
 	private Date modifiedOn; 
+	
 	@Column(nullable=false)
 	private boolean active;
 	
@@ -48,13 +54,13 @@ public class Category {
 		this.createdOn=new Date();
 		this.modifiedOn=new Date();
 	}
-	
+
 	public long getId() {
 		return id;
 	}
 
 	public void setId(long id) {
-		id = id;
+		this.id = id;
 	}
 
 	public String getName() {
@@ -112,8 +118,10 @@ public class Category {
 	public void setItems(List<Item> items) {
 		this.items = items;
 	}
+
 	
 	
+
 	
 	
 	

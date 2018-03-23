@@ -23,7 +23,7 @@ public class ItemService {
 		return itemDao.selectAll();
 	}
 
-	public Item getOne(int id) {
+	public Item getOne(long id) {
 		Item item = new Item();
 		item.setId(id);
 		item.setActive(false);

@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.xsis.mp1.model.Category;
@@ -42,7 +44,18 @@ public class ItemController {
 	public void save(@RequestBody Item item) {
 		itemService.save(item);
 	}
-
 	
+	@RequestMapping(value="/get-one/{id}", method=RequestMethod.PUT)
+	@ResponseBody
+	public Item getOne(@PathVariable long id) {
+		return itemService.getOne(id);
+	}
+	
+	@RequestMapping(value="/update", method=RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public void edit(@RequestBody Item item) {
+		itemService.update(item); 
+	}
+
 }
 
