@@ -120,7 +120,7 @@
 		$('#btn-save-edit').on('click', function(){
 			 //var category=  parseInt($('#input-item-category').val());
 		 	var item = {
-		 		//id:$('#input-item-id').val(),
+		 		id:$('#edit-item-id').val(),
 				name: $('#edit-item-name').val(),
 				categoryId : {
 					id:$('#edit-item-category').val()
@@ -137,7 +137,7 @@
 				data : JSON.stringify(item),
 				contentType : 'application/json',
 				success : function(){
-					//window.location = '${pageContext.request.contextPath}/customer';
+					window.location = '${pageContext.request.contextPath}/item';
 				}, error : function(){
 					alert('save failed');
 				} 
