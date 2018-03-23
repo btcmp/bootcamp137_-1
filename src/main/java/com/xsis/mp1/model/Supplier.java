@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -56,6 +57,39 @@ public class Supplier {
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="supplierId", cascade=CascadeType.ALL, orphanRemoval=true)
 	private  List<PurchaseOrder> purchaseOrders;
+	
+	@ManyToOne
+	private Province province; 
+	
+	@ManyToOne
+	private Region region; 
+	
+	@ManyToOne
+	private District district; 
+	
+	public Province getProvince() {
+		return province;
+	}
+
+	public void setProvince(Province province) {
+		this.province = province;
+	}
+
+	public Region getRegion() {
+		return region;
+	}
+
+	public void setRegion(Region region) {
+		this.region = region;
+	}
+
+	public District getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(District district) {
+		this.district = district;
+	}
 
 	public long getId() {
 		return id;
