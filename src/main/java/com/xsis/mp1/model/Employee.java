@@ -1,6 +1,7 @@
 package com.xsis.mp1.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
@@ -70,6 +72,17 @@ public class Employee {
 	
 	@OneToOne(fetch = FetchType.LAZY, mappedBy="employee", cascade = CascadeType.ALL)
 	private User user;
+	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="employee", cascade = CascadeType.ALL)
+	private List<EmployeeOutlet> empouts;
+
+	public List<EmployeeOutlet> getEmpouts() {
+		return empouts;
+	}
+
+	public void setEmpouts(List<EmployeeOutlet> empouts) {
+		this.empouts = empouts;
+	}
 
 	public User getUser() {
 		return user;

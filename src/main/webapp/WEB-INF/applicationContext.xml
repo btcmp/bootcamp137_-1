@@ -49,6 +49,7 @@
 				<value>com.xsis.mp1.model.PurchaseOrder</value>
 				<value>com.xsis.mp1.model.PurchaseRequest</value>
 				<value>com.xsis.mp1.model.PurchaseRequestDetail</value>
+				<value>com.xsis.mp1.model.EmployeeOutlet</value>
 				
 			</list>
 		</property>

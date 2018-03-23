@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="resources/css/bootstrap.css" />
 <link rel="stylesheet" href="resources/css/dataTables.bootstrap4.min.css" />
 <link rel="stylesheet" href="resources/css/fontawesome.min.css" />
+<link rel="stylesheet" href="resources/css/funkyradio.min.css" />
 <script type="text/javascript" src="${jq }"></script>
 <script type="text/javascript" src="<spring:url value="/resources/js/parsley.js"/>"></script>
 <script type="text/javascript" src="<spring:url value="/resources/js/parsley.min.js"/>"></script>
@@ -268,6 +269,7 @@
 			<th>Name</th>
 			<th>Email</th>
 			<th>Have Account ?</th>
+			<th>Outlet Access</th>
 			<th>#</th>
 		</thead>
 		<tbody>
@@ -285,6 +287,7 @@
 					    </script>
 					    </center>
 					</td>
+					<td>Outlet 1</td>
 					<td>
 						<a id="${emp.id }" class="update btn btn-info btn-sm" href="#">Edit</a> |
 						<a id="${emp.id }" class="btn-x btn btn-danger btn-sm" href="#">Delete</a>
@@ -309,18 +312,20 @@
 			<div class="modal-body">
 				<form id="target" data-parsley-validate>
 					<input type="hidden" id="insert-outlet-id" name="insert-outlet-id" />
-					<div class="form-group">
-						<input type="text"
-							class="form-control" id="input-supp-name" aria-describedby="emailHelp" placeholder="Supplier Name">
-					</div>
-					<div class="form-group">
-						<p>tekan <code>ctrl</code> dan klik pilihan dibawah lebih dari satu </p>
-							<select multiple class="form-control">
-								<option>1</option>
-								<option>2</option>
-								<option>3</option>
-							</select>
-					</div>
+					<div class="funkyradio">
+				        <div class="funkyradio-primary">
+				            <input type="checkbox" name="checkbox1" id="checkbox1"/>
+				            <label for="checkbox1">Outlet 1</label>
+				        </div>
+				        <div class="funkyradio-primary">
+				            <input type="checkbox" name="checkbox2" id="checkbox2"/>
+				            <label for="checkbox2">Outlet 2</label>
+				        </div>
+				        <div class="funkyradio-primary">
+				            <input type="checkbox" name="checkbox3" id="checkbox3"/>
+				            <label for="checkbox3">Outlet 3</label>
+				        </div>
+				    </div>
 				</form>
 			</div>
 			<div class="modal-footer">
