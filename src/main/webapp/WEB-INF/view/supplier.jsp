@@ -37,7 +37,7 @@
 //jQuery(document).ready(function(){ --> dijalankan setelah DOM nya telah selesai diload
 		$(function(){
 			//setup data untuk datatable
-		$('#supplier-tbl').DataTable({
+			$('#supplier-tbl').DataTable({
 				paging : false,
 				searching : false, 
 			});	
@@ -47,9 +47,118 @@
 				$('#modal-create-supp').modal(); 
 			});
 			
-			$('.btn-edit').click(function(){
+			/* $('.btn-edit').click(function(){
 				$('#modal-edit-supp').modal(); 
+			}); */
+			
+			//btn save kaya di modal save 
+			 $('#btn-save').on('click', function(evt){
+				evt.preventDefault(); //ini biar gak ngeload terus setelah di klik
+				
+				var supplier = {
+					name : $('#input-supp-name').val(),
+					address : $('#input-address').val(), 
+					postalCode : $('#input-postal-code').val(), 
+					email : $('#input-email').val(), 
+					phone : $('#input-phone').val(), 
+					province : {
+						id : $('#input-province').val()
+					}, 
+					region : {
+						id : $('#input-region').val()
+					},
+					district : {
+						id : $('#input-district').val()
+					}
+				}
+				//console.log(supplier); 
+				 $.ajax({
+					url : '${pageContext.request.contextPath}/supplier/save',
+					type : 'POST', 
+					contentType : 'application/json',
+					data : JSON.stringify(supplier), 
+					success : function(data){
+						//console.log(data); 
+						window.location="${pageContext.request.contextPath}/supplier"
+						//alert('berhasil'); 
+					},
+					error : function(){
+						alert('save failed'); 
+					}
+				});	
 			});
+			
+			
+			function setEditSupplier(supplier){
+				$('#edit-id').val(supplier.id); 
+				$('#edit-supp-name').val(supplier.name); 
+				$('#edit-address').val(supplier.address); 
+				$('#edit-phone').val(supplier.phone); 
+				$('#edit-email').val(supplier.email); 
+				$('#edit-postal-code').val(supplier.postalCode); 
+				$('#edit-province').val(supplier.province.id); 
+				$('#edit-region').val(supplier.region.id); 
+				$('#edit-district').val(supplier.district.id); 
+				//console.log(supplier); 
+			}
+			
+			
+			//btn view untuk mengedit atau update 
+			$('.btn-edit').click(function(evt){
+				evt.preventDefault(); 
+				//ambil id
+				var id=  $(this).attr('id'); 
+				//console.log(id); 
+				$.ajax({
+					url : '${pageContext.request.contextPath}/supplier/get-one/' + id,
+					type :'GET',
+					dataType :'json', 
+					success : function(supplier){
+						setEditSupplier(supplier); 
+						 $('#modal-edit-supp').modal(); 
+					}, 
+					error : function(){}
+				});
+			}); 
+			
+			//execute btn update 
+			$('#btn-save-edit').on('click' , function(evt){
+				evt.preventDefault();
+				
+				var supplier = {
+						id : $('#edit-id').val(), 
+						name : $('#edit-supp-name').val(),
+						address : $('#edit-address').val(), 
+						postalCode : $('#edit-postal-code').val(), 
+						email : $('#edit-email').val(), 
+						phone : $('#edit-phone').val(), 
+						province : {
+							id : $('#edit-province').val()
+						}, 
+						region : {
+							id : $('#edit-region').val()
+						},
+						district : {
+							id : $('#edit-district').val()
+						}
+					}
+				
+				console.log(supplier); 
+					 
+				$.ajax({
+					url : '${pageContext.request.contextPath}/supplier/update', 
+					type : 'PUT', 
+					data : JSON.stringify(supplier), 
+					contentType : 'application/json', 
+					success : function(data){
+						//alert ('yeay berhasil'); 
+						window.location = '${pageContext.request.contextPath}/supplier'; 
+					}, error : function(){
+						alert ('update failed'); 
+					}
+				});
+			});  
+			
 		});
 	//});
 </script>
@@ -76,30 +185,19 @@
 			<th>#</th>
 		</thead>
 		<tbody>
-			<tr>
-				<td>PT.Maju Jaya</td>
-				<td>Jakarta</td>
-				<td>021-5557777</td>
-				<td>mail@mail.com</td>
-				<td><center>
-					<a id="${rooms.id }"  class="btn-edit btn btn-info btn-sm" href="#">Edit</a>   
-					</center>
-				</td>
-			</tr>
-			<%-- <c:forEach items="${rooms}" var="rooms">
+			<c:forEach items="${suppliers}" var="supp">
 				<tr>
-					<td>${rooms.name}</td>
-					<td>${rooms.type}</td>
-					<td>${rooms.customerName}</td>
-					<td>${rooms.fasilitas}</td>
-					<td>${rooms.status}</td>
+					<td>${supp.name}</td>
+					<td>${supp.address}</td>
+					<td>${supp.phone}</td>
+					<td>${supp.email}</td>
 					<td><center>
-					<a id="${rooms.id }" class="update btn btn-warning" href="#">Edit</a>   
+					<a id="${supp.id }" class="btn-edit btn btn-info btn-sm" href="#">Edit</a>   
 					</center>
 					
 					</td>
 				</tr>
-			</c:forEach> --%>
+			</c:forEach> 
 		</tbody>
 	</table>
 	
