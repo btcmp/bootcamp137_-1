@@ -40,7 +40,7 @@
 						</div>
 					</div><br/>
 					
-	<table id="emp-table" class="table table-sm table-striped table-bordered" cellspacing="0" width="100%">
+	<table id="variant-table" class="table table-sm table-striped table-bordered" cellspacing="0" width="100%">
 		<thead class="thead-dark">
 			<th>Variant Name</th>
 			<th>Unit Price</th>
@@ -48,7 +48,7 @@
 			<th>Beginning Stock</th>
 			<th>#</th>
 		</thead>
-		<tbody>
+		<tbody id="tbody-add-variant-create-item">
 			<tr>
 				<td>Toyota</td>
 				<td><center>Rp.200000</center></td>
@@ -137,7 +137,7 @@
 <!--End Modal- add-variant -->
 
 
-
+<!--===========================================================================================================================  -->
 
 
 <!-- Modal edit items -->
@@ -190,7 +190,7 @@
 			<th>Beginning Stock</th>
 			<th>#</th>
 		</thead>
-		<tbody>
+		<tbody id="tbody-variant">
 			<tr>
 				<td>Toyota</td>
 				<td><center>Rp.200000</center></td>
@@ -223,10 +223,9 @@
 </div>
 
 <!-- end modal-edit -->
-
-
+					<!--============================================================================================  -->
 <!-- Modal- edit-add-variant -->
-	<div class="modal fade" id="modal-add-variant" tabindex="-1" role="dialog"
+	<div class="modal fade" id="modal-edit-add-variant" tabindex="-1" role="dialog"
 	aria-labelledby="exampleModalLabel" aria-hidden="true" >
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
@@ -241,16 +240,16 @@
 			
 			<div class="modal-body">
 				<form id="target" data-parsley-validate>
-					<input type="hidden" id="input-varian-id" name="input-id" />		
+					<input type="hidden" id="input-edit-varian-id" name="input-id" />		
 					<div class="row">
 						<div class="form-group col-md-4">
-							<input type="text" class="form-control " id="input-variant-name" placeholder="Variant Name">
+							<input type="text" class="form-control " id="input-edit-variant-name" placeholder="Variant Name">
 						</div>
 						<div class="form-group col-md-4">
-							<input type="text" class="form-control " id="input-variant-price" placeholder="Unit Price">
+							<input type="text" class="form-control " id="input-edit-variant-price" placeholder="Unit Price">
 						</div>
 						<div class="form-group col-md-4">
-							<input type="text" class="form-control " id="input-variant-sku" placeholder="SKU">
+							<input type="text" class="form-control " id="input-edit-variant-sku" placeholder="SKU">
 						</div>			
 					</div>				
 					<div><br/><br/>
@@ -259,18 +258,18 @@
 						</div><br/>
 						<div class="row">
 						<div class="form-group col-md-6">
-							<input type="text" class="form-control " id="input-beginning-stock" placeholder="Beginning Stock">
+							<input type="text" class="form-control " id="input-dit-beginning-stock" placeholder="Beginning Stock">
 						</div>
 						<div class="form-group col-md-6">
-							<input type="text" class="form-control " id="input-alert-at" placeholder="Alert At">
+							<input type="text" class="form-control " id="input-edit-alert-at" placeholder="Alert At">
 						</div>			
 					</div>
 					
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" id="btn-cancel-add" class="btn btn-primary" style="float:right; margin-right: 31px; width:150px;" data-dismiss="modal">Cancel</button>
-				<button type="button" id="btn-add-item-variant" class="btn btn-primary" style="float:right; margin-right: 0px; width: 150px;">Add</button>
+				<button type="button" id="btn-cancel-add-edit" class="btn btn-primary" style="float:right; margin-right: 31px; width:150px;" data-dismiss="modal">Cancel</button>
+				<button type="button" id="btn-add-edit-item-variant" class="btn btn-primary" style="float:right; margin-right: 0px; width: 150px;" data-dismiss="modal">Add</button>
 			</div>
 		</div>
 	</div>

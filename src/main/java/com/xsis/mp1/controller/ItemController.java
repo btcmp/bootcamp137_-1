@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.xsis.mp1.dao.VariantDao;
 import com.xsis.mp1.model.Category;
 import com.xsis.mp1.model.Item;
+import com.xsis.mp1.model.Variant;
 import com.xsis.mp1.service.CategoryService;
 import com.xsis.mp1.service.ItemService;
 
@@ -30,6 +32,9 @@ public class ItemController {
 	@Autowired
 	CategoryService CategoryService;
 	
+	@Autowired
+	VariantDao variantDao;
+	
 	@RequestMapping
 	public String index(Model model) {
 		List<Item> items = itemService.selectAll();
@@ -41,8 +46,9 @@ public class ItemController {
 	
 	@RequestMapping(value="/save", method=RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
-	public void save(@RequestBody Item item) {
+	public void save(@RequestBody Item item, Variant variant) {
 		itemService.save(item);
+		variantDao.save(variant);
 	}
 	
 	@RequestMapping(value="/get-one/{id}", method=RequestMethod.PUT)
@@ -54,7 +60,7 @@ public class ItemController {
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void edit(@RequestBody Item item) {
-		itemService.update(item); 
+		itemService.update(item);
 	}
 
 }

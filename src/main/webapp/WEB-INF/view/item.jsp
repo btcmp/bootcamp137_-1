@@ -53,6 +53,18 @@
 		 		active: 0
 			};
 		 	
+		 	var variant={
+		 			name: $('#input-edit-variant-name').val(),
+					sku: $('#input-edit-variant-sku').val(),
+					price: $('#input-edit-variant-price').val(),
+					beginning: $('#input-edit-beginning-stock').val(),
+					item:{
+						id:$('#input-item-id').val(),
+					},
+					
+					active: 0
+		 	};
+		 	console.log(variant);
 		 	console.log(item);
 			//console.log(category);
 		 	 $.ajax({
@@ -71,24 +83,37 @@
 		 
 		 /* btn show form add variant */
 		 $('#btn-add-variant').on('click', function(){
-			$('#modal-add-variant').modal('show');
+			 $('#modal-add-variant').modal('show');
+			
 		});
 		 
-		 /* add variant */
+		 /* create add variant */
 		 $('#btn-add-item-variant').on('click', function(){
+			 
+			 	var name= $('#input-variant-name').val();
+				var sku= $('#input-variant-sku').val();
+				var price= $('#input-variant-price').val();
+				var beginning= $('#input-beginning-stock').val();
+			 
 				var variant={
-					name: $('#input-variant-name').val(),
-					sku: $('#input-variant-sku').val(),
-					price: $('#input-variant-price').val(),
-					
-				};
+					name: name,
+					sku: sku,
+					price:price
+				};			
+				
+				var markup = "<tr><td>" + name + "</td><td><center>" + price + "</td><td>" + sku + "</td><td>" + beginning + "</td><td><a id='btn-edit' class='btn btn-info btn-sm' href='#'>Edit</a></center></td></tr>";
+				$("#tbody-add-variant-create-item").append(markup);
+				
+				$('#modal-add-variant').modal('hide');
 				
 				var inventory={
 					beginning: $('#input-beginning-stock').val()
 					
 				};
+				/* 
+				
 				console.log(variant);
-				console.log(inventory);
+				console.log(inventory); */
 			});
 		
 	
@@ -128,7 +153,6 @@
 				},
 		 		active: 0
 			};
-		 	//console.log(name);
 		 	console.log(item);
 			//console.log(category);
 		 	  $.ajax({
@@ -146,8 +170,58 @@
 		
 		$('#btn-edit-add-variant').on('click', function(){
 			$('#modal-edit-item').modal('hide');
-			$('#modal-add-variant').modal('show');
+			$('#modal-edit-add-variant').modal('show');
 		});
+		
+		/* edit add variant  */
+		 
+		 $('#btn-add-edit-item-variant').on('click', function(){
+			 	var name= $('#input-edit-variant-name').val();
+				var sku= $('#input-edit-variant-sku').val();
+				var price= $('#input-edit-variant-price').val();
+				var beginning= $('#input-edit-beginning-stock').val();
+			 
+				var variant={
+					name: name,
+					sku: sku,
+					price:price
+				};	
+				
+				var inventory={
+						beginning: $('#input-edit-beginning-stock').val()
+						
+					};
+				
+				var markup = "<tr><td>" + name + "</td><td><center>" + price + "</td><td>" + sku + "</td><td>" + beginning + "</td><td><a class='btn-edit-edit-variant tbtn btn-info btn-sm' href='#'>Edit</a></center></td></tr>";
+				$("#tbody-variant").append(markup);
+				
+				$('#modal-edit-item').modal('show');
+			
+				
+				
+				console.log(variant);
+				console.log(inventory);
+			});
+		
+		/* btn edit varian dari modal edit item */
+		 $(document).on('click','.btn-edit-edit-variant', function(){
+				//var id=$(this).attr('id');
+				var element=$(this).parent().parent().find("td");
+				var varname=element.eq(0);
+				var uprice=element.eq(1);
+				var sku=element.eq(2);
+				var bstock=element.eq(3);
+				
+				var variant={
+						name: varname.text(),
+						sku: sku.text(),
+						price : uprice.text(),
+						
+						active:0
+				};
+				console.log(variant);
+				
+			});
 		
 		$('#btn-cancel-add').on('click', function(){
 			$('#modal-edit-item').modal('show');
