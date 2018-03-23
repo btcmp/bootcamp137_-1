@@ -49,6 +49,17 @@ public class Region {
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="region", cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<District> districts; 
 	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="region", cascade=CascadeType.ALL, orphanRemoval=true)
+	private List<Customer> customers; 
+	
+	public List<Customer> getCustomers() {
+		return customers;
+	}
+
+	public void setCustomers(List<Customer> customers) {
+		this.customers = customers;
+	}
+
 	public List<District> getDistricts() {
 		return districts;
 	}

@@ -50,6 +50,9 @@
 				<value>com.xsis.mp1.model.PurchaseRequest</value>
 				<value>com.xsis.mp1.model.PurchaseRequestDetail</value>
 				<value>com.xsis.mp1.model.EmployeeOutlet</value>
+				<value>com.xsis.mp1.model.Customer</value>
+				<value>com.xsis.mp1.model.SalesOrder</value>
+				<value>com.xsis.mp1.model.SalesOrderDetail</value>
 				
 			</list>
 		</property>
