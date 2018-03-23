@@ -13,7 +13,7 @@
 			</div>
 			<form id="target" data-parsley-validate>
 			<div class="modal-body">
-					<input type="hidden" id="input-id" name="input-id" />
+					<input type="hidden" id="edit-id" name="input-id" />
 					<div class="form-group">
 						<input type="text"
 							class="form-control" id="edit-category-name" 

@@ -2,7 +2,6 @@ package com.xsis.mp1.controller;
 
 import java.util.List;
 
-import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -16,8 +15,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.xsis.mp1.model.Category;
 import com.xsis.mp1.service.CategoryService;
-import com.xsis.mp1.service.ItemService;
-import com.xsis.mp1.service.VariantService;
 
 @Controller
 @RequestMapping("/category")
@@ -28,15 +25,20 @@ public class CategoryController {
 	
 	@RequestMapping
 	public String index(Model model) {
-	/*	List<Category> categories = categoryService.selectAll(); */
 		List<Category> categories = categoryService.getListByStatus(); 
 		model.addAttribute("categories", categories); 
 		return "category";
 	}
 	
-	@RequestMapping(value="/get-one/{id}", method=RequestMethod.PUT)
+	/*@RequestMapping(value="/get-one/{id}", method=RequestMethod.GET)
 	@ResponseBody
 	public Category getOne(@PathVariable long id) {
+		return categoryService.getOne(id); 
+	}*/
+	
+	@RequestMapping(value="/get-one/{id}", method=RequestMethod.GET)
+	@ResponseBody
+	public Category getOne1(@PathVariable long id) {
 		return categoryService.getOne(id); 
 	}
 	
@@ -46,7 +48,7 @@ public class CategoryController {
 		categoryService.save(category); 
 	}
 	
-	@RequestMapping(value="/view", method=RequestMethod.PUT)
+	@RequestMapping(value="/update", method=RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
 	public void edit(@RequestBody Category category) {
 		categoryService.update(category); 

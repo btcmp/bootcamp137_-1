@@ -25,7 +25,7 @@
 						<button type="reset" class="btn btn-primary">Cancel</button>
 					</div>
 					<div class="col-sm-1">
-						<button type="button" id="btn-save" class="btn btn-primary">Save</button>
+						<button type="button" id="btn-save-cat" class="btn btn-primary">Save</button>
 					</div>
 				</div>
 			</form>

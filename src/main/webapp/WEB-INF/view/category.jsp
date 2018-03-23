@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Supplier</title>
+<title>Category</title>
 <link rel="stylesheet" href="resources/css/bootstrap.min.css" />
 <link rel="stylesheet" href="resources/css/bootstrap.css" />
 <link rel="stylesheet" href="resources/css/dataTables.bootstrap4.min.css" />
@@ -53,9 +53,8 @@
 			
 			//untuk ngesave 
 			//btn save kaya di modal save 
-			$('#btn-save').on('click', function(evt){
-				evt.preventDefault(); //ini biar gak ngeload terus setelah di klik
-				
+			$('#btn-save-cat').on('click', function(evt){
+				evt.preventDefault(); 
 				var category = {
 					name : $('#input-category-name').val(),
 				}
@@ -76,10 +75,7 @@
 				});	
 			});
 			
-			function setEditCategory(category){
-				$('#input-id').val(category.id); 
-				$('#edit-category-name').val(category.name); 
-			}
+			
 			//btn view untuk mengedit atau update 
 			$('.btn-view').click(function(evt){
 				evt.preventDefault(); 
@@ -88,24 +84,29 @@
 				//console.log(id); 
 				$.ajax({
 					url : '${pageContext.request.contextPath}/category/get-one/' + id,
-					type :'PUT',
-					dataType :'json', 
+					type :'GET',
 					success : function(category){
 						setEditCategory(category); 
-						 $('#modal-edit-category').modal(); 
+						$('#modal-edit-category').modal(); 
 					}, 
-					error : function(){}
+					error : function(){
+						alert('gabisa ambil data');
+					},
+					dataType :'json'
 				});
 			});
-			
+			function setEditCategory(category){
+				$('#edit-id').val(category.id); 
+				$('#edit-category-name').val(category.name); 
+			};
 			//execute btn update 
 			$('#btn-save-edit').click(function(){
 				var category={
-						id : $('#input-id').val(), 
+						id : $('#edit-id').val(), 
 						name : $('#edit-category-name').val(),
 				}
 				$.ajax({
-					url : '${pageContext.request.contextPath}/category/view', 
+					url : '${pageContext.request.contextPath}/category/update', 
 					type : 'PUT', 
 					data : JSON.stringify(category), 
 					contentType : 'application/json', 
@@ -120,7 +121,7 @@
 			//btn-X
 			$('#btn-X').click(function(){
 				var category={
-						id : $('#input-id').val(), 
+						id : $('#edit-id').val(), 
 						name : $('#edit-category-name').val(),
 				}
 				$.ajax({
@@ -168,7 +169,7 @@
 				<tr>
 					<td>${ctg.name}</td>
 					<td>-</td>
-					<td><center><a id="${ctg.id }" class=" btn-view btn btn-info" href="#">View</a>   
+					<td><center><a id="${ctg.id }" class="btn-view btn btn-info" href="#">View</a>   
 					</center></td>
 				</tr>
 			</c:forEach> 

@@ -28,12 +28,23 @@ public class CategoryDaoImpl implements CategoryDao{
 		return session.createCriteria(Category.class).list();
 	}
 
-	public Category getOne(Category category) {
+	public Category getOne1(Category category) {
 		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession(); 
+		String hql = "from Category c where c.id = :idcatt";
+		List<Category> cats = session.createQuery(hql).setParameter("idcatt", category.getId()).list();
+		Category cat = cats.get(0);
+		if(cats.isEmpty()) {
+			return null;
+		}else {
+			return cat;
+		}
+	}
+	
+	public Category getOne(Category category) {
 		Session session = sessionFactory.getCurrentSession(); 
 		return session.get(Category.class, category.getId());
 	}
-
 	public void update(Category category) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession(); 
@@ -52,6 +63,7 @@ public class CategoryDaoImpl implements CategoryDao{
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession(); 
 		session.delete(category);
+		session.flush(); 
 	}
 
 	public List<Category> getListByStatus() {

@@ -5,8 +5,10 @@ import java.util.List;
 import com.xsis.mp1.model.Category;
 
 public interface CategoryDao {
+	
 	//create
 	public void save(Category category); 
+	
 	//read 
 	///banyak 
 	public List<Category> selectAll();  

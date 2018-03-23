@@ -15,6 +15,7 @@ public class CategoryService {
 	
 	@Autowired
 	CategoryDao categoryDao; 
+	
 	public void save(Category category) {
 		// TODO Auto-generated method stub
 		categoryDao.save(category);
@@ -51,5 +52,11 @@ public class CategoryService {
 	public List<Category> getListByStatus() {
 		// TODO Auto-generated method stub
 		return categoryDao.getListByStatus(); 
+	}
+	
+	public Category getOne1(long id) {
+		Category category = new Category(); 
+		category.setId(id);
+		return categoryDao.getOne(category); 
 	}
 }
