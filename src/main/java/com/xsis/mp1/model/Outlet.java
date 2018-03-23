@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -17,11 +18,15 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name="pos_mst_outlet")
 public class Outlet {
+	
+	public Outlet() {
+		this.createdOn = new Date();
+		this.modifiedOn = new Date(); 
+	}
 	@Id
 	@NotNull
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "idtout")
@@ -56,6 +61,38 @@ public class Outlet {
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="outletId", cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<PurchaseRequest> purchaseRequests;
+	
+	@ManyToOne
+	private Province province; 
+	
+	@ManyToOne
+	private Region region; 
+	
+	@ManyToOne
+	private District district ; 
+	public Province getProvince() {
+		return province;
+	}
+
+	public void setProvince(Province province) {
+		this.province = province;
+	}
+
+	public Region getRegion() {
+		return region;
+	}
+
+	public void setRegion(Region region) {
+		this.region = region;
+	}
+
+	public District getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(District district) {
+		this.district = district;
+	}
 
 	public long getId() {
 		return id;

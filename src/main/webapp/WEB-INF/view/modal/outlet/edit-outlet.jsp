@@ -11,14 +11,14 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			
+			<form id="target" data-parsley-validate>
 			<div class="modal-body">
-				<form id="target" data-parsley-validate>
-					<input type="hidden" id="input-id" name="input-id" />
+				
+					<input type="hidden" id="edit-id" name="input-id" />
 					<div class="form-group">
 						<input type="text"
-							class="form-control" id="edit-supp-name" aria-describedby="emailHelp"
-							placeholder="Supplier Name">
+							class="form-control" id="edit-outlet-name" aria-describedby="emailHelp"
+							placeholder="Outlet Name">
 					</div>
 					<div class="form-group" >
 						<input type="text"
@@ -30,25 +30,25 @@
 						<div class ="col-sm-4" >
 							<select data-parsley-required="true" name = "countries" id="edit-province">
 							<option value="" selected="selected">--CHOOSE PROVINCE--</option>
-							<%-- <c:forEach var="loc" items= "${locations}">
-								<option value="${loc.id}">${loc.streetAddress}</option>
-							</c:forEach> --%>
+							<c:forEach var="prov" items= "${provinces}">
+								<option value="${prov.id}">${prov.name}</option>
+							</c:forEach> 
 							</select>
 						</div>
 						<div class="col-sm-4">
 							<select data-parsley-required="true" name = "countries" id="edit-region">
 							<option value="" selected="selected">--CHOOSE REGION--</option>
-							<%-- <c:forEach var="loc" items= "${locations}">
-								<option value="${loc.id}">${loc.streetAddress}</option>
-							</c:forEach> --%>
+							 <c:forEach var="reg" items= "${regions}">
+								<option value="${reg.id}">${reg.name}</option>
+							</c:forEach> 
 							</select>
 						</div>
 						<div class="col-sm-4"> 
 							<select data-parsley-required="true" name = "countries" id="edit-district">
 							<option value="" selected="selected">--CHOOSE DISTRICT--</option>
-							<%-- <c:forEach var="loc" items= "${locations}">
-								<option value="${loc.id}">${loc.streetAddress}</option>
-							</c:forEach> --%>
+							 <c:forEach var="dis" items= "${districts}">
+								<option value="${dis.id}">${dis.name}</option>
+							</c:forEach> 
 						</select>
 						</div>
 					 </div>	
@@ -72,12 +72,13 @@
 					</div>
 					</div>
 					</div>
-				</form>
+				
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-				<button type="button" id="btn-save" class="btn btn-primary">Save</button>
+				<button type="reset" class="btn btn-primary" >Cancel</button>
+				<button type="button" class="btn-save-outlet btn btn-primary">Save</button>
 			</div>
+			</form>
 		</div>
 	</div>
 </div>

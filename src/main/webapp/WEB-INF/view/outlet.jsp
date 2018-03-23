@@ -47,9 +47,129 @@
 				$('#modal-create-outlet').modal(); 
 			});
 			
-			$('.btn-edit').click(function(){
+			/* $('.btn-edit').click(function(){
 				$('#modal-edit-outlet').modal(); 
+			}); */
+			
+			
+			//btn save kaya di modal save 
+			 $('#btn-save').on('click', function(evt){
+				evt.preventDefault(); //ini biar gak ngeload terus setelah di klik
+				
+				var outlet = {
+					name : $('#input-outlet-name').val(),
+					address : $('#input-address').val(), 
+					postalCode : $('#input-postal-code').val(), 
+					email : $('#input-email').val(), 
+					phone : $('#input-phone').val(), 
+					province : {
+						id : $('#input-province').val()
+					}, 
+					region : {
+						id : $('#input-region').val()
+					},
+					district : {
+						id : $('#input-district').val()
+					}
+				}
+				//console.log(supplier); 
+				 $.ajax({
+					url : '${pageContext.request.contextPath}/outlet/save',
+					type : 'POST', 
+					contentType : 'application/json',
+					data : JSON.stringify(outlet), 
+					success : function(data){
+						//console.log(data); 
+						window.location="${pageContext.request.contextPath}/outlet"
+						//alert('berhasil'); 
+					},
+					error : function(){
+						alert('save failed'); 
+					}
+				});	
 			});
+			
+			 $('.btn-edit').on('click', function(evt){
+					evt.preventDefault(); 
+					var id= $(this).attr('id'); // ambil variabel id 
+					console.log(id);
+					$.ajax({
+						url : '${pageContext.request.contextPath}/outlet/get-one/' + id, 
+						type :'GET',
+						success : function(outlet){
+							setEditOutlet(outlet); 
+							$('#modal-edit-outlet').modal(); 
+						},
+						error : function(){
+						alert('failed getting data update')	;
+						}, 
+						dataType :'json'
+					});
+				});
+				
+				//set up data update 
+				function setEditOutlet(outlet){
+					//console.log(cust); 
+					$('#edit-id').val(outlet.id); 
+					$('#edit-outlet-name').val(outlet.name); 
+					$('#edit-address').val(outlet.address); 
+					$('#edit-postal-code').val(outlet.postalCode); 
+					$('#edit-phone').val(outlet.phone); 
+					$('#edit-email').val(outlet.email); 
+					$('#edit-province').val(outlet.province.id); 
+					$('#edit-region').val(outlet.region.id); 
+					$('#edit-district').val(outlet.district.id); 
+				}
+				
+				 //execute btn update 
+				$('.btn-save-outlet').on('click', function(evt){
+					evt.preventDefault(); 
+					
+					var outlet = {
+							id : $('#edit-id').val(), 
+							name : $('#edit-outlet-name').val(),
+							address : $('#edit-address').val(), 
+							postalCode : $('#edit-postal-code').val(), 
+							email : $('#edit-email').val(), 
+							phone : $('#edit-phone').val(), 
+							province : {
+								id : $('#edit-province').val()
+							}, 
+							region : {
+								id : $('#edit-region').val()
+							},
+							district : {
+								id : $('#edit-district').val()
+							}
+						}
+					console.log(outlet); 
+					$.ajax({
+						url : '${pageContext.request.contextPath}/outlet/update', 
+						type :'PUT', 
+						data : JSON.stringify(outlet), 
+						contentType : 'application/json', 
+						success : function(data){
+							window.location = '${pageContext.request.contextPath}/outlet';
+						/* 	alert ('update berhasil');  */
+						}, 
+						error : function(){
+							alert ('update failed');
+						}
+					}); 
+					/* $.ajax({
+						url : '${pageContext.request.contextPath}/outlet/update', 
+						type : 'PUT', 
+						data : JSON.stringify(outlet2), 
+						contentType : 'application/json', 
+						success : function(data){
+							alert('update berhasil'); 
+							//window.location = '${pageContext.request.contextPath}/outlet'; 
+						}, error : function(){
+							alert ('update failed'); 
+						}
+					});  */
+				}); 
+				
 		});
 	//});
 </script>
@@ -69,14 +189,14 @@
 	<hr>
 	<table id="outlet-tbl" class="table table-sm table-striped table-bordered" width="100%" cellspacing="0">
 		<thead class="thead-dark">
-			<th>Name</th>
-			<th>Address</th>
-			<th>Phone</th>
-			<th>Email</th>
-			<th>#</th>
+			<th><center>Name</center></th>
+			<th><center>Address</center></th>
+			<th><center>Phone</center></th>
+			<th><center>Email</center></th>
+			<th><center>#</center></th>
 		</thead>
 		<tbody>
-			<tr>
+			<%-- <tr>
 				<td>Outlet 1</td>
 				<td>Jakarta</td>
 				<td>021-5557777</td>
@@ -85,25 +205,24 @@
 					<a id="${rooms.id }" class="btn-edit btn btn-info btn-sm" href="#">Edit</a>   
 					</center>
 				</td>
-			</tr>
-			<%-- <c:forEach items="${rooms}" var="rooms">
+			</tr> --%>
+			<c:forEach items="${outlets}" var="outs">
 				<tr>
-					<td>${rooms.name}</td>
-					<td>${rooms.type}</td>
-					<td>${rooms.customerName}</td>
-					<td>${rooms.fasilitas}</td>
-					<td>${rooms.status}</td>
-					<td><a id="${rooms.id }" class="update btn btn-warning" href="#">Edit</a>   
+					<td>${outs.name}</td>
+					<td>${outs.address}</td>
+					<td>${outs.phone}</td>
+					<td>${outs.email}</td>
+					<td><a id="${outs.id }" class="btn-edit btn btn-info btn-sm" href="#">Edit</a>   
 					</td>
 				</tr>
-			</c:forEach> --%>
+			</c:forEach>
 		</tbody>
 	</table>
 	
  	<!-- panggil modal dari folder modal -->
 	<%@ include file="modal/outlet/create-outlet.jsp" %>
 	 <%@ include file="modal/outlet/edit-outlet.jsp" %>
-	<%-- <%@ include file="modal/room/delete-room.jsp" %> --%> --%>
+	<%-- <%@ include file="modal/room/delete-room.jsp" %> --%> 
 </div>
 </body>
 </html>
