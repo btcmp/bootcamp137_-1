@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.xsis.mp1.dao.EmployeeDao;
+import com.xsis.mp1.dao.EmployeeOutletDao;
 import com.xsis.mp1.model.Employee;
+import com.xsis.mp1.model.EmployeeOutlet;
 
 @Service
 @Transactional
@@ -16,6 +18,9 @@ public class EmployeeService {
 	@Autowired
 	EmployeeDao employeeDao;
 
+	@Autowired
+	EmployeeOutletDao empOutletDao;
+	
 	public void save(Employee employee) {
 		employeeDao.save(employee);
 	}
@@ -43,7 +48,22 @@ public class EmployeeService {
 	}
 	
 	public void saveOrUpdate(Employee employee) {
-		employeeDao.saveOrUpdate(employee);
+		Employee emp = new Employee();
+		emp.setId(employee.getId());
+		emp.setFirstName(employee.getFirstName());
+		emp.setLastName(employee.getLastName());
+		emp.setEmail(employee.getEmail());
+		emp.setTitle(employee.getTitle());
+		emp.setHaveAccount(employee.isHaveAccount());
+		emp.setActive(employee.isActive());
+		employeeDao.saveOrUpdate(emp);
+		
+		for(EmployeeOutlet empOut : employee.getEmpouts()) {
+			EmployeeOutlet empOutlet = new EmployeeOutlet();
+			empOutlet.setEmployee(emp);
+			empOutlet.setOutlet(empOut.getOutlet());
+			empOutletDao.saveOrUpdate(empOutlet);
+		}
 	}
 
 	public void updateStatus(Employee employee) {

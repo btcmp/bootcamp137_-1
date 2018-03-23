@@ -44,14 +44,18 @@
 			$('#modal-assign-outlet').modal();
 		});
 		
+		$('#btn-select-outlet').on('click', function(){
+			$('#modal-assign-outlet').modal('hide');
+		});
+		
 		$('#cb-have-account').val('false');
 		$('#cb-have-account').change(function(){
 	        if(this.checked){
-	            $('#row-user').fadeIn('slow');
+	            $('#row-user').show(1000);
 	            $('#cb-have-account').val('true');
 	        }
 	        else{
-	            $('#row-user').fadeOut('slow');
+	            $('#row-user').hide(1000);
 	            $('#cb-have-account').val('false');
 	        }
 	    });
@@ -59,12 +63,26 @@
 		//save
 		$('#btn-save').on('click', function(){
 			
+			var empOut = [];
+			
+			$('.select-outlet:checked').each(function(){
+				var eo = {
+					outlet : {
+						id : $(this).val()
+					}
+				};
+				empOut.push(eo);
+			});
+			
+			console.log(empOut);
+			
 			var employee = {
 				id : $('#insert-emp-id').val(),
 				firstName : $('#insert-first-name').val(),
 				lastName : $('#insert-last-name').val(),
 				email : $('#insert-email').val(),
-				title : $('#insert-title').val(),
+				title : $('#insert-title').val(), 
+				empouts : empOut,
 				haveAccount : $('#cb-have-account').val(),
 				active : 0
 			};
@@ -287,7 +305,7 @@
 					    </script>
 					    </center>
 					</td>
-					<td>Outlet 1</td>
+					<td>${emp.email }</td>
 					<td>
 						<a id="${emp.id }" class="update btn btn-info btn-sm" href="#">Edit</a> |
 						<a id="${emp.id }" class="btn-x btn btn-danger btn-sm" href="#">Delete</a>
@@ -312,18 +330,20 @@
 			<div class="modal-body">
 				<form id="target">
 					<input type="hidden" id="insert-outlet-id" name="insert-outlet-id" />
-		        	<c:forEach var="outlet" items="${outlets }">
+		        	<div id="pilih-outlet">
+		        		<c:forEach var="outlet" items="${outlets }">
 		        		<!-- <div class="funkyradio">
 		        			<div class="funkyradio-primary"> -->
-				        		<input type="checkbox" value="${outlet.id }" class="select1"/>
+				        		<input type="checkbox" value="${outlet.id }" class="select-outlet"/>
 				            	<label for="checkbox1">${outlet.name }</label>
 					        <!-- </div>
 					    </div> -->
-		        	</c:forEach>
+		        	</c:forEach> 
+		        	</div>
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" id="btn-save" class="btn btn-primary">Select</button>
+				<button type="button" id="btn-select-outlet" class="btn btn-primary">Select</button>
 			</div>
 		</div>
 	</div>
