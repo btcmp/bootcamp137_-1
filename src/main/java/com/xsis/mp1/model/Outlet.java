@@ -27,6 +27,7 @@ public class Outlet {
 		this.createdOn = new Date();
 		this.modifiedOn = new Date(); 
 	}
+	
 	@Id
 	@NotNull
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "idtout")
@@ -35,24 +36,33 @@ public class Outlet {
 	
 	@Column(nullable= false, length = 50 )
 	private String name; 
+	
 	@Column(length= 255)
 	private String address; 
+	
 	@Column(length=16)
 	private String phone;
+	
 	@Column(length=50)
 	private String email; 
+	
 	@Column(name ="postal_code",length= 6)
 	private String postalCode; 
+	
 	@Column(name="created_by")
 	private long createdBy; 
+	
 	@Temporal(TemporalType.DATE)
 	@Column(name="created_on")
 	private Date createdOn; 
+	
 	@Column(name="modified_by")
 	private long modifiedBy; 
+	
 	@Temporal(TemporalType.DATE)
 	@Column(name="modified_on")
 	private Date modifiedOn; 
+	
 	@Column(nullable=false)
 	private boolean active;
 	
@@ -63,13 +73,25 @@ public class Outlet {
 	private List<PurchaseRequest> purchaseRequests;
 	
 	@ManyToOne
-	private Province province; 
+	private Province province;
 	
 	@ManyToOne
 	private Region region; 
 	
 	@ManyToOne
-	private District district ; 
+	private District district;
+	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="outlet", cascade=CascadeType.ALL, orphanRemoval=true)
+	private List<EmployeeOutlet> empouts;
+	
+	public List<EmployeeOutlet> getEmpouts() {
+		return empouts;
+	}
+
+	public void setEmpouts(List<EmployeeOutlet> empouts) {
+		this.empouts = empouts;
+	}
+
 	public Province getProvince() {
 		return province;
 	}

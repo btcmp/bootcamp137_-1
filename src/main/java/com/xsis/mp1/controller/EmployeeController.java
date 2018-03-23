@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.xsis.mp1.model.Category;
 import com.xsis.mp1.model.Employee;
+import com.xsis.mp1.model.Outlet;
 import com.xsis.mp1.service.EmployeeService;
+import com.xsis.mp1.service.OutletService;
 
 @Controller
 @RequestMapping("/employee")
@@ -24,11 +26,16 @@ public class EmployeeController {
 	@Autowired
 	EmployeeService employeeService;
 	
+	@Autowired
+	OutletService outletService;
+	
 	@RequestMapping
 	public String index(Model model) {
 		//List<Employee> employees = employeeService.selectAll();
 		List<Employee> employees = employeeService.getListByStatus();
+		List<Outlet> outlets = outletService.selectAll();
 		model.addAttribute("employees", employees);
+		model.addAttribute("outlets", outlets);
 		return "employee";
 	}
 

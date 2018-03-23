@@ -21,6 +21,17 @@ public class EmployeeOutlet {
 	
 	@ManyToOne
 	private Employee employee;
+	
+	@ManyToOne
+	private Outlet outlet;
+
+	public Outlet getOutlet() {
+		return outlet;
+	}
+
+	public void setOutlet(Outlet outlet) {
+		this.outlet = outlet;
+	}
 
 	public long getId() {
 		return id;

@@ -310,22 +310,16 @@
 			</div>
 			
 			<div class="modal-body">
-				<form id="target" data-parsley-validate>
+				<form id="target">
 					<input type="hidden" id="insert-outlet-id" name="insert-outlet-id" />
-					<div class="funkyradio">
-				        <div class="funkyradio-primary">
-				            <input type="checkbox" name="checkbox1" id="checkbox1"/>
-				            <label for="checkbox1">Outlet 1</label>
-				        </div>
-				        <div class="funkyradio-primary">
-				            <input type="checkbox" name="checkbox2" id="checkbox2"/>
-				            <label for="checkbox2">Outlet 2</label>
-				        </div>
-				        <div class="funkyradio-primary">
-				            <input type="checkbox" name="checkbox3" id="checkbox3"/>
-				            <label for="checkbox3">Outlet 3</label>
-				        </div>
-				    </div>
+		        	<c:forEach var="outlet" items="${outlets }">
+		        		<!-- <div class="funkyradio">
+		        			<div class="funkyradio-primary"> -->
+				        		<input type="checkbox" value="${outlet.id }" class="select1"/>
+				            	<label for="checkbox1">${outlet.name }</label>
+					        <!-- </div>
+					    </div> -->
+		        	</c:forEach>
 				</form>
 			</div>
 			<div class="modal-footer">
