@@ -97,6 +97,7 @@
 			};
 			console.log(employee);
 
+			
 			$.ajax({
 				type : 'POST',
 				url : '${pageContext.request.contextPath}/employee/save',

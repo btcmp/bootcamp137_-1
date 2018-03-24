@@ -30,6 +30,7 @@ public class EmployeeController {
 	@Autowired
 	OutletService outletService;
 	
+	
 	@Autowired
 	RoleService roleService;
 	

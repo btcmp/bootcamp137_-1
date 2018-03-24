@@ -19,5 +19,6 @@ public class RoleDaoImpl implements RoleDao {
 		Session session = sessionFactory.getCurrentSession();
 		return session.createCriteria(Role.class).list();
 	}
+	
 
 }

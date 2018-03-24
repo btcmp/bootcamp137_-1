@@ -62,6 +62,7 @@ public class User {
 	@JoinColumn(name="employee_id", unique=true)
 	private Employee employee;
 	
+	
 	/*@ManyToMany
 	@JoinTable(
 			name = "user_roles",

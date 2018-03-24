@@ -26,6 +26,7 @@ public class Role {
 		this.modifiedOn = new Date();
 	}
 
+	
 	@Id
 	@NotNull
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "idrole")
