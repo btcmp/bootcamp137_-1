@@ -84,6 +84,15 @@
 				title : $('#insert-title').val(), 
 				empouts : empOut,
 				haveAccount : $('#cb-have-account').val(),
+				user : {
+					username : $('#insert-username').val(),
+					password : $('#insert-pass').val(),
+					active : 0,
+					role : {
+						id : $('#insert-role').val(),
+						active : 0
+					}
+				},
 				active : 0
 			};
 			console.log(employee);
@@ -94,7 +103,7 @@
 				data : JSON.stringify(employee),
 				contentType : 'application/json',
 				success : function(){
-					window.location = '${pageContext.request.contextPath}/employee';
+					//window.location = '${pageContext.request.contextPath}/employee';
 				}, error : function(){
 					alert('save failed');
 				}
@@ -256,8 +265,9 @@
 		</div>
 	  </div>
 	  <div class="col-md-3">
+	  	<input type="hidden" id="insert-user-id" name="insert-user-id" />
 	  	<div class="form-group">
-			<input type="text" class="form-control" id="insert-user" placeholder="Username">
+			<input type="text" class="form-control" id="insert-username" placeholder="Username">
 		</div>
 	  </div>
 	  <div class="col-md-3">
@@ -288,6 +298,7 @@
 			<th>Email</th>
 			<th>Have Account ?</th>
 			<th>Outlet Access</th>
+			<th>Role</th>
 			<th>#</th>
 		</thead>
 		<tbody>
@@ -306,6 +317,7 @@
 					    </center>
 					</td>
 					<td>${emp.email }</td>
+					<td>${emp.user.role.name }</td>
 					<td>
 						<a id="${emp.id }" class="update btn btn-info btn-sm" href="#">Edit</a> |
 						<a id="${emp.id }" class="btn-x btn btn-danger btn-sm" href="#">Delete</a>

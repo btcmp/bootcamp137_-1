@@ -1,6 +1,7 @@
 package com.xsis.mp1.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,6 +10,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -23,7 +27,7 @@ public class User {
 	@Id
 	@NotNull
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "iduser")
-	@SequenceGenerator(initialValue = 2121, name = "iduser", sequenceName = "iduser")
+	@SequenceGenerator(initialValue = 5121, name = "iduser", sequenceName = "iduser")
 	private int id;
 	
 	@NotNull
@@ -55,7 +59,24 @@ public class User {
 	private Role role;
 	
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name="employee_id", unique=true)
 	private Employee employee;
+	
+	/*@ManyToMany
+	@JoinTable(
+			name = "user_roles",
+			joinColumns={@JoinColumn(name="user_id")},
+			inverseJoinColumns={@JoinColumn(name="role_id")}
+			)
+	private List<Role> roles;
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}*/
 
 	public Employee getEmployee() {
 		return employee;

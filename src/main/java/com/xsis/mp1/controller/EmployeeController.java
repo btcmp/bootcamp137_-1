@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.xsis.mp1.model.Category;
 import com.xsis.mp1.model.Employee;
 import com.xsis.mp1.model.Outlet;
+import com.xsis.mp1.model.Role;
 import com.xsis.mp1.service.EmployeeService;
 import com.xsis.mp1.service.OutletService;
+import com.xsis.mp1.service.RoleService;
 
 @Controller
 @RequestMapping("/employee")
@@ -29,13 +30,18 @@ public class EmployeeController {
 	@Autowired
 	OutletService outletService;
 	
+	@Autowired
+	RoleService roleService;
+	
 	@RequestMapping
 	public String index(Model model) {
 		//List<Employee> employees = employeeService.selectAll();
 		List<Employee> employees = employeeService.getListByStatus();
 		List<Outlet> outlets = outletService.selectAll();
+		List<Role> roles = roleService.selectAll();
 		model.addAttribute("employees", employees);
 		model.addAttribute("outlets", outlets);
+		model.addAttribute("roles", roles);
 		return "employee";
 	}
 

@@ -2,6 +2,7 @@ package com.xsis.mp1.model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -18,12 +20,17 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name="pos_mst_role")
 public class Role {
+	
+	public Role() {
+		this.createdOn = new Date();
+		this.modifiedOn = new Date();
+	}
 
 	@Id
 	@NotNull
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "idrole")
 	@SequenceGenerator(initialValue = 2121, name = "idrole", sequenceName = "idrole")
-	private int id;
+	private long id;
 	
 	@Column(length=50)
 	private String name;
@@ -32,13 +39,13 @@ public class Role {
 	private String description;
 	
 	@Column(name="created_by")
-	private int createdBy;
+	private long createdBy;
 	
 	@Column(name="created_on")
 	private Date createdOn;
 	
 	@Column(name="modified_by")
-	private int modifiedBy;
+	private long modifiedBy;
 	
 	@Column(name="modified_on")
 	private Date modifiedOn;
@@ -49,6 +56,9 @@ public class Role {
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="role", cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<User> users;
+	
+	/*@ManyToMany
+	private Set<User> userRoles;*/
 
 	public List<User> getUsers() {
 		return users;
@@ -58,11 +68,19 @@ public class Role {
 		this.users = users;
 	}
 
-	public int getId() {
+	/*public Set<User> getUserRoles() {
+		return userRoles;
+	}
+
+	public void setUserRoles(Set<User> userRoles) {
+		this.userRoles = userRoles;
+	}*/
+
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -82,11 +100,11 @@ public class Role {
 		this.description = description;
 	}
 
-	public int getCreatedBy() {
+	public long getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(int createdBy) {
+	public void setCreatedBy(long createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -98,11 +116,11 @@ public class Role {
 		this.createdOn = createdOn;
 	}
 
-	public int getModifiedBy() {
+	public long getModifiedBy() {
 		return modifiedBy;
 	}
 
-	public void setModifiedBy(int modifiedBy) {
+	public void setModifiedBy(long modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}
 
