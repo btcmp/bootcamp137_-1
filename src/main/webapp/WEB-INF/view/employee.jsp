@@ -87,10 +87,8 @@
 				user : {
 					username : $('#insert-username').val(),
 					password : $('#insert-pass').val(),
-					active : 0,
 					role : {
-						id : $('#insert-role').val(),
-						active : 0
+						id : $('#insert-role').val()
 					}
 				},
 				active : 0

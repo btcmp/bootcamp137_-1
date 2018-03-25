@@ -8,8 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.xsis.mp1.dao.EmployeeDao;
 import com.xsis.mp1.dao.EmployeeOutletDao;
+import com.xsis.mp1.dao.UserDao;
 import com.xsis.mp1.model.Employee;
 import com.xsis.mp1.model.EmployeeOutlet;
+import com.xsis.mp1.model.User;
 
 @Service
 @Transactional
@@ -20,6 +22,9 @@ public class EmployeeService {
 
 	@Autowired
 	EmployeeOutletDao empOutletDao;
+	
+	@Autowired
+	UserDao userDao;
 	
 	public void save(Employee employee) {
 		employeeDao.save(employee);
@@ -58,11 +63,22 @@ public class EmployeeService {
 		emp.setActive(employee.isActive());
 		employeeDao.saveOrUpdate(emp);
 		
-		for(EmployeeOutlet empOut : employee.getEmpouts()) {
-			EmployeeOutlet empOutlet = new EmployeeOutlet();
-			empOutlet.setEmployee(emp);
-			empOutlet.setOutlet(empOut.getOutlet());
-			empOutletDao.saveOrUpdate(empOutlet);
+		if(employee.getEmpouts()!=null) {
+			for(EmployeeOutlet empOut : employee.getEmpouts()) {
+				EmployeeOutlet empOutlet = new EmployeeOutlet();
+				empOutlet.setEmployee(emp);
+				empOutlet.setOutlet(empOut.getOutlet());
+				empOutletDao.saveOrUpdate(empOutlet);
+			}
+		}
+		
+		if(employee.getUser()!=null) {
+			User user = new User();
+			user.setEmployee(emp);
+			user.setRole(employee.getUser().getRole());
+			user.setUsername(employee.getUser().getUsername());
+			user.setPassword(employee.getUser().getPassword());
+			userDao.saveOrUpdate(user);
 		}
 	}
 
