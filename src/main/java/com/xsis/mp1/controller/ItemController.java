@@ -46,9 +46,8 @@ public class ItemController {
 	
 	@RequestMapping(value="/save", method=RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
-	public void save(@RequestBody Item item, Variant variant) {
+	public void save(@RequestBody Item item) {
 		itemService.save(item);
-		variantDao.save(variant);
 	}
 	
 	@RequestMapping(value="/get-one/{id}", method=RequestMethod.PUT)

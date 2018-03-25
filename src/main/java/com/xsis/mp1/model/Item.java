@@ -53,7 +53,7 @@ public class Item {
 	private Category categoryId;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="item", cascade=CascadeType.ALL, orphanRemoval=true)
-	private List<Variant> varians;
+	private List<Variant> variants;
 	
 	public Item() {
 		this.createdOn=new Date();
@@ -124,12 +124,12 @@ public class Item {
 		this.categoryId = categoryId;
 	}
 
-	public List<Variant> getVarians() {
-		return varians;
+	public List<Variant> getVariants() {
+		return variants;
 	}
 
-	public void setVarians(List<Variant> varians) {
-		this.varians = varians;
+	public void setVariants(List<Variant> variants) {
+		this.variants = variants;
 	}
 
 	

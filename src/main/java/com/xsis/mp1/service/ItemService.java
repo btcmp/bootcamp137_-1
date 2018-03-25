@@ -7,16 +7,38 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.xsis.mp1.dao.ItemDao;
+import com.xsis.mp1.dao.VariantDao;
 import com.xsis.mp1.model.Item;
+import com.xsis.mp1.model.Variant;
 
 @Transactional
 @Service
 public class ItemService {
 	@Autowired
 	ItemDao itemDao;
+	
+	@Autowired
+	VariantDao variantDao;
 
 	public void save(Item item) {
+		//objek item
+		Item it= new Item();
+		it.setName(it.getName());
+		it.setActive(it.isActive());
+		it.setCategoryId(it.getCategoryId());
 		itemDao.save(item);
+		
+		//objek variant
+		for(Variant var : item.getVariants()) {
+			////////
+			Variant variant=new Variant();
+			variant.setName(variant.getName());
+			variant.setActive(variant.isActive());
+			variant.setPrice(variant.getPrice());
+			variant.setSku(variant.getSku());
+			variant.setItem(it);
+			variantDao.save(variant);
+		}
 	}
 
 	public List<Item> selectAll() {

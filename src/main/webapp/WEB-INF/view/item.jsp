@@ -41,33 +41,33 @@
 			$('#modal-create-item').modal('show');
 		});
 		
-		 $('#btn-save').on('click', function(){
-			 //var category=  parseInt($('#input-item-category').val());
-		 	var item = {
-		 		//id:$('#input-item-id').val(),
-				name: $('#input-item-name').val(),
-				categoryId : {
-					id:$('#input-item-category').val(),
-							
-				},
-		 		active: 0
+		 $(document).on('click','#btn-save', function(){		 	
+			 var variants=[];
+			 $('#tbody-add-variant-create-item>.row-add-variant').each(function(index,data){
+				 var variant={
+							name: $(data).find('td').eq(0).text(),
+							price : $(data).find('td').eq(1).text(),
+							sku: $(data).find('td').eq(2).text(),
+							active:0
+					};  
+				variants.push(variant);
+			});
+			
+			//console.log(variants);
+			 
+			 var item = {
+					//id:$('#input-item-id').val(),
+					name: $('#input-item-name').val(),
+					categoryId : {
+						id:$('#input-item-category').val(),					
+					},
+					variants:variants,
+			 		active: 0
 			};
 		 	
-		 	var variant={
-		 			name: $('#input-edit-variant-name').val(),
-					sku: $('#input-edit-variant-sku').val(),
-					price: $('#input-edit-variant-price').val(),
-					beginning: $('#input-edit-beginning-stock').val(),
-					item:{
-						id:$('#input-item-id').val(),
-					},
-					
-					active: 0
-		 	};
-		 	console.log(variant);
 		 	console.log(item);
-			//console.log(category);
-		 	 $.ajax({
+		 	
+		 	$.ajax({
 				type : 'POST',
 				url : '${pageContext.request.contextPath}/item/save',
 				data : JSON.stringify(item),
@@ -76,9 +76,17 @@
 					//window.location = '${pageContext.request.contextPath}/customer';
 				}, error : function(){
 					alert('save failed');
-				}
+				} 
 				
-			}); 
+			});
+		 	
+		 	
+		 	//var id=$(this).attr('id');
+		 	/* var row=$('#tbody-add-variant-create-item').parent().parent().find(".row-add-variant");//select one row;
+			var len=row.length; */
+			
+			
+			
 		});
 		 
 		 /* btn show form add variant */
@@ -101,7 +109,7 @@
 					price:price
 				};			
 				
-				var markup = "<tr><td>" + name + "</td><td><center>" + price + "</td><td>" + sku + "</td><td>" + beginning + "</td><td><a id='btn-edit' class='btn btn-info btn-sm' href='#'>Edit</a></center></td></tr>";
+				var markup = "<tr class='row-add-variant'><td>" + name + "</td><td><center>" + price + "</td><td>" + sku + "</td><td>" + beginning + "</td><td><a id='btn-edit' class='btn btn-info btn-sm' href='#'>Edit</a></center></td></tr>";
 				$("#tbody-add-variant-create-item").append(markup);
 				
 				$('#modal-add-variant').modal('hide');
@@ -110,10 +118,10 @@
 					beginning: $('#input-beginning-stock').val()
 					
 				};
-				/* 
+				
 				
 				console.log(variant);
-				console.log(inventory); */
+				//console.log(inventory);
 			});
 		
 	

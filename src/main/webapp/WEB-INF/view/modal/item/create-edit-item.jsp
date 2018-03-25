@@ -50,13 +50,13 @@
 		</thead>
 		<tbody id="tbody-add-variant-create-item">
 			<tr>
-				<td>Toyota</td>
+				<%-- <td>Toyota</td>
 				<td><center>Rp.200000</center></td>
 				<td><center>Low</center></td>
 				<td><center>10</center></td>
 				<td><center>
 					<a id="btn-create" class="btn btn-info btn-sm" href="#">Edit</a></center>
-				</td>
+				</td> --%>
 			</tr>
 		</tbody>
 	</table>
@@ -182,7 +182,7 @@
 						</div>
 					</div><br/>
 					
-	<table id="edit-table" class="table table-sm table-striped table-bordered" cellspacing="0" width="100%">
+	<table id="edit-variant-table" class="table table-sm table-striped table-bordered" cellspacing="0" width="100%">
 		<thead class="thead-dark">
 			<th>Variant Name</th>
 			<th>Unit Price</th>
@@ -191,7 +191,7 @@
 			<th>#</th>
 		</thead>
 		<tbody id="tbody-variant">
-			<tr>
+			<%-- <tr>
 				<td>Toyota</td>
 				<td><center>Rp.200000</center></td>
 				<td><center>Low</center></td>
@@ -199,7 +199,7 @@
 				<td><center>
 					<a id="btn-edit" class="btn btn-info btn-sm" href="#">Edit</a></center>
 				</td>
-			</tr>
+			</tr> --%>
 		</tbody>
 	</table>
 					
