@@ -26,7 +26,7 @@ public class ItemService {
 		it.setName(it.getName());
 		it.setActive(it.isActive());
 		it.setCategoryId(it.getCategoryId());
-		itemDao.save(item);
+		itemDao.save(it);
 		
 		//objek variant
 		for(Variant var : item.getVariants()) {
