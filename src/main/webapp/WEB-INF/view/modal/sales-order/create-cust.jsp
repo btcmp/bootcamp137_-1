@@ -19,51 +19,51 @@
 					<div class="form-group">
 						<h5>PROFILE</h5>
 						<input type="text"
-							class="form-control" id="input-supp-name" aria-describedby="emailHelp"
+							class="form-control" id="input-cust-name" 
 							placeholder="Customer Name">
 							<input type="text"
-							class="form-control" id="input-address" aria-describedby="emailHelp"
+							class="form-control" id="input-cust-email" 
 							placeholder="Email">
 							<input type="text"
-							class="form-control" id="input-address" aria-describedby="emailHelp"
+							class="form-control" id="input-cust-phone" 
 							placeholder="Phone Number">
 					</div>
 					
 					<div class="form-group" >
 						<h5>DAY OF BIRTH </h5>
-						<input type="text"
-							class="form-control" id="input-supp-name" aria-describedby="emailHelp"
+						<input type="date"
+							class="form-control" id="input-cust-dob" 
 							placeholder="Day Of Birth ">
 					</div>	
 					
 					<div class="form-group">
 					<h5>ADDRESS</h5>
 					<input type="text"
-							class="form-control" id="input-supp-name" 
-							placeholder="Text">	
+							class="form-control" id="input-cust-address" 
+							placeholder="Address">	
 					<div class= "row show-grid">	
 						<div class ="col-lg-4" >
 							<select data-parsley-required="true" name = "countries" id="input-province">
 							<option value="" selected="selected">--CHOOSE PROVINCE--</option>
-							<%-- <c:forEach var="loc" items= "${locations}">
-								<option value="${loc.id}">${loc.streetAddress}</option>
-							</c:forEach> --%>
+							<c:forEach var="prov" items= "${provinces}">
+								<option value="${prov.id}">${prov.name}</option>
+							</c:forEach> 
 							</select>
 						</div>
 						<div class="col-lg-4">
 							<select data-parsley-required="true" name = "countries" id="input-region">
 							<option value="" selected="selected">--CHOOSE REGION--</option>
-							<%-- <c:forEach var="loc" items= "${locations}">
-								<option value="${loc.id}">${loc.streetAddress}</option>
-							</c:forEach> --%>
+							 <c:forEach var="reg" items= "${regions}">
+								<option value="${reg.id}">${reg.name}</option>
+							</c:forEach>
 							</select>
 						</div>
 						<div class="col-lg-4"> 
 							<select data-parsley-required="true" name = "countries" id="input-district">
 							<option value="" selected="selected">--CHOOSE DISTRICT--</option>
-							<%-- <c:forEach var="loc" items= "${locations}">
-								<option value="${loc.id}">${loc.streetAddress}</option>
-							</c:forEach> --%>
+							 <c:forEach var="dis" items= "${districts}">
+								<option value="${dis.id}">${dis.name}</option>
+							</c:forEach> 
 						</select>
 						</div>
 					 </div>	
@@ -71,7 +71,7 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" id="btn-save" class="btn btn-primary">Done</button>
+				<button type="button" id="btn-add-cust" class="btn btn-primary">Done</button>
 			</div>
 		</div>
 </div>
