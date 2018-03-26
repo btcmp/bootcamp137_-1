@@ -61,6 +61,23 @@ public class ItemService {
 	}
 	
 	public void saveOrUpdate(Item item) {
-		itemDao.saveOrUpdate(item);
+		
+		Item it= new Item();
+		it.setName(it.getName());
+		it.setActive(it.isActive());
+		it.setCategoryId(it.getCategoryId());
+		itemDao.update(it);
+		
+		//objek variant
+		for(Variant var : item.getVariants()) {
+			////////
+			Variant variant=new Variant();
+			variant.setName(variant.getName());
+			variant.setActive(variant.isActive());
+			variant.setPrice(variant.getPrice());
+			variant.setSku(variant.getSku());
+			variant.setItem(it);
+			variantDao.saveOrUpdate(variant);
+		}
 	}
 }

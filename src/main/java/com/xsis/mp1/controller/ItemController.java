@@ -19,6 +19,7 @@ import com.xsis.mp1.model.Item;
 import com.xsis.mp1.model.Variant;
 import com.xsis.mp1.service.CategoryService;
 import com.xsis.mp1.service.ItemService;
+import com.xsis.mp1.service.VariantService;
 
 
 
@@ -33,7 +34,7 @@ public class ItemController {
 	CategoryService CategoryService;
 	
 	@Autowired
-	VariantDao variantDao;
+	VariantService variantService;
 	
 	@RequestMapping
 	public String index(Model model) {
@@ -41,6 +42,9 @@ public class ItemController {
 		model.addAttribute("items", items);
 		List<Category> categories=CategoryService.selectAll();
 		model.addAttribute("categories", categories);
+		List<Variant> variants=variantService.selectAll();
+		model.addAttribute("variants", variants);
+		
 		return "item";
 	}
 	
@@ -59,7 +63,7 @@ public class ItemController {
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void edit(@RequestBody Item item) {
-		itemService.update(item);
+		itemService.saveOrUpdate(item);
 	}
 
 }

@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -56,10 +57,14 @@ public class Variant {
 	private boolean active;
 	
 	@ManyToOne
+	@JoinColumn
 	private Item item;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="variant", cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<SalesOrderDetail> salesOrderDetails; 
+	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="variant", cascade=CascadeType.ALL, orphanRemoval=true)
+	private List<Inventory> inventories; 
 	
 	public List<SalesOrderDetail> getSalesOrderDetails() {
 		return salesOrderDetails;

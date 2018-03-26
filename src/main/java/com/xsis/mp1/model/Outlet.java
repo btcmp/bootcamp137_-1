@@ -84,6 +84,9 @@ public class Outlet {
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="outlet", cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<EmployeeOutlet> empouts;
 	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="outlet", cascade=CascadeType.ALL, orphanRemoval=true)
+	private List<Inventory> inventories;
+	
 	public List<EmployeeOutlet> getEmpouts() {
 		return empouts;
 	}
@@ -218,6 +221,14 @@ public class Outlet {
 
 	public void setPurchaseRequests(List<PurchaseRequest> purchaseRequests) {
 		this.purchaseRequests = purchaseRequests;
+	}
+
+	public List<Inventory> getInventories() {
+		return inventories;
+	}
+
+	public void setInventories(List<Inventory> inventories) {
+		this.inventories = inventories;
 	}
 
 	

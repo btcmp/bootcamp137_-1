@@ -23,7 +23,42 @@ public class PurchaseOrderController {
 	public String index(Model model) {
 		List<Item> items = itemService.selectAll();
 		model.addAttribute("items", items);
+		return "po";
+	}
+	
+	@RequestMapping(value="/detail-po")
+	public String indexDetailPO(Model model) {
+		List<Item> items = itemService.selectAll();
+		model.addAttribute("items", items);
 		return "detail-po";
+	}
+	
+//	test adjusment di titip disini
+	@RequestMapping(value="/adjustment-list")
+	public String indexa(Model model) {
+		
+		return "adjustment-list";
+	}
+	
+//	test adjusment-detail di titip disini
+	@RequestMapping(value="/detail-adjustment")
+	public String indexde(Model model) {
+		
+		return "detail-adjustment";
+	}
+	
+//	test transferStrock
+	@RequestMapping(value="/transfer-stock")
+	public String indexts(Model model) {
+		
+		return "transfer-stock";
+	}
+	
+//	test transfer-stock-detail di titip disini
+	@RequestMapping(value="/transfer-stock-detail")
+	public String indexTSD(Model model) {
+		
+		return "transfer-stock-detail";
 	}
 
 	

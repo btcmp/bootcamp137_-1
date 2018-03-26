@@ -191,15 +191,17 @@
 			<th>#</th>
 		</thead>
 		<tbody id="tbody-variant">
-			<%-- <tr>
-				<td>Toyota</td>
-				<td><center>Rp.200000</center></td>
-				<td><center>Low</center></td>
-				<td><center>10</center></td>
-				<td><center>
-					<a id="btn-edit" class="btn btn-info btn-sm" href="#">Edit</a></center>
-				</td>
-			</tr> --%>
+			<c:forEach items= "${variants}" var="vars">
+				<tr>
+					<td>${vars.name}</td>
+					<td><center>$</center></td>
+					<td><center>Low</center></td>
+					<td><center>10</center></td>
+					<td><center>
+						<a id="btn-create" class="btn btn-info btn-sm" href="#">Edit</a></center>
+					</td> 
+				</tr>
+			</c:forEach>
 		</tbody>
 	</table>
 					

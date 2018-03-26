@@ -73,20 +73,15 @@
 				data : JSON.stringify(item),
 				contentType : 'application/json',
 				success : function(){
-					//window.location = '${pageContext.request.contextPath}/customer';
+					window.location = '${pageContext.request.contextPath}/item';
 				}, error : function(){
 					alert('save failed');
-				} 
-				
+				} 		
 			});
-		 	
-		 	
-		 	//var id=$(this).attr('id');
+	 	//var id=$(this).attr('id');
 		 	/* var row=$('#tbody-add-variant-create-item').parent().parent().find(".row-add-variant");//select one row;
 			var len=row.length; */
-			
-			
-			
+	
 		});
 		 
 		 /* btn show form add variant */
@@ -122,7 +117,7 @@
 				
 				console.log(variant);
 				//console.log(inventory);
-			});
+		});
 		
 	
 		/* edit item */
@@ -152,18 +147,32 @@
 		/* save edit */
 		$('#btn-save-edit').on('click', function(){
 			 //var category=  parseInt($('#input-item-category').val());
-		 	var item = {
+		 	 var variants=[];
+			 $('#tbody-variant>.row-edit-add-variant').each(function(index,data){
+				 var variant={
+							name: $(data).find('td').eq(0).text(),
+							price : $(data).find('td').eq(1).text(),
+							sku: $(data).find('td').eq(2).text(),
+							active:0
+					};  
+				variants.push(variant);
+			});
+			
+			//console.log(variants);
+		
+			 var item = {
 		 		id:$('#edit-item-id').val(),
 				name: $('#edit-item-name').val(),
 				categoryId : {
 					id:$('#edit-item-category').val()
 							
 				},
+				variants:variants,
 		 		active: 0
 			};
 		 	console.log(item);
 			//console.log(category);
-		 	  $.ajax({
+		 	 $.ajax({
 				type : 'POST',
 				url : '${pageContext.request.contextPath}/item/update',
 				data : JSON.stringify(item),
@@ -173,7 +182,7 @@
 				}, error : function(){
 					alert('save failed');
 				} 
-			}); 
+			});  
 		});
 		
 		$('#btn-edit-add-variant').on('click', function(){
@@ -200,15 +209,13 @@
 						
 					};
 				
-				var markup = "<tr><td>" + name + "</td><td><center>" + price + "</td><td>" + sku + "</td><td>" + beginning + "</td><td><a class='btn-edit-edit-variant tbtn btn-info btn-sm' href='#'>Edit</a></center></td></tr>";
+				var markup = "<tr class='row-edit-add-variant'><td>" + name + "</td><td><center>" + price + "</td><td>" + sku + "</td><td>" + beginning + "</td><td><a class='btn-edit-edit-variant tbtn btn-info btn-sm' href='#'>Edit</a></center></td></tr>";
 				$("#tbody-variant").append(markup);
 				
 				$('#modal-edit-item').modal('show');
-			
-				
-				
+	
 				console.log(variant);
-				console.log(inventory);
+				//console.log(inventory);
 			});
 		
 		/* btn edit varian dari modal edit item */
