@@ -29,11 +29,11 @@ public class Variant {
 	private long id;
 	
 	@NotNull
-	//@Column(nullable=false)
+	@Column(nullable=false)
 	private String name;
 	
 	@NotNull
-	//@Column(nullable=false)
+	@Column(nullable=false)
 	private String sku;
 	
 	@NotNull
