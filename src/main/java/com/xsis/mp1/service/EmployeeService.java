@@ -41,7 +41,10 @@ public class EmployeeService {
 		employee.setLastName("0");
 		employee.setHaveAccount(false);
 		employee.setActive(false);
-		return employeeDao.getOne(employee);
+		Employee empss = employeeDao.getOne(employee);
+		List<EmployeeOutlet> empOUtlets = employeeDao.getEmployeeOutletByEmployee(empss);
+		empss.setEmpouts(empOUtlets);
+		return empss;
 	}
 
 	public void update(Employee employee) {

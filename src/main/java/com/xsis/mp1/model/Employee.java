@@ -19,6 +19,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="pos_mst_employee")
 public class Employee {
@@ -71,6 +73,7 @@ public class Employee {
 	private boolean active;
 	
 	@OneToOne(fetch = FetchType.LAZY, mappedBy="employee", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private User user;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="employee", cascade = CascadeType.ALL)

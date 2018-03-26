@@ -9,6 +9,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="pos_employee_outlet")
 public class EmployeeOutlet {
@@ -20,6 +22,7 @@ public class EmployeeOutlet {
 	private long id;
 	
 	@ManyToOne
+	@JsonIgnore
 	private Employee employee;
 	
 	@ManyToOne

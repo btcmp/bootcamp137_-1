@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.xsis.mp1.model.Employee;
+import com.xsis.mp1.model.EmployeeOutlet;
 import com.xsis.mp1.model.Outlet;
 import com.xsis.mp1.model.Role;
 import com.xsis.mp1.service.EmployeeService;
@@ -39,6 +40,7 @@ public class EmployeeController {
 		//List<Employee> employees = employeeService.selectAll();
 		List<Employee> employees = employeeService.getListByStatus();
 		List<Outlet> outlets = outletService.selectAll();
+//		List<Outlet> listOutlets = outletService.getOutletByEmployeeId(EmployeeOutlet);
 		List<Role> roles = roleService.selectAll();
 		model.addAttribute("employees", employees);
 		model.addAttribute("outlets", outlets);

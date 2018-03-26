@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.xsis.mp1.model.EmployeeOutlet;
 import com.xsis.mp1.model.Outlet;
 
 @Repository
@@ -64,5 +65,16 @@ public class OutletDaoImpl implements OutletDao {
 		}
 			return outlets; 
 	}
+
+	/*public EmployeeOutlet getOutletByEmployeeId(EmployeeOutlet eo) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from EmployeeOutlet eo where eo.employee = :employee and eo.outlet = :outlet";
+		List<EmployeeOutlet> eos = session.createQuery(hql).setParameter("employee", eo.getEmployee() ).setParameter("outlet", eo.getOutlet()).list();
+		if(eos.isEmpty()) {
+			return null;
+		}
+		return eos.get(0);
+	}*/
 	
 }

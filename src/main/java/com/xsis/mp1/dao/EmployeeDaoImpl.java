@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.xsis.mp1.model.Employee;
+import com.xsis.mp1.model.EmployeeOutlet;
 
 @Repository
 public class EmployeeDaoImpl implements EmployeeDao {
@@ -65,6 +66,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		}else {
 			return employees; 
 		}
+	}
+
+	public List<EmployeeOutlet> getEmployeeOutletByEmployee(Employee empss) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

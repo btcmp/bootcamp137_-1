@@ -2,6 +2,7 @@ package com.xsis.mp1.dao;
 
 import java.util.List;
 
+import com.xsis.mp1.model.EmployeeOutlet;
 import com.xsis.mp1.model.Outlet;
 
 public interface OutletDao {
@@ -22,5 +23,7 @@ public interface OutletDao {
 		//delete
 		public void delete(Outlet outlet);
 
-		public List<Outlet> getOutletBySearchName(String search); 
+		public List<Outlet> getOutletBySearchName(String search);
+
+//		public EmployeeOutlet getOutletByEmployeeId(EmployeeOutlet eo); 
 }

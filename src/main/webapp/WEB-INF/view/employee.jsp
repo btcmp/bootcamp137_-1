@@ -102,7 +102,7 @@
 				data : JSON.stringify(employee),
 				contentType : 'application/json',
 				success : function(){
-					//window.location = '${pageContext.request.contextPath}/employee';
+					window.location = '${pageContext.request.contextPath}/employee';
 				}, error : function(){
 					alert('save failed');
 				}
@@ -122,11 +122,22 @@
 				type : 'GET',
 				dataType : 'json',
 				success : function(emp){
+					console.log(emp);
 					setEditEmployee(emp);
 					$('input[name="cb-have-account"]').prop('checked', false);
 					if(emp.haveAccount!=0){
 						$('input[name="cb-have-account"]').prop('checked', true);
+						$('#insert-username').val(emp.user.username);
+						$('#insert-pass').val(emp.user.password);
+						$('#insert-role').val(emp.user.role.id);
+						$('#row-user').fadeIn('fast');
+					};
+					if(emp.empouts!=null){
+						$.each(emp.empouts, function(i, item){
+							$('input[name="select-outlet"][value="'+emp.empouts[i].outlet.id+'"]').prop('checked', true);
+						})
 					}
+					
 				},
 				error : function(){
 					alert('fail ambil data');
@@ -201,6 +212,10 @@
 			$('#insert-email').val('');
 			$('#insert-title').val('');
 			$('input[name="cb-have-account"]').prop('checked', false);
+			$('#insert-role').val('');
+			$('#insert-username').val('');
+			$('#insert-pass').val('');
+			$('#row-user').fadeOut('fast');
 		}
 	});
 </script>
@@ -315,11 +330,15 @@
 					    </script>
 					    </center>
 					</td>
-					<td>${emp.email }</td>
+					<td>
+						<c:forEach var="out" items="${outlets }">
+				    		<option value="${employee.empouts.out.id }">${employee.empouts.out.name }</option>
+				    	</c:forEach>
+					</td>
 					<td>${emp.user.role.name }</td>
 					<td>
 						<a id="${emp.id }" class="update btn btn-info btn-sm" href="#">Edit</a> |
-						<a id="${emp.id }" class="btn-x btn btn-danger btn-sm" href="#">Delete</a>
+						<a id="${emp.id }" class="btn-x btn btn-danger btn-sm" href="#"> X </a>
 					</td>
 				</tr>
 			</c:forEach>
@@ -345,7 +364,7 @@
 		        		<c:forEach var="outlet" items="${outlets }">
 		        		<!-- <div class="funkyradio">
 		        			<div class="funkyradio-primary"> -->
-				        		<input type="checkbox" value="${outlet.id }" class="select-outlet"/>
+				        		<input type="checkbox" value="${outlet.id }" class="select-outlet" name="select-outlet"/>
 				            	<label for="checkbox1">${outlet.name }</label>
 					        <!-- </div>
 					    </div> -->

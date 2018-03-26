@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.xsis.mp1.dao.OutletDao;
+import com.xsis.mp1.model.EmployeeOutlet;
 import com.xsis.mp1.model.Outlet;
 
 @Service
@@ -42,4 +43,9 @@ public class OutletService {
 		// TODO Auto-generated method stub
 		return outletDao.getOutletBySearchName(search);
 	}
+
+	/*public EmployeeOutlet getOutletByEmployeeId(EmployeeOutlet eo) {
+		// TODO Auto-generated method stub
+		return outletDao.getOutletByEmployeeId(EmployeeOutlet eo);
+	}*/
 }

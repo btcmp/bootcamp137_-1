@@ -20,6 +20,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="pos_mst_user")
 public class User {
@@ -59,6 +61,7 @@ public class User {
 	private Role role;
 	
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonBackReference
 	@JoinColumn(name="employee_id", unique=true)
 	private Employee employee;
 	

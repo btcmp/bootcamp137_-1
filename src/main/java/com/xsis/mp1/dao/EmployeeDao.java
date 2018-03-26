@@ -3,6 +3,7 @@ package com.xsis.mp1.dao;
 import java.util.List;
 
 import com.xsis.mp1.model.Employee;
+import com.xsis.mp1.model.EmployeeOutlet;
 
 public interface EmployeeDao {
 
@@ -29,5 +30,7 @@ public interface EmployeeDao {
 	public void updateStatus(Employee employee);
 
 	public List<Employee> getListByStatus();
+
+	public List<EmployeeOutlet> getEmployeeOutletByEmployee(Employee empss);
 	
 }
