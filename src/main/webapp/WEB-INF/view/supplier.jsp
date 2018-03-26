@@ -6,14 +6,17 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!-- ambil javascript -->
 <spring:url value="/resources/js/jquery-3.3.1.min.js" var="jq"></spring:url>
+<spring:url value="/resources/css/bootstrap.min.css" var="bootmin"></spring:url>
+<spring:url value="/resources/css/bootstrap.css" var="boot"></spring:url>
+<spring:url value="/resources/css/dataTables.bootstrap4.min.css" var="dt"></spring:url>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Supplier</title>
-<link rel="stylesheet" href="resources/css/bootstrap.min.css" />
-<link rel="stylesheet" href="resources/css/bootstrap.css" />
-<link rel="stylesheet" href="resources/css/dataTables.bootstrap4.min.css" />
+<link rel="stylesheet" href="${bootmin }" />
+<link rel="stylesheet" href="${boot }" />
+<link rel="stylesheet" href="${dt }" />
 <script type="text/javascript" src="${jq }"></script>
 <script type="text/javascript" src="<spring:url value="/resources/js/parsley.js"/>"></script>
 <script type="text/javascript" src="<spring:url value="/resources/js/parsley.min.js"/>"></script>
@@ -42,14 +45,11 @@
 				searching : false, 
 			});	
 			
+			
 			//button-create 
 			$('#btn-create').click(function(){
 				$('#modal-create-supp').modal(); 
 			});
-			
-			/* $('.btn-edit').click(function(){
-				$('#modal-edit-supp').modal(); 
-			}); */
 			
 			//btn save kaya di modal save 
 			 $('#btn-save').on('click', function(evt){
@@ -87,7 +87,6 @@
 					}
 				});	
 			});
-			
 			
 			function setEditSupplier(supplier){
 				$('#edit-id').val(supplier.id); 
@@ -159,6 +158,103 @@
 				});
 			});  
 			
+			 $('#input-province').change(function(){
+			var id = $(this).val(); 
+			if (id !== ""){
+				$.ajax({
+					url : '${pageContext.request.contextPath}/supplier/get-region?id=' + id, 
+					type : 'GET', 
+					success : function (data){
+						var region = []; 
+						var reg = "<option value=\"\">Choose Region</option>";
+						region.push(reg); 
+						$(data).each(function(index, data2){
+							reg = "<option value=\""+data2.id+"\">"+data2.name+"</option>";
+							region.push(reg); 
+						})
+						$('#input-region').html(region); 
+					}, error : function(){
+						alert ('get failed'); 
+					}
+				})
+			}
+		}); 
+			 
+			 $('#input-region').change(function(){
+				 var id = $(this).val(); 
+				 if ( id !== ""){
+					 $.ajax ({
+						 url :'${pageContext.request.contextPath}/supplier/get-district?id=' + id, 
+						 type : 'GET', 
+						 success : function(data){
+							 var district = []; 
+							 var dis = "<option value=\"\">Choose District</option>"; 
+							 district.push(dis); 
+							 $(data).each(function (index, data2){
+								 dis = "<option value=\""+data2.id+"\">"+data2.name+"</option>";
+								 district.push(dis); 
+							 })
+							 $('#input-district').html(district); 
+						 },
+						 error : function (){
+							 alert ('get-failed'); 
+						 }
+					 })
+				 }
+			 });
+			
+			 
+			 $('#edit-province').change(function(){
+					var id = $('#edit-province').val(); 
+					if (id !== ""){
+						$.ajax({
+							url : '${pageContext.request.contextPath}/supplier/get-region?id=' + id, 
+							type : 'GET', 
+							success : function (data){
+								var region = []; 
+								var reg = "<option value=\"\">Choose Region</option>";
+								region.push(reg); 
+								$(data).each(function(index, data2){
+									reg = "<option value=\""+data2.id+"\">"+data2.name+"</option>";
+									region.push(reg); 
+								})
+								$('#edit-region').html(region); 
+							}, error : function(){
+								alert ('get failed'); 
+							}
+						})
+					}
+				}); 
+					 
+					 $('#edit-region').change(function(){
+						 var id = $('#edit-region').val(); 
+						 if ( id !== ""){
+							 $.ajax ({
+								 url :'${pageContext.request.contextPath}/supplier/get-district?id=' + id, 
+								 type : 'GET', 
+								 success : function(data){
+									 var district = []; 
+									 var dis = "<option value=\"\">Choose District</option>"; 
+									 district.push(dis); 
+									 $(data).each(function (index, data2){
+										 dis = "<option value=\""+data2.id+"\">"+data2.name+"</option>";
+										 district.push(dis); 
+									 })
+									 $('#edit-district').html(district); 
+								 },
+								 error : function (){
+									 alert ('get-failed'); 
+								 }
+							 })
+						 }
+					 });
+				
+					//button-search
+					 $('#btn-search').on('click',function() {
+							var word = $('#search').val();
+							window.location = '${pageContext.request.contextPath}/supplier/search?search='+ word;
+						}); 	
+					
 		});
 	//});
 </script>
@@ -170,10 +266,13 @@
 	</div>
 	<div id="save-form" style="margin-top:20px; margin-bottom:20px;">
 		<form action="#">
-			<input type="text" id="search" placeholder="Search" />
-			<button type="button" id="btn-create" class="btn btn-primary" style="float:right; margin-right: 0px; width:150px;">Create</button>
+			<div id="search-box" style="margin-top: 20px; margin-botton: 20px">
+				<span><input type="text" id="search" placeholder = "search"/></span> <span><a
+				id="btn-search" href="#" class="btn btn-primary">Search</a></span>
+				<button type="button" id="btn-create" class="btn btn-primary" style="float:right; margin-right: 0px; width:150px;">Create</button>
 			<button type="button" id="btn-export" class="btn btn-primary" style="float:right; margin-right: 50px; width: 150px;">Export</button>
-			
+			</div>
+			<!-- <input type="text" id="search" placeholder="Search" /> -->
 		</form>
 	</div>
 	<table id="supplier-tbl" class="table table-sm table-striped table-bordered" width="100%" cellspacing="0">
@@ -194,7 +293,6 @@
 					<td><center>
 					<a id="${supp.id }" class="btn-edit btn btn-info btn-sm" href="#">Edit</a>   
 					</center>
-					
 					</td>
 				</tr>
 			</c:forEach> 

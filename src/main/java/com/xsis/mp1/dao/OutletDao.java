@@ -20,5 +20,7 @@ public interface OutletDao {
 		public void saveOrUpdate(Outlet outlet); 
 		
 		//delete
-		public void delete(Outlet outlet); 
+		public void delete(Outlet outlet);
+
+		public List<Outlet> getOutletBySearchName(String search); 
 }

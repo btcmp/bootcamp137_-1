@@ -19,4 +19,9 @@ public class RegionService {
 	public List<Region> selectAll(){
 		return regionDao.selectAll(); 
 	}
+
+	public List<Region> getRegion(long id) {
+		// TODO Auto-generated method stub
+		return regionDao.getRegion(id);
+	}
 }

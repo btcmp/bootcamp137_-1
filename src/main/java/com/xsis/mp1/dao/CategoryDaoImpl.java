@@ -86,4 +86,15 @@ public class CategoryDaoImpl implements CategoryDao{
 		session.flush();
 	}
 
+	public List<Category> getCategoryBySearchName(String search) {
+		// TODO Auto-generated method stub
+		String hql = "from Category c where lower(c.name) like :name and c.active = 0" ; 
+		Session session = sessionFactory.getCurrentSession(); 
+		List<Category> categories = session.createQuery(hql).setParameter("name", "%"+search.toLowerCase()+"%").list(); 
+		if (categories.isEmpty()) {
+			return null;
+		}
+		return categories; 
+	}
+
 }

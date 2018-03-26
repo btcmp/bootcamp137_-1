@@ -39,4 +39,14 @@ public class SupplierService {
 		supplier.setId(id);
 		return supplierDao.getOne(supplier); 
 	}
+
+	public List<Supplier> getSupplierBySearchName(String search) {
+		// TODO Auto-generated method stub
+		return supplierDao.getSupplierBySearchName(search);
+	}
+
+	/*public List<Supplier> getSupplierBySearchName(String search) {
+		// TODO Auto-generated method stub
+		return supplierDao.getSupplierBySearchName(search); 
+	}*/
 }

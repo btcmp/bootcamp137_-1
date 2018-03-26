@@ -10,11 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.xsis.mp1.dao.DistrictDao;
-import com.xsis.mp1.dao.RegionDao;
 import com.xsis.mp1.model.District;
 import com.xsis.mp1.model.Province;
 import com.xsis.mp1.model.Region;
@@ -51,6 +50,35 @@ public class SupplierController {
 		model.addAttribute("provinces", provinces); 
 		model.addAttribute("regions", regions); 
 		model.addAttribute("districts", districts); 
+		return "supplier"; 
+	}
+	
+	@RequestMapping(value="/get-region", method= RequestMethod.GET)
+	@ResponseBody
+	public List<Region> getRegion(Model model, @RequestParam(value="id", defaultValue="") long id){
+		List<Region> regions = regionService.getRegion(id); 
+		return regions; 
+	}
+	
+	@RequestMapping(value="/get-district", method = RequestMethod.GET)
+	@ResponseBody
+	public List<District> getDistrict(Model model, @RequestParam(value="id", defaultValue="") long id){
+		List<District> districts = districtService.getDistrict(id); 
+		return districts; 
+	}
+	
+	@RequestMapping(value="/search", method = RequestMethod.GET)
+	public String Search(Model model, @RequestParam(value="search", defaultValue="")String search) {
+		List<Supplier> supplier = supplierService.getSupplierBySearchName(search); 
+//		List<Province> provinces = provinceService.selectAll(); 
+//		List<Region> regions = regionService.selectAll();  
+//		List<District> districts = districtService.selectAll(); 
+		
+		model.addAttribute("suppliers", supplier); 
+//		model.addAttribute("provinces", provinces); 
+//		model.addAttribute("regions", regions); 
+//		model.addAttribute("districts", districts); 
+		System.out.println("search:" + search);
 		return "supplier"; 
 	}
 	

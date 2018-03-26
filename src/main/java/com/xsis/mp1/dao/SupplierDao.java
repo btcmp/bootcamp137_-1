@@ -20,6 +20,10 @@ public interface SupplierDao {
 	public void saveOrUpdate(Supplier supplier); 
 	
 	//delete
-	public void delete(Supplier supplier); 
+	public void delete(Supplier supplier);
+
+	public List<Supplier> getSupplierBySearchName(String search);
+
+	/*public List<Supplier> getSupplierBySearchName(String search); */
 	
 }

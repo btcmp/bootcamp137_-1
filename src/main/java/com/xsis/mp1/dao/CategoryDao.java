@@ -26,5 +26,7 @@ public interface CategoryDao {
 	
 	public List<Category> getListByStatus();
 	
-	public void updateStatus(Category category); 
+	public void updateStatus(Category category);
+
+	public List<Category> getCategoryBySearchName(String search); 
 }

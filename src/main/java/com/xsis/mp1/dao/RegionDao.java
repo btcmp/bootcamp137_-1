@@ -6,5 +6,7 @@ import com.xsis.mp1.model.Region;
 
 public interface RegionDao {
 	
-	public List<Region> selectAll(); 
+	public List<Region> selectAll();
+
+	public List<Region> getRegion(long id); 
 }

@@ -59,4 +59,9 @@ public class CategoryService {
 		category.setId(id);
 		return categoryDao.getOne(category); 
 	}
+
+	public List<Category> getCategoryBySearchName(String search) {
+		// TODO Auto-generated method stub
+		return categoryDao.getCategoryBySearchName(search);
+	}
 }

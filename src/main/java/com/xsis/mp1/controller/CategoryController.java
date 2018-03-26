@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -30,6 +31,14 @@ public class CategoryController {
 		return "category";
 	}
 	
+	@RequestMapping(value="/search", method=RequestMethod.GET)
+	public String indexMainSearch(Model model, @RequestParam(value="search", defaultValue="")String search) {
+		List<Category> categoryStatus = categoryService.getListByStatus(); 
+		List<Category> categories =categoryService.getCategoryBySearchName(search); 
+		model.addAttribute("categoryStatus", categoryStatus); 
+		model.addAttribute("categories", categories); 
+		return "category"; 
+	}
 	/*@RequestMapping(value="/get-one/{id}", method=RequestMethod.GET)
 	@ResponseBody
 	public Category getOne(@PathVariable long id) {

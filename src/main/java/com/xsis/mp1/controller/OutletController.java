@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -17,6 +18,7 @@ import com.xsis.mp1.model.District;
 import com.xsis.mp1.model.Outlet;
 import com.xsis.mp1.model.Province;
 import com.xsis.mp1.model.Region;
+import com.xsis.mp1.model.Supplier;
 import com.xsis.mp1.service.DistrictService;
 import com.xsis.mp1.service.OutletService;
 import com.xsis.mp1.service.ProvinceService;
@@ -36,7 +38,7 @@ public class OutletController {
 	RegionService regionService; 
 	
 	@Autowired
-	DistrictService distrcitService; 
+	DistrictService districtService; 
 	
 	
 	@RequestMapping
@@ -44,7 +46,7 @@ public class OutletController {
 		List< Outlet> outlets = outletService.selectAll(); 
 		List<Province> provinces = provinceService.selectAll(); 
 		List<Region> regions = regionService.selectAll(); 
-		List<District> districts = distrcitService.selectAll(); 
+		List<District> districts = districtService.selectAll(); 
 		model.addAttribute("outlets", outlets); 
 		model.addAttribute("provinces", provinces); 
 		model.addAttribute("regions", regions); 
@@ -52,6 +54,35 @@ public class OutletController {
 		return "outlet"; 
 	}
 	
+	//search
+	@RequestMapping(value="/search", method = RequestMethod.GET)
+	public String indexMainSearch(Model model, @RequestParam(value="search", defaultValue="")String search) {
+		List<Outlet> outlets = outletService.getOutletBySerachName(search); 
+		/*List<Province> provinces = provinceService.selectAll(); 
+		List<Region> regions = regionService.selectAll();  
+		List<District> districts = districtService.selectAll(); */
+		
+		model.addAttribute("outlets", outlets); 
+		/*model.addAttribute("provinces", provinces); 
+		model.addAttribute("regions", regions); 
+		model.addAttribute("districts", districts); 
+		System.out.println("search:" + search);*/
+		return "outlet"; 
+	}
+		
+	@RequestMapping(value="/get-region", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Region> getRegion(Model model, @RequestParam(value="id", defaultValue="") long id){
+		List<Region> regions = regionService.getRegion(id);  
+		return regions; 
+	}
+	
+	@RequestMapping(value="/get-district", method=RequestMethod.GET)
+	@ResponseBody
+	public List<District> getDistrict(Model model, @RequestParam(value="id", defaultValue="") long id){
+		List<District> districts = districtService.getDistrict(id); 
+		return districts; 
+	}
 	@RequestMapping(value="/save", method=RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public void save(@RequestBody Outlet outlet) {

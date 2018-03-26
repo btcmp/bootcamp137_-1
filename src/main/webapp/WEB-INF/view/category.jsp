@@ -6,14 +6,20 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!-- ambil javascript -->
 <spring:url value="/resources/js/jquery-3.3.1.min.js" var="jq"></spring:url>
+<spring:url value="/resources/css/bootstrap.min.css" var="bootmin"></spring:url>
+<spring:url value="/resources/css/bootstrap.css" var="boot"></spring:url>
+<spring:url value="/resources/css/dataTables.bootstrap4.min.css" var="dt"></spring:url>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Category</title>
-<link rel="stylesheet" href="resources/css/bootstrap.min.css" />
+<!-- <link rel="stylesheet" href="resources/css/bootstrap.min.css" />
 <link rel="stylesheet" href="resources/css/bootstrap.css" />
-<link rel="stylesheet" href="resources/css/dataTables.bootstrap4.min.css" />
+<link rel="stylesheet" href="resources/css/dataTables.bootstrap4.min.css" /> -->
+<link rel="stylesheet" href="${bootmin }" />
+<link rel="stylesheet" href="${boot }" />
+<link rel="stylesheet" href="${dt }" />
 
 <script type="text/javascript" src="${jq }"></script>
 <script type="text/javascript" src="<spring:url value="/resources/js/parsley.js"/>"></script>
@@ -137,6 +143,11 @@
 				});
 			}); 
 			
+			//button searchh 
+			$('#btn-search').click(function(){
+				var word = $('#search').val(); 
+				window.location = '${pageContext.request.contextPath}/category/search?search='+ word; 
+			}); 
 			
 		});
 		/* function clearText() {
@@ -152,10 +163,16 @@
 	</div>
 	<div id="save-form" style="margin-top:20px; margin-bottom:20px;">
 		<form action="#">
-			<input type="text" id="search" placeholder="Search" />
+		<div id="search-box" style="margin-top: 20px; margin-botton: 20px">
+				<span><input type="text" id="search" placeholder = "search"/></span> <span><a
+				id="btn-search" href="#" class="btn btn-primary">Search</a></span>
+				<button type="button" id="btn-create" class="btn btn-primary" style="float:right; margin-right: 0px; width:150px;">Create</button>
+			<button type="button" id="btn-export" class="btn btn-primary" style="float:right; margin-right: 50px; width: 150px;">Export</button>
+			</div>
+			<!-- <input type="text" id="search" placeholder="Search" />
 			<button type="button" id="btn-create" class="btn btn-primary" style="float:right; margin-right: 0px; width:150px;">Create</button>
 			<button type="button" id="btn-export" class="btn btn-primary" style="float:right; margin-right: 50px; width: 150px;">Export</button>
-			
+			 -->
 		</form>
 	</div>
 	<table id="category-tbl" class="table table-sm table-striped table-bordered" width="100%" cellspacing="0">

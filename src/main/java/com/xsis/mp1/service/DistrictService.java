@@ -19,4 +19,9 @@ public class DistrictService {
 	public List<District> selectAll(){
 		return districtDao.selectAll(); 
 	}
+
+	public List<District> getDistrict(long id) {
+		// TODO Auto-generated method stub
+		return districtDao.getDistrict(id);
+	}
 }
