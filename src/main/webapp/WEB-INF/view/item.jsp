@@ -43,13 +43,19 @@
 		
 		 $(document).on('click','#btn-save', function(){		 	
 			 var variants=[];
+			 var inventory=[];
 			 $('#tbody-add-variant-create-item>.row-add-variant').each(function(index,data){
+				 var inventory = {
+						 beginning :$(data).find('td').eq(3).text(),
+					     alertAtQty :$(data).find('td').eq(4).text()
+				 }
 				 var variant={
 							name: $(data).find('td').eq(0).text(),
 							price : $(data).find('td').eq(1).text(),
 							sku: $(data).find('td').eq(2).text(),
-							active:0
-					};  
+							active:0,
+							inventories:[inventory]
+					}
 				variants.push(variant);
 			});
 			
@@ -67,7 +73,7 @@
 		 	
 		 	console.log(item);
 		 	
-		 	$.ajax({
+		 	 $.ajax({
 				type : 'POST',
 				url : '${pageContext.request.contextPath}/item/save',
 				data : JSON.stringify(item),
@@ -77,7 +83,7 @@
 				}, error : function(){
 					alert('save failed');
 				} 		
-			});
+			}); 
 	 	//var id=$(this).attr('id');
 		 	/* var row=$('#tbody-add-variant-create-item').parent().parent().find(".row-add-variant");//select one row;
 			var len=row.length; */
@@ -97,25 +103,13 @@
 				var sku= $('#input-variant-sku').val();
 				var price= $('#input-variant-price').val();
 				var beginning= $('#input-beginning-stock').val();
-			 
-				var variant={
-					name: name,
-					sku: sku,
-					price:price
-				};			
-				
-				var markup = "<tr class='row-add-variant'><td>" + name + "</td><td><center>" + price + "</td><td>" + sku + "</td><td>" + beginning + "</td><td><a id='btn-edit' class='btn btn-info btn-sm' href='#'>Edit</a></center></td></tr>";
+				var alert= $('#input-alert-at').val();
+			 		
+				var markup = "<tr class='row-add-variant'><td>" + name + "</td><td><center>" + price + "</td><td>" + sku + "</td><td>" + beginning + "</td><td style='display:none'>" + alert + "</td><td><a id='btn-edit' class='btn btn-info btn-sm' href='#'>Edit</a></center></td></tr>";
 				$("#tbody-add-variant-create-item").append(markup);
 				
 				$('#modal-add-variant').modal('hide');
-				
-				var inventory={
-					beginning: $('#input-beginning-stock').val()
-					
-				};
-				
-				
-				console.log(variant);
+
 				//console.log(inventory);
 		});
 		
@@ -123,8 +117,7 @@
 		/* edit item */
 		$('.btn-item-edit').on('click', function(evt){
 			evt.preventDefault();
-			
-			
+					
 			var id = $(this).attr('id');
 			
 			//console.log(id);
@@ -136,7 +129,7 @@
 					$('#modal-edit-item').modal('show');
 					 $('#edit-item-id').val(item.id);
 					 $('#edit-item-name').val(item.name);
-					 $('edit-variant-category').val(item.category);
+					 $('edit-variant-category').val(item.categoryId);
 				}, error : function(){
 					alert ('update failed'); 
 				}
@@ -270,15 +263,15 @@
 			<th>#</th>
 		</thead>
 		<tbody>
-			<c:forEach items="${items}" var="item">
+			<c:forEach items="${inventories}" var="inv">
 				<tr>
-				<td>${item.name}</td>
-				<td><center>Transportation</center></td>
-				<td><center>Rp.200000</center></td>
-				<td><center>10</center></td>
-				<td><center>Low</center></td>
+				<td>${inv.variant.item.name}</td>
+				<td><center>${inv.variant.item.categoryId.name }</center></td>
+				<td><center>${inv.variant.price}</center></td>
+				<td><center>${inv.beginning }</center></td>
+				<td><center>${inv.variant.sku }</center></td>
 				<td><center>
-					<a id="${item.id}" class="btn-item-edit btn btn-info btn-sm" href="#">Edit</a></center>
+					<a id="${inv.variant.item.id}" class="btn-item-edit btn btn-info btn-sm" href="#">Edit</a></center>
 				</td>
 			</tr>
 			</c:forEach>	

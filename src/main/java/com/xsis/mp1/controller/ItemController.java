@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.xsis.mp1.dao.VariantDao;
 import com.xsis.mp1.model.Category;
+import com.xsis.mp1.model.Inventory;
 import com.xsis.mp1.model.Item;
 import com.xsis.mp1.model.Variant;
 import com.xsis.mp1.service.CategoryService;
+import com.xsis.mp1.service.InventoryService;
 import com.xsis.mp1.service.ItemService;
 import com.xsis.mp1.service.VariantService;
 
@@ -36,6 +38,9 @@ public class ItemController {
 	@Autowired
 	VariantService variantService;
 	
+	@Autowired
+	InventoryService inventoryService;
+	
 	@RequestMapping
 	public String index(Model model) {
 		List<Item> items = itemService.selectAll();
@@ -44,6 +49,8 @@ public class ItemController {
 		model.addAttribute("categories", categories);
 		List<Variant> variants=variantService.selectAll();
 		model.addAttribute("variants", variants);
+		List<Inventory> inventories=inventoryService.selectAll();
+		model.addAttribute("inventories", inventories);
 		
 		return "item";
 	}

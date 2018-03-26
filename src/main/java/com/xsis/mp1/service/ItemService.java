@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.xsis.mp1.dao.InventoryDao;
 import com.xsis.mp1.dao.ItemDao;
 import com.xsis.mp1.dao.VariantDao;
+import com.xsis.mp1.model.Inventory;
 import com.xsis.mp1.model.Item;
 import com.xsis.mp1.model.Variant;
 
@@ -20,17 +22,27 @@ public class ItemService {
 	@Autowired
 	VariantDao variantDao;
 	
-	
+	@Autowired
+	InventoryDao inventoryDao;
 
 	public void save(Item item) {
-		List<Variant> variant = item.getVariants();
+		List<Variant> variants = item.getVariants();
 		item.setVariants(null);
 		itemDao.save(item);
 		
 		//objek variant
-		for(Variant var : variant) {
-			var.setItem(item);
-			variantDao.save(var);
+		for(Variant variant : variants) {
+			List<Inventory> inventories= variant.getInventories();
+			variant.setInventories(null);
+			variant.setItem(item);
+			variantDao.save(variant);
+			
+			
+			//objek inventory
+			for(Inventory inventory:inventories) {
+				inventory.setVariant(variant);
+				inventoryDao.save(inventory);
+			}
 		}
 	}
 
@@ -54,23 +66,15 @@ public class ItemService {
 	}
 	
 	public void saveOrUpdate(Item item) {
-		
-		Item it= new Item();
-		it.setName(it.getName());
-		it.setActive(it.isActive());
-		it.setCategoryId(it.getCategoryId());
-		itemDao.update(it);
+		List<Variant> variant = item.getVariants();
+		item.setVariants(null);
+		itemDao.update(item);
 		
 		//objek variant
-		for(Variant var : item.getVariants()) {
+		for(Variant var : variant) {
 			////////
-			Variant variant=new Variant();
-			variant.setName(variant.getName());
-			variant.setActive(variant.isActive());
-			variant.setPrice(variant.getPrice());
-			variant.setSku(variant.getSku());
-			variant.setItem(it);
-			variantDao.saveOrUpdate(variant);
+			var.setItem(item);
+			variantDao.saveOrUpdate(var);
 		}
 	}
 }

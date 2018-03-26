@@ -159,5 +159,13 @@ public class Variant {
 		this.item = item;
 	}
 
+	public List<Inventory> getInventories() {
+		return inventories;
+	}
+
+	public void setInventories(List<Inventory> inventories) {
+		this.inventories = inventories;
+	}
+
 	
 }

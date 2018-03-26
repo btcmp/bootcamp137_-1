@@ -46,6 +46,7 @@
 			<th>Unit Price</th>
 			<th>SKU</th>
 			<th>Beginning Stock</th>
+			<th style="display: none">alert Stock</th>
 			<th>#</th>
 		</thead>
 		<tbody id="tbody-add-variant-create-item">
@@ -167,9 +168,8 @@
 								</div><br/>
 								<div class ="form-group">
 									<select id="edit-item-category" style="width: 100%; height: 35px;">
-									<option value="" selected="selected">Category</option>
 									<c:forEach items= "${categories}" var="ctg">
-										<option value=${ctg.id}>${ctg.name}</option>
+										<option value="${ctg.id}">${ctg.name}</option>
 									</c:forEach>
 									</select>
 								</div>
@@ -191,12 +191,12 @@
 			<th>#</th>
 		</thead>
 		<tbody id="tbody-variant">
-			<c:forEach items= "${variants}" var="vars">
+			<c:forEach items= "${inventories}" var="inv">
 				<tr>
-					<td>${vars.name}</td>
-					<td><center>$</center></td>
-					<td><center>Low</center></td>
-					<td><center>10</center></td>
+					<td>${inv.variant.name}</td>
+					<td>Rp.${inv.variant.price }</td>
+					<td><center>${inv.variant.sku }</center></td>
+					<td><center>${inv.beginning }</center></td>
 					<td><center>
 						<a id="btn-create" class="btn btn-info btn-sm" href="#">Edit</a></center>
 					</td> 
