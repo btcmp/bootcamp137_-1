@@ -185,7 +185,7 @@
 			<c:forEach items="${categories}" var="ctg">
 				<tr>
 					<td>${ctg.name}</td>
-					<td>-</td>
+					<td>${ ctg.itemStock}</td>
 					<td><center><a id="${ctg.id }" class="btn-view btn btn-info" href="#">View</a>   
 					</center></td>
 				</tr>

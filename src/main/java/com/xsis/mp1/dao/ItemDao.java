@@ -2,6 +2,7 @@ package com.xsis.mp1.dao;
 
 import java.util.List;
 
+import com.xsis.mp1.model.Category;
 import com.xsis.mp1.model.Item;
 
 
@@ -24,4 +25,6 @@ public interface ItemDao {
 
 		// save or update
 		public void saveOrUpdate(Item item);
+
+		public List<Item> getItemsByCategory(Category category);
 }

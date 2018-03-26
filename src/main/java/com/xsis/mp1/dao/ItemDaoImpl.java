@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.xsis.mp1.model.Category;
 import com.xsis.mp1.model.Employee;
 import com.xsis.mp1.model.Item;
 
@@ -50,6 +51,17 @@ public class ItemDaoImpl implements ItemDao {
 		Session session = sessionFactory.getCurrentSession();
 		session.saveOrUpdate(item);
 		session.flush();
+	}
+
+	public List<Item> getItemsByCategory(Category category) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession(); 
+		String hql = "from Item i where i.categoryId.id =:category"; 
+		List<Item> items = session.createQuery(hql).setParameter("category", category.getId()).list(); 
+		if (items.isEmpty()) {
+			return null; 
+		}
+		return items;
 	}
 
 }

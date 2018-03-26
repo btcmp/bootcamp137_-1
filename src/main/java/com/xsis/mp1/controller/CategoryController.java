@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.xsis.mp1.model.Category;
+import com.xsis.mp1.model.Item;
 import com.xsis.mp1.service.CategoryService;
 
 @Controller
@@ -26,7 +27,7 @@ public class CategoryController {
 	
 	@RequestMapping
 	public String index(Model model) {
-		List<Category> categories = categoryService.getListByStatus(); 
+		List<Category> categories = categoryService.selectAll(); 
 		model.addAttribute("categories", categories); 
 		return "category";
 	}

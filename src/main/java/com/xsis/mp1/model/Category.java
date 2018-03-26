@@ -15,6 +15,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -49,6 +50,19 @@ public class Category {
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="categoryId", cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<Item> items;
+	
+	//membuat properti yang tidak di inputkan ke dalam database
+	@Transient
+	private int itemStock ; 
+	
+	
+	public int getItemStock() {
+		return itemStock;
+	}
+
+	public void setItemStock(int itemStock) {
+		this.itemStock = itemStock;
+	}
 
 	public Category() {
 		this.createdOn=new Date();
