@@ -3,6 +3,7 @@ package com.xsis.mp1.dao;
 import java.util.List;
 
 import com.xsis.mp1.model.Inventory;
+import com.xsis.mp1.model.Item;
 
 public interface InventoryDao {
 	//save
@@ -23,4 +24,6 @@ public interface InventoryDao {
 
 	// save or update
 	public void saveOrUpdate(Inventory inventory);
+	
+	public List<Inventory> selectAllByItem(Item item);
 }
