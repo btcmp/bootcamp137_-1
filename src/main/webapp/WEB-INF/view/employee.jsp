@@ -67,6 +67,7 @@
 			
 			$('.select-outlet:checked').each(function(){
 				var eo = {
+					id : $('#insert-empout-id').val(),
 					outlet : {
 						id : $(this).val()
 					}
@@ -144,6 +145,7 @@
 					};
 					if(emp.empouts!=null){
 						$.each(emp.empouts, function(i, item){
+							$('#insert-empout-id').val(emp.empouts.id);
 							$('input[name="select-outlet"][value="'+emp.empouts[i].outlet.id+'"]').prop('checked', true);
 						})
 					}
@@ -341,10 +343,10 @@
 					    </script>
 					    </center>
 					</td>
-					<td>
-						<c:forEach var="out" items="${outlets }">
-				    		<option value="${employee.empouts.out.id }">${employee.empouts.out.name }</option>
-				    	</c:forEach>
+					<td><ol>
+						<c:forEach items="${emp.empouts }" var="empout">
+							<li style="list-style-type: none;">${empout.outlet.name }</li>
+						</c:forEach></ol>
 					</td>
 					<td>${emp.user.role.name }</td>
 					<td>
@@ -370,6 +372,7 @@
 			
 			<div class="modal-body">
 				<form id="target">
+					<input type="hidden" id="insert-empout-id" name="insert-empout-id" />
 					<input type="hidden" id="insert-outlet-id" name="insert-outlet-id" />
 		        	<div id="pilih-outlet">
 		        		<c:forEach var="outlet" items="${outlets }">

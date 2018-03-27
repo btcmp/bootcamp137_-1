@@ -69,6 +69,7 @@ public class EmployeeService {
 		if(employee.getEmpouts()!=null) {
 			for(EmployeeOutlet empOut : employee.getEmpouts()) {
 				EmployeeOutlet empOutlet = new EmployeeOutlet();
+				empOutlet.setId(empOut.getId());
 				empOutlet.setEmployee(emp);
 				empOutlet.setOutlet(empOut.getOutlet());
 				empOutletDao.saveOrUpdate(empOutlet);
@@ -91,8 +92,13 @@ public class EmployeeService {
 	}
 
 	public List<Employee> getListByStatus() {
-		// TODO Auto-generated method stub
-		return employeeDao.getListByStatus();
+		List<Employee> employees = employeeDao.getListByStatus(); 
+		for(Employee employee : employees) {
+			List<EmployeeOutlet> empOUtlets = empOutletDao.getEmployeeOutletByEmployee(employee);
+			employee.setEmpouts(empOUtlets);
+		}
+		return employees;
+//		return employeeDao.getListByStatus();
 	}
 
 }
