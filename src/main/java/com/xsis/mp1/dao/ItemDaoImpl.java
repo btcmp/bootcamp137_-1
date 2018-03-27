@@ -23,7 +23,6 @@ public class ItemDaoImpl implements ItemDao {
 		session.flush();
 	}
 	
-
 	public List<Item> selectAll() {
 		Session session = sessionFactory.getCurrentSession();
 		return session.createCriteria(Item.class).list();

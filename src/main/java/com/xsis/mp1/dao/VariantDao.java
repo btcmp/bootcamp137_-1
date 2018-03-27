@@ -23,5 +23,5 @@ public interface VariantDao {
 
 	// save or update
 	public void saveOrUpdate(Variant variant);
-	
+	 
 }
