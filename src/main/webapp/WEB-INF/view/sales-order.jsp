@@ -43,10 +43,10 @@
 			});	
 			 */
 			 
-			//button-create 
+			 //button-create 
 			$('#btn-choosecust').click(function(){
 				$('#modal-choose-cust').modal(); 
-			});
+			}); 
 			
 			$('#btn-create-cust').click(function(){
 				$('#modal-create-cust').modal(); 
@@ -63,6 +63,7 @@
 			$('#btn-search-cust').click(function(){
 				var cust = $('#input-search-cust').val(); 
 				//alert (cust); 
+				//$('#modal-choose-cust').modal();
 				$.ajax({
 					url : "${pageContext.request.contextPath}/sales-order/search-cust?customer=" + cust , 
 					type : 'GET', 
@@ -70,7 +71,7 @@
 						//console.log();
 						isiTableSearchCustomer(data); 
 						//window.location = "${pageContext.request.contextPath}/sales-order/search-cust?customer=" + cust
-						$('#modal-choose-cust'); 
+					//	$('#modal-choose-cust'); 
 					}, error : function(){
 						alert ('getting failed');
 					}, 
@@ -229,14 +230,22 @@
                         <div class="panel-body">
                             <div class="table-responsive">
                                 <table class="table">
+                                 <thead>
+                                        <tr>
+                                           
+                                            <th>Item</th>
+                                            <th></th>
+                                            <th>Price</th>
+                                             <th>#</th>
+                                        </tr>
+                                    </thead>
                                     <tbody>
                                         <tr>
                                             <td></td>
-                                            <td>-</td>
                                             <td></td>
-                                            <td>Otto</td>
-                                            <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
- 								 <label class="form-check-label" for="defaultCheck1"></label> </br></td>
+                                            <td></td>
+                                            <td><button type="button" id="btn-choose-item" class="btn btn-primary btn-info" 
+						style="width : 100% ; margin-top:10px; ">V</button></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -272,10 +281,12 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td><a id="${rooms.id }" class="update btn btn-danger" href="#">X</a></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td> <button type="button" id="btn-cancel-item" class="btn btn-primary btn-danger" 
+						style="width : 100% ; margin-top:10px; ">X</button>
+                                        </td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
@@ -298,7 +309,7 @@
                 <div class="row show-grid">
                       <div class="col-md-6">
                               <button type="button" id="btn-clear-sale" class="btn btn-primary" 
-						style="width : 100% ; margin-top:10px; ">CLEAR SALE</button>
+						style="width : 100% ; margin-top:10px; ">Clear Sale</button>
                                         </div>
                       <div class="col-md-6">
                             <button type="button" id="btn-charge" class="btn btn-primary" 
