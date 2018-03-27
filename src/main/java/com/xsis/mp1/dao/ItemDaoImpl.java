@@ -22,6 +22,7 @@ public class ItemDaoImpl implements ItemDao {
 		session.save(item);
 		session.flush();
 	}
+	
 
 	public List<Item> selectAll() {
 		Session session = sessionFactory.getCurrentSession();

@@ -46,5 +46,7 @@ public class VariantService {
 	public void saveOrUpdate(Variant variant) {
 		variantDao.saveOrUpdate(variant);
 	}
+	
+	
 
 }

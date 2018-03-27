@@ -49,5 +49,7 @@ public class VariantDaoImpl implements VariantDao {
 		session.saveOrUpdate(variant);
 		session.flush();
 	}
+	
+	
 
 }
