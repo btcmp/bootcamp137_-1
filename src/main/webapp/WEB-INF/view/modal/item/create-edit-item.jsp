@@ -191,9 +191,9 @@
 			<th>#</th>
 		</thead>
 		<tbody id="tbody-variant">
-			<c:forEach items= "${inventories}" var="inv">
+			<c:forEach items= "${inventory}" var="inv">
 				<tr>
-					<td>${inv.variant.name}</td>
+					<td>${inv.variant.item.name} - ${inv.variant.name}</td>
 					<td>Rp.${inv.variant.price }</td>
 					<td><center>${inv.variant.sku }</center></td>
 					<td><center>${inv.beginning }</center></td>

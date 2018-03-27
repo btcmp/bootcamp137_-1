@@ -20,7 +20,7 @@ public class VariantDaoImpl implements VariantDao {
 		session.save(variant);
 		session.flush();
 	}
-
+  
 	public List<Variant> selectAll() {
 		Session session = sessionFactory.getCurrentSession();
 		return session.createCriteria(Variant.class).list();
@@ -49,5 +49,7 @@ public class VariantDaoImpl implements VariantDao {
 		session.saveOrUpdate(variant);
 		session.flush();
 	}
+	
+	
 
 }

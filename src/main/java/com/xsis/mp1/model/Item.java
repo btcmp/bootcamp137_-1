@@ -28,7 +28,6 @@ public class Item {
 	@NotNull
 	private long id;
 	
-	
 	private String name;
 	
 	

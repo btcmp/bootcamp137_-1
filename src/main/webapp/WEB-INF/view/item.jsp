@@ -105,8 +105,11 @@
 				var beginning= $('#input-beginning-stock').val();
 				var alert= $('#input-alert-at').val();
 			 		
-				var markup = "<tr class='row-add-variant'><td>" + name + "</td><td><center>" + price + "</td><td>" + sku + "</td><td>" + beginning + "</td><td style='display:none'>" + alert + "</td><td><a id='btn-edit' class='btn btn-info btn-sm' href='#'>Edit</a></center></td></tr>";
-				$("#tbody-add-variant-create-item").append(markup);
+				var markup = "<tr class='row-add-variant'><td>" + name + "</td><td><center>" + price 
+					+ "</td><td>" + sku + "</td><td>" + beginning + "</td><td style='display:none'>" 
+					+ alert + "</td><td><a id='btn-edit' class='btn btn-info btn-sm' href='#'>Edit</a></center></td></tr>";
+				
+					$("#tbody-add-variant-create-item").append(markup);
 				
 				$('#modal-add-variant').modal('hide');
 
@@ -125,11 +128,34 @@
 				url:'${pageContext.request.contextPath}/item/get-one/'+id,
 				type:'PUT',
 				contentType:'application/json',
-				success : function(item){
-					$('#modal-edit-item').modal('show');
-					 $('#edit-item-id').val(item.id);
-					 $('#edit-item-name').val(item.name);
-					 $('edit-variant-category').val(item.categoryId);
+				success : function(result){
+					 $('#modal-edit-item').modal('show');
+					 /* $('#edit-item-id').val(result.variant.item.id);
+					 $('#edit-item-name').val(result.variant.item.);
+					 $('edit-variant-category').val(result.variant.item.categoryId);  */
+					 
+					 $('#tbody-variant').empty();
+					 //console.log(result);
+						$.each(result, function(key, inventory){
+							
+							var id=inventory.variant.item.id;
+							var item=inventory.variant.item.name;
+							var category=inventory.variant.item.categoryId.id;
+							
+							var markup = "<tr class='row-edit-add-variant'><td>" + inventory.variant.name +"</td><td><center>"+ inventory.variant.price + 
+								"</td><td>" + inventory.variant.sku + 
+								"</td><td>" + inventory.beginning+ 
+								"</td><td><a class='btn-edit-edit-variant tbtn btn-info btn-sm' href='#'>Edit</a></center></td></tr>";
+							$("#tbody-variant").append(markup);
+							//console.log(id);
+							$('#edit-item-id').val(id); 
+							$('#edit-item-name').val(item); 
+							$('#edit-item-category').val(category); 
+						});
+					
+					 //console.log(inventory);
+					 
+					 
 				}, error : function(){
 					alert ('update failed'); 
 				}
@@ -142,27 +168,32 @@
 			 //var category=  parseInt($('#input-item-category').val());
 		 	 var variants=[];
 			 $('#tbody-variant>.row-edit-add-variant').each(function(index,data){
+				 var inventory = {
+						 beginning :$(data).find('td').eq(3).text(),
+					     alertAtQty :$(data).find('td').eq(4).text()
+				 }
 				 var variant={
 							name: $(data).find('td').eq(0).text(),
 							price : $(data).find('td').eq(1).text(),
 							sku: $(data).find('td').eq(2).text(),
-							active:0
-					};  
+							active:0,
+							inventories:[inventory]
+					}
 				variants.push(variant);
 			});
 			
 			//console.log(variants);
-		
+			 
 			 var item = {
-		 		id:$('#edit-item-id').val(),
-				name: $('#edit-item-name').val(),
-				categoryId : {
-					id:$('#edit-item-category').val()
-							
-				},
-				variants:variants,
-		 		active: 0
+					id:$('#edit-item-id').val(),
+					name: $('#edit-item-name').val(),
+					categoryId : {
+						id:$('#edit-item-category').val(),					
+					},
+					variants:variants,
+			 		active: 0
 			};
+		 	
 		 	console.log(item);
 			//console.log(category);
 		 	 $.ajax({
@@ -171,11 +202,12 @@
 				data : JSON.stringify(item),
 				contentType : 'application/json',
 				success : function(){
+					alert("sukses edit");
 					window.location = '${pageContext.request.contextPath}/item';
 				}, error : function(){
 					alert('save failed');
 				} 
-			});  
+			});
 		});
 		
 		$('#btn-edit-add-variant').on('click', function(){
@@ -202,8 +234,10 @@
 						
 					};
 				
-				var markup = "<tr class='row-edit-add-variant'><td>" + name + "</td><td><center>" + price + "</td><td>" + sku + "</td><td>" + beginning + "</td><td><a class='btn-edit-edit-variant tbtn btn-info btn-sm' href='#'>Edit</a></center></td></tr>";
-				$("#tbody-variant").append(markup);
+				var markup = "<tr class='row-edit-add-variant'><td>" + name	+ "</td><td><center>" 
+					+ price + "</td><td>" + sku + "</td><td>" + beginning 
+					+ "</td><td><a class='btn-edit-edit-variant tbtn btn-info btn-sm' href='#'>Edit</a></center></td></tr>";
+					$("#tbody-variant").append(markup);
 				
 				$('#modal-edit-item').modal('show');
 	

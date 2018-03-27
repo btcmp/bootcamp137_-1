@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.xsis.mp1.model.Inventory;
+import com.xsis.mp1.model.Item;
 
 @Repository
 public class InventoryDaoImpl implements InventoryDao {
@@ -48,6 +49,16 @@ public class InventoryDaoImpl implements InventoryDao {
 		Session session = sessionFactory.getCurrentSession();
 		session.saveOrUpdate(inventory);
 		session.flush();
+	}
+	
+	public List<Inventory> selectAllByItem(Item item) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql="from Inventory i where i.variant.item = :item";
+		List<Inventory> inventories=session.createQuery(hql).setParameter("item", item).list();
+		if(inventories.isEmpty())
+			return null;
+		else
+			return inventories;
 	}
 
 }

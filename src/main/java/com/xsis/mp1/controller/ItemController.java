@@ -47,11 +47,12 @@ public class ItemController {
 		model.addAttribute("items", items);
 		List<Category> categories=CategoryService.selectAll();
 		model.addAttribute("categories", categories);
-		List<Variant> variants=variantService.selectAll();
+		List<Variant> variants =variantService.selectAll();
 		model.addAttribute("variants", variants);
 		List<Inventory> inventories=inventoryService.selectAll();
 		model.addAttribute("inventories", inventories);
 		
+	
 		return "item";
 	}
 	
@@ -63,15 +64,15 @@ public class ItemController {
 	
 	@RequestMapping(value="/get-one/{id}", method=RequestMethod.PUT)
 	@ResponseBody
-	public Item getOne(@PathVariable long id) {
-		return itemService.getOne(id);
+	public List getOne(@PathVariable long id, Model model, Item item) {
+		List<Inventory> inventory=inventoryService.selectAllByItem(item);
+		model.addAttribute("inventory", inventory);
+		return inventory;
 	}
-	
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void edit(@RequestBody Item item) {
-		itemService.saveOrUpdate(item);
+		//itemService.saveOrUpdate(item);
+		System.out.println("update");
 	}
-
 }
-

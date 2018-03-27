@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.xsis.mp1.dao.InventoryDao;
 import com.xsis.mp1.model.Inventory;
+import com.xsis.mp1.model.Item;
 import com.xsis.mp1.model.Variant;
 
 
@@ -46,6 +47,10 @@ public class InventoryService {
 	
 	public void saveOrUpdate(Inventory inventory) {
 		inventoryDao.saveOrUpdate(inventory);
+	}
+	
+	public List<Inventory> selectAllByItem(Item item) {
+		return inventoryDao.selectAllByItem(item);
 	}
 
 }

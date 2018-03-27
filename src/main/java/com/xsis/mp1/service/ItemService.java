@@ -66,15 +66,23 @@ public class ItemService {
 	}
 	
 	public void saveOrUpdate(Item item) {
-		List<Variant> variant = item.getVariants();
+		List<Variant> variants = item.getVariants();
 		item.setVariants(null);
-		itemDao.update(item);
+		itemDao.save(item);
 		
 		//objek variant
-		for(Variant var : variant) {
-			////////
-			var.setItem(item);
-			variantDao.saveOrUpdate(var);
+		for(Variant variant : variants) {
+			List<Inventory> inventories= variant.getInventories();
+			variant.setInventories(null);
+			variant.setItem(item);
+			variantDao.save(variant);
+			
+			
+			//objek inventory
+			for(Inventory inventory:inventories) {
+				inventory.setVariant(variant);
+				inventoryDao.save(inventory);
+			}
 		}
 	}
 }
