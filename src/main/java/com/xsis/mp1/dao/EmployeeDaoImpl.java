@@ -59,18 +59,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 	public List<Employee> getListByStatus() {
 		Session session= sessionFactory.getCurrentSession(); 
-		String hql = "from Employee emp where emp.active = 0"; 
+		String hql = "from Employee emp where emp.active = 0 order by emp.id desc"; 
 		List<Employee> employees = session.createQuery(hql).list();
 		if (employees.isEmpty()) {
 			return null;
 		}else {
 			return employees; 
 		}
-	}
-
-	public List<EmployeeOutlet> getEmployeeOutletByEmployee(Employee empss) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 }

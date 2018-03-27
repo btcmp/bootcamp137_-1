@@ -42,7 +42,7 @@ public class EmployeeService {
 		employee.setHaveAccount(false);
 		employee.setActive(false);
 		Employee empss = employeeDao.getOne(employee);
-		List<EmployeeOutlet> empOUtlets = employeeDao.getEmployeeOutletByEmployee(empss);
+		List<EmployeeOutlet> empOUtlets = empOutletDao.getEmployeeOutletByEmployee(empss);
 		empss.setEmpouts(empOUtlets);
 		return empss;
 	}
@@ -78,6 +78,7 @@ public class EmployeeService {
 		if(employee.getUser()!=null) {
 			User user = new User();
 			user.setEmployee(emp);
+			user.setId(employee.getUser().getId());
 			user.setRole(employee.getUser().getRole());
 			user.setUsername(employee.getUser().getUsername());
 			user.setPassword(employee.getUser().getPassword());

@@ -76,6 +76,21 @@
 			
 			console.log(empOut);
 			
+			var usr;
+			
+			if ($('#cb-have-account').is(":checked"))
+			{
+				var haveAkun = 1;
+				usr = {
+					id : $('#insert-user-id').val(),
+					username : $('#insert-username').val(),
+					password : $('#insert-pass').val(),
+					role : {
+						id : $('#insert-role').val()
+					}
+				}
+			};
+			
 			var employee = {
 				id : $('#insert-emp-id').val(),
 				firstName : $('#insert-first-name').val(),
@@ -83,14 +98,8 @@
 				email : $('#insert-email').val(),
 				title : $('#insert-title').val(), 
 				empouts : empOut,
-				haveAccount : $('#cb-have-account').val(),
-				user : {
-					username : $('#insert-username').val(),
-					password : $('#insert-pass').val(),
-					role : {
-						id : $('#insert-role').val()
-					}
-				},
+				haveAccount : haveAkun,
+				user : usr,
 				active : 0
 			};
 			console.log(employee);
@@ -124,9 +133,10 @@
 				success : function(emp){
 					console.log(emp);
 					setEditEmployee(emp);
-					$('input[name="cb-have-account"]').prop('checked', false);
+					//$('input[name="cb-have-account"]').prop('checked', false);
 					if(emp.haveAccount!=0){
 						$('input[name="cb-have-account"]').prop('checked', true);
+						$('#insert-user-id').val(emp.user.id);
 						$('#insert-username').val(emp.user.username);
 						$('#insert-pass').val(emp.user.password);
 						$('#insert-role').val(emp.user.role.id);
@@ -152,6 +162,7 @@
 			$('#insert-last-name').val(emp.lastName);
 			$('#insert-email').val(emp.email);
 			$('#insert-title').val(emp.title);
+			$('#cb-have-account').val(emp.haveAccount)
 		}
 		
 		$('.btn-x').on('click',function(evt){
@@ -263,8 +274,8 @@
 		  <input type="checkbox" class="custom-control-input" id="cb-have-account" name="cb-have-account" value="cbaccount">
 		  <label class="custom-control-label" for="cb-have-account">Create Account?</label>
 		</div>
-	</div>
 	  </div>
+	</div>
 	  
 	<hr>
 	<div class="row" id="row-user" style="display: none">

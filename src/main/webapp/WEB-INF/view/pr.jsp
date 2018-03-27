@@ -88,9 +88,9 @@
 	  	<div class="form-group">
 		    <select name="title" id="insert-title" class="custom-select custom-select-md">
 		    	<option selected>Status</option>
-		    	<c:forEach var="title" items="${titles }">
-		    		<option value="${title.id }">${title.name }</option>
-		    	</c:forEach>
+		    		<option value="">Submitted</option>
+		    		<option value="">Approved</option>
+		    		<option value="">Rejected</option>
 		    </select>
 		</div>
 	  </div>
