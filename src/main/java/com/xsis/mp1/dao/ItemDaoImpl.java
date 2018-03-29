@@ -77,6 +77,6 @@ public class ItemDaoImpl implements ItemDao {
 		query.setParameter("id", item.getId());
 		query.executeUpdate();
 		session.flush();
-	}
+	} 
  
 }
