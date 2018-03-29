@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.xsis.mp1.dao.PRDao;
+import com.xsis.mp1.dao.PRHistoryDao;
 import com.xsis.mp1.model.PurchaseRequest;
+import com.xsis.mp1.model.PurchaseRequestHistory;
 
 @Service
 @Transactional
@@ -15,13 +17,30 @@ public class PRService {
 
 	@Autowired
 	PRDao prDao;
+	
+	@Autowired
+	PRHistoryDao prhDao;
 
 	public List<PurchaseRequest> selectAll() {
 		return prDao.selectAll();
 	}
 
 	public void save(PurchaseRequest pr) {
-		prDao.save(pr);
+		PurchaseRequest preq = new PurchaseRequest();
+		preq.setId(pr.getId());
+		preq.setOutletId(pr.getOutletId());
+		preq.setPrNo(pr.getPrNo());
+		preq.setReadyTime(pr.getReadyTime());
+		preq.setStatus(pr.getStatus());
+		preq.setNotes(pr.getNotes());
+		prDao.save(preq);
+		
+		
+		
+		PurchaseRequestHistory prh = new PurchaseRequestHistory();
+		prh.setPr(preq);
+		prh.setStatus(preq.getStatus());
+		prhDao.save(prh);
 	}
 
 	public PurchaseRequest getOne(long id) {

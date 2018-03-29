@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -26,6 +27,7 @@ public class PurchaseRequestDetail {
 	@SequenceGenerator(initialValue = 91911, name = "idtpr_d", sequenceName = "idtpr_d")
 	private long id;
 	
+	@NotNull
 	@Column(name="request_qty", nullable=false)
 	private int requestQty;
 	
@@ -40,6 +42,17 @@ public class PurchaseRequestDetail {
 	
 	@Column(name="modified_on")
 	private Date modifiedOn;
+	
+	@ManyToOne
+	private PurchaseRequest pr;
+
+	public PurchaseRequest getPr() {
+		return pr;
+	}
+
+	public void setPr(PurchaseRequest pr) {
+		this.pr = pr;
+	}
 
 	public long getId() {
 		return id;

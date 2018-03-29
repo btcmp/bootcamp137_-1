@@ -64,7 +64,18 @@ public class PurchaseRequest {
 	private List<PurchaseOrder> purchaseOrders;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="pr", cascade=CascadeType.ALL, orphanRemoval=true)
+	private List<PurchaseRequestDetail> prDetails;
+	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="pr", cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<PurchaseRequestHistory> prHistories;
+
+	public List<PurchaseRequestDetail> getPrDetails() {
+		return prDetails;
+	}
+
+	public void setPrDetails(List<PurchaseRequestDetail> prDetails) {
+		this.prDetails = prDetails;
+	}
 
 	public List<PurchaseRequestHistory> getPrHistories() {
 		return prHistories;
