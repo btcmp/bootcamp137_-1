@@ -1,7 +1,7 @@
 </head>
 <!-- =================================================================================================================== -->
 
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-green-light sidebar-mini">
 	<div class="wrapper">
 
 		<header class="main-header">
@@ -76,12 +76,27 @@
 						</span>
 					</a>
 						<ul class="treeview-menu">
-							<li class="active"><a href="#"><i class="fa fa-circle-o"></i>Employee</a></li>
+							<li><a href="${pageContext.request.contextPath}/employee"><i class="fa fa-circle-o"></i>Employee</a></li>
 							<li><a href="${pageContext.request.contextPath}/item"><i class="fa fa-circle-o"></i> Item</a></li>
 							<li><a href="${pageContext.request.contextPath}/outlet"><i class="fa fa-circle-o"></i> Outlet</a></li>
 							<li><a href="${pageContext.request.contextPath}/supplier"><i class="fa fa-circle-o"></i> Supplier</a></li>
 							<li><a href="${pageContext.request.contextPath}/category"><i class="fa fa-circle-o"></i> Category</a></li>
-						</ul></li>
+						</ul>
+					</li>
+					<li class="treeview active"><a href="#"> <i
+							class="fa fa-table"></i> <span>Transaction Tables</span> <span
+							class="pull-right-container"> <i
+								class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+						<ul class="treeview-menu">
+							<li><a href="${pageContext.request.contextPath}/pr"><i class="fa fa-circle-o"></i> Purchase Request </a></li>
+							<li><a href="${pageContext.request.contextPath}/po"><i class="fa fa-circle-o"></i> Purchase Order</a></li>
+							<li><a href="${pageContext.request.contextPath}/adjustment"><i class="fa fa-circle-o"></i> Adjustment</a></li>
+							<li><a href="${pageContext.request.contextPath}/transferstock"><i class="fa fa-circle-o"></i> Transfer Stock</a></li>
+							<li><a href="${pageContext.request.contextPath}/salesorder"><i class="fa fa-circle-o"></i> Sales Order </a></li>
+						</ul>
+					</li>
 				</ul>
 			</section>
 			<!-- /.sidebar -->
@@ -91,10 +106,10 @@
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h2 style="text-align: center;">Employee</h2>
+				<h2 style="text-align: center;">P O S</h2>
 				<ol class="breadcrumb">
-					<li><a href="${pageContext.request.contextPath}/master"><i
-							class="fa fa-dashboard"></i> Master</a></li>
+					<li><a href="${pageContext.request.contextPath}"><i
+							class="fa fa-dashboard"></i> Main</a></li>
 					<li class="active">Employee</li>
 				</ol>
 			</section>

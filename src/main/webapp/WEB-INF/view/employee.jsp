@@ -30,162 +30,117 @@
 			});
 
 			//save
-			$('#btn-save')
-					.on(
-							'click',
-							function() {
+			$('#btn-save').on('click', function() {
 
-								var empOut = [];
+				var empOut = [];
 
-								$('.select-outlet:checked')
-										.each(
-												function() {
-													var eo = {
-														id : $(
-																'#insert-empout-id')
-																.val(),
-														outlet : {
-															id : $(
-																	this)
-																	.val()
-														}
-													};
-													empOut.push(eo);
-												});
+				$('.select-outlet:checked').each(function() {
+					var eo = {
+						id : $(
+								'#insert-empout-id')
+								.val(),
+						outlet : {
+							id : $(
+									this)
+									.val()
+						}
+					};
+					empOut.push(eo);
+				});
 
-								console.log(empOut);
+				console.log(empOut);
 
-								var usr;
+				var usr;
 
-								if ($('#cb-have-account').is(
-										":checked")) {
-									var haveAkun = 1;
-									usr = {
-										id : $('#insert-user-id')
-												.val(),
-										username : $(
-												'#insert-username')
-												.val(),
-										password : $('#insert-pass')
-												.val(),
-										role : {
-											id : $('#insert-role')
-													.val()
-										}
-									}
-								}
-								;
+				if ($('#cb-have-account').is(":checked")) {
+					var haveAkun = 1;
+					usr = {
+						id : $('#insert-user-id')
+								.val(),
+						username : $(
+								'#insert-username')
+								.val(),
+						password : $('#insert-pass')
+								.val(),
+						role : {
+							id : $('#insert-role')
+									.val()
+						}
+					}
+				}
+				;
 
-								var employee = {
-									id : $('#insert-emp-id').val(),
-									firstName : $(
-											'#insert-first-name')
-											.val(),
-									lastName : $(
-											'#insert-last-name')
-											.val(),
-									email : $('#insert-email')
-											.val(),
-									title : $('#insert-title')
-											.val(),
-									empouts : empOut,
-									haveAccount : haveAkun,
-									user : usr,
-									active : 0
-								};
-								console.log(employee);
+				var employee = {
+					id : $('#insert-emp-id').val(),
+					firstName : $('#insert-first-name').val(),
+					lastName : $('#insert-last-name').val(),
+					email : $('#insert-email').val(),
+					title : $('#insert-title').val(),
+					empouts : empOut,
+					haveAccount : haveAkun,
+					user : usr,
+					active : 0
+				};
+				console.log(employee);
 
-								$
-										.ajax({
-											type : 'POST',
-											url : '${pageContext.request.contextPath}/employee/save',
-											data : JSON
-													.stringify(employee),
-											contentType : 'application/json',
-											success : function() {
-												window.location = '${pageContext.request.contextPath}/employee';
-											},
-											error : function() {
-												alert('save failed');
-											}
+				$.ajax({
+					type : 'POST',
+					url : '${pageContext.request.contextPath}/employee/save',
+					data : JSON.stringify(employee),
+					contentType : 'application/json',
+					success : function() {
+						window.location = '${pageContext.request.contextPath}/employee';
+					},
+					error : function() {
+						alert('save failed');
+					}
 
-										});
-							});
+				});
+			});
 
 			//edit
-			$('.update')
-					.on(
-							'click',
-							function(evt) {
-								evt.preventDefault();
-								var id = $(this).attr('id');
-								console.log(id);
+			$('.update').on('click',function(evt) {
+				evt.preventDefault();
+				var id = $(this).attr('id');
+				console.log(id);
 
-								//ajax ambil data
-								$
-										.ajax({
-											url : '${pageContext.request.contextPath}/employee/get-one/'
-													+ id,
-											type : 'GET',
-											dataType : 'json',
-											success : function(emp) {
-												console.log(emp);
-												setEditEmployee(emp);
-												//$('input[name="cb-have-account"]').prop('checked', false);
-												if (emp.haveAccount != 0) {
-													$(
-															'input[name="cb-have-account"]')
-															.prop(
-																	'checked',
-																	true);
-													$(
-															'#insert-user-id')
-															.val(
-																	emp.user.id);
-													$(
-															'#insert-username')
-															.val(
-																	emp.user.username);
-													$(
-															'#insert-pass')
-															.val(
-																	emp.user.password);
-													$(
-															'#insert-role')
-															.val(
-																	emp.user.role.id);
-													$('#row-user')
-															.fadeIn(
-																	'fast');
-												}
-												;
-												if (emp.empouts != null) {
-													$
-															.each(
-																	emp.empouts,
-																	function(
-																			i,
-																			item) {
-																		$(
-																				'#insert-empout-id')
-																				.val(
-																						emp.empouts.id);
-																		$(
-																				'input[name="select-outlet"][value="'
-																						+ emp.empouts[i].outlet.id
-																						+ '"]')
-																				.prop(
-																						'checked',
-																						true);
-																	})
-												}
+				//ajax ambil data
+				$.ajax({
+					url : '${pageContext.request.contextPath}/employee/get-one/'+ id,
+					type : 'GET',
+					dataType : 'json',
+					success : function(emp) {
+						console.log(emp);
+						setEditEmployee(emp);
+						//$('input[name="cb-have-account"]').prop('checked', false);
+						if (emp.haveAccount != 0 ) {
+							$('input[name="cb-have-account"]').prop('checked', true);
+							$('#insert-user-id').val(emp.user.id);
+							$('#insert-username').val(emp.user.username);
+							$('#insert-pass').val(emp.user.password);
+							$('#insert-role').val(emp.user.role.id);
+							$('#row-user').fadeIn('fast');
+						}else if(emp.haveAccount == 0 && emp.user.active == 0){
+							$('input[name="cb-have-account"]').prop('checked', false);
+							$('#insert-user-id').val(emp.user.id);
+							$('#insert-username').val(emp.user.username);
+							$('#insert-pass').val(emp.user.password);
+							$('#insert-role').val(emp.user.role.id);
+							
+						};
+						if (emp.empouts != null) {
+							$.each(emp.empouts,function(i, item) {
+								$('#insert-empout-id').val(emp.empouts.id);
+								$('input[name="select-outlet"][value="'+ emp.empouts[i].outlet.id+ '"]').prop('checked',true);
+							})
+						}
 
-											},
-											error : function() {
-												alert('fail ambil data');
-											}
-										});
-							});
+					},
+					error : function() {
+						alert('fail ambil data');
+					}
+				});
+			});
 
 			//set edit mahasiswa
 			function setEditEmployee(emp) {
@@ -256,20 +211,18 @@
 											.val()
 								};
 
-								$
-										.ajax({
-											url : '${pageContext.request.contextPath}/employee/update-status',
-											type : 'PUT',
-											data : JSON
-													.stringify(emp),
-											contentType : 'application/json',
-											success : function(data) {
-												window.location = '${pageContext.request.contextPath}/employee';
-											},
-											error : function() {
-												alert('update failed');
-											}
-										});
+								$.ajax({
+									url : '${pageContext.request.contextPath}/employee/update-status',
+									type : 'PUT',
+									data : JSON.stringify(emp),
+									contentType : 'application/json',
+									success : function(data) {
+										window.location = '${pageContext.request.contextPath}/employee';
+									},
+									error : function() {
+										alert('update failed');
+									}
+								});
 							});
 
 			$('#btn-cancel').on('click', function() {
@@ -281,8 +234,7 @@
 				$('#insert-last-name').val('');
 				$('#insert-email').val('');
 				$('#insert-title').val('');
-				$('input[name="cb-have-account"]').prop('checked',
-						false);
+				$('input[name="cb-have-account"]').prop('checked', false);
 				$('#insert-role').val('');
 				$('#insert-username').val('');
 				$('#insert-pass').val('');
@@ -323,8 +275,7 @@
 		</div>
 		<div class="col-md-3">
 			<div class="form-group">
-				<select name="title" id="insert-title"
-					class="custom-select custom-select-md">
+				<select name="title" id="insert-title" class="form-control custom-select custom-select-md">
 					<option selected>Title</option>
 					<option value="Mr.">Mr.</option>
 					<option value="Ms.">Ms.</option>
@@ -336,7 +287,7 @@
 		<div class="col-md-3">
 			<div class="form-group">
 				<button type="button" id="btn-assign-outlet"
-					class="btn btn-primary btn-block">Assign Outlet</button>
+					class="btn btn-success btn-block">Assign Outlet</button>
 			</div>
 		</div>
 		<div class="col-md-8" style="padding-top: 8px;">
@@ -354,8 +305,7 @@
 	<div class="row" id="row-user" style="display: none">
 		<div class="col-md-3">
 			<div class="form-group">
-				<select name="role" id="insert-role"
-					class="custom-select custom-select-md" placeholder="Role">
+				<select name="role" id="insert-role" class="form-control custom-select custom-select-md" placeholder="Role">
 					<option selected>Role</option>
 					<c:forEach var="role" items="${roles }">
 						<option value="${role.id }">${role.name }</option>
@@ -383,13 +333,13 @@
 		<div class="col-md-2">
 			<div class="form-group">
 				<button type="button" id="btn-cancel"
-					class="btn btn-primary btn-block">Cancel</button>
+					class="btn btn-success btn-block">Cancel</button>
 			</div>
 		</div>
 		<div class="col-md-2">
 			<div class="form-group">
 				<button type="button" id="btn-save"
-					class="btn btn-primary btn-block">Save</button>
+					class="btn btn-success btn-block">Save</button>
 			</div>
 		</div>
 	</div>
@@ -427,7 +377,21 @@
 								<li style="list-style-type: none;">${empout.outlet.name }</li>
 							</c:forEach>
 						</ol></td>
-					<td>${emp.user.role.name }</td>
+					<td>
+						<script>
+							if("${emp.haveAccount}" === "true" && "${emp.user.active}" === "false"){
+									document.write("${emp.user.role.name }");
+								}else if("${emp.haveAccount}" === "false" && "${emp.user.active}" === "false"){
+									document.write('<FONT COLOR="red">');
+									document.write(' User Not Active ');
+									document.write('</FONT>');
+								}else{
+									document.write('<FONT COLOR="red">');
+									document.write("Tidak Memiliki User");
+									document.write('</FONT>');
+							}
+						</script>
+					</td>
 					<td><a id="${emp.id }"
 						class="update btn btn-info btn-sm" href="#">Edit</a> | <a
 						id="${emp.id }" class="btn-x btn btn-danger btn-sm"

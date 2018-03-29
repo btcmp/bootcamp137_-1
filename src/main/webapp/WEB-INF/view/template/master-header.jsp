@@ -11,7 +11,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>AdminLTE 2 | Data Tables</title>
+<title>P O S | Kelompok 1</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
@@ -28,6 +28,9 @@
 <!-- DataTables -->
 <link rel="stylesheet"
 	href="${url}/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+<!-- DateRangePicker -->
+<link rel="stylesheet"
+	href="${url}/bower_components/bootstrap-daterangepicker/daterangepicker.css">
 <!-- Theme style -->
 <link rel="stylesheet" href="${url}/dist/css/AdminLTE.min.css">
 <!-- AdminLTE Skins. Choose a skin from the css/skins
