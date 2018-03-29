@@ -20,7 +20,7 @@
 		<form id="target" data-parsley-validate>
 		<div class="row">
 				<div class="col-md-10">
-					<h5>Purchase Order Detail</h5>
+					<h4>Purchase Order Detail</h4>
 				</div>
 				<div class="col-md-2">
 				<select data-parsley-required="true" class="btn-primary" name="countries" id="input-province" style="width: 100%; height:120% ">
@@ -37,50 +37,50 @@
 			</div>
 			<hr style="float: left; width: 83%"/><br/><br/><br/>
 				<c:forEach items="${pos}" var="po">
-					<p>${po.supplierId.name }</p>
-				</c:forEach>
-						<p>PT.MAJU JAYA SEKALI</p>			
+					<p>${po.supplierId.name}</p>	
 						<table border="1px" style="width: 100%">
 							<tr>
-								<td>021-12345678</td>
-								<td colspan="2">mjs@mail.com</td>
+								<td>${po.supplierId.phone}</td>
+								<td colspan="2">${po.supplierId.email}</td>
 							</tr>
 							<tr>
-								<td colspan="3">Jl.Bangun Nusa Indah</td>
+								<td colspan="3">${po.supplierId.district.name}</td>
 							</tr>
 							<tr>
-								<td>Jawa Barat</td>
-								<td>Bandung</td>
+								<td>${po.supplierId.province.name}</td>
+								<td>${po.supplierId.region.name}</td>
 								<td>1234</td>
 							</tr>
 						</table>
 					<div>
-						<h5>Notes</h5>
+					<br/>
+						<h4>Notes</h4>
 						<textarea rows="" cols="" style="width: 100%; height: 110px;" ></textarea>
 					</div><br/>
 					
-					PO Number: PO0000001z <br/>
+					PO Number: ${po.poNo} <br/>
 					Created By: Pandji  <br/>
 					Email: mail@mail.com <br/>
-					Outlet: Outlet Satu <br/>
-					Phone: 021-12345678<br/>
-					Address: Jl. Jalan <br/>
+					Outlet: ${po.outletId.name} <br/>
+					Phone: ${po.outletId.phone}<br/>
+					Address: ${po.outletId.district.name}<br/>
 					PO Status : Approved <br/><br/>
 					
 					<b>Status History</b><hr/>
-					On 01/01/2016 09:00 - PO001206 is Created <br/>
-					On 02/01/2016 09:00 - PO001206 is Approved
+					On ${po.createdOn} - ${po.poNo} is Created <br/>
+					On ${po.modifiedOn} - ${po.poNo} is Approved
 					<br/><br/>
+				</c:forEach>
 					<b>Purchase Items</b><hr/>
 			<table id="emp-table" class="" cellspacing="0" width="90%">
-				<thead>
+				<thead style="text-align: center">
 					<th>Item</th>
-					<th>In Stock</th>
-					<th>Qty</th>
-					<th>Unit Cost</th>
-					<th>Sub Total</th>
+					<th><center>In Stock</th>
+					<th><center>Qty</th>
+					<th><center>Unit Cost</th>
+					<th><center>Sub Total</th>
 				</thead>
-				<tbody class="table-bordered">
+				<tbody border="1px"class="table-bordered">
 					<tr>
 						<td>Baju-Merah</td>
 						<td><center>3</center></td>
@@ -91,7 +91,7 @@
 					
 				</tbody>
 				<tr>
-						<td colspan="4"><h5>TOTAL</h5></td>
+						<td colspan="4"><h4>TOTAL</h4></td>
 						<td><h5>Rp. 900.000</h5></td>
 					</tr>
 			</table>
