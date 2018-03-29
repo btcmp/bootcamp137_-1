@@ -24,13 +24,13 @@
 					<input type="hidden" id="input-id" name="input-id" />
 					<div class="form-group">
 						<input type="text"
-							class="form-control" id="input-category-name" aria-describedby="emailHelp"
+							class="form-control" id="input-payment" aria-describedby="emailHelp"
 							placeholder="Payment">
 					</div>
 				</form>
 				</div>
 				<div class="col-lg-2">
-				<button type="button" class="btn-done-order btn btn-primary" data-dismiss="modal"">DONE</button>
+				<button type="button" id = "btn-done-order" class=" btn btn-primary">DONE</button>
 				</div>
 			</div>
 			</div>

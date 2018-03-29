@@ -12,16 +12,19 @@
 						<div class="col-lg-2"></div>
 						<div class="col-lg-8">
 							<input type="text"
-							class="form-control" id="input-address" style ="margin : 20px; "
-							placeholder="Total">
+							class="form-control" id="kembalian" style ="margin : 20px; "
+							placeholder="Total" >
 						</div>
 						<div class="col-lg-2 "></div>
 					</div> 
 				</div>
 				<!-- Penutup div box harga  -->		
 					<div class="form-group">
-						<p style="text-align : center; ">Out of Rp.  </p>
+						<h3 style="text-align : center;" id = "charge-cash"></h3>
 						<hr>
+						<!-- <input type="text"
+							class="form-control" id="charge-cash" style ="margin : 20px; "
+							placeholder="Total" > -->
 					</div>
 				<!-- Penutup out  -->
 				<div class="form-group"  >
