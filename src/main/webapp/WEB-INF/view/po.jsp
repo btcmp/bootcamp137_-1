@@ -1,38 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<spring:url value="/resources/js/jquery-3.3.1.min.js" var="jq"></spring:url>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Purchase Order</title>
-<link rel="stylesheet" href="resources/css/bootstrap.min.css" />
-<link rel="stylesheet" href="resources/css/bootstrap.css" />
-<link rel="stylesheet" href="resources/css/dataTables.bootstrap4.min.css" />
-<script type="text/javascript" src="${jq }"></script>
-<script type="text/javascript" src="<spring:url value="/resources/js/parsley.js"/>"></script>
-<script type="text/javascript" src="<spring:url value="/resources/js/parsley.min.js"/>"></script>
-<script type="text/javascript" src="<spring:url value="/resources/js/bootstrap.min.js"/>"></script>
-<script type="text/javascript" src="<spring:url value="/resources/js/jquery.dataTables.min.js"/>"></script>
-<script type="text/javascript" src="<spring:url value="/resources/js/dataTables.bootstrap4.min.js"/>"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-
-
-<style type="text/css">
-	input.parsley-error
-		{
-		  color: #B94A48 !important;
-		  background-color: #F2DEDE !important;
-		  border: 1px solid #EED3D7 !important;
-		}
-		th{
-			text-align: center;
-		}
-</style>
+<%@ include file="/WEB-INF/view/template/master-header.jsp"%>
 
 <script type="text/javascript">
 	jQuery(document).ready(function(){		
@@ -40,6 +6,10 @@
 			$('#modal-edit-po').modal('show');
 		});
 		
+		/* date picker*/
+		$(function() {
+		    $('input[name="daterange"]').daterangepicker();
+		});
 		
 		/* view detail-po */
 		$('.btn-view-po').on('click', function(){
@@ -47,40 +17,58 @@
 		});
 	});
 </script>
-</head>
-<body>
-<div class="container">
+
+<!-- =================================================================================================================== -->
+
+<%@ include file="/WEB-INF/view/template/master-body-top.jsp"%>
+
+<!-- =================================================================================================================== -->
+
 	<div>
 		<b> Purchase Order</b>
 	</div>
 	<div id="save-form" style="margin-top:20px; margin-bottom:20px;">
 		<form action="#">
-			<div class=row>
-				<div class="col-md-3">
-					<input type="text" id="search" style="width: 84%;" placeholder="1/4/2016-3/6/2016" />
+			<div class="row">
+			  <div class="col-md-3">
+			  	<div class="form-group">
+					<!-- <input type="text" class="form-control" id="insert-date" name="daterange" value="01/01/2018 - 01/31/2018"> -->
+					<div class="input-group">
+		              <div class="input-group-addon">
+		                <i class="fa fa-calendar"></i>
+		              </div>
+		              <input type="text" class="form-control pull-right" name="daterange" id="reservation">
+		            </div>
 				</div>
-				<div class="col-md-4">
-					<select data-parsley-required="true" name="countries" id="input-province" style="width: 55%; height: 79%;"">
-							<option value="" selected="selected">Status</option>
-							<%-- <c:forEach var="loc" items= "${locations}">
-								<option value="${loc.id}">${loc.streetAddress}</option>
-							</c:forEach> --%>
-					</select>
+			  </div>
+			  <div class="col-md-2">
+			  	<div class="form-group">
+				    <select name="title" id="insert-title" class="form-control custom-select custom-select-md">
+				    	<option selected>Status</option>
+				    		<option value="">Submitted</option>
+				    		<option value="">Approved</option>
+				    		<option value="">Rejected</option>
+				    </select>
 				</div>
-				<div class="col-md-3">
-					<input type="text" id="search" style="margin-left: -51%;" placeholder="Search" />
+			  </div>
+			  <div class="col-md-2">
+			  	<div class="form-group">
+					<input type="text" class="form-control" id="insert-search" placeholder="Search">
 				</div>
-				
-				<div class="col-md-2">
-					<button type="button" id="btn-create" class="btn btn-primary" style="width: 100%">Export</button>
+			  </div>
+			  <div class="col-md-3">
+			  </div>
+			  <div class="col-md-2">
+			  	<div class="form-group">
+					<button type="button" id="btn-export" class="btn btn-primary btn-block" style="float: right;">Export</button>
 				</div>
+			  </div>
 			</div>
-			
 		</form>
 	</div>
 	
 	<table id="emp-table" class="table table-sm table-striped table-bordered" cellspacing="0" width="100%">
-		<thead class="thead-dark">
+		<thead style="text-align: center;">
 			<th>Create Date</th>
 			<th>Supplier</th>
 			<th>PO No.</th>
@@ -89,35 +77,31 @@
 			<th>#</th>
 		</thead>
 		<tbody>
+		<c:forEach items="${pos}" var="po">
 			<tr>
-				<td><center>01/01/2016</center></td>
-				<td>PT.Mobil Nusantara</td>
-				<td>PO001</td>
-				<td>Rp.200000</td>
-				<td>Approve</td>
+				<td><center>${po.createdOn }</center></td>
+				<td>${po.supplierId.name }</td>
+				<td>${po.poNo }</td>
+				<td>${po.grandTotal}</td>
+				<td>A</td>
 				<td><center>
 					<a id="btn-edit-po" class="btn btn-info btn-sm" href="#">Edit</a>
 					<a id="btn-view-po" class="btn-view-po btn btn-info btn-sm" href="#">View</a></center>
 				</td>
 			</tr>
-			
-			<tr>
-				<td><center>01/02/2016</center></td>
-				<td>PT.Mobil Nusantara</td>
-				<td>PO002</td>
-				<td>Rp.1.000.000</td>
-				<td>Rejected</td>
-				<td><center>
-					<a id="btn-edit-po" class="btn btn-info btn-sm" href="#">Edit</a>
-					<a id="btn-view-po" class=" btn-view-po btn btn-info btn-sm" href="#">View</a></center>
-				</td>
-			</tr>
+		</c:forEach>
 		</tbody>
 	</table>
-</div>
 
+<!-- ======================================================================================================================= -->
+	
+	<%@ include file="/WEB-INF/view/template/master-body-bottom.jsp"%>
+	
+	<!-- ======================================================================================================================= -->
+	
 <!-- call modal -->
 	<%@ include file="modal/purchase-order/form-edit-po.jsp" %>
-
+	
+	
 </body>
 </html>

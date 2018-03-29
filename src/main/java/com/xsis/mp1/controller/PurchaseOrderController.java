@@ -8,7 +8,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.xsis.mp1.model.Item;
+import com.xsis.mp1.model.Outlet;
+import com.xsis.mp1.model.PurchaseOrder;
+import com.xsis.mp1.model.Supplier;
 import com.xsis.mp1.service.ItemService;
+import com.xsis.mp1.service.OutletService;
+import com.xsis.mp1.service.POService;
+import com.xsis.mp1.service.SupplierService;
 
 
 
@@ -19,17 +25,25 @@ public class PurchaseOrderController {
 	@Autowired
 	ItemService itemService;
 	
+	@Autowired
+	POService poService;
+	
+	@Autowired
+	SupplierService supplierService;
+	
 	@RequestMapping
 	public String index(Model model) {
-		List<Item> items = itemService.selectAll();
-		model.addAttribute("items", items);
+		List<PurchaseOrder> pos = poService.selectAll();
+		List<Supplier> suppliers = supplierService.selectAll();
+		model.addAttribute("pos", pos);
+		model.addAttribute("suppliers", suppliers);
 		return "po";
 	}
 	
 	@RequestMapping(value="/detail-po")
 	public String indexDetailPO(Model model) {
-		List<Item> items = itemService.selectAll();
-		model.addAttribute("items", items);
+		List<PurchaseOrder> pos = poService.selectAll();
+		model.addAttribute("pos", pos);
 		return "detail-po";
 	}
 	
