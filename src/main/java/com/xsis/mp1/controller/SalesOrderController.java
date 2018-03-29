@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,10 +19,12 @@ import com.xsis.mp1.model.District;
 import com.xsis.mp1.model.Province;
 import com.xsis.mp1.model.Region;
 import com.xsis.mp1.model.Supplier;
+import com.xsis.mp1.model.Variant;
 import com.xsis.mp1.service.CustomerService;
 import com.xsis.mp1.service.DistrictService;
 import com.xsis.mp1.service.ProvinceService;
 import com.xsis.mp1.service.RegionService;
+import com.xsis.mp1.service.VariantService;
 
 @Controller
 @RequestMapping("/sales-order")
@@ -38,6 +41,9 @@ public class SalesOrderController {
 	
 	@Autowired
 	CustomerService customerService; 
+	
+	@Autowired
+	VariantService variantService;
 	
 	@RequestMapping
 	public String index(Model model) {
@@ -84,5 +90,19 @@ public class SalesOrderController {
 		System.out.println("search =" + name);
 		List<Customer> customers = customerService.getCustomerByName(name); 
 		return customers; 
+	}
+	
+	@RequestMapping(value="/search-variant", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Variant> getItemByName(@RequestParam(value="variant", defaultValue="") String name){
+		System.out.println("search = " + name);
+		List<Variant> variants = variantService.getVariantByName(name); 
+		return variants; 
+	}
+	
+	@RequestMapping (value= "/get-item/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public Variant getOneItem(@PathVariable long id) {
+		return variantService.getOneItem(id); 
 	}
 }

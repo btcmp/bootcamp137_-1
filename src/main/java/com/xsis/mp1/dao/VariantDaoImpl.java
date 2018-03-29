@@ -61,6 +61,23 @@ public class VariantDaoImpl implements VariantDao {
 		else
 			return variants;
 	}
+
+	public List<Variant> getVariantByName(String name) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession(); 
+		String hql = "from Variant v where lower(v.item.name) like lower(:name)";
+		List<Variant> variants = session.createQuery(hql).setParameter("name", "%"+name+"%").list(); 
+		if (variants.isEmpty()) {
+			return null;
+		}
+		return variants;
+	}
+
+	public Variant getOneItem(long id) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession(); 
+		return session.get(Variant.class, id); 
+	}
 	
 	
 

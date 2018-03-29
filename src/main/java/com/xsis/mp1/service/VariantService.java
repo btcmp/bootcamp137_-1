@@ -46,6 +46,16 @@ public class VariantService {
 	public void saveOrUpdate(Variant variant) {
 		variantDao.saveOrUpdate(variant);
 	}
+
+	public List<Variant> getVariantByName(String name) {
+		// TODO Auto-generated method stub
+		return variantDao.getVariantByName(name);
+	}
+
+	public Variant getOneItem(long id) {
+		// TODO Auto-generated method stub
+		return variantDao.getOneItem(id);
+	}
 	
 	
 
