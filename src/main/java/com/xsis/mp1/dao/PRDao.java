@@ -8,4 +8,10 @@ public interface PRDao {
 
 	public List<PurchaseRequest> selectAll();
 
+	public void save(PurchaseRequest pr);
+
+	public PurchaseRequest getOne(PurchaseRequest pr);
+
+	public void delete(PurchaseRequest pr);
+
 }

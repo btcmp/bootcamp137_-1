@@ -19,6 +19,22 @@ public class PRService {
 	public List<PurchaseRequest> selectAll() {
 		return prDao.selectAll();
 	}
+
+	public void save(PurchaseRequest pr) {
+		prDao.save(pr);
+	}
+
+	public PurchaseRequest getOne(long id) {
+		PurchaseRequest pr = new PurchaseRequest();
+		pr.setId(id);
+		pr.setStatus("0");
+		pr.setPrNo("0");
+		return prDao.getOne(pr);
+	}
+
+	public void delete(PurchaseRequest pr) {
+		prDao.delete(pr);
+	}
 	
 	
 }

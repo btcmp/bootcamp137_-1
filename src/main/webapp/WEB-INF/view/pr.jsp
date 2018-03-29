@@ -1,39 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<spring:url value="/resources/js/jquery-3.3.1.min.js" var="jq"></spring:url>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Purchase Request</title>
-<link rel="stylesheet" href="resources/css/bootstrap.min.css" />
-<link rel="stylesheet" href="resources/css/bootstrap.css" />
-<link rel="stylesheet" href="resources/css/dataTables.bootstrap4.min.css" />
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-<link rel="stylesheet" href="resources/css/daterangepicker.css" />
-<script type="text/javascript" src="${jq }"></script>
-<script type="text/javascript" src="<spring:url value="/resources/js/parsley.js"/>"></script>
-<script type="text/javascript" src="<spring:url value="/resources/js/parsley.min.js"/>"></script>
-<script type="text/javascript" src="<spring:url value="/resources/js/bootstrap.min.js"/>"></script>
-<script type="text/javascript" src="<spring:url value="/resources/js/jquery.dataTables.min.js"/>"></script>
-<script type="text/javascript" src="<spring:url value="/resources/js/dataTables.bootstrap4.min.js"/>"></script>
-<script type="text/javascript" src="<spring:url value="/resources/js/moment.js"/>"></script>
-<script type="text/javascript" src="<spring:url value="/resources/js/daterangepicker.js"/>"></script>
+<%@ include file="/WEB-INF/view/template/master-header.jsp"%>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-
-
-<style type="text/css">
-	input.parsley-error
-		{
-		  color: #B94A48 !important;
-		  background-color: #F2DEDE !important;
-		  border: 1px solid #EED3D7 !important;
-		}
-</style>
+<!-- =========================================================================================================== -->
 
 <script type="text/javascript">
 	jQuery(document).ready(function(){
@@ -47,9 +14,10 @@
 		});
 		
 		$(function() {
-		    $('input[name="target-pr"]').daterangepicker({
+		    $('#insert-target').daterangepicker({
 		        singleDatePicker: true,
-		        showDropdowns: true
+		        showDropdowns: true,
+		        dateFormat: 'dd-mm-yyyy'
 		    });
 		});
 		
@@ -65,28 +33,143 @@
 		$('#btn-add-2').on('click', function(){
 			$('#modal-pr-add-item').modal('hide');
 			$('#modal-pr-input').modal('show');
+			$('#btn-submit').show();
 		});
 		
 		$('#btn-cancel-add').on('click', function(){
 			$('#modal-pr-input').modal();
+			$('#btn-submit').hide();
+		});
+		
+		$('#btn-cancel-input').on('click', function(){
+			$('#btn-submit').hide();
+		});
+		
+		
+		var CHAR_SETS = {
+			    d: '0123456789',
+			    A: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+			    w: '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+			};
+
+		function randChar(charType) {
+		    var chars = CHAR_SETS[charType];
+		    return chars.charAt(parseInt(Math.random() * chars.length));
+		};
+		var code = 'PR'+'AddwwwwAAAddd'.replace(/[Adw]/g, randChar)
+			
+		
+		//save
+		$('#btn-save').on('click', function(){
+			
+			var matriks = $('#insert-target').val().split('/');
+			console.log(matriks);
+			var ready = matriks[2]+'-'+matriks[0]+'-'+matriks[1];
+			console.log(ready);
+			
+			var genCode = code;
+			console.log(code);
+			var pr = {
+				readyTime : ready,
+				prNo : genCode,
+				notes : $('#input-note').val(),
+				status : "created",
+				outletId : {
+					id : 2273
+				}
+			};
+			console.log(pr);
+
+			$.ajax({
+				type : 'POST',
+				url : '${pageContext.request.contextPath}/pr/save',
+				data : JSON.stringify(pr),
+				contentType : 'application/json',
+				success : function() {
+					window.location = '${pageContext.request.contextPath}/pr';
+				},
+				error : function() {
+					alert('save failed');
+				}
+
+			});
+		});
+		
+		//view detail
+		$('.view').on('click', function(){
+			var id = $(this).attr('id');
+			console.log(id);
+			window.location = '${pageContext.request.contextPath}/pr/detail?id=' + id;
+		});
+		
+		var added = [];
+		var addedQty = [];
+		$('.btn-added-item').hide();
+		
+		// search variant
+		$('#src-item-variant').on('input',function(e){
+			var word = $(this).val();
+			if (word=="") {
+				$('#tbl-add-item-purchase').empty();
+			} else {
+				$.ajax({
+					type : 'GET',
+					url : '${pageContext.request.contextPath}/pr/search-item?search='+word,
+					dataType: 'json',
+					success : function(data){
+						console.log(data);
+						$('#tbl-add-item-purchase').empty();
+						$.each(data, function(key, val) {
+							if(added.indexOf(val.id.toString()) == -1) {
+								$('#tbl-add-item-purchase').append(
+										'<tr><td>'+ val.variant.item.name +'-'+ val.variant.name +'</td><td id="inStock'+ val.id +'">'
+										+ val.beginning +'</td><td id="td-qty'+ val.id +'"><input type="number" class="add-transfer-stock-qty'+ val.id +'" value="1" /></td><td><button type="button" id="'+ val.id +'" class="btn-add-item'
+										+ val.id +' btn-add-item btn btn-primary">Add</button><button type="button" id="'+ val.id +'" class="btn-added-item'
+										+ val.id +' btn-added-item btn">Added</button></td></tr>');
+								$('.btn-added-item'+val.id).hide();
+							} else {
+								var a = added.indexOf(val.id.toString());
+								$('#tbl-add-item-purchase').append('<tr><td>'+ val.variant.item.name +'-'+ val.variant.name +'</td><td>'
+										+ val.endingQty +'</td><td id="td-qty'+ val.id +'">'+addedQty[a]+'</td><td><button type="button" id="'+ val.id +'" class="btn-add-item'
+										+ val.id +' btn-add-item btn btn-primary">Add</button><button type="button" id="'+ val.id +'" class="btn-added-item'
+										+ val.id +' btn-added-item btn">Added</button></td></tr>');
+								$('.btn-add-item'+val.id).hide();
+							}
+						});
+					}, 
+					error : function(){
+						$('tbl-add-item-purchase').empty();
+					}
+				});
+			}
 		});
 	});
 </script>
-</head>
-<body>
+
+<!-- =================================================================================================================== -->
+
+<%@ include file="/WEB-INF/view/template/master-body-top.jsp"%>
+
+<!-- =================================================================================================================== -->
+
 <hr>
 <h6>PURCHASE REQUEST</h6>
 <hr>
-<div class="container">
 	<div class="row">
 	  <div class="col-md-3">
 	  	<div class="form-group">
-			<input type="text" class="form-control" id="insert-date" name="daterange" value="01/01/2018 - 01/31/2018">
+			<!-- <input type="text" class="form-control" id="insert-date" name="daterange" value="01/01/2018 - 01/31/2018"> -->
+			<div class="input-group">
+              <div class="input-group-addon">
+                <i class="fa fa-calendar"></i>
+              </div>
+              <input type="text" class="form-control pull-right" name="daterange" id="reservation">
+            </div>
 		</div>
 	  </div>
 	  <div class="col-md-2">
 	  	<div class="form-group">
-		    <select name="title" id="insert-title" class="custom-select custom-select-md">
+		    <select name="title" id="insert-title" class="form-control custom-select custom-select-md">
 		    	<option selected>Status</option>
 		    		<option value="">Submitted</option>
 		    		<option value="">Approved</option>
@@ -115,29 +198,27 @@
 	<hr>
 	<table id="dt-table" class="table table-sm table-striped table-bordered" cellspacing="0" width="100%">
 		<thead class="thead-dark">
-			<th>Create Date</th>
-			<th>PR No</th>
-			<th>Note</th>
-			<th>Status</th>
-			<th>#</th>
+			<th><center>Create Date</center></th>
+			<th><center>PR No</center></th>
+			<th><center>Note</center></th>
+			<th><center>Status</center></th>
+			<th><center>#</center></th>
 		</thead>
 		<tbody>
-			<c:forEach items="${employees }" var="emp">
+			<c:forEach items="${prs }" var="pr">
 				<tr>
-					<td>${emp.firstName }</td>
-					<td>${emp.email }</td>
-					<td>${emp.active }</td>
-					<td>${emp.emp_outlet.id }</td>
-					<td>${emp.role.id }</td>
+					<td>${pr.createdOn }</td>
+					<td>${pr.prNo }</td>
+					<td>${pr.notes }</td>
+					<td>${pr.status }</td>
 					<td>
-						<a id="${emp.id }" class="update btn btn-info btn-sm" href="#">Edit</a> |
-						<a id="${emp.id }" class="view btn btn-danger btn-sm" href="#">View</a>
+						<a id="${pr.id }" class="update btn btn-success btn-sm" href="#">Edit</a> |
+						<a id="${pr.id }" class="view btn btn-success btn-sm" href="#">View</a>
 					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
-</div>
 
 <!-- Call modal -->
 <!-- Modal Purchase Input -->
@@ -155,7 +236,15 @@
 				<form id="target" data-parsley-validate>
 					<input type="hidden" id="input-id" name="input-id" />
 					<div class="form-group">
-						<label for="input-name">CREATE NEW PR : Outlet Login</label>
+						<label for="input-name">CREATE NEW PR : </label>
+						<select name="role" id="insert-role">
+							<c:forEach var="out" items="${outlets }">
+								<option value="${out.id }">${out.name }</option>
+							</c:forEach>
+						</select>
+					</div>
+					<div class="form-group">
+						
 					</div>
 					<div class="form-group">
 						<label for="input-name">Target Waktu Item Ready</label>
@@ -174,8 +263,20 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-				<button type="button" id="btn-save" class="btn btn-primary">Save</button>
+				<div class="row">
+					<div class="col-md-3">
+					
+					</div>
+					<div class="col-md-3" >
+						<button type="button" id="btn-submit" class="btn btn-success btn-block" style="display: none">Submit</button>
+					</div>
+					<div class="col-md-3">
+						<button type="button" id="btn-cancel-input" class="btn btn-primary btn-block" data-dismiss="modal">Cancel</button>
+					</div>
+					<div class="col-md-3">
+						<button type="button" id="btn-save" class="btn btn-primary btn-block">Save</button>
+					</div>
+				</div>				
 			</div>
 		</div>
 	</div>
@@ -196,27 +297,21 @@
 				<form id="target" data-parsley-validate>
 					<input type="hidden" id="input-id" name="input-id" />
 					<div class="form-group">
-						<label for="input-name">Item Name - Variant Name</label>
-					</div>
-					<div>
-						<table id="dt-add-item" class="table table-sm table-striped table-bordered" cellspacing="0" width="100%">
-							<thead class="thead-dark">
-								<th>Item</th>
-								<th>In Stock</th>
-								<th>Request Qty.</th>
-							</thead>
-							<tbody>
-								<tr>
-									<td>Baju</td>
-									<td><center>2</center></td>
-									<td><center>3</center></td>
-								</tr>
-							</tbody>
-						</table>
+						<input type="text" id="src-item-variant" class="form-control" placeholder="Item Name - Variant Name" />
 					</div>
 				</form>
 			</div>
 			<div class=modal-body>
+				<table class="table table-striped table-bordered" cellspacing="0" width="100%">
+					<thead>
+						<th>Item</th>
+						<th>Stock</th>
+						<th>Trans. Qty</th>
+						<th>Action</th>
+					</thead>
+					<tbody id="tbl-add-item-purchase">
+					</tbody>
+				</table>
 				<div class="row">
 					<div class="col-md-5">
 						<button type="button" id="btn-cancel-add" class="btn btn-primary btn-block" data-dismiss="modal">Cancel</button>
@@ -232,5 +327,14 @@
 		</div>
 	</div>
 </div>
+
+	<!-- ======================================================================================================================= -->
+	
+	<%@ include file="/WEB-INF/view/template/master-body-bottom.jsp"%>
+	
+	<!-- ======================================================================================================================= -->
+	
+	<!-- Call Modal -->
+	
 </body>
 </html>

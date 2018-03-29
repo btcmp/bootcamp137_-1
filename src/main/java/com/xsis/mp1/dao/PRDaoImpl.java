@@ -19,6 +19,23 @@ public class PRDaoImpl implements PRDao {
 		Session session = sessionFactory.getCurrentSession();
 		return session.createCriteria(PurchaseRequest.class).list();
 	}
+
+	public void save(PurchaseRequest pr) {
+		Session session = sessionFactory.getCurrentSession();
+		session.save(pr);
+		session.flush();
+	}
+
+	public PurchaseRequest getOne(PurchaseRequest pr) {
+		Session session = sessionFactory.getCurrentSession();
+		return session.get(PurchaseRequest.class, pr.getId());
+	}
+
+	public void delete(PurchaseRequest pr) {
+		Session session = sessionFactory.getCurrentSession();
+		session.delete(pr);
+		session.flush();
+	}
 	
 	
 }
