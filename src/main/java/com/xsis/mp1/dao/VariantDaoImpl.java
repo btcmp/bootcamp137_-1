@@ -31,7 +31,7 @@ public class VariantDaoImpl implements VariantDao {
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(Variant.class, variant.getId());
 	}
-
+ 
 	public void update(Variant variant) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();

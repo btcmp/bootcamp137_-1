@@ -24,7 +24,7 @@ public interface VariantDao {
 
 	// save or update
 	public void saveOrUpdate(Variant variant);
-
+ 
 	public List<Variant> getVarianByItem(Item item);
 	 
 }

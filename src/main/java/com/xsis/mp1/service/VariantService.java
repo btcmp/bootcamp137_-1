@@ -34,7 +34,7 @@ public class VariantService {
 		variant.setActive(false);
 		return variantDao.getOne(variant);
 	}
- 
+  
 	public void update(Variant variant) {
 		variantDao.update(variant);
 	}

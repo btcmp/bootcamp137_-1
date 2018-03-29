@@ -217,7 +217,7 @@
 				var sku=element.eq(2).text();
 				var bstock=element.eq(3).text();
 				var alert=element.eq(4).text();
-				
+			 	
 				//console.log(variant);
 				$('#modal-edit-item').modal('hide');
 				$('#modal-edit-edit-variant').modal('show');

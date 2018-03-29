@@ -31,7 +31,7 @@ public class Variant {
 	@NotNull
 	@Column(nullable=false)
 	private String name;
-	
+	 
 	@NotNull
 	@Column(nullable=false)
 	private String sku;

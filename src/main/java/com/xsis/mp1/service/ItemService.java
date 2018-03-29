@@ -77,7 +77,7 @@ public class ItemService {
 				variantDao.delete(variant);
 			}
 		}
-		
+		 
 	
 		for(Variant variant: variant2) {
 			variant.setId(null);

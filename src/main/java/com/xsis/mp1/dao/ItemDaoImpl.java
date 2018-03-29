@@ -78,5 +78,5 @@ public class ItemDaoImpl implements ItemDao {
 		query.executeUpdate();
 		session.flush();
 	}
-
+ 
 }

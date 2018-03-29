@@ -31,7 +31,7 @@ public class ItemController {
 
 	@Autowired
 	ItemService itemService;
-	
+	 
 	@Autowired
 	CategoryService CategoryService;
 	
