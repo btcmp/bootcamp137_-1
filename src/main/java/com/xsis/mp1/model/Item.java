@@ -30,7 +30,7 @@ public class Item {
 	
 	private String name;
 	
-	 
+	
 	@Column(name="created_by")
 	private long createdBy;
 	

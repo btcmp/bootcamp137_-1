@@ -238,7 +238,7 @@
 			
 		</tbody>
 	</table>
-				 	
+					
 </form>
 			</div>
 			<div class="modal-footer row">
