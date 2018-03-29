@@ -25,7 +25,7 @@ public class Inventory {
 	@Column(nullable=false)
 	@NotNull
 	private Long id;
-	
+	 
 	@ManyToOne
 	private Variant variant;
 	
