@@ -2,6 +2,7 @@ package com.xsis.mp1.dao;
 
 import java.util.List;
 
+import com.xsis.mp1.model.Item;
 import com.xsis.mp1.model.Variant;
 
 public interface VariantDao {
@@ -23,5 +24,7 @@ public interface VariantDao {
 
 	// save or update
 	public void saveOrUpdate(Variant variant);
+
+	public List<Variant> getVarianByItem(Item item);
 	 
 }

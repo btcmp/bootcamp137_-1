@@ -24,7 +24,7 @@ public class VariantService {
 		return variantDao.selectAll();
 	}
 
-	public Variant getOne(int id, Item item) {
+	public Variant getOne(Long id, Item item) {
 		Variant variant = new Variant();
 		variant.setId(id);
 		variant.setItem(item);

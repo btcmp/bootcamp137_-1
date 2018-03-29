@@ -26,7 +26,7 @@ public class Item {
 	@SequenceGenerator(initialValue = 10101, name = "id", sequenceName = "id")
 	@Column(nullable=false)
 	@NotNull
-	private long id;
+	private Long id;
 	
 	private String name;
 	
@@ -47,7 +47,9 @@ public class Item {
 	@Column(nullable=false)
 	private boolean active;
 	
-
+	@Column(name="image_path")
+	private String image;
+	
 	@ManyToOne
 	private Category categoryId;
 	
@@ -59,11 +61,11 @@ public class Item {
 		this.modifiedOn=new Date();
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -115,6 +117,14 @@ public class Item {
 		this.active = active;
 	}
 
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	public Category getCategoryId() {
 		return categoryId;
 	}
@@ -130,9 +140,6 @@ public class Item {
 	public void setVariants(List<Variant> variants) {
 		this.variants = variants;
 	}
-
-	
-	
 	
 	
 

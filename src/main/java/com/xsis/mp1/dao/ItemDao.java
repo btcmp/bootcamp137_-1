@@ -27,5 +27,7 @@ public interface ItemDao {
 		public void saveOrUpdate(Item item);
 
 		public List<Item> getItemsByCategory(Category category);
+
+		public void updateItemByName(Item item);
 }
  

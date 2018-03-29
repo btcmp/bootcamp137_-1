@@ -24,7 +24,7 @@ public class Inventory {
 	@SequenceGenerator(initialValue = 2020201, name = "idinv", sequenceName = "idinv")
 	@Column(nullable=false)
 	@NotNull
-	private int id;
+	private Long id;
 	
 	@ManyToOne
 	private Variant variant;
@@ -68,11 +68,16 @@ public class Inventory {
 	@Column(name="modified_on")
 	private Date modifiedOn;
 
-	public int getId() {
+	public Inventory() {
+		this.createdOn=new Date();
+		this.modifiedOn=new Date();
+	}
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -178,7 +183,9 @@ public class Inventory {
 
 	public void setModifiedOn(Date modifiedOn) {
 		this.modifiedOn = modifiedOn;
-	} 
+	}
+
+	
 	
 		
 }

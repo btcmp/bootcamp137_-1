@@ -27,7 +27,7 @@ public class InventoryService {
 		return inventoryDao.selectAll();
 	}
 
-	public Inventory getOne(int id, Variant variant) {
+	public Inventory getOne(Long id, Variant variant) {
 		Inventory inventory = new Inventory();
 		inventory.setVariant(variant);
 		inventory.setId(id);

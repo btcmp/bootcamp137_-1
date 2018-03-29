@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
 <spring:url value="/resources/js/jquery-3.3.1.min.js" var="jq"></spring:url>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -32,248 +33,18 @@
 		th{
 			text-align: center;
 		}
-</style>
+		img{
+		  max-width:100%;
+		  max-height: 100%;
+		}
+		</style>
+		
+		
 
-<script type="text/javascript">
-	jQuery(document).ready(function(){
-		/* create new item */
-		$('#btn-create').on('click', function(){
-			$('#modal-create-item').modal('show');
-		});
-		
-		 $(document).on('click','#btn-save', function(){		 	
-			 var variants=[];
-			 var inventory=[];
-			 $('#tbody-add-variant-create-item>.row-add-variant').each(function(index,data){
-				 var inventory = {
-						 beginning :$(data).find('td').eq(3).text(),
-					     alertAtQty :$(data).find('td').eq(4).text()
-				 }
-				 var variant={
-							name: $(data).find('td').eq(0).text(),
-							price : $(data).find('td').eq(1).text(),
-							sku: $(data).find('td').eq(2).text(),
-							active:0,
-							inventories:[inventory]
-					}
-				variants.push(variant);
-			});
-			
-			//console.log(variants);
-			 
-			 var item = {
-					//id:$('#input-item-id').val(),
-					name: $('#input-item-name').val(),
-					categoryId : {
-						id:$('#input-item-category').val(),					
-					},
-					variants:variants,
-			 		active: 0
-			};
-		 	
-		 	console.log(item);
-		 	
-		 	 $.ajax({
-				type : 'POST',
-				url : '${pageContext.request.contextPath}/item/save',
-				data : JSON.stringify(item),
-				contentType : 'application/json',
-				success : function(){
-					window.location = '${pageContext.request.contextPath}/item';
-				}, error : function(){
-					alert('save failed');
-				} 		
-			}); 
-	 	//var id=$(this).attr('id');
-		 	/* var row=$('#tbody-add-variant-create-item').parent().parent().find(".row-add-variant");//select one row;
-			var len=row.length; */
-	
-		});
-		 
-		 /* btn show form add variant */
-		 $('#btn-add-variant').on('click', function(){
-			 $('#modal-add-variant').modal('show');
-			
-		});
-		 
-		 /* create add variant */
-		 $('#btn-add-item-variant').on('click', function(){
-			 
-			 	var name= $('#input-variant-name').val();
-				var sku= $('#input-variant-sku').val();
-				var price= $('#input-variant-price').val();
-				var beginning= $('#input-beginning-stock').val();
-				var alert= $('#input-alert-at').val();
-			 		
-				var markup = "<tr class='row-add-variant'><td>" + name + "</td><td><center>" + price 
-					+ "</td><td>" + sku + "</td><td>" + beginning + "</td><td style='display:none'>" 
-					+ alert + "</td><td><a id='btn-edit' class='btn btn-info btn-sm' href='#'>Edit</a></center></td></tr>";
-				
-					$("#tbody-add-variant-create-item").append(markup);
-				
-				$('#modal-add-variant').modal('hide');
 
-				//console.log(inventory);
-		});
-		
-	
-		/* edit item */
-		$('.btn-item-edit').on('click', function(evt){
-			evt.preventDefault();
-					
-			var id = $(this).attr('id');
-			
-			//console.log(id);
-			$.ajax({
-				url:'${pageContext.request.contextPath}/item/get-one/'+id,
-				type:'PUT',
-				contentType:'application/json',
-				success : function(result){
-					 $('#modal-edit-item').modal('show');
-					 /* $('#edit-item-id').val(result.variant.item.id);
-					 $('#edit-item-name').val(result.variant.item.);
-					 $('edit-variant-category').val(result.variant.item.categoryId);  */
-					 
-					 $('#tbody-variant').empty();
-					 //console.log(result);
-						$.each(result, function(key, inventory){
-							
-							var id=inventory.variant.item.id;
-							var item=inventory.variant.item.name;
-							var category=inventory.variant.item.categoryId.id;
-							
-							var markup = "<tr class='row-edit-add-variant'><td>" + inventory.variant.name +"</td><td><center>"+ inventory.variant.price + 
-								"</td><td>" + inventory.variant.sku + 
-								"</td><td>" + inventory.beginning+ 
-								"</td><td><a class='btn-edit-edit-variant tbtn btn-info btn-sm' href='#'>Edit</a></center></td></tr>";
-							$("#tbody-variant").append(markup);
-							//console.log(id);
-							$('#edit-item-id').val(id); 
-							$('#edit-item-name').val(item); 
-							$('#edit-item-category').val(category); 
-						});
-					
-					 //console.log(inventory);
-					 
-					 
-				}, error : function(){
-					alert ('update failed'); 
-				}
-			});
-			
-		});
-		
-		/* save edit */
-		$('#btn-save-edit').on('click', function(){
-			 //var category=  parseInt($('#input-item-category').val());
-		 	 var variants=[];
-			 $('#tbody-variant>.row-edit-add-variant').each(function(index,data){
-				 var inventory = {
-						 beginning :$(data).find('td').eq(3).text(),
-					     alertAtQty :$(data).find('td').eq(4).text()
-				 }
-				 var variant={
-							name: $(data).find('td').eq(0).text(),
-							price : $(data).find('td').eq(1).text(),
-							sku: $(data).find('td').eq(2).text(),
-							active:0,
-							inventories:[inventory]
-					}
-				variants.push(variant);
-			});
-			
-			//console.log(variants);
-			 
-			 var item = {
-					id:$('#edit-item-id').val(),
-					name: $('#edit-item-name').val(),
-					categoryId : {
-						id:$('#edit-item-category').val(),					
-					},
-					variants:variants,
-			 		active: 0
-			};
-		 	
-		 	console.log(item);
-			//console.log(category);
-		 	 $.ajax({
-				type : 'POST',
-				url : '${pageContext.request.contextPath}/item/update',
-				data : JSON.stringify(item),
-				contentType : 'application/json',
-				success : function(){
-					alert("sukses edit");
-					window.location = '${pageContext.request.contextPath}/item';
-				}, error : function(){
-					alert('save failed');
-				} 
-			});
-		});
-		
-		$('#btn-edit-add-variant').on('click', function(){
-			$('#modal-edit-item').modal('hide');
-			$('#modal-edit-add-variant').modal('show');
-		});
-		
-		/* edit add variant  */
-		 
-		 $('#btn-add-edit-item-variant').on('click', function(){
-			 	var name= $('#input-edit-variant-name').val();
-				var sku= $('#input-edit-variant-sku').val();
-				var price= $('#input-edit-variant-price').val();
-				var beginning= $('#input-edit-beginning-stock').val();
-			 
-				var variant={
-					name: name,
-					sku: sku,
-					price:price
-				};	
-				
-				var inventory={
-						beginning: $('#input-edit-beginning-stock').val()
-						
-					};
-				
-				var markup = "<tr class='row-edit-add-variant'><td>" + name	+ "</td><td><center>" 
-					+ price + "</td><td>" + sku + "</td><td>" + beginning 
-					+ "</td><td><a class='btn-edit-edit-variant tbtn btn-info btn-sm' href='#'>Edit</a></center></td></tr>";
-					$("#tbody-variant").append(markup);
-				
-				$('#modal-edit-item').modal('show');
-	
-				console.log(variant);
-				//console.log(inventory);
-			});
-		
-		/* btn edit varian dari modal edit item */
-		 $(document).on('click','.btn-edit-edit-variant', function(){
-				//var id=$(this).attr('id');
-				var element=$(this).parent().parent().find("td");
-				var varname=element.eq(0);
-				var uprice=element.eq(1);
-				var sku=element.eq(2);
-				var bstock=element.eq(3);
-				
-				var variant={
-						name: varname.text(),
-						sku: sku.text(),
-						price : uprice.text(),
-						
-						active:0
-				};
-				console.log(variant);
-				
-			});
-		
-		$('#btn-cancel-add').on('click', function(){
-			$('#modal-edit-item').modal('show');
-		});
-		
-		
-	});
-</script>
 </head>
 <body>
+	<%@ include file="modal/item/script.jsp" %>
 <div class="container">
 	<div>
 		<b>Items</b>
@@ -299,9 +70,9 @@
 		<tbody>
 			<c:forEach items="${inventories}" var="inv">
 				<tr>
-				<td>${inv.variant.item.name}</td>
+				<td>${inv.variant.item.name} - ${inv.variant.name} </td>
 				<td><center>${inv.variant.item.categoryId.name }</center></td>
-				<td><center>${inv.variant.price}</center></td>
+				<td><center>Rp. ${inv.variant.price}</center></td>
 				<td><center>${inv.beginning }</center></td>
 				<td><center>${inv.variant.sku }</center></td>
 				<td><center>

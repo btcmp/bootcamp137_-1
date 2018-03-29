@@ -16,10 +16,11 @@
 								
 						<div class="row col-md-12">
 							<div class="col-md-4">
-								<img id="image-item" src="https://www.w3schools.com/w3images/fjords.jpg" style="width: 100%;">
+								<input type='file' onchange="readURL(this);" />
+								<img id="blah" src="" alt="your image" />
 							</div>
 							<div class="col-md-8">
-								<input type="hidden" id="input-item-id" name="input-id" />		
+								<input type="hidden" id="input-item-id"/>		
 								<div class="form-group">
 									<input type="text" class="form-control" id="input-item-name" placeholder="Item Name">
 								</div><br/>
@@ -46,36 +47,26 @@
 			<th>Unit Price</th>
 			<th>SKU</th>
 			<th>Beginning Stock</th>
-			<th style="display: none">alert Stock</th>
+			<th style="display: none;">alert Stock</th>
 			<th>#</th>
 		</thead>
-		<tbody id="tbody-add-variant-create-item">
-			<tr>
-				<%-- <td>Toyota</td>
-				<td><center>Rp.200000</center></td>
-				<td><center>Low</center></td>
-				<td><center>10</center></td>
-				<td><center>
-					<a id="btn-create" class="btn btn-info btn-sm" href="#">Edit</a></center>
-				</td> --%>
-			</tr>
-		</tbody>
+		<tbody id="tbody-add-variant-create-item"></tbody>
 	</table>
 					
 </form>
 			</div>
-			<div class="modal-footer">
-				<div class="row">
-					<div class="col-md-4">
-						<button type="button" id="btn-cancel" class="btn btn-primary" style="width:240px;" data-dismiss="modal">Back</button>
+			<div class="modal-footer row">
+				
+					<div class="col-md-4" style="margin: auto;">
+						<button type="button" id="btn-cancel" class="btn btn-primary" style="width:100%;" data-dismiss="modal">Back</button>
 					</div>
-					<div class="col-md-4">
-						<button type="button" id="btn-cancel" class="btn btn-primary" style="width:240px;" data-dismiss="modal">Cancel</button>
+					<div class="col-md-4" style="margin: auto;">
+						<button type="button" id="btn-cancel" class="btn btn-primary" style="width:100%;" data-dismiss="modal">Cancel</button>
 					</div>
-					<div class="col-md-4">
-						<button type="button" id="btn-save" class="btn btn-primary" style="width:240px;" href="#">Save</button>
+					<div class="col-md-4" style="margin: auto;">
+						<button type="button" id="btn-save" class="btn btn-primary" style="width:100%;" href="#">Save</button>
 					</div>
-				</div>
+			
 			</div>
 		</div>
 	</div>
@@ -123,8 +114,7 @@
 						<div class="form-group col-md-6">
 							<input type="text" class="form-control " id="input-alert-at" placeholder="Alert At">
 						</div>			
-					</div>
-					
+					</div>	
 				</form>
 			</div>
 			<div class="modal-footer">
@@ -136,6 +126,58 @@
 </div>
 
 <!--End Modal- add-variant -->
+
+<!-- Modal- add-edit-variant -->
+	<div class="modal fade" id="modal-add-edit-variant" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalLabel" aria-hidden="true" >
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel" style="text-align: center;">Add variant</h5>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			
+			
+			<div class="modal-body">
+				<form id="target" data-parsley-validate>
+					<input type="hidden" id="input-edit-edit-varian-id" name="input-id" />		
+					<div class="row">
+						<div class="form-group col-md-4">
+							<input type="text" class="form-control " id="input-edit-variant-name" placeholder="Variant Name">
+						</div>
+						<div class="form-group col-md-4">
+							<input type="text" class="form-control " id="input-edit-variant-price" placeholder="Unit Price">
+						</div>
+						<div class="form-group col-md-4">
+							<input type="text" class="form-control " id="input-edit-variant-sku" placeholder="SKU">
+						</div>			
+					</div>				
+					<div><br/><br/>
+						<h5>Set Beginning Stock</h5>
+						<hr widht="100%"/>
+						</div><br/>
+						<div class="row">
+						<div class="form-group col-md-6">
+							<input type="text" class="form-control " id="input-edit-beginning-stock" placeholder="Beginning Stock">
+						</div>
+						<div class="form-group col-md-6">
+							<input type="text" class="form-control " id="input-edit-alert-at" placeholder="Alert At">
+						</div>			
+					</div>	
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" id="btn-edit-cancel-add" class="btn btn-primary" style="float:right; margin-right: 31px; width:150px;" data-dismiss="modal">Cancel</button>
+				<button type="button" id="" class="btn-add-edit-update-variant btn btn-primary" style="float:right; margin-right: 0px; width: 150px;">Update</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--End Modal- add-edit-variant -->
 
 
 <!--===========================================================================================================================  -->
@@ -188,44 +230,35 @@
 			<th>Unit Price</th>
 			<th>SKU</th>
 			<th>Beginning Stock</th>
+			<th style="display: none">alert Stock</th>
+			<th style="display: none">id</th>
 			<th>#</th>
 		</thead>
 		<tbody id="tbody-variant">
-			<c:forEach items= "${inventory}" var="inv">
-				<tr>
-					<td>${inv.variant.item.name} - ${inv.variant.name}</td>
-					<td>Rp.${inv.variant.price }</td>
-					<td><center>${inv.variant.sku }</center></td>
-					<td><center>${inv.beginning }</center></td>
-					<td><center>
-						<a id="btn-create" class="btn btn-info btn-sm" href="#">Edit</a></center>
-					</td> 
-				</tr>
-			</c:forEach>
+			
 		</tbody>
 	</table>
 					
 </form>
 			</div>
-			<div class="modal-footer">
-				<div class="row">
-					<div class="col-md-4">
-						<button type="button" id="btn-cancel" class="btn btn-primary" style="width:240px;" data-dismiss="modal">Back</button>
+			<div class="modal-footer row">
+					<div class="col-md-4" style="margin: auto;">
+						<button type="button" id="btn-cancel" class="btn btn-primary" style="width:100%;" data-dismiss="modal">Back</button>
 					</div>
-					<div class="col-md-4">
-						<button type="button" id="btn-cancel" class="btn btn-primary" style="width:240px;" data-dismiss="modal">Cancel</button>
+					<div class="col-md-4" style="margin: auto;">
+						<button type="button" id="btn-cancel" class="btn btn-primary" style="width:100%;" data-dismiss="modal">Cancel</button>
 					</div>
-					<div class="col-md-4">
-						<button type="button" id="btn-save-edit" class="btn btn-primary" style="width:240px;" href="#">Save</button>
+					<div class="col-md-4" style="margin: auto;">
+						<button type="button" id="btn-save-edit" class="btn btn-primary" style="width:100%;" href="#">Save</button>
 					</div>
-				</div>
+
 			</div>
 		</div>
 	</div>
 </div>
 
 <!-- end modal-edit -->
-					<!--============================================================================================  -->
+					<!--=======================================================================================================  -->
 <!-- Modal- edit-add-variant -->
 	<div class="modal fade" id="modal-edit-add-variant" tabindex="-1" role="dialog"
 	aria-labelledby="exampleModalLabel" aria-hidden="true" >
@@ -242,16 +275,16 @@
 			
 			<div class="modal-body">
 				<form id="target" data-parsley-validate>
-					<input type="hidden" id="input-edit-varian-id" name="input-id" />		
+					<input type="hidden" id="input-edit-add-varian-id" name="input-id" />		
 					<div class="row">
 						<div class="form-group col-md-4">
-							<input type="text" class="form-control " id="input-edit-variant-name" placeholder="Variant Name">
+							<input type="text" class="form-control " id="input-edit-add-variant-name" placeholder="Variant Name">
 						</div>
 						<div class="form-group col-md-4">
-							<input type="text" class="form-control " id="input-edit-variant-price" placeholder="Unit Price">
+							<input type="text" class="form-control " id="input-edit-add-variant-price" placeholder="Unit Price">
 						</div>
 						<div class="form-group col-md-4">
-							<input type="text" class="form-control " id="input-edit-variant-sku" placeholder="SKU">
+							<input type="text" class="form-control " id="input-edit-add-variant-sku" placeholder="SKU">
 						</div>			
 					</div>				
 					<div><br/><br/>
@@ -260,21 +293,74 @@
 						</div><br/>
 						<div class="row">
 						<div class="form-group col-md-6">
-							<input type="text" class="form-control " id="input-dit-beginning-stock" placeholder="Beginning Stock">
+							<input type="text" class="form-control " id="input-edit-add-beginning-stock" placeholder="Beginning Stock">
 						</div>
 						<div class="form-group col-md-6">
-							<input type="text" class="form-control " id="input-edit-alert-at" placeholder="Alert At">
+							<input type="text" class="form-control " id="input-edit-add-alert-at" placeholder="Alert At">
 						</div>			
 					</div>
 					
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" id="btn-cancel-add-edit" class="btn btn-primary" style="float:right; margin-right: 31px; width:150px;" data-dismiss="modal">Cancel</button>
-				<button type="button" id="btn-add-edit-item-variant" class="btn btn-primary" style="float:right; margin-right: 0px; width: 150px;" data-dismiss="modal">Add</button>
+				<button type="button" id="btn-cancel-add-edit-item-variant" class="btn btn-primary" style="float:right; margin-right: 31px; width:150px;">Cancel</button>
+				<button type="button" id="btn-edit-add-add-item-variant" class="btn btn-primary" style="float:right; margin-right: 0px; width: 150px;" >Add</button>
 			</div>
 		</div>
 	</div>
 </div>
 
 <!--End Modal-edit-add-variant -->
+
+<!-- Modal- edit-edit-variant -->
+	<div class="modal fade" id="modal-edit-edit-variant" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalLabel" aria-hidden="true" >
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel" style="text-align: center;">Add variant</h5>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			
+			
+			<div class="modal-body">
+				<form id="target" data-parsley-validate>
+					<input type="hidden" id="edit-edit-varian-id" name="input-id" />		
+					<div class="row">
+						<div class="form-group col-md-4">
+							<input type="text" class="form-control " id="edit-edit-variant-name" placeholder="Variant Name">
+						</div>
+						<div class="form-group col-md-4">
+							<input type="text" class="form-control " id="edit-edit-variant-price" placeholder="Unit Price">
+						</div>
+						<div class="form-group col-md-4">
+							<input type="text" class="form-control " id="edit-edit-variant-sku" placeholder="SKU">
+						</div>			
+					</div>				
+					<div><br/><br/>
+						<h5>Set Beginning Stock</h5>
+						<hr widht="100%"/>
+						</div><br/>
+						<div class="row">
+						<div class="form-group col-md-6">
+							<input type="text" class="form-control " id="edit-edit-beginning-stock" placeholder="Beginning Stock">
+						</div>
+						<div class="form-group col-md-6">
+							<input type="text" class="form-control " id="edit-edit-alert-at" placeholder="Alert At">
+						</div>			
+					</div>
+					
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" id="btn-cancel-edit-edit" class="btn btn-primary" style="float:right; margin-right: 31px; width:150px;" >Cancel</button>
+				<button type="button" id="btn-edit-edit-update-variant" class="btn btn-primary" style="float:right; margin-right: 0px; width: 150px;" >Update</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--End Modal-edit-edit-variant -->

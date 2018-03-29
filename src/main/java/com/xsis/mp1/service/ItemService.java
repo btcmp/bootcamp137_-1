@@ -66,22 +66,38 @@ public class ItemService {
 	}
 	
 	public void saveOrUpdate(Item item) {
-		List<Variant> variants = item.getVariants();
-		item.setVariants(null);
-		itemDao.save(item);
+		//List<Variant> variants = item.getVariants();
+		//item.setVariants(null);
+		itemDao.updateItemByName(item);
+		List<Variant> variant2 = item.getVariants();
+		//variantDao.delete(item.getVariants());
+		List<Variant> variants=variantDao.getVarianByItem(item);
+		if(variants != null) {
+			for(Variant variant: variants) {
+				variantDao.delete(variant);
+			}
+		}
 		
-		//objek variant
-		for(Variant variant : variants) {
-			List<Inventory> inventories= variant.getInventories();
-			variant.setInventories(null);
-			variant.setItem(item);
-			variantDao.save(variant);
+	
+		for(Variant variant: variant2) {
+			variant.setId(null);
+			Variant variant3=new Variant();
+			variant3.setName(variant.getName());
+			variant3.setItem(item);
+			variant3.setPrice(variant.getPrice());
+			variant3.setSku(variant.getSku());
+			System.out.println(variant.getName());
+			variantDao.save(variant3);
+			List<Inventory> inventory=variant.getInventories();
 			
-			
-			//objek inventory
-			for(Inventory inventory:inventories) {
-				inventory.setVariant(variant);
-				inventoryDao.save(inventory);
+			if(inventory!=null) {
+				for(Inventory inventory2: inventory) {
+					Inventory inventory3=new Inventory();
+					inventory3.setVariant(variant3);
+					inventory3.setAlertAtQty(inventory2.getAlertAtQty());
+					inventory3.setBeginning(inventory2.getBeginning());
+					inventoryDao.save(inventory3);
+				}
 			}
 		}
 	}

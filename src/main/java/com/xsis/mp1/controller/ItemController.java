@@ -64,15 +64,17 @@ public class ItemController {
 	
 	@RequestMapping(value="/get-one/{id}", method=RequestMethod.PUT)
 	@ResponseBody
-	public List getOne(@PathVariable long id, Model model, Item item) {
+	public List<Inventory> getOne(@PathVariable long id, Model model, Item item) {
 		List<Inventory> inventory=inventoryService.selectAllByItem(item);
 		model.addAttribute("inventory", inventory);
 		return inventory;
 	}
-	@RequestMapping(value="/update", method=RequestMethod.POST)
-	@ResponseStatus(HttpStatus.OK)
-	public void edit(@RequestBody Item item) {
-		//itemService.saveOrUpdate(item);
-		System.out.println("update");
+	@RequestMapping(value="/edit", method=RequestMethod.PUT)
+	//@ResponseStatus(HttpStatus.CREATED)
+	@ResponseBody
+	public Item edit(@RequestBody Item item) {
+		itemService.saveOrUpdate(item);
+		//System.out.println("update");
+		return item;
 	}
 }

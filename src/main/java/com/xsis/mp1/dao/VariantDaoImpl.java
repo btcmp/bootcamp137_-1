@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.xsis.mp1.model.Item;
 import com.xsis.mp1.model.Variant;
 
 @Repository
@@ -48,6 +49,17 @@ public class VariantDaoImpl implements VariantDao {
 		Session session = sessionFactory.getCurrentSession();
 		session.saveOrUpdate(variant);
 		session.flush();
+	}
+
+	public List<Variant> getVarianByItem(Item item) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql="from Variant v where v.item = :item";
+		List<Variant> variants=session.createQuery(hql).setParameter("item", item).list();
+		if(variants.isEmpty())
+			return null;
+		else
+			return variants;
 	}
 	
 	

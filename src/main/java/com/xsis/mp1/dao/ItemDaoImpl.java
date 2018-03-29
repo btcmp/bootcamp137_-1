@@ -2,6 +2,7 @@ package com.xsis.mp1.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +63,20 @@ public class ItemDaoImpl implements ItemDao {
 			return null; 
 		}
 		return items;
+	}
+
+	public void updateItemByName(Item item) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession(); 
+		String hql = "update Item set name =:name, categoryId=:cId where id=:id";
+		
+		Query query=session.createQuery(hql);
+		
+		query.setParameter("name", item.getName());
+		query.setParameter("cId",item.getCategoryId());
+		query.setParameter("id", item.getId());
+		query.executeUpdate();
+		session.flush();
 	}
 
 }
