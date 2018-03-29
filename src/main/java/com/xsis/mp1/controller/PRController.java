@@ -74,11 +74,11 @@ public class PRController {
 		prService.delete(pr);
 	}
 	
-	/*@RequestMapping(value = "/search-item", method = RequestMethod.GET)
+	@RequestMapping(value = "/search-item", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Inventory> searchItem(@RequestParam(value="search", defaultValue="") String search) {
 		List<Inventory> inventories = inventoryService.searchInventoryByItemName(search);
 		System.out.println("search"+search);
 		return inventories;
-	}*/
+	}
 }

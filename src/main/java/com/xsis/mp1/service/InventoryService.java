@@ -53,4 +53,8 @@ public class InventoryService {
 		return inventoryDao.selectAllByItem(item);
 	}
 
+	public List<Inventory> searchInventoryByItemName(String search) {
+		return inventoryDao.searchInventoryByItemName(search);
+	}
+
 }

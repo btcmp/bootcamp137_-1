@@ -26,4 +26,6 @@ public interface InventoryDao {
 	public void saveOrUpdate(Inventory inventory);
 	
 	public List<Inventory> selectAllByItem(Item item);
+
+	public List<Inventory> searchInventoryByItemName(String search);
 }
