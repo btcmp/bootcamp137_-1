@@ -45,6 +45,17 @@ public class PurchaseRequestDetail {
 	
 	@ManyToOne
 	private PurchaseRequest pr;
+	
+	@ManyToOne
+	private Variant variant;
+
+	public Variant getVariant() {
+		return variant;
+	}
+
+	public void setVariant(Variant variant) {
+		this.variant = variant;
+	}
 
 	public PurchaseRequest getPr() {
 		return pr;

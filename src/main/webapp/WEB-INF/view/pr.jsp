@@ -69,6 +69,9 @@
 			
 			var genCode = code;
 			console.log(code);
+			
+			var prDet = [];
+			
 			var pr = {
 				readyTime : ready,
 				prNo : genCode,
@@ -76,7 +79,8 @@
 				status : "created",
 				outletId : {
 					id : 2273
-				}
+				},
+				prDetails : prDet
 			};
 			console.log(pr);
 
