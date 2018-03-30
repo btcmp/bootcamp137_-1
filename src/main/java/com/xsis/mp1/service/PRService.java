@@ -45,7 +45,7 @@ public class PRService {
 				PurchaseRequestDetail prDetail = new PurchaseRequestDetail();
 				prDetail.setId(prDetails.getId());
 				prDetail.setPr(preq);
-				//prDetail.setVariantId(prd.getVariantId());
+				prDetail.setVariant(prDetails.getVariant());
 				prDetail.setRequestQty(prDetails.getRequestQty());
 				prdDao.save(prDetail);
 			}

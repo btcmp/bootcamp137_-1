@@ -62,15 +62,24 @@
 		//save
 		$('#btn-save').on('click', function(){
 			
+			var prDet = [];
+			
+			$('#tbl-pr-add-item > tbody > tr').each(function(index, data) {
+				var detail = {
+						"requestQty" : $(this).find('td').eq(2).text(),
+						"variant" : {
+							"id" : $(this).attr('id-var')
+						}
+				};
+				prDet.push(detail);
+				console.log('tes');
+			});
+			
 			var matriks = $('#insert-target').val().split('/');
-			console.log(matriks);
 			var ready = matriks[2]+'-'+matriks[0]+'-'+matriks[1];
-			console.log(ready);
 			
 			var genCode = code;
 			console.log(code);
-			
-			var prDet = [];
 			
 			var pr = {
 				readyTime : ready,
@@ -172,7 +181,7 @@
 				'<td>'+reqQty+'</td>' +
 				'<td><button type="button" class="btn btn-danger" id="btn-del'+id+'" id-var="'+id+'">&times;</button>'
 				'</tr>';
-			$('#tbl-pr-add-item').append(oTableAddItem);
+			$('#tbody-add-item').append(oTableAddItem);
 			$(this).prop('disabled', true);
 		});
 	});
@@ -292,10 +301,14 @@
 						<hr>
 						
 						<table id="tbl-pr-add-item" class="table table-striped table-bordered" cellspacing="0" width="100%">
-							<th>Item</th>
-							<th>In Stock</th>
-							<th>Req Qty</th>
-							<th></th>
+							<thead>
+								<th>Item</th>
+								<th>In Stock</th>
+								<th>Req Qty</th>
+								<th></th>
+							</thead>
+							<tbody id="tbody-add-item">
+							</tbody>
 						</table>
 						
 						<button type="button" id="btn-add-item" class="btn btn-primary btn-block">Add Item</button>
