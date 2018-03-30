@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -34,6 +36,7 @@ public class PurchaseRequest {
 	@ManyToOne
 	private Outlet outletId;	
 	
+	@Temporal(TemporalType.DATE)
 	@Column(name="ready_time")
 	private Date readyTime;
 	

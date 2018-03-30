@@ -29,8 +29,8 @@
 			$('#modal-pr-input').modal('hide');
 			$('#modal-pr-add-item').modal();
 		});
-		
-		$('#btn-add-2').on('click', function(){
+
+		$('#btn-add-item-var').on('click', function(){
 			$('#modal-pr-add-item').modal('hide');
 			$('#modal-pr-input').modal('show');
 			$('#btn-submit').show();
@@ -125,19 +125,26 @@
 						$('#tbl-add-item-purchase').empty();
 						$.each(data, function(key, val) {
 							if(added.indexOf(val.id.toString()) == -1) {
-								$('#tbl-add-item-purchase').append(
-										'<tr><td>'+ val.variant.item.name +'-'+ val.variant.name +'</td><td id="inStock'+ val.id +'">'
-										+ val.beginning +'</td><td id="td-qty'+ val.id +'"><input type="number" class="add-transfer-stock-qty'+ val.id +'" value="1" /></td><td><button type="button" id="'+ val.id +'" class="btn-add-item'
-										+ val.id +' btn-add-item btn btn-primary">Add</button><button type="button" id="'+ val.id +'" class="btn-added-item'
-										+ val.id +' btn-added-item btn">Added</button></td></tr>');
-								$('.btn-added-item'+val.id).hide();
+								var oTableItem = "<tr>"+
+									'<td>'+ val.variant.item.name +'-'+ val.variant.name +'</td>' +
+									'<td id="inStock'+ val.id +'">'+ val.beginning +'</td>' +
+									'<td id="td-qty'+ val.id +'"><input type="number" id="add-qty'+ val.id +'" value="1" /></td>' +
+									'<td><button type="button" id="'+ val.id +'" class="btn-add-item'+val.id +' btn-add-item btn btn-primary" id-var="'+val.variant.id+'">Add</button></td>' +
+								"</tr>";
+								
+								$('#tbl-add-item-purchase').append(oTableItem);
+								$('.btn-add-item'+val.id).prop('disabled', false);
 							} else {
 								var a = added.indexOf(val.id.toString());
-								$('#tbl-add-item-purchase').append('<tr><td>'+ val.variant.item.name +'-'+ val.variant.name +'</td><td>'
-										+ val.endingQty +'</td><td id="td-qty'+ val.id +'">'+addedQty[a]+'</td><td><button type="button" id="'+ val.id +'" class="btn-add-item'
-										+ val.id +' btn-add-item btn btn-primary">Add</button><button type="button" id="'+ val.id +'" class="btn-added-item'
-										+ val.id +' btn-added-item btn">Added</button></td></tr>');
-								$('.btn-add-item'+val.id).hide();
+								var oTableItem = "<tr>"+
+									'<td>'+ val.variant.item.name +'-'+ val.variant.name +'</td>' +
+									'<td id="inStock'+ val.id +'">'+ val.beginning +'</td>' +
+									'<td id="td-qty'+ val.id +'">'+addedQty[a]+'</td>' +
+									'<td><button type="button" id="'+ val.id +'" class="btn-add-item'+val.id +' btn-add-item btn btn-primary" id-var="'+val.variant.id+'">Add</button></td>' +
+								"</tr>";
+								
+								$('#tbl-add-item-purchase').append(oTableItem);
+								$('.btn-add-item'+val.id).prop('disabled', true);
 							}
 						});
 					}, 
@@ -146,6 +153,27 @@
 					}
 				});
 			}
+		});
+		
+		//tambah tabel item ke modal create PR
+		$('#tbl-add-item-purchase').on('click', '.btn-add-item', function(){
+			var element = $(this).parent().parent();
+			var id = $(this).attr('id');
+			var idVar = $(this).attr('id-var');
+			var itemVar = element.find('td').eq(0).text();
+			var inStock = element.find('td').eq(1).text();
+			var reqQty = $('#add-qty'+id).val();
+			
+			added.push(id);
+			addedQty.push(reqQty);
+			
+			var oTableAddItem = '<tr id-var="'+idVar+'"><td>'+itemVar+'</td>' +
+				'<td>'+inStock+'</td>' +
+				'<td>'+reqQty+'</td>' +
+				'<td><button type="button" class="btn btn-danger" id="btn-del'+id+'" id-var="'+id+'">&times;</button>'
+				'</tr>';
+			$('#tbl-pr-add-item').append(oTableAddItem);
+			$(this).prop('disabled', true);
 		});
 	});
 </script>
@@ -262,6 +290,14 @@
 					<div class="form-group">
 						<label for="input-name">Purchase Request</label>
 						<hr>
+						
+						<table id="tbl-pr-add-item" class="table table-striped table-bordered" cellspacing="0" width="100%">
+							<th>Item</th>
+							<th>In Stock</th>
+							<th>Req Qty</th>
+							<th></th>
+						</table>
+						
 						<button type="button" id="btn-add-item" class="btn btn-primary btn-block">Add Item</button>
 					</div>
 				</form>
@@ -324,7 +360,7 @@
 					
 					</div>
 					<div class="col-md-5">
-						<button type="button" id="btn-add-2" class="btn btn-primary btn-block">Add</button>
+						<button type="button" id="btn-add-item-var" class="btn btn-primary btn-block">Add</button>
 					</div>
 				</div>
 			</div>

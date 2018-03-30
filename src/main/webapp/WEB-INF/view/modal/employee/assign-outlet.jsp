@@ -18,20 +18,19 @@
 					<input type="hidden" id="insert-empout-id"
 						name="insert-empout-id" /> <input type="hidden"
 						id="insert-outlet-id" name="insert-outlet-id" />
-					<div id="pilih-outlet">
-						<c:forEach var="outlet" items="${outlets }">
-							
-							<input type="checkbox" value="${outlet.id }"
-								class="select-outlet" name="select-outlet" />
-							<label for="checkbox1">${outlet.name }</label>
-							
-						</c:forEach>
-					</div>
+					<c:forEach var="outlet" items="${outlets }">
+					<div class="input-group">
+		                  <input type="text" readonly class="form-control" value="${outlet.name }">
+		                  <span class="form- control input-group-addon">
+		                    <input type="checkbox" value="${outlet.id }" class="select-outlet" name="select-outlet" />
+		                  </span>
+		            </div><br>
+		            </c:forEach>
 				</form>
 			</div>
 			<div class="modal-footer">
 				<button type="button" id="btn-select-outlet"
-					class="btn btn-primary">Select</button>
+					class="btn btn-success">Select</button>
 			</div>
 		</div>
 	</div>
