@@ -1,6 +1,45 @@
-<%@ include file="/WEB-INF/view/template/master-header.jsp"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!-- taglib untuk form spring -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<!-- ambil javascript -->
+<spring:url value="/resources/js/jquery-3.3.1.min.js" var="jq"></spring:url>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Sales Order</title>
+<link rel="stylesheet" href="resources/css/bootstrap.min.css" />
+<link rel="stylesheet" href="resources/css/bootstrap.css" />
+<link rel="stylesheet"
+	href="resources/css/dataTables.bootstrap4.min.css" />
+<script type="text/javascript" src="${jq }"></script>
+<script type="text/javascript"
+	src="<spring:url value="/resources/js/parsley.js"/>"></script>
+<script type="text/javascript"
+	src="<spring:url value="/resources/js/parsley.min.js"/>"></script>
+<script type="text/javascript"
+	src="<spring:url value="/resources/js/bootstrap.min.js"/>"></script>
+<script type="text/javascript"
+	src="<spring:url value="/resources/js/jquery.dataTables.min.js"/>"></script>
+<script type="text/javascript"
+	src="<spring:url value="/resources/js/dataTables.bootstrap4.min.js"/>"></script>
 
-<!-- =========================================================================================================== -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	crossorigin="anonymous"></script>
+
+<style type="text/css">
+input.parsley-error {
+	color: #B94A48 !important;
+	background-color: #F2DEDE !important;
+	border: 1px solid #EED3D7 !important;
+}
+</style>
+
 <script type="text/javascript">
 	var customer = {}; 	
 	$(function(){
@@ -12,7 +51,7 @@
 			 */
 			 /* Memunculkan modal */
 			 //button-choose cust 
-			$('#btn-choosecust').click(function(){
+			$('.btn-choosecust').click(function(){
 				$('#modal-choose-cust').modal(); 
 			}); 
 			
@@ -60,7 +99,7 @@
 				$.each(data, function(index, value){
 					console.log(index, value); 
 					rawData += "<tr>"; 
-					rawData += "<td>"; 
+					rawData += "<td id='customer-name"+ value.id+"'>"; 
 					rawData += value.name ; 
 					rawData += "</td>"; 
 					rawData += "<td>"; 
@@ -70,7 +109,9 @@
 					rawData += value.email ; 
 					rawData += "</td>"; 
 					rawData += "<td>"; 
-					rawData += "<a href='#' class='btn-pilih btn btn-primary'>pilih</a>" ; 
+					rawData += '<button type="button" id="'+ value.id +'" class="btn-pilih-customer'
+					+ value.id +' btn-pilih-customer btn btn-primary"  data-dismiss="modal">Pilih</button>'; 
+					/* <a href='#' class='btn-pilih btn btn-primary'>pilih</a>" ;  */
 					rawData += "</td>"; 
 					rawData += "</tr>";
 					
@@ -83,18 +124,27 @@
 			}
 			
 			/* Mengeksekusi Btn Pilih Customer  */
-				$(document).on('click', '.btn-pilih', function(){
-					var element = $(this).parent().parent();
-					var td = element.find("td").eq(0).text();  
-					console.log(td); 
-					btn-done-order
-					customer= {
+				$(document).on('click', '.btn-pilih-customer', function(){
+					//var element = $(this).parent().parent();
+				/* 	var id = $(this).attr('id');  */
+					//var td = element.find("td").eq(0).text(); 
+					
+					var id = $(this).attr('id');
+					var name = $('#customer-name'+id).text();
+					$('.btn-choosecust').text(name);
+					$('.btn-choosecust').attr("id",id);
+					
+					//console.log(td); 
+				/* $('#btn-choosecust').text(td);
+				$('#btn-choosecust').attr("id", id);  */
+					/* customer= {
 						name : 	element.find("td").eq(0).text(),
 						email : element.find("td").eq(1).text(),
 						phone : element.find("td").eq(2).text(),
-					};
+					}; */
 					//alert ('yeeay'); 
-					console.log(customer); 
+					//console.log(customer); 
+					console.log(id); 
 				});
 			
 				/* Search Item */
@@ -195,21 +245,22 @@
 		//console.log(data);
 		var subTotal = quantity * data.price; 
 	var rawData = "";
-			rawData += "<tr>";
-			rawData += "<td>";
+			rawData += "<tr id='tr-tbody-dso"+ data.id +"'>";
+			rawData += "<td id='"+ data.id +"'>";
 			rawData += data.item.name +"-"+data.name;
 			rawData += "</td>"; 
 			rawData += "<td id='qty"+data.id+"'>"; 
 			rawData += ""; 
 			rawData += "</td>"; 
 			rawData += "<td>"; 
-			rawData += ""; 
+			rawData += "Rp." + data.price; 
 			rawData += "</td>"; 
 			rawData += "<td>"; 
-			rawData += subTotal ; 
+			rawData += "Rp." + subTotal ; 
 			rawData += "</td>";  
 			rawData += "<td>"; 
-			rawData += "<a href='#' id='btn-cancel-item' class=' btn btn-danger btn-sm'>Cancel</a>" ; 
+			rawData += "<button type='button' id='"+ data.id +"' class='btn-cancel-item"
+			+ data.id +" btn-cancel-item btn btn-danger'>Cancel</button>" ; 
 			rawData += "</td>";  
 			rawData += "</tr>";  
 		//oTable.empty();
@@ -219,16 +270,16 @@
 	tFoot.empty();
 	var total = 0;
 	$('#table-dso-body > tr').each(function(index, data){
-		var price = $(data).find('td').eq(3).text();
+		var price = $(data).find('td').eq(3).text().split("Rp.")[1];
 		total = total + parseInt(price);
 	$('#btn-charge').text("Charge Rp."+total); 
 	})
 	var rawDataFoot = ""; 
 		rawDataFoot += "<tr id='tr-total-item'>"; 
-		rawDataFoot += "<th colspan='2'>"; 
+		rawDataFoot += "<th colspan='3'>"; 
 		rawDataFoot += "TOTAL"; 
 		rawDataFoot += "</th>";
-		rawDataFoot += "<th colspan ='3'>";
+		rawDataFoot += "<th colspan ='2'>";
 		rawDataFoot += "Rp." + total ; 
 		rawDataFoot += "</th>"; 
 		rawDataFoot += "</tr>"; 
@@ -238,12 +289,48 @@
 	 
 	/* -------------------------------------------END BTN PILIH---------------------------- */
 	/*-------------------------BTN CANCEL-----------------------  */
-	$(document).on('click', '#btn-cancel-item', function()	
+	$(document).on('click', '.btn-cancel-item', function()	
 	{
 		//var id = $(this).attr('id');  
-		alert ('yeay'); 
+		
+		 var id = $(this).attr('id');
+		 console.log(id); 
+		$('#tr-tbody-dso'+id).remove();
+/* 		$('.btn-added-item'+id).hide();
+		$('.btn-add-item'+id).show();  */
+		 $('#qty'+id).html('<input type="number" class="add-item-qty'+ id +'" value="1" />');
+		var a = add.indexOf(id.toString());
+		add.splice(a,1);
+		addQty.splice(a,1);
+		if (document.getElementById("table-dso-body").rows.length>0) {
+			document.getElementById("btn-charge").disabled = false;
+		}else {
+			document.getElementById("btn-charge").disabled = true;
+		}
+		$('#table-dso-foot').empty();
+		var total = 0;
+		$('#table-dso-body > tr').each(function(index, data){
+			var price = $(data).find('td').eq(3).text().split("Rp.")[1];
+			total = total + parseInt(price);
+		})
+		$('#table-dso-body').append('<tr id="tr-total-item"><th colspan="3">TOTAL</th><th colspan="2">Rp. '+ total +'</th></tr>');
+		$('#btn-charge').text("Charge Rp."+total)  
 	});
 	/* ---------------------------------------END BTN CANCEL ----------------------------- */
+	/* -----------------------------BTN CLEAR SALE --------------------------------------- */
+	
+	$(document).on('click', '#btn-clear-sale', function(){
+		$('#table-dso-body').empty();
+		added = [];
+		addedQty = [];
+		$('#table-dso-foot').empty();
+		$('#table-dso-foot').append('<tr id="tr-total-item"><th colspan="3">TOTAL</th><th colspan="2">Rp. '+ 0 +'</th></tr>');
+		$('#btn-charge').text("Charge");
+		//document.getElementById("btn-charge").disabled = true;
+		var word = $('#btn-search').val();
+		//input-search-variant(word);  
+	})
+	/* --------------------------------------END BTN CLEAR SALE ------------------------- */
 	/* ------------------------START BTN DONE -------------------------------------- */
 	$('#btn-done-order').on('click', function(evt){
 		evt.preventDefault(); 
@@ -252,13 +339,39 @@
 		//console.log(total); 
 		$('#kembalian').val("Rp." + (payment-total)); 
 		$('#charge-cash').html("Rp." + payment); 
-	/* 	var cash = parseInt($('#charge-cash').val());
-		var total = parseInt($('#charge').text().split("Rp.")[1]);
-		$('#receipt-cash').val("Out of Rp."+cash);
-		$('#receipt-change').val("Rp."+(cash-total));
-		$('#modal-receipt-sales-order').modal();
-		//alert (payment); 
-		$('#btn-charge').val(payment);  */
+		
+		var salesOrderDetails = []; 
+		$('#table-dso-body > tr').each(function(index, data){
+			var sod= {
+					variant : {
+						id : $(data).find('td').eq(0).attr('id')
+					}, 
+					qty : $(data).find('td').eq(1).text(), 
+					 unitPrice : $(data).find('td').eq(2).text().split("Rp.")[1], 
+					 subTotal : $(data).find('td').eq(3).text().split("Rp.")[1]
+			}
+			salesOrderDetails.push(sod); 
+		})
+		
+		var salesOrder = {
+			customer : {
+				id : $('.btn-choosecust').attr('id'), 
+			}, 
+			grandTotal : $ ('#btn-charge').text().split("Rp.")[1], 
+			salesOrderDetails : salesOrderDetails
+		}
+		//console.log(salesOrder); 
+		$.ajax({
+			url : '${pageContext.request.contextPath }/sales-order/save',
+			type : 'POST',
+			data : JSON.stringify(salesOrder),
+			contentType : 'application/json',
+			success : function(){
+				window.location = "${pageContext.request.contextPath}/sales-order";
+			}, error : function(){
+				alert('gagal save');
+			}
+		})
 	}); 
 	/* -----------------------------------BTN CUSTOMER-------------------------------------- */
 /* Eksekusi btn add customer */
@@ -347,12 +460,9 @@
 	//});
 </script>
 
-<!-- =================================================================================================================== -->
+</head>
 
-<%@ include file="/WEB-INF/view/template/master-body-top.jsp"%>
-
-<!-- =================================================================================================================== -->
-
+<body>
 <div class="container">
 	<div>
 		<b>Sales Order</b>
@@ -390,12 +500,12 @@
                     </div>
 			</div>
 			<div class="col-md-6">
-				<div class="form-group" >
+				<!-- <div class="form-group" > -->
 					<div class="col-lg-12"> 
-						<button type="button" id="btn-choosecust" class="btn btn-primary" 
+						<button type="button" id="" class=" btn-choosecust btn btn-primary" 
 						style="width : 100% ; margin-top:10px; ">Choose Customer</button>
 						</div>	
-				</div >
+				<!-- </div > -->
 				<div class="col-lg-12">
                     <div class="panel panel-default">
                                   <!-- /.panel-heading -->
@@ -404,9 +514,9 @@
                                 <table class="table" id = "table-detail-sales-order">
                                     <thead>
                                         <tr>
-                                           	<th>Item</th>
+                                           		<th>Item</th>
 												<th>Qty</th>
-												<th></th>
+												<th>Price</th>
 												<th>Subtotal</th>
 												<th>#</th>
                                         </tr>
@@ -424,7 +534,7 @@
                     </div>
                     <!-- /.panel -->
                 </div>
-                <div class="form-group">
+               <!--  <div class="form-group"> -->
                 <div class="row show-grid">
                       <div class="col-md-6">
                               <button type="button" id="btn-clear-sale" class="btn btn-primary" 
@@ -437,16 +547,10 @@
                                     </div>
                                     </div>
 			
-			</div>
+		<!-- 	</div> -->
 		</div>	
 	</div>
 	</div>
-	
-	<!-- ======================================================================================================================= -->
-	
-	<%@ include file="/WEB-INF/view/template/master-body-bottom.jsp"%>
-	
-	<!-- ======================================================================================================================= -->
 	
  	<!-- panggil modal dari folder modal -->
  	<%@ include file="modal/sales-order/choose-cust.jsp" %>

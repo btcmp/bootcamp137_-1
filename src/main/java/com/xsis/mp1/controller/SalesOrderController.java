@@ -18,12 +18,15 @@ import com.xsis.mp1.model.Customer;
 import com.xsis.mp1.model.District;
 import com.xsis.mp1.model.Province;
 import com.xsis.mp1.model.Region;
+import com.xsis.mp1.model.SalesOrder;
+import com.xsis.mp1.model.SalesOrderDetail;
 import com.xsis.mp1.model.Supplier;
 import com.xsis.mp1.model.Variant;
 import com.xsis.mp1.service.CustomerService;
 import com.xsis.mp1.service.DistrictService;
 import com.xsis.mp1.service.ProvinceService;
 import com.xsis.mp1.service.RegionService;
+import com.xsis.mp1.service.SalesOrderService;
 import com.xsis.mp1.service.VariantService;
 
 @Controller
@@ -45,6 +48,9 @@ public class SalesOrderController {
 	@Autowired
 	VariantService variantService;
 	
+	@Autowired
+	SalesOrderService salesOrderService; 
+	
 	@RequestMapping
 	public String index(Model model) {
 		List<Customer> customers = customerService.selectAll();
@@ -56,6 +62,12 @@ public class SalesOrderController {
 		model.addAttribute("regions", regions); 
 		model.addAttribute("districts", districts ); 
 		return "sales-order"; 
+	}
+	
+	@RequestMapping(value="/save", method=RequestMethod.POST)
+	@ResponseStatus(HttpStatus.CREATED)
+	public void saveSalesOrder(@RequestBody SalesOrder salesOrder) {
+		salesOrderService.save(salesOrder); 
 	}
 	
 	@RequestMapping(value="/get-region", method=RequestMethod.GET)
