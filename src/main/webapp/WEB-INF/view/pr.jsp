@@ -133,7 +133,7 @@
 						console.log(data);
 						$('#tbl-add-item-purchase').empty();
 						$.each(data, function(key, val) {
-							if(added.indexOf(val.id.toString()) == -1) {
+							//if(added.indexOf(val.id.toString()) == -1) {
 								var oTableItem = "<tr>"+
 									'<td>'+ val.variant.item.name +'-'+ val.variant.name +'</td>' +
 									'<td id="inStock'+ val.id +'">'+ val.beginning +'</td>' +
@@ -142,8 +142,7 @@
 								"</tr>";
 								
 								$('#tbl-add-item-purchase').append(oTableItem);
-								$('.btn-add-item'+val.id).prop('disabled', false);
-							} else {
+							/* } else {
 								var a = added.indexOf(val.id.toString());
 								var oTableItem = "<tr>"+
 									'<td>'+ val.variant.item.name +'-'+ val.variant.name +'</td>' +
@@ -153,8 +152,7 @@
 								"</tr>";
 								
 								$('#tbl-add-item-purchase').append(oTableItem);
-								$('.btn-add-item'+val.id).prop('disabled', true);
-							}
+							} */
 						});
 					}, 
 					error : function(){
@@ -173,16 +171,35 @@
 			var inStock = element.find('td').eq(1).text();
 			var reqQty = $('#add-qty'+id).val();
 			
-			added.push(id);
-			addedQty.push(reqQty);
+			//added.push(id);
+			//addedQty.push(reqQty);
 			
-			var oTableAddItem = '<tr id-var="'+idVar+'"><td>'+itemVar+'</td>' +
-				'<td>'+inStock+'</td>' +
-				'<td>'+reqQty+'</td>' +
-				'<td><button type="button" class="btn btn-danger" id="btn-del'+id+'" id-var="'+id+'">&times;</button>'
-				'</tr>';
-			$('#tbody-add-item').append(oTableAddItem);
-			$(this).prop('disabled', true);
+			if(added.indexOf(id.toString()) == -1) {
+				var oTableAddItem = '<tr id-var="'+idVar+'" id="'+id+'"><td>'+itemVar+'</td>' +
+					'<td>'+inStock+'</td>' +
+					'<td>'+reqQty+'</td>' +
+					'<td><button type="button" class="btn-cancel-item btn btn-danger" id="btn-del'+id+'" id-var="'+id+'">&times;</button>'
+					'</tr>';
+				$('#tbody-add-item').append(oTableAddItem);
+				added.push(id);
+			}else{
+				var trItem = $('#tbody-add-item > #'+id+'');
+				var oldReqQty = trItem.find('td').eq(2).text();
+				var newReqQty = parseInt(oldReqQty)+parseInt(reqQty);
+				trItem.find('td').eq(2).text(newReqQty);
+			}
+		});
+		
+		
+		//cancel item
+		$('#tbl-pr-add-item').on('click', '.btn-cancel-item', function(){
+			var id = $(this).attr('id-var');
+			console.log(id);
+			$(this).parent().parent().remove();
+			var index = added.indexOf(id.toString());
+			if(index > -1){
+				added.splice(index, 1);
+			}
 		});
 	});
 </script>
