@@ -231,5 +231,5 @@ public class Outlet {
 		this.inventories = inventories;
 	}
 
-	
+
 }
