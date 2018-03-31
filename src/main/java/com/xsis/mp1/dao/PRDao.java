@@ -10,7 +10,7 @@ public interface PRDao {
 
 	public void save(PurchaseRequest pr);
 
-	public PurchaseRequest getOne(PurchaseRequest pr);
+	public PurchaseRequest getOne(long id);
 
 	public void delete(PurchaseRequest pr);
 

@@ -58,7 +58,7 @@ public class PRController {
 		prService.save(pr);
 	}
 	
-	@RequestMapping(value = "/get-one/{id}")
+	@RequestMapping(value = "/get-one/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public PurchaseRequest getOne(@PathVariable long id) {
 		return prService.getOne(id);

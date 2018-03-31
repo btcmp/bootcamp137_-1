@@ -27,7 +27,20 @@ public class PRService {
 	PRDetailDao prdDao;
 
 	public List<PurchaseRequest> selectAll() {
-		return prDao.selectAll();
+		List<PurchaseRequest> prs = prDao.selectAll();
+		if(prs.isEmpty()) {
+			return null;
+		}else {
+			for(PurchaseRequest pr : prs) {
+				List<PurchaseRequestDetail> prds = prdDao.selectPrDetailByPr(pr);
+				if(prds.isEmpty()) {
+					
+				}else {
+					pr.setPrDetails(prds);
+				}
+			}
+			return prs;
+		}
 	}
 
 	public void save(PurchaseRequest pr) {
@@ -58,11 +71,20 @@ public class PRService {
 	}
 
 	public PurchaseRequest getOne(long id) {
-		PurchaseRequest pr = new PurchaseRequest();
-		pr.setId(id);
-		pr.setStatus("0");
-		pr.setPrNo("0");
-		return prDao.getOne(pr);
+		PurchaseRequest pr = prDao.getOne(id);
+		List<PurchaseRequestDetail> prds = prdDao.selectPrDetailByPr(pr);
+		List<PurchaseRequestHistory> prhs = prhDao.selectHistoryByPR(pr);
+		if(prds.isEmpty()) {
+			
+		}else {
+			pr.setPrDetails(prds);
+		}
+		if(prhs.isEmpty()) {
+			
+		}else {
+			pr.setPrHistories(prhs);
+		}
+		return pr;
 	}
 
 	public void delete(PurchaseRequest pr) {
