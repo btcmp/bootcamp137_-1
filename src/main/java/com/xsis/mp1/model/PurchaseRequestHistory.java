@@ -14,6 +14,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="pos_t_pr_history")
 public class PurchaseRequestHistory {
@@ -40,6 +42,7 @@ public class PurchaseRequestHistory {
 	private Date createdOn;
 	
 	@ManyToOne
+	@JsonBackReference
 	private PurchaseRequest pr;
 
 	public long getId() {

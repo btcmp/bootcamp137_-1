@@ -18,6 +18,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="pos_t_pr")
 public class PurchaseRequest {
@@ -66,10 +68,12 @@ public class PurchaseRequest {
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="prId", cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<PurchaseOrder> purchaseOrders;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="pr", cascade=CascadeType.ALL, orphanRemoval=true)
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="pr", cascade=CascadeType.ALL)
+	@JsonManagedReference
 	private List<PurchaseRequestDetail> prDetails;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="pr", cascade=CascadeType.ALL, orphanRemoval=true)
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="pr", cascade=CascadeType.ALL)
+	@JsonManagedReference
 	private List<PurchaseRequestHistory> prHistories;
 
 	public List<PurchaseRequestDetail> getPrDetails() {

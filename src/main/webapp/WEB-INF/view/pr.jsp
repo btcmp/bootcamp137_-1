@@ -82,6 +82,7 @@
 			console.log(code);
 			
 			var pr = {
+				id : $('#input-id').val(),
 				readyTime : ready,
 				prNo : genCode,
 				notes : $('#input-note').val(),
@@ -133,26 +134,14 @@
 						console.log(data);
 						$('#tbl-add-item-purchase').empty();
 						$.each(data, function(key, val) {
-							//if(added.indexOf(val.id.toString()) == -1) {
-								var oTableItem = "<tr>"+
-									'<td>'+ val.variant.item.name +'-'+ val.variant.name +'</td>' +
-									'<td id="inStock'+ val.id +'">'+ val.beginning +'</td>' +
-									'<td id="td-qty'+ val.id +'"><input type="number" id="add-qty'+ val.id +'" value="1" /></td>' +
-									'<td><button type="button" id="'+ val.id +'" class="btn-add-item'+val.id +' btn-add-item btn btn-primary" id-var="'+val.variant.id+'">Add</button></td>' +
+							var oTableItem = "<tr>"+
+								'<td>'+ val.variant.item.name +'-'+ val.variant.name +'</td>' +
+								'<td id="inStock'+ val.id +'">'+ val.beginning +'</td>' +
+								'<td id="td-qty'+ val.id +'"><input type="number" id="add-qty'+ val.id +'" value="1" /></td>' +
+								'<td><button type="button" id="'+ val.id +'" class="btn-add-item'+val.id +' btn-add-item btn btn-primary" id-var="'+val.variant.id+'">Add</button></td>' +
 								"</tr>";
-								
-								$('#tbl-add-item-purchase').append(oTableItem);
-							/* } else {
-								var a = added.indexOf(val.id.toString());
-								var oTableItem = "<tr>"+
-									'<td>'+ val.variant.item.name +'-'+ val.variant.name +'</td>' +
-									'<td id="inStock'+ val.id +'">'+ val.beginning +'</td>' +
-									'<td id="td-qty'+ val.id +'">'+addedQty[a]+'</td>' +
-									'<td><button type="button" id="'+ val.id +'" class="btn-add-item'+val.id +' btn-add-item btn btn-primary" id-var="'+val.variant.id+'">Add</button></td>' +
-								"</tr>";
-								
-								$('#tbl-add-item-purchase').append(oTableItem);
-							} */
+							
+							$('#tbl-add-item-purchase').append(oTableItem);
 						});
 					}, 
 					error : function(){
@@ -170,9 +159,6 @@
 			var itemVar = element.find('td').eq(0).text();
 			var inStock = element.find('td').eq(1).text();
 			var reqQty = $('#add-qty'+id).val();
-			
-			//added.push(id);
-			//addedQty.push(reqQty);
 			
 			if(added.indexOf(id.toString()) == -1) {
 				var oTableAddItem = '<tr id-var="'+idVar+'" id="'+id+'"><td>'+itemVar+'</td>' +
@@ -201,6 +187,40 @@
 				added.splice(index, 1);
 			}
 		});
+		
+		
+		//edit PR
+		$('#dt-table').on('click', '.update', function(){
+			var id = $(this).attr('id');
+			
+			$.ajax({
+				type : 'GET',
+				url : '${pageContext.request.contextPath}/pr/get-one/'+id,
+				dataType: 'json',
+				success : function(data){
+					console.log(data);
+					$('#input-id').val(data.id);
+					$('#input-note').val(data.notes);
+					var date = data.readyTime.split('-');
+					var dates = date[1]+'/'+date[2]+'/'+date[0];
+					$('#insert-target').val(dates);
+					
+					$(data.prDetails).each(function(key, val){
+						$('#tbody-add-item').append(
+							'<tr id-var="'+val.variant.id+'"><td>'+val.variant.item.name+'-'+val.variant.name+'</td>'
+							+'<td>12</td>'
+							+'<td>'+val.requestQty+'</td>'
+							+'<td><button type="button" class="btn btn-danger btn-hapus-barang" id="btn-del'+id+'" id-var="'+id+'">&times;</button>'
+						);
+					})
+					$('#modal-pr-input').modal();
+				},
+				error : function(){
+					console.log('get data failed');
+				}
+			});
+		});
+		
 	});
 </script>
 
