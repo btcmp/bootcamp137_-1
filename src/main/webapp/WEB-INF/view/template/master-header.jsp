@@ -41,6 +41,7 @@
 <script type="text/javascript" src="${jq}"></script>
 <script type="text/javascript" src="${parsley}"></script>
 
+
 <!-- Google Font -->
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
