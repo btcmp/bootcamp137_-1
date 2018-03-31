@@ -1,9 +1,9 @@
 <!-- Modal -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<div class="modal fade" id="modal-create-cust" tabindex="-1" role="dialog"
-	aria-labelledby="exampleModalLabel" aria-hidden="true" >
+<div class="modal fade" id="modal-create-cust" tabindex="-1"
+	role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<!--------------------------------------- Untuk Form Customer-------------------------------  -->
-	
+
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -14,65 +14,66 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form id="target" data-parsley-validate>
+				<form id="target-create-cust" data-parsley-validate>
 					<input type="hidden" id="input-id" name="input-id" />
 					<div class="form-group">
 						<h5>PROFILE</h5>
-						<input type="text"
-							class="form-control" id="input-cust-name" 
-							placeholder="Customer Name">
-							<input type="text"
-							class="form-control" id="input-cust-email" 
-							placeholder="Email">
-							<input type="text"
-							class="form-control" id="input-cust-phone" 
-							placeholder="Phone Number">
+						<input type="text" data-parsley-required="true"
+							class="form-control" id="input-cust-name"
+							placeholder="Customer Name"> <br> <input type="text"
+							data-parsley-required="true" class="form-control"
+							id="input-cust-email" placeholder="Email"> <br /> <input
+							type="text" data-parsley-required="true" class="form-control"
+							id="input-cust-phone" placeholder="Phone Number">
 					</div>
-					
-					<div class="form-group" >
-						<h5>DAY OF BIRTH </h5>
-						<input type="date"
-							class="form-control" id="input-cust-dob" 
-							placeholder="Day Of Birth ">
-					</div>	
-					
+
 					<div class="form-group">
-					<h5>ADDRESS</h5>
-					<input type="text"
-							class="form-control" id="input-cust-address" 
-							placeholder="Address">	
-					<div class= "row show-grid">	
-						<div class ="col-lg-4" >
-							<select data-parsley-required="true" name = "countries" id="input-province">
-							<option value="" selected="selected">--CHOOSE PROVINCE--</option>
-							<c:forEach var="prov" items= "${provinces}">
-								<option value="${prov.id}">${prov.name}</option>
-							</c:forEach> 
-							</select>
+						<h5>DAY OF BIRTH</h5>
+						<input type="date" data-parsley-required="true"
+							class="form-control" id="input-cust-dob"
+							placeholder="Day Of Birth ">
+					</div>
+
+					<div class="form-group">
+						<h5>ADDRESS</h5>
+						<input type="text" data-parsley-required="true"
+							class="form-control" id="input-cust-address"
+							placeholder="Address"> <br>
+						<div class="row show-grid">
+							<div class="col-lg-4">
+								<select data-parsley-required="true" name="countries"
+									id="input-province" style="width: 210px; margin-right: 30px;">
+									<option value="" selected="selected">CHOOSE PROVINCE</option>
+									<c:forEach var="prov" items="${provinces}">
+										<option value="${prov.id}">${prov.name}</option>
+									</c:forEach>
+								</select>
+							</div>
+							<div class="col-lg-4">
+								<select data-parsley-required="true" name="countries"
+									id="input-region" style="width: 210px; margin-right: 30px;">
+									<option value="" selected="selected">CHOOSE REGION</option>
+									<c:forEach var="reg" items="${regions}">
+										<option value="${reg.id}">${reg.name}</option>
+									</c:forEach>
+								</select>
+							</div>
+							<div class="col-lg-4">
+								<select data-parsley-required="true" name="countries"
+									id="input-district" style="width: 210px; margin-right: 30px;">
+									<option value="" selected="selected">CHOOSE DISTRICT</option>
+									<c:forEach var="dis" items="${districts}">
+										<option value="${dis.id}">${dis.name}</option>
+									</c:forEach>
+								</select>
+							</div>
 						</div>
-						<div class="col-lg-4">
-							<select data-parsley-required="true" name = "countries" id="input-region">
-							<option value="" selected="selected">--CHOOSE REGION--</option>
-							 <c:forEach var="reg" items= "${regions}">
-								<option value="${reg.id}">${reg.name}</option>
-							</c:forEach>
-							</select>
-						</div>
-						<div class="col-lg-4"> 
-							<select data-parsley-required="true" name = "countries" id="input-district">
-							<option value="" selected="selected">--CHOOSE DISTRICT--</option>
-							 <c:forEach var="dis" items= "${districts}">
-								<option value="${dis.id}">${dis.name}</option>
-							</c:forEach> 
-						</select>
-						</div>
-					 </div>	
-					 </div>
+					</div>
 				</form>
 			</div>
 			<div class="modal-footer">
 				<button type="button" id="btn-add-cust" class="btn btn-primary">Done</button>
 			</div>
 		</div>
-</div>
+	</div>
 </div>

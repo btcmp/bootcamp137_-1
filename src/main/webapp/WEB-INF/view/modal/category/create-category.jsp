@@ -16,7 +16,7 @@
 				<div class="modal-body">
 					<input type="hidden" id="input-id" name="input-id" />
 					<div class="form-group">
-						<input type="text" class="form-control" id="input-category-name"
+						<input type="text" data-parsley-required="true" class="form-control" id="input-category-name"
 							aria-describedby="emailHelp" placeholder="Category Name">
 					</div>
 				</div>

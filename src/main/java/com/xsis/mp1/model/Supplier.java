@@ -19,6 +19,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.validator.constraints.Email;
 
 @Entity
 @Table(name="pos_mst_supplier")
@@ -36,11 +37,16 @@ public class Supplier {
 	private long id;
 	
 	@Column(nullable= false, length = 50 )
+	@NotNull
 	private String name; 
-	private String address; 
+	@Column(length = 255 )
+	private String address;
+	@Column(length = 16 )
 	private String phone;
+	@Column(length = 50 )
+	@Email
 	private String email; 
-	@Column(name ="postal_code", nullable= false, length= 50)
+	@Column(name ="postal_code", nullable= false, length= 6)
 	private String postalCode; 
 	@Column(name="created_by")
 	private long createdBy; 

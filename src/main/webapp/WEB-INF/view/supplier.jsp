@@ -6,7 +6,7 @@
 	$(function() {
 		//datatable
 		$('#supplier-tbl').DataTable({
-			paging : false,
+			/* paging : false, */
 			searching : false,
 		});
 
@@ -21,7 +21,8 @@
 						'click',
 						function(evt) {
 							evt.preventDefault();
-
+							var form= $('#target'); 
+							var valid = form.parsley().validate();    
 							var supplier = {
 								name : $('#input-supp-name').val(),
 								address : $('#input-address').val(),
@@ -38,21 +39,24 @@
 									id : $('#input-district').val()
 								}
 							}
-							$
-									.ajax({
-										url : '${pageContext.request.contextPath}/supplier/save',
-										type : 'POST',
-										contentType : 'application/json',
-										data : JSON.stringify(supplier),
-										success : function(data) {
-											//console.log(data); 
-											window.location = "${pageContext.request.contextPath}/supplier"
-											//alert('berhasil'); 
-										},
-										error : function() {
-											alert('save failed');
-										}
-									});
+							
+							  if (valid == true){   
+								$
+								.ajax({
+									url : '${pageContext.request.contextPath}/supplier/save',
+									type : 'POST',
+									contentType : 'application/json',
+									data : JSON.stringify(supplier),
+									success : function(data) {
+										//console.log(data); 
+										window.location = "${pageContext.request.contextPath}/supplier"
+										//alert('berhasil'); 
+									},
+									error : function() {
+										alert('save failed');
+									}
+								});
+			 				  } 
 						});
 
 		function setEditSupplier(supplier) {
@@ -94,7 +98,8 @@
 						'click',
 						function(evt) {
 							evt.preventDefault();
-
+							var form= $('#target-edit'); 
+							var valid = form.parsley().validate();
 							var supplier = {
 								id : $('#edit-id').val(),
 								name : $('#edit-supp-name').val(),
@@ -112,20 +117,21 @@
 									id : $('#edit-district').val()
 								}
 							}
-
-							$
-									.ajax({
-										url : '${pageContext.request.contextPath}/supplier/update',
-										type : 'PUT',
-										data : JSON.stringify(supplier),
-										contentType : 'application/json',
-										success : function(data) {
-											window.location = '${pageContext.request.contextPath}/supplier';
-										},
-										error : function() {
-											alert('update failed');
-										}
-									});
+							if (valid == true){
+								$
+								.ajax({
+									url : '${pageContext.request.contextPath}/supplier/update',
+									type : 'PUT',
+									data : JSON.stringify(supplier),
+									contentType : 'application/json',
+									success : function(data) {
+										window.location = '${pageContext.request.contextPath}/supplier';
+									},
+									error : function() {
+										alert('update failed');
+									}
+								});
+							}
 						});
 
 		$('#input-province')
@@ -140,7 +146,7 @@
 											type : 'GET',
 											success : function(data) {
 												var region = [];
-												var reg = "<option value=\"\">Choose Region</option>";
+												var reg = "<option value=\"\">CHOOSE REGION</option>";
 												region.push(reg);
 												$(data)
 														.each(
@@ -173,7 +179,7 @@
 											type : 'GET',
 											success : function(data) {
 												var district = [];
-												var dis = "<option value=\"\">Choose District</option>";
+												var dis = "<option value=\"\">CHOOSE DISTRICT</option>";
 												district.push(dis);
 												$(data)
 														.each(
@@ -207,7 +213,7 @@
 											type : 'GET',
 											success : function(data) {
 												var region = [];
-												var reg = "<option value=\"\">Choose Region</option>";
+												var reg = "<option value=\"\">CHOOSE REGION</option>";
 												region.push(reg);
 												$(data)
 														.each(
@@ -240,7 +246,7 @@
 											type : 'GET',
 											success : function(data) {
 												var district = [];
-												var dis = "<option value=\"\">Choose District</option>";
+												var dis = "<option value=\"\">CHOOSE DISTRICT</option>";
 												district.push(dis);
 												$(data)
 														.each(
@@ -271,6 +277,15 @@
 							window.location = '${pageContext.request.contextPath}/supplier/search?search='
 									+ word;
 						});
+		
+		/* $('#input-supp-name').parsley({
+			required : true,
+			requiredMessage : ' Code cannot be empty !!',
+			minlengthMessage: ' must more than 5 character',
+			typeMessage: ' must be text character',
+			minlength: 5,
+			type:"text"
+		}); */
 
 	});
 </script>
@@ -288,9 +303,8 @@
 	<form action="#">
 		<div id="search-box" style="margin-top: 20px; margin-botton: 20px">
 			<span><input type="text" id="search" placeholder="search"
-				style="float: left; width: 150px" /></span>
-			<button type="button" id="btn-search" class="btn btn-primary"
-				style="float: left; margin-left: 20px; width: 150px;">Search</button>
+				 /></span>
+			<span><a id="btn-search" href="#" class="btn btn-primary">Search</a></span>
 			<button type="button" id="btn-create" class="btn btn-primary"
 				style="float: right; margin-right: 0px; width: 150px;">Create</button>
 			<button type="button" id="btn-export" class="btn btn-primary"

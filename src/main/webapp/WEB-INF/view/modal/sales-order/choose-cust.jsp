@@ -18,12 +18,7 @@
 						<form id="target" data-parsley-validate>
 							<input type="hidden" id="input-id" name="input-id" />
 							<div class="form-group">
-								<%-- <select id = "id-customer">
-									<c:forEach items ="${customers }" var= "cust">
-										<!-- <option>--Select Customer--</option> -->
-										<option value= "${cust.id}">${cust.name }</option>
-									</c:forEach>
-								</select> --%>
+
 								<input type="text" class="form-control" id="input-search-cust"
 									aria-describedby="emailHelp" placeholder="Search Customer">
 							</div>
