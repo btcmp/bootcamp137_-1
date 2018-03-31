@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.xsis.mp1.model.Item;
+import com.xsis.mp1.model.PurchaseRequest;
 import com.xsis.mp1.model.Variant;
 
 @Repository
@@ -77,6 +78,16 @@ public class VariantDaoImpl implements VariantDao {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession(); 
 		return session.get(Variant.class, id); 
+	}
+
+	public List<Variant> getVariantByPR(PurchaseRequest purchaseRequest) {
+		Session session=sessionFactory.getCurrentSession();
+		String hql="select variant from PurchaseRequestDetail prd where prd.pr =:prdpr";
+		List<Variant> variants= session.createQuery(hql).setParameter("prdpr", purchaseRequest).list();
+		if(variants.isEmpty()) 
+			return null;
+		else
+			return variants;
 	}
 	
 	

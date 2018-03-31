@@ -3,6 +3,7 @@ package com.xsis.mp1.dao;
 import java.util.List;
 
 import com.xsis.mp1.model.Item;
+import com.xsis.mp1.model.PurchaseRequest;
 import com.xsis.mp1.model.Variant;
 
 public interface VariantDao {
@@ -30,5 +31,7 @@ public interface VariantDao {
 	public List<Variant> getVariantByName(String name);
 
 	public Variant getOneItem(long id);
+
+	public List<Variant> getVariantByPR(PurchaseRequest purchaseRequest);
 	 
 }

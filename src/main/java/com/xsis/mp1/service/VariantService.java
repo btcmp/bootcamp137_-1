@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.xsis.mp1.dao.VariantDao;
 import com.xsis.mp1.model.Item;
+import com.xsis.mp1.model.PurchaseOrder;
+import com.xsis.mp1.model.PurchaseRequest;
 import com.xsis.mp1.model.Variant;
 
 @Service
@@ -55,6 +57,11 @@ public class VariantService {
 	public Variant getOneItem(long id) {
 		// TODO Auto-generated method stub
 		return variantDao.getOneItem(id);
+	}
+
+	public List<Variant> getVariantByPR(PurchaseRequest purchaseRequest) {
+		// TODO Auto-generated method stub
+		return variantDao.getVariantByPR(purchaseRequest);
 	}
 	
 	

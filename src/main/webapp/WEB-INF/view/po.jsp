@@ -2,8 +2,23 @@
 
 <script type="text/javascript">
 	jQuery(document).ready(function(){		
-		$('#btn-edit-po').on('click', function(){
-			$('#modal-edit-po').modal('show');
+		$('.btn-edit-po').on('click', function(evt){
+			//$('#modal-edit-po').modal('show');
+			evt.preventDefault();
+			var id = $(this).attr('id');
+			/* console.log(id); */
+			$.ajax({
+				url:'${pageContext.request.contextPath}/po/get-one/'+id,
+				type:'GET',
+				contentType:'application/json',
+				success : function(result){
+					variants=[];
+					$.each(result, function(key, variant){
+						var idvar=variant.id;
+						console.log(idvar);
+					});
+				}
+			});
 		});
 		
 		/* date picker*/
@@ -68,24 +83,26 @@
 	</div>
 	
 	<table id="emp-table" class="table table-sm table-striped table-bordered" cellspacing="0" width="100%">
-		<thead style="text-align: center;">
+		<thead style="text-align: center">
+			<th style="display: none">Id</th>
 			<th>Create Date</th>
 			<th>Supplier</th>
 			<th>PO No.</th>
 			<th>Total</th>
 			<th>Status</th>
-			<th>#</th>
+			<th><center>#</center></th>
 		</thead>
 		<tbody>
 		<c:forEach items="${pos}" var="po">
 			<tr>
+				<td style="display: none">${po.id }</td>
 				<td><center>${po.createdOn }</center></td>
 				<td>${po.supplierId.name }</td>
 				<td>${po.poNo }</td>
 				<td>${po.grandTotal}</td>
 				<td>A</td>
 				<td><center>
-					<a id="btn-edit-po" class="btn btn-info btn-sm" href="#">Edit</a>
+					<a id="${po.id }" class="btn-edit-po btn btn-info btn-sm" href="#">Edit</a>
 					<a id="btn-view-po" class="btn-view-po btn btn-info btn-sm" href="#">View</a></center>
 				</td>
 			</tr>

@@ -63,7 +63,7 @@
 					Email: mail@mail.com <br/>
 					Outlet: ${po.outletId.name} <br/>
 					Phone: ${po.outletId.phone}<br/>
-					Address: ${po.outletId.district.name}<br/>
+					Address: ${po.outletId.address}<br/>
 					PO Status : Approved <br/><br/>
 					
 					<b>Status History</b><hr/>

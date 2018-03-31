@@ -17,7 +17,7 @@
 						<div class="row col-md-12">
 							<div class="col-md-4">
 								<input type='file' onchange="readURL(this);" />
-								<img id="blah" src="" alt="your image" />
+								<img id="blah" src="" alt="your image" style="max-width: 100%"/>
 							</div>
 							<div class="col-md-8">
 								<input type="hidden" id="input-item-id"/>		
@@ -118,8 +118,8 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" id="btn-cancel-add" class="btn btn-primary" style="float:right; margin-right: 31px; width:150px;" data-dismiss="modal">Cancel</button>
-				<button type="button" id="btn-add-item-variant" class="btn btn-primary" style="float:right; margin-right: 0px; width: 150px;">Add</button>
+				<button type="button" id="btn-add-item-variant" class="btn btn-primary" style="float:right; margin-right: 0px; width: 30%;">Add</button>
+				<button type="button" id="btn-cancel-add" class="btn btn-primary" style="float:right; margin-right: 31px; width:30%;" data-dismiss="modal">Cancel</button>
 			</div>
 		</div>
 	</div>
@@ -225,7 +225,7 @@
 					</div><br/>
 					
 	<table id="edit-variant-table" class="table table-sm table-striped table-bordered" cellspacing="0" width="100%">
-		<thead class="thead-dark">
+		<thead style="text-align: center;">
 			<th>Variant Name</th>
 			<th>Unit Price</th>
 			<th>SKU</th>
@@ -238,7 +238,9 @@
 			
 		</tbody>
 	</table>
-					
+	<div class="row">
+		<button type="button" style="max-width:22%; margin-left:2%" id="btn-edit-delete-item" class="btn btn-danger" style="float:right; margin-right: 0px; width:150px;">Delete Item</button>
+	</div>
 </form>
 			</div>
 			<div class="modal-footer row">
@@ -303,8 +305,8 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" id="btn-cancel-add-edit-item-variant" class="btn btn-primary" style="float:right; margin-right: 31px; width:150px;">Cancel</button>
-				<button type="button" id="btn-edit-add-add-item-variant" class="btn btn-primary" style="float:right; margin-right: 0px; width: 150px;" >Add</button>
+				<button type="button" id="btn-cancel-add-edit-item-variant" class="btn btn-primary" style="width:20%;">Cancel</button>
+				<button type="button" id="btn-edit-add-add-item-variant" class="btn btn-primary" style="width:20%;" >Add</button>
 			</div>
 		</div>
 	</div>
@@ -356,8 +358,8 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" id="btn-cancel-edit-edit" class="btn btn-primary" style="float:right; margin-right: 31px; width:150px;" >Cancel</button>
-				<button type="button" id="btn-edit-edit-update-variant" class="btn btn-primary" style="float:right; margin-right: 0px; width: 150px;" >Update</button>
+				<button type="button" id="btn-cancel-edit-edit" class="btn btn-primary" style="width:20%;" >Cancel</button>
+				<button type="button" id="btn-edit-edit-update-variant" class="btn btn-primary" style="width:20%;" >Update</button>
 			</div>
 		</div>
 	</div>

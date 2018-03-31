@@ -24,9 +24,9 @@
 								<div class="col-md-12">
 									<select data-parsley-required="true" name="countries" id="input-province" style="width: 100%; height:110% ">
 									<option value="" selected="selected">Supplier</option>
-									<%-- <c:forEach var="loc" items= "${locations}">
-										<option value="${loc.id}">${loc.streetAddress}</option>
-									</c:forEach> --%>
+									 <c:forEach var="sup" items= "${suppliers}">
+										<option value="${sup.id}">${sup.name}</option>
+									</c:forEach> 
 									</select>
 								</div>
 							</div>
@@ -45,14 +45,15 @@
 					<th>Sub Total</th>
 				</thead>
 				<tbody>
+				<c:forEach var="po" items= "${pos}">
 					<tr>
-						<td>Baju-Merah</td>
+						<td>${po.prId }</td>
 						<td><center>3</center></td>
 						<td><center>3</center></td>
 						<td><center>Rp. 300.000</center></td>
 						<td><center>Rp. 900.000</center></td>
 					</tr><br/>
-					
+				</c:forEach>
 				</tbody>
 				<tr>
 						<td colspan="4"><h5>TOTAL</h5></td>
@@ -65,13 +66,13 @@
 			<div class="modal-footer" style="margin: auto;">
 				<div class="row">
 					<div class="col-md-4">
-						<button type="button" id="btn-cancel" class="btn btn-primary" style="width: 139%;"  data-dismiss="modal">Submit</button>
+						<button type="button" id="btn-cancel" class="btn btn-primary" style="width: 100%;"  data-dismiss="modal">Submit</button>
 					</div>
 					<div class="col-md-4">
-						<button type="button" id="btn-cancel" class="btn btn-primary" style="width: 139%;"   data-dismiss="modal">Cancel</button>
+						<button type="button" id="btn-cancel" class="btn btn-primary" style="width: 100%;"   data-dismiss="modal">Cancel</button>
 					</div>
 					<div class="col-md-4">
-						<button type="button" id="btn-cancel" class="btn btn-primary" style="width: 139%;"  data-dismiss="modal">Save</button>
+						<button type="button" id="btn-cancel" class="btn btn-primary" style="width: 100%;"  data-dismiss="modal">Save</button>
 					</div>
 				</div>
 			</div>
