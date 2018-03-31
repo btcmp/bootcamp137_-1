@@ -180,5 +180,4 @@ public class PurchaseRequest {
 		this.purchaseOrders = purchaseOrders;
 	}
 	
-	
 }
