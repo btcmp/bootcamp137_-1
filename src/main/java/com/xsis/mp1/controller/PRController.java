@@ -45,9 +45,9 @@ public class PRController {
 		return "pr";
 	}
 	
-	@RequestMapping(value="/detail", method = RequestMethod.GET)
+	@RequestMapping(value="/detail/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public PurchaseRequest cari(@RequestParam("id") long id, Model model) {
+	public PurchaseRequest cari(@PathVariable long id, Model model) {
 		System.out.println("search =" + id);
 		return prService.getOne(id);
 	}

@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.xsis.mp1.dao.TransferStockDao;
 import com.xsis.mp1.model.TransferStock;
+import com.xsis.mp1.model.TransferStockDetail;
+import com.xsis.mp1.model.TransferStockHistory;
 
 @Service
 @Transactional
@@ -21,4 +23,29 @@ public class TransferStockService {
 		return tsDao.selectAll();
 	}
 
+	public void save(TransferStock ts) {
+		TransferStock tfs = new TransferStock();
+		tfs.setId(ts.getId());
+		tfs.setFromOutlet(ts.getFromOutlet());
+		tfs.setToOutlet(ts.getToOutlet());
+		tfs.setStatus(ts.getStatus());
+		tfs.setNotes(ts.getNotes());
+		tsDao.save(tfs);
+		
+		/*if(ts.getTsDetails()!=null) {
+			for(TransferStockDetail tsDetails : ts.getTsDetails()) {
+				TransferStockDetail tsDetail = new TransferStockDetail();
+				tsDetail.setId(tsDetails.getId());
+				tsDetail.setTransfer(tfs);
+				tsDetail.setVariant(tsDetails.getVariant());
+				tsDetail.setTransferQty(tsDetails.getTransferQty());
+				tsdDao.save(tsDetail);
+			}
+		}*/
+		
+		/*TransferStockHistory tsh = new TransferStockHistory();
+		tsh.setTransfer(tfs);
+		tsh.setStatus(tfs.getStatus());
+		tshDao.save(tsh);*/
+	}
 }

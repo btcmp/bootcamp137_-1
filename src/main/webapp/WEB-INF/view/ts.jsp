@@ -45,6 +45,45 @@
 			$('#btn-submit').hide();
 		});
 		
+		//save
+		$('#btn-save').on('click', function(){
+			
+			/* var prDet = [];
+			
+			$('#tbl-pr-add-item > tbody > tr').each(function(index, data) {
+				var detail = {
+						"requestQty" : $(this).find('td').eq(2).text(),
+						"variant" : {
+							"id" : $(this).attr('id-var')
+						}
+				};
+				prDet.push(detail);
+				console.log('tes');
+			}); */
+			
+			var ts = {
+				id : $('#input-id').val(),
+				fromOutlet : $('#input-from-outlet').val(),
+				toOutlet : $('#input-to-outlet').val(),
+				notes : $('#input-note').val(),
+				status : "created"
+			};
+			console.log(ts);
+
+			$.ajax({
+				type : 'POST',
+				url : '${pageContext.request.contextPath}/ts/save',
+				data : JSON.stringify(ts),
+				contentType : 'application/json',
+				success : function() {
+					window.location = '${pageContext.request.contextPath}/ts';
+				},
+				error : function() {
+					alert('save failed');
+				}
+
+			});
+		});
 	});
 </script>
 
@@ -60,12 +99,12 @@
 	<div class="row">
 	  <div class="col-md-2">
 	  	<div class="form-group">
-		    <select name="title" id="insert-title" class="form-control custom-select custom-select-md">
-		    	<option selected>Status</option>
-		    		<option value="">Submitted</option>
-		    		<option value="">Approved</option>
-		    		<option value="">Rejected</option>
-		    </select>
+		   <select name="role" id="insert-role" class="form-control">
+		   		<option selected disabled>To Outlet</option>
+				<c:forEach var="out" items="${outlets }">
+					<option value="${out.id }">${out.name }</option>
+				</c:forEach>
+			</select>
 		</div>
 	  </div>
 	  <div class="col-md-3">
@@ -99,8 +138,8 @@
 			<c:forEach items="${tss }" var="ts">
 				<tr>
 					<td>${ts.createdOn }</td>
-					<td>${ts.fromOutlet }</td>
-					<td>${ts.toOutlet }</td>
+					<td>${ts.fromOutlet.name }</td>
+					<td>${ts.toOutlet.name }</td>
 					<td>${ts.status }</td>
 					<td>|
 						<a id="${ts.id }" class="view btn btn-success btn-sm" href="#">View</a>
@@ -126,8 +165,8 @@
 				<form id="target" data-parsley-validate>
 					<input type="hidden" id="input-id" name="input-id" />
 					<div class="form-group">
-						<label for="input-name">CREATE NEW PR : </label>
-						<select name="role" id="insert-role">
+						<label for="input-from">CREATE NEW TRANSFER STOCK FROM : </label>
+						<select name="role" id="input-from-outlet">
 							<c:forEach var="out" items="${outlets }">
 								<option value="${out.id }">${out.name }</option>
 							</c:forEach>
@@ -137,8 +176,12 @@
 						
 					</div>
 					<div class="form-group">
-						<label for="input-name">Target Waktu Item Ready</label>
-						<input type="text" class="form-control" id="insert-target" name="target-pr" value="03/18/2018">
+						<label for="input-to">To : </label>
+						<select name="role" id="input-to-outlet" class="form-control">
+							<c:forEach var="out" items="${outlets }">
+								<option value="${out.id }">${out.name }</option>
+							</c:forEach>
+						</select>
 					</div>
 					
 					<div class="form-group">

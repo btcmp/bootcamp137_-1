@@ -20,4 +20,10 @@ public class TransferStockDaoImpl implements TransferStockDao{
 		return session.createCriteria(TransferStock.class).list();
 	}
 
+	public void save(TransferStock ts) {
+		Session session = sessionFactory.getCurrentSession();
+		session.saveOrUpdate(ts);
+		session.flush();
+	}
+
 }

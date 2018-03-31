@@ -12,3 +12,5 @@
 /RoleService.class
 /SupplierService.class
 /VariantService.class
+/SalesOrderService.class
+/TransferStockService.class

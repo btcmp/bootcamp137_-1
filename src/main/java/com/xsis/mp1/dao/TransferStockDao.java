@@ -8,4 +8,6 @@ public interface TransferStockDao {
 
 	List<TransferStock> selectAll();
 
+	void save(TransferStock ts);
+
 }

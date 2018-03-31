@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -31,12 +33,14 @@ public class TransferStock {
 	private long id;
 	
 	@NotNull
-	@Column(name="from_outlet", nullable=false)
-	private long fromOutlet;
+	@ManyToOne
+	@JoinColumn(name="from_outlet")
+	private Outlet fromOutlet;
 	
 	@NotNull
-	@Column(name="to_outlet", nullable=false)
-	private long toOutlet;
+	@ManyToOne
+	@JoinColumn(name="to_outlet")
+	private Outlet toOutlet;
 	
 	@Column(length=255)
 	private String notes;
@@ -87,19 +91,19 @@ public class TransferStock {
 		this.id = id;
 	}
 
-	public long getFromOutlet() {
+	public Outlet getFromOutlet() {
 		return fromOutlet;
 	}
 
-	public void setFromOutlet(long fromOutlet) {
+	public void setFromOutlet(Outlet fromOutlet) {
 		this.fromOutlet = fromOutlet;
 	}
 
-	public long getToOutlet() {
+	public Outlet getToOutlet() {
 		return toOutlet;
 	}
 
-	public void setToOutlet(long toOutlet) {
+	public void setToOutlet(Outlet toOutlet) {
 		this.toOutlet = toOutlet;
 	}
 

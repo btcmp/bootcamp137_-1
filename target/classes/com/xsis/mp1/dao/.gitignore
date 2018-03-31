@@ -40,3 +40,7 @@
 /UserDaoImpl.class
 /VariantDao.class
 /VariantDaoImpl.class
+/SalesOrderDao.class
+/SalsOrderDaoImpl.class
+/TransferStockDao.class
+/TransferStockDaoImpl.class

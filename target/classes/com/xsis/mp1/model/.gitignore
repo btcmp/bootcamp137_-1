@@ -20,3 +20,6 @@
 /Supplier.class
 /User.class
 /Variant.class
+/TransferStock.class
+/TransferStockDetail.class
+/TransferStockHistory.class
