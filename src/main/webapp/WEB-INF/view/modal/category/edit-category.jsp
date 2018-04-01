@@ -18,6 +18,7 @@
 						<input type="text" data-parsley-required="true"
 							class="form-control" id="edit-category-name" 
 							placeholder="Category Name">
+							<p style = "color : red;"><small>*Required</small></p>
 					</div>
 			</div>
 			<div class="modal-footer">
