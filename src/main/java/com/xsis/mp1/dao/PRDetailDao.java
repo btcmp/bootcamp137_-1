@@ -11,4 +11,6 @@ public interface PRDetailDao {
 
 	List<PurchaseRequestDetail> selectPrDetailByPr(PurchaseRequest pr);
 
+	void delete(PurchaseRequestDetail prDetails);
+
 }

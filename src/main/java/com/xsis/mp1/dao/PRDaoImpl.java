@@ -24,6 +24,7 @@ public class PRDaoImpl implements PRDao {
 
 	public void save(PurchaseRequest pr) {
 		Session session = sessionFactory.getCurrentSession();
+		session.clear();
 		session.saveOrUpdate(pr);
 		session.flush();
 	}

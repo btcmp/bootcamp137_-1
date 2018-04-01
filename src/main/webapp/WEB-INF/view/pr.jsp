@@ -1,6 +1,11 @@
 <%@ include file="/WEB-INF/view/template/master-header.jsp"%>
 
 <!-- =========================================================================================================== -->
+<style>
+	.modal-content {
+	  overflow: scroll;
+	}
+</style>
 
 <script type="text/javascript">
 	jQuery(document).ready(function(){
@@ -193,7 +198,7 @@
 		//edit PR
 		$('#dt-table').on('click', '.update', function(){
 			var id = $(this).attr('id');
-			
+			$('#tbody-add-item').empty();
 			$.ajax({
 				type : 'GET',
 				url : '${pageContext.request.contextPath}/pr/get-one/'+id,

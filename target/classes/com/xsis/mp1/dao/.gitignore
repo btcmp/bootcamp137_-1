@@ -44,3 +44,5 @@
 /SalsOrderDaoImpl.class
 /TransferStockDao.class
 /TransferStockDaoImpl.class
+/TransferStockHistoryDaoImpl.class
+/TransferStockHistoryDao.class

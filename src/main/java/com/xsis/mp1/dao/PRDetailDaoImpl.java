@@ -35,4 +35,10 @@ public class PRDetailDaoImpl implements PRDetailDao {
  		}
 	}
 
+	public void delete(PurchaseRequestDetail prDetails) {
+		Session session = sessionFactory.getCurrentSession();
+		session.delete(prDetails);
+		session.flush();
+	}
+
 }

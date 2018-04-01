@@ -52,7 +52,27 @@ public class PRService {
 		preq.setReadyTime(pr.getReadyTime());
 		preq.setStatus(pr.getStatus());
 		preq.setNotes(pr.getNotes());
+		
+		//jika data ada, modifiednya aja yg ganti
+		if(preq.getId()!=0) {
+			preq.setModifiedOn(new Date());
+			PurchaseRequest prc = prDao.getOne(preq.getId());
+			preq.setCreatedOn(prc.getCreatedOn());
+		}else {
+			preq.setCreatedOn(new Date());
+		}
+		
 		prDao.save(preq);
+		
+		//hapus data lama
+		List<PurchaseRequestDetail> prds = prdDao.selectPrDetailByPr(preq);
+		if(prds == null) {
+			
+		}else {
+			for(PurchaseRequestDetail prDetails : prds) {
+				prdDao.delete(prDetails);
+			}
+		}
 		
 		if(pr.getPrDetails()!=null) {
 			for(PurchaseRequestDetail prDetails : pr.getPrDetails()) {
@@ -65,10 +85,15 @@ public class PRService {
 			}
 		}
 		
-		PurchaseRequestHistory prh = new PurchaseRequestHistory();
-		prh.setPr(preq);
-		prh.setStatus(preq.getStatus());
-		prhDao.save(prh);
+		if(pr.getId() != 0 && pr.getStatus()=="created") {
+			
+		}else {
+			PurchaseRequestHistory prh = new PurchaseRequestHistory();
+			prh.setPr(preq);
+			prh.setStatus(preq.getStatus());
+			prh.setCreatedOn(preq.getCreatedOn());
+			prhDao.save(prh);
+		}
 	}
 
 	public PurchaseRequest getOne(long id) {
