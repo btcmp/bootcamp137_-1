@@ -10,6 +10,6 @@ public interface TransferStockDao {
 
 	void save(TransferStock ts);
 
-	TransferStock getOne(TransferStock ts);
+	TransferStock getOne(long id);
 
 }

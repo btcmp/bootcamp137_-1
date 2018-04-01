@@ -12,6 +12,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="pos_t_transfer_stock_detail")
 public class TransferStockDetail {
@@ -47,6 +49,7 @@ public class TransferStockDetail {
 	private Date modifiedOn;
 	
 	@ManyToOne
+	@JsonBackReference
 	private TransferStock transfer;
 	
 	@ManyToOne

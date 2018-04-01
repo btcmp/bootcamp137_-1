@@ -17,6 +17,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="pos_t_transfer_stock")
 public class TransferStock {
@@ -63,10 +65,12 @@ public class TransferStock {
 	@Column(name="modified_on")
 	private Date modifiedOn;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="transfer", cascade=CascadeType.ALL, orphanRemoval=true)
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="transfer", cascade=CascadeType.ALL)
+	@JsonManagedReference
 	private List<TransferStockDetail> tsDetails;
 
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="transfer", cascade=CascadeType.ALL, orphanRemoval=true)
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="transfer", cascade=CascadeType.ALL)
+	@JsonManagedReference
 	private List<TransferStockHistory> tsHistories;
 	
 	public List<TransferStockDetail> getTsDetails() {

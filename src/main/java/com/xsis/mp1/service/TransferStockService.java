@@ -9,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.xsis.mp1.dao.TransferStockDao;
 import com.xsis.mp1.dao.TransferStockDetailDao;
 import com.xsis.mp1.dao.TransferStockHistoryDao;
-import com.xsis.mp1.model.Outlet;
 import com.xsis.mp1.model.PurchaseRequest;
+import com.xsis.mp1.model.PurchaseRequestDetail;
 import com.xsis.mp1.model.TransferStock;
 import com.xsis.mp1.model.TransferStockDetail;
 import com.xsis.mp1.model.TransferStockHistory;
@@ -29,8 +29,20 @@ public class TransferStockService {
 	TransferStockHistoryDao tshDao;
 	
 	public List<TransferStock> selectAll() {
-		// TODO Auto-generated method stub
-		return tsDao.selectAll();
+		List<TransferStock> tss = tsDao.selectAll();
+		if(tss.isEmpty()) {
+			return null;
+		}else {
+			for(TransferStock ts : tss) {
+				List<TransferStockDetail> tsds = tsdDao.selectTsDetailByTS(ts);
+				if(tsds.isEmpty()) {
+					
+				}else {
+					ts.setTsDetails(tsds);
+				}
+			}
+			return tss;
+		}
 	}
 
 	public void save(TransferStock ts) {
@@ -48,6 +60,7 @@ public class TransferStockService {
 				tsDetail.setId(tsDetails.getId());
 				tsDetail.setTransfer(tfs);
 				tsDetail.setVariant(tsDetails.getVariant());
+				tsDetail.setInStock(tsDetails.getInStock());
 				tsDetail.setTransferQty(tsDetails.getTransferQty());
 				tsdDao.save(tsDetail);
 			}
@@ -60,8 +73,21 @@ public class TransferStockService {
 	}
 
 	public TransferStock getOne(long id) {
-		TransferStock ts = new TransferStock();
-		ts.setId(id);
-		return tsDao.getOne(ts);
+		TransferStock ts = tsDao.getOne(id);
+		List<TransferStockDetail> tsds = tsdDao.selectTsDetailByTS(ts);
+		List<TransferStockHistory> tshs = tshDao.selectHistoryByTS(ts);
+		if(tsds.isEmpty()) {
+			
+		}else {
+			ts.setTsDetails(tsds);
+		}
+		
+		if(tshs.isEmpty()) {
+			
+		}else {
+			ts.setTsHistories(tshs);
+		}
+		return ts;
 	}
+	
 }

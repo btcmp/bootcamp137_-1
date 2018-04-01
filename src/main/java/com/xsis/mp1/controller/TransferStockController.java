@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.xsis.mp1.model.Inventory;
 import com.xsis.mp1.model.Outlet;
+import com.xsis.mp1.model.PurchaseRequest;
 import com.xsis.mp1.model.TransferStock;
 import com.xsis.mp1.service.InventoryService;
 import com.xsis.mp1.service.OutletService;

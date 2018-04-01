@@ -162,8 +162,7 @@
 		$('.view').on('click', function(){
 			var id = $(this).attr('id');
 			console.log(id);
-			window.location = '${pageContext.request.contextPath}/ts/detail?id=' + id;
-			console.log(data);
+			window.location = '${pageContext.request.contextPath}/ts/detail/' + id;
 		});
 	});
 </script>

@@ -40,34 +40,24 @@
 	</div>
 	<div class="col-xs-3">
 		<script>
-			if('${pr.status}' == 'created'){
-				document.write('<select id="action-pr" class="btn-primary form-control" key-id="${pr.id }">'
+			if('${ts.status}' == 'Submitted'){
+				document.write('<select id="action-pr" class="btn-primary form-control" key-id="${ts.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve">Approve</option>'
 						+'<option value="reject">Reject</option>'
-						+'<option value="print">Print</option>'
-						+'<option value="create-po" disabled>Create PO</option>');
-			}else if('${pr.status}' == 'rejected'){
-				document.write('<select id="action-pr" class="btn-primary form-control" key-id="${pr.id }">'
+						+'<option value="print">Print</option>');
+			}else if('${ts.status}' == 'rejected'){
+				document.write('<select id="action-pr" class="btn-primary form-control" key-id="${ts.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve" disabled>Approve</option>'
 						+'<option value="reject" disabled>Reject</option>'
-						+'<option value="print">Print</option>'
-						+'<option value="create-po" disabled>Create PO</option>');
-			}else if('${pr.status}' == 'PO Created'){
-				document.write('<select id="action-pr" class="btn-primary form-control" key-id="${pr.id }">'
+						+'<option value="print">Print</option>');
+			}else if('${ts.status}' == 'Approved'){
+				document.write('<select id="action-pr" class="btn-primary form-control" key-id="${ts.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve" disabled>Approve</option>'
 						+'<option value="reject" disabled>Reject</option>'
-						+'<option value="print">Print</option>'
-						+'<option value="create-po" disabled>Create PO</option>');
-			}else if('${pr.status}' == 'Approved'){
-				document.write('<select id="action-pr" class="btn-primary form-control" key-id="${pr.id }">'
-						+'<option disabled selected>More</option>'
-						+'<option value="approve" disabled>Approve</option>'
-						+'<option value="reject" disabled>Reject</option>'
-						+'<option value="print">Print</option>'
-						+'<option value="create-po">Create PO</option>');
+						+'<option value="print">Print</option>');
 			}
 		</script>
 			
@@ -77,46 +67,28 @@
 <hr>
 <table>
 	<tr>
-		<th>PR Number </th>
-		<td></td>
-		<td> : </td>
-		<td>${pr.prNo }</td>
-	</tr>
-	<tr>
 		<th>Created By </th>
 		<td></td>
 		<td> : </td>
-		<td>${pr.createdBy }</td>
+		<td>${ts.createdBy }</td>
 	</tr>
 	<tr>
-		<th>Target Waktu Item Ready </th>
+		<th>Transfer Status </th>
 		<td></td>
 		<td> : </td>
-		<td>
-			<script>
-				var dates = '${pr.readyTime}';
-				var date = dates.split('-');
-				document.write(date[2]+'-'+date[1]+'-'+date[0]);
-			</script>
-		</td>
-	</tr>
-	<tr>
-		<th>PR Status </th>
-		<td></td>
-		<td> : </td>
-		<td>${pr.status }</td>
+		<td>${ts.status }</td>
 	</tr>
 </table>
 <div class="form-group">
 	<label for="input-note">Notes</label>
-	<textarea class="form-control" id="input-note" rows="5" disabled="disabled">${pr.notes }</textarea>
+	<textarea class="form-control" id="input-note" rows="5" disabled="disabled">${ts.notes }</textarea>
 </div>
 <h5><b>Status History</b></h5>
 <hr>
 <div class="row">
 	<div class="col-xs-5">
 		<table id="dt-history" class="table table-hover">
-			<c:forEach items="${pr.prHistories }" var="history">
+			<c:forEach items="${ts.tsHistories }" var="history">
 				<tr>
 					<td>On</td>
 					<td>
@@ -125,11 +97,8 @@
 							var time = times.split('.');
 							document.write(time[0]);
 						</script>
-						<%-- ${history.createdOn} --%>
 					</td>
 					<td>-</td>
-					<td>${pr.prNo }</td>
-					<td>is</td>
 					<td>${history.status }</td>
 				</tr>
 			</c:forEach>
@@ -142,14 +111,14 @@
 	<thead>
 		<th>Item</th>
 		<th>In Stock</th>
-		<th>Request Qty.</th>
+		<th>Transfer Qty.</th>
 	</thead>
 	<tbody id="tbody-add-item">
-		<c:forEach items="${pr.prDetails }" var ="prd">
+		<c:forEach items="${ts.tsDetails }" var ="tsd">
 			<tr>
-				<td>${prd.variant.item.name }-${prd.variant.name }</td>
-				<td></td>
-				<td>${prd.requestQty }</td>
+				<td>${tsd.variant.item.name }-${tsd.variant.name }</td>
+				<td>${tsd.inStock }</td>
+				<td>${tsd.transferQty }</td>
 			</tr>
 		</c:forEach>
 	</tbody>
@@ -157,7 +126,7 @@
 <br>
 <div class="row">
 	<div class="col-xs-11"></div>
-	<div class="col-xs-1"><a href="${pageContext.request.contextPath}/pr" class="btn btn-primary btn-block">Done</a></div>
+	<div class="col-xs-1"><a href="${pageContext.request.contextPath}/ts" class="btn btn-primary btn-block">Done</a></div>
 </div>
 
 <!-- ======================================================================================================================= -->
