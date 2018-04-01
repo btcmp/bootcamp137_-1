@@ -69,6 +69,17 @@ public class Variant {
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="variant", cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<PurchaseRequestDetail> prDetails;
 	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="variant", cascade=CascadeType.ALL, orphanRemoval=true)
+	private List<TransferStockDetail> tsDetails;
+	
+	public List<TransferStockDetail> getTsDetails() {
+		return tsDetails;
+	}
+
+	public void setTsDetails(List<TransferStockDetail> tsDetails) {
+		this.tsDetails = tsDetails;
+	}
+
 	public List<PurchaseRequestDetail> getPrDetails() {
 		return prDetails;
 	}

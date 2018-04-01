@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.xsis.mp1.dao.TransferStockDao;
+import com.xsis.mp1.dao.TransferStockDetailDao;
 import com.xsis.mp1.dao.TransferStockHistoryDao;
 import com.xsis.mp1.model.Outlet;
 import com.xsis.mp1.model.PurchaseRequest;
@@ -20,6 +21,9 @@ public class TransferStockService {
 
 	@Autowired
 	TransferStockDao tsDao;
+	
+	@Autowired
+	TransferStockDetailDao tsdDao;
 	
 	@Autowired
 	TransferStockHistoryDao tshDao;
@@ -38,7 +42,7 @@ public class TransferStockService {
 		tfs.setNotes(ts.getNotes());
 		tsDao.save(tfs);
 		
-		/*if(ts.getTsDetails()!=null) {
+		if(ts.getTsDetails()!=null) {
 			for(TransferStockDetail tsDetails : ts.getTsDetails()) {
 				TransferStockDetail tsDetail = new TransferStockDetail();
 				tsDetail.setId(tsDetails.getId());
@@ -47,7 +51,7 @@ public class TransferStockService {
 				tsDetail.setTransferQty(tsDetails.getTransferQty());
 				tsdDao.save(tsDetail);
 			}
-		}*/
+		}
 		
 		TransferStockHistory tsh = new TransferStockHistory();
 		tsh.setTransfer(tfs);

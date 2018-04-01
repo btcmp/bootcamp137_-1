@@ -48,25 +48,27 @@
 		//save
 		$('#btn-save').on('click', function(){
 			
-			/* var prDet = [];
+			var tsDet = [];
 			
-			$('#tbl-pr-add-item > tbody > tr').each(function(index, data) {
+			$('#tbl-ts-add-item > tbody > tr').each(function(index, data) {
 				var detail = {
-						"requestQty" : $(this).find('td').eq(2).text(),
+						"inStock" : $(this).find('td').eq(1).text(),
+						"transferQty" : $(this).find('td').eq(2).text(),
 						"variant" : {
 							"id" : $(this).attr('id-var')
 						}
 				};
-				prDet.push(detail);
+				tsDet.push(detail);
 				console.log('tes');
-			}); */
+			});
 			
 			var ts = {
 				id : $('#input-id').val(),
 				fromOutlet : $('#input-from-outlet').val(),
 				toOutlet : $('#input-to-outlet').val(),
 				notes : $('#input-note').val(),
-				status : "Submitted"
+				status : "Submitted",
+				tsDetails : tsDet
 			};
 			console.log(ts);
 
@@ -83,6 +85,85 @@
 				}
 
 			});
+		});
+		
+		var added = [];
+		var addedQty = [];
+		
+		// search variant
+		$('#src-item-variant').on('input',function(e){
+			var word = $(this).val();
+			if (word=="") {
+				$('#tbl-add-item-transfer').empty();
+			} else {
+				$.ajax({
+					type : 'GET',
+					url : '${pageContext.request.contextPath}/ts/search-item?search='+word,
+					dataType: 'json',
+					success : function(data){
+						console.log(data);
+						$('#tbl-add-item-transfer').empty();
+						$.each(data, function(key, val) {
+							var oTableItem = "<tr>"+
+								'<td>'+ val.variant.item.name +'-'+ val.variant.name +'</td>' +
+								'<td id="inStock'+ val.id +'">'+ val.beginning +'</td>' +
+								'<td id="td-qty'+ val.id +'"><input type="number" id="add-qty'+ val.id +'" value="1" /></td>' +
+								'<td><button type="button" id="'+ val.id +'" class="btn-add-item'+val.id +' btn-add-item btn btn-primary" id-var="'+val.variant.id+'">Add</button></td>' +
+								"</tr>";
+							
+							$('#tbl-add-item-transfer').append(oTableItem);
+						});
+					}, 
+					error : function(){
+						$('tbl-add-item-transfer').empty();
+					}
+				});
+			}
+		});
+		
+		//tambah tabel item ke modal create TS
+		$('#tbl-add-item-transfer').on('click', '.btn-add-item', function(){
+			var element = $(this).parent().parent();
+			var id = $(this).attr('id');
+			var idVar = $(this).attr('id-var');
+			var itemVar = element.find('td').eq(0).text();
+			var inStock = element.find('td').eq(1).text();
+			var trfQty = $('#add-qty'+id).val();
+			
+			if(added.indexOf(id.toString()) == -1) {
+				var oTableAddItem = '<tr id-var="'+idVar+'" id="'+id+'"><td>'+itemVar+'</td>' +
+					'<td>'+inStock+'</td>' +
+					'<td>'+trfQty+'</td>' +
+					'<td><button type="button" class="btn-cancel-item btn btn-danger" id="btn-del'+id+'" id-var="'+id+'">&times;</button>'
+					'</tr>';
+				$('#tbody-add-item').append(oTableAddItem);
+				added.push(id);
+			}else{
+				var trItem = $('#tbody-add-item > #'+id+'');
+				var oldReqQty = trItem.find('td').eq(2).text();
+				var newReqQty = parseInt(oldReqQty)+parseInt(trfQty);
+				trItem.find('td').eq(2).text(newReqQty);
+			}
+		});
+		
+		
+		//cancel item
+		$('#tbl-ts-add-item').on('click', '.btn-cancel-item', function(){
+			var id = $(this).attr('id-var');
+			console.log(id);
+			$(this).parent().parent().remove();
+			var index = added.indexOf(id.toString());
+			if(index > -1){
+				added.splice(index, 1);
+			}
+		});
+		
+		//view detail
+		$('.view').on('click', function(){
+			var id = $(this).attr('id');
+			console.log(id);
+			window.location = '${pageContext.request.contextPath}/ts/detail?id=' + id;
+			console.log(data);
 		});
 	});
 </script>
@@ -192,7 +273,7 @@
 						<label for="input-name">Purchase Request</label>
 						<hr>
 						
-						<table id="tbl-pr-add-item" class="table table-striped table-bordered" cellspacing="0" width="100%">
+						<table id="tbl-ts-add-item" class="table table-striped table-bordered" cellspacing="0" width="100%">
 							<thead>
 								<th>Item</th>
 								<th>In Stock</th>
@@ -254,7 +335,7 @@
 						<th>Trans. Qty</th>
 						<th>Action</th>
 					</thead>
-					<tbody id="tbl-add-item-purchase">
+					<tbody id="tbl-add-item-transfer">
 					</tbody>
 				</table>
 				<div class="row">

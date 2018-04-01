@@ -10,11 +10,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.xsis.mp1.model.Inventory;
 import com.xsis.mp1.model.Outlet;
 import com.xsis.mp1.model.TransferStock;
+import com.xsis.mp1.service.InventoryService;
 import com.xsis.mp1.service.OutletService;
 import com.xsis.mp1.service.TransferStockService;
 
@@ -27,6 +30,9 @@ public class TransferStockController {
 	
 	@Autowired
 	OutletService outletService;
+	
+	@Autowired
+	InventoryService inventoryService;
 	
 	@RequestMapping
 	public String index(Model model) {
@@ -50,11 +56,19 @@ public class TransferStockController {
 		return tsService.getOne(id);
 	}
 
-	/*@RequestMapping(value="/detail/{id}", method = RequestMethod.GET)
+	@RequestMapping(value="/detail/{id}", method = RequestMethod.GET)
 	public String cari(@PathVariable long id, Model model) {
 		System.out.println("search =" + id);
-		PurchaseRequest pr = tsService.getOne(id);
-		model.addAttribute("pr", pr);
-		return "pr-detail";
-	}*/
+		TransferStock ts = tsService.getOne(id);
+		model.addAttribute("ts", ts);
+		return "ts-detail";
+	}
+	
+	@RequestMapping(value = "/search-item", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Inventory> searchItem(@RequestParam(value="search", defaultValue="") String search) {
+		List<Inventory> inventories = inventoryService.searchInventoryByItemName(search);
+		System.out.println("search"+search);
+		return inventories;
+	}
 }

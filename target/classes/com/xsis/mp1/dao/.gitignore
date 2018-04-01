@@ -46,3 +46,5 @@
 /TransferStockDaoImpl.class
 /TransferStockHistoryDaoImpl.class
 /TransferStockHistoryDao.class
+/TransferStockDetailDao.class
+/TransferStockDetailDaoImpl.class

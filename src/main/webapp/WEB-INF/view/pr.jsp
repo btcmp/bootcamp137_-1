@@ -124,7 +124,6 @@
 		
 		var added = [];
 		var addedQty = [];
-		$('.btn-added-item').hide();
 		
 		// search variant
 		$('#src-item-variant').on('input',function(e){

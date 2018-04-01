@@ -48,6 +48,17 @@ public class TransferStockDetail {
 	
 	@ManyToOne
 	private TransferStock transfer;
+	
+	@ManyToOne
+	private Variant variant;
+
+	public Variant getVariant() {
+		return variant;
+	}
+
+	public void setVariant(Variant variant) {
+		this.variant = variant;
+	}
 
 	public TransferStock getTransfer() {
 		return transfer;
