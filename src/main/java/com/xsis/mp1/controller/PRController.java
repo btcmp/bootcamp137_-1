@@ -82,4 +82,22 @@ public class PRController {
 		System.out.println("search"+search);
 		return inventories;
 	}
+	
+	@RequestMapping(value="/approve/{id}", method=RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	public void approve(@PathVariable long id) {
+		prService.approve(id);
+	}
+	
+	@RequestMapping(value="/reject/{id}", method= RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	public void reject(@PathVariable long id) {
+		prService.reject(id);
+	}
+	
+	@RequestMapping(value="/create-po/{id}", method=RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	public void createPo(@PathVariable long id) {
+		prService.createPo(id);
+	}
 }

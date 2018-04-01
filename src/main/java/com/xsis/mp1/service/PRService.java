@@ -1,5 +1,6 @@
 package com.xsis.mp1.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,6 +91,36 @@ public class PRService {
 
 	public void delete(PurchaseRequest pr) {
 		prDao.delete(pr);
+	}
+
+	public void approve(long id) {
+		prDao.approve(id);
+		PurchaseRequest pr = prDao.getOne(id);
+		PurchaseRequestHistory prh = new PurchaseRequestHistory();
+		prh.setCreatedOn(new Date());
+		prh.setPr(pr);
+		prh.setStatus(pr.getStatus());
+		prhDao.save(prh);
+	}
+
+	public void reject(long id) {
+		prDao.reject(id);
+		PurchaseRequest pr = prDao.getOne(id);
+		PurchaseRequestHistory prh = new PurchaseRequestHistory();
+		prh.setCreatedOn(new Date());
+		prh.setPr(pr);
+		prh.setStatus(pr.getStatus());
+		prhDao.save(prh);
+	}
+
+	public void createPo(long id) {
+		prDao.createPo(id);
+		PurchaseRequest pr = prDao.getOne(id);
+		PurchaseRequestHistory prh = new PurchaseRequestHistory();
+		prh.setCreatedOn(new Date());
+		prh.setPr(pr);
+		prh.setStatus(pr.getStatus());
+		prhDao.save(prh);
 	}
 	
 	

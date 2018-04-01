@@ -14,4 +14,10 @@ public interface PRDao {
 
 	public void delete(PurchaseRequest pr);
 
+	public void approve(long id);
+
+	public void reject(long id);
+
+	public void createPo(long id);
+
 }

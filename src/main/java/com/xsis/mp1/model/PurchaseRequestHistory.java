@@ -37,7 +37,6 @@ public class PurchaseRequestHistory {
 	@Column(name="created_by")
 	private long createdBy;
 	
-	@Temporal(TemporalType.DATE)
 	@Column(name="created_on")
 	private Date createdOn;
 	

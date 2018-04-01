@@ -26,7 +26,7 @@ public class PRHistoryDaoImpl implements PRHistoryDao {
 
 	public List<PurchaseRequestHistory> selectHistoryByPR(PurchaseRequest pr) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from PurchaseRequestHistory prh where prh.pr=:pr_prh";
+		String hql = "from PurchaseRequestHistory prh where prh.pr=:pr_prh order by prh.id desc";
 		List<PurchaseRequestHistory> prHistories = session.createQuery(hql).setParameter("pr_prh", pr).list();
 		//List<PurchaseRequestHistory> prhs = session.createCriteria(PurchaseRequestHistory.class).add(Restrictions.eq("pr.id", pr.getId())).list(); 
  		if(prHistories.isEmpty()) {

@@ -2,6 +2,30 @@
 
 <!-- =========================================================================================================== -->
 <!-- ajax here -->
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+		$('#action-pr').change(function(){
+			var action = $(this).val();
+			var id = $(this).attr('key-id');
+			if(action == 'print'){
+				window.print();
+			}else{
+				$.ajax({
+					type : 'GET',
+					url : '${pageContext.request.contextPath}/pr/'+action+'/'+id,
+					success : function(){
+						console.log('Status Updated');
+						window.location = '${pageContext.request.contextPath}/pr/detail/'+id;
+					},
+					error : function(){
+						console.log('Update Status Failed');
+					}
+				});
+			}
+		});
+	});
+</script>
+
 <!-- =================================================================================================================== -->
 
 <%@ include file="/WEB-INF/view/template/master-body-top.jsp"%>
@@ -96,12 +120,12 @@
 				<tr>
 					<td>On</td>
 					<td>
-						<!-- <script>
+						<script>
 							var times = '${history.createdOn}';
-							var time = time.split('.');
+							var time = times.split('.');
 							document.write(time[0]);
-						</script> -->
-						${history.createdOn}
+						</script>
+						<%-- ${history.createdOn} --%>
 					</td>
 					<td>-</td>
 					<td>${pr.prNo }</td>

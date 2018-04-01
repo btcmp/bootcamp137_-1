@@ -38,6 +38,24 @@ public class PRDaoImpl implements PRDao {
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(PurchaseRequest.class, id);
 	}
+
+	public void approve(long id) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update PurchaseRequest set status='Approved' where id = :id";
+		session.createQuery(hql).setParameter("id", id).executeUpdate();
+	}
+
+	public void reject(long id) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update PurchaseRequest set status='Rejected' where id = :id";
+		session.createQuery(hql).setParameter("id", id).executeUpdate();
+	}
+
+	public void createPo(long id) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update PurchaseRequest set status='PO Created' where id = :id";
+		session.createQuery(hql).setParameter("id", id).executeUpdate();
+	}
 	
 	
 }
