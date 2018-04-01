@@ -26,4 +26,9 @@ public class TransferStockDaoImpl implements TransferStockDao{
 		session.flush();
 	}
 
+	public TransferStock getOne(TransferStock ts) {
+		Session session = sessionFactory.getCurrentSession();
+		return session.get(TransferStock.class, ts.getId());
+	}
+
 }

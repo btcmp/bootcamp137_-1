@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.xsis.mp1.dao.TransferStockDao;
+import com.xsis.mp1.dao.TransferStockHistoryDao;
+import com.xsis.mp1.model.Outlet;
+import com.xsis.mp1.model.PurchaseRequest;
 import com.xsis.mp1.model.TransferStock;
 import com.xsis.mp1.model.TransferStockDetail;
 import com.xsis.mp1.model.TransferStockHistory;
@@ -17,6 +20,9 @@ public class TransferStockService {
 
 	@Autowired
 	TransferStockDao tsDao;
+	
+	@Autowired
+	TransferStockHistoryDao tshDao;
 	
 	public List<TransferStock> selectAll() {
 		// TODO Auto-generated method stub
@@ -43,9 +49,15 @@ public class TransferStockService {
 			}
 		}*/
 		
-		/*TransferStockHistory tsh = new TransferStockHistory();
+		TransferStockHistory tsh = new TransferStockHistory();
 		tsh.setTransfer(tfs);
 		tsh.setStatus(tfs.getStatus());
-		tshDao.save(tsh);*/
+		tshDao.save(tsh);
+	}
+
+	public TransferStock getOne(long id) {
+		TransferStock ts = new TransferStock();
+		ts.setId(id);
+		return tsDao.getOne(ts);
 	}
 }

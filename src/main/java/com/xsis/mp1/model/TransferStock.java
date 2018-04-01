@@ -33,14 +33,16 @@ public class TransferStock {
 	private long id;
 	
 	@NotNull
-	@ManyToOne
-	@JoinColumn(name="from_outlet")
-	private Outlet fromOutlet;
+	/*@ManyToOne
+	@JoinColumn(name="from_outlet")*/
+	@Column(name="from_outlet")
+	private long fromOutlet;
 	
 	@NotNull
-	@ManyToOne
-	@JoinColumn(name="to_outlet")
-	private Outlet toOutlet;
+	/*@ManyToOne
+	@JoinColumn(name="to_outlet")*/
+	@Column(name="to_outlet")
+	private long toOutlet;
 	
 	@Column(length=255)
 	private String notes;
@@ -91,19 +93,19 @@ public class TransferStock {
 		this.id = id;
 	}
 
-	public Outlet getFromOutlet() {
+	public long getFromOutlet() {
 		return fromOutlet;
 	}
 
-	public void setFromOutlet(Outlet fromOutlet) {
+	public void setFromOutlet(long fromOutlet) {
 		this.fromOutlet = fromOutlet;
 	}
 
-	public Outlet getToOutlet() {
+	public long getToOutlet() {
 		return toOutlet;
 	}
 
-	public void setToOutlet(Outlet toOutlet) {
+	public void setToOutlet(long toOutlet) {
 		this.toOutlet = toOutlet;
 	}
 

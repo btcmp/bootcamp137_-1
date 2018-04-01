@@ -66,7 +66,7 @@
 				fromOutlet : $('#input-from-outlet').val(),
 				toOutlet : $('#input-to-outlet').val(),
 				notes : $('#input-note').val(),
-				status : "created"
+				status : "Submitted"
 			};
 			console.log(ts);
 
@@ -138,10 +138,10 @@
 			<c:forEach items="${tss }" var="ts">
 				<tr>
 					<td>${ts.createdOn }</td>
-					<td>${ts.fromOutlet.name }</td>
-					<td>${ts.toOutlet.name }</td>
+					<td>${ts.fromOutlet }</td>
+					<td>${ts.toOutlet }</td>
 					<td>${ts.status }</td>
-					<td>|
+					<td>
 						<a id="${ts.id }" class="view btn btn-success btn-sm" href="#">View</a>
 					</td>
 				</tr>
