@@ -31,4 +31,16 @@ public class TransferStockDaoImpl implements TransferStockDao{
 		return session.get(TransferStock.class, id);
 	}
 
+	public void approve(long id) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update TransferStock set status='Approved' where id = :id";
+		session.createQuery(hql).setParameter("id", id).executeUpdate();
+	}
+
+	public void reject(long id) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update TransferStock set status='Rejected' where id = :id";
+		session.createQuery(hql).setParameter("id", id).executeUpdate();
+	}
+
 }

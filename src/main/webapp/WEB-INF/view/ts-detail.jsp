@@ -4,7 +4,7 @@
 <!-- ajax here -->
 <script type="text/javascript">
 	jQuery(document).ready(function(){
-		$('#action-pr').change(function(){
+		$('#action-ts').change(function(){
 			var action = $(this).val();
 			var id = $(this).attr('key-id');
 			if(action == 'print'){
@@ -12,10 +12,10 @@
 			}else{
 				$.ajax({
 					type : 'GET',
-					url : '${pageContext.request.contextPath}/pr/'+action+'/'+id,
+					url : '${pageContext.request.contextPath}/ts/'+action+'/'+id,
 					success : function(){
 						console.log('Status Updated');
-						window.location = '${pageContext.request.contextPath}/pr/detail/'+id;
+						window.location = '${pageContext.request.contextPath}/ts/detail/'+id;
 					},
 					error : function(){
 						console.log('Update Status Failed');
@@ -41,19 +41,19 @@
 	<div class="col-xs-3">
 		<script>
 			if('${ts.status}' == 'Submitted'){
-				document.write('<select id="action-pr" class="btn-primary form-control" key-id="${ts.id }">'
+				document.write('<select id="action-ts" class="btn-primary form-control" key-id="${ts.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve">Approve</option>'
 						+'<option value="reject">Reject</option>'
 						+'<option value="print">Print</option>');
 			}else if('${ts.status}' == 'rejected'){
-				document.write('<select id="action-pr" class="btn-primary form-control" key-id="${ts.id }">'
+				document.write('<select id="action-ts" class="btn-primary form-control" key-id="${ts.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve" disabled>Approve</option>'
 						+'<option value="reject" disabled>Reject</option>'
 						+'<option value="print">Print</option>');
 			}else if('${ts.status}' == 'Approved'){
-				document.write('<select id="action-pr" class="btn-primary form-control" key-id="${ts.id }">'
+				document.write('<select id="action-ts" class="btn-primary form-control" key-id="${ts.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve" disabled>Approve</option>'
 						+'<option value="reject" disabled>Reject</option>'

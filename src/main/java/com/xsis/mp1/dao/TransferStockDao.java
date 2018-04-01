@@ -12,4 +12,8 @@ public interface TransferStockDao {
 
 	TransferStock getOne(long id);
 
+	void approve(long id);
+
+	void reject(long id);
+
 }

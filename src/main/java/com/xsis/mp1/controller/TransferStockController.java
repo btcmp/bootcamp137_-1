@@ -72,4 +72,16 @@ public class TransferStockController {
 		System.out.println("search"+search);
 		return inventories;
 	}
+	
+	@RequestMapping(value="/approve/{id}", method=RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	public void approve(@PathVariable long id) {
+		tsService.approve(id);
+	}
+	
+	@RequestMapping(value="/reject/{id}", method= RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	public void reject(@PathVariable long id) {
+		tsService.reject(id);
+	}
 }

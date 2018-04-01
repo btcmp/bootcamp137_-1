@@ -1,5 +1,6 @@
 package com.xsis.mp1.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.xsis.mp1.dao.TransferStockDao;
 import com.xsis.mp1.dao.TransferStockDetailDao;
 import com.xsis.mp1.dao.TransferStockHistoryDao;
-import com.xsis.mp1.model.PurchaseRequest;
-import com.xsis.mp1.model.PurchaseRequestDetail;
 import com.xsis.mp1.model.TransferStock;
 import com.xsis.mp1.model.TransferStockDetail;
 import com.xsis.mp1.model.TransferStockHistory;
@@ -88,6 +87,26 @@ public class TransferStockService {
 			ts.setTsHistories(tshs);
 		}
 		return ts;
+	}
+
+	public void approve(long id) {
+		tsDao.approve(id);
+		TransferStock ts = tsDao.getOne(id);
+		TransferStockHistory tsh = new TransferStockHistory();
+		tsh.setCreatedOn(new Date());
+		tsh.setTransfer(ts);;
+		tsh.setStatus(ts.getStatus());
+		tshDao.save(tsh);
+	}
+
+	public void reject(long id) {
+		tsDao.reject(id);
+		TransferStock ts = tsDao.getOne(id);
+		TransferStockHistory tsh = new TransferStockHistory();
+		tsh.setCreatedOn(new Date());
+		tsh.setTransfer(ts);;
+		tsh.setStatus(ts.getStatus());
+		tshDao.save(tsh);
 	}
 	
 }
