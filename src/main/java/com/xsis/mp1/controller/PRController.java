@@ -46,10 +46,11 @@ public class PRController {
 	}
 	
 	@RequestMapping(value="/detail/{id}", method = RequestMethod.GET)
-	@ResponseBody
-	public PurchaseRequest cari(@PathVariable long id, Model model) {
+	public String cari(@PathVariable long id, Model model) {
 		System.out.println("search =" + id);
-		return prService.getOne(id);
+		PurchaseRequest pr = prService.getOne(id);
+		model.addAttribute("pr", pr);
+		return "pr-detail";
 	}
 	
 	@RequestMapping(value="/save", method=RequestMethod.POST)

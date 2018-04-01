@@ -114,6 +114,7 @@
 			var id = $(this).attr('id');
 			console.log(id);
 			window.location = '${pageContext.request.contextPath}/pr/detail?id=' + id;
+			console.log(data);
 		});
 		
 		var added = [];
@@ -291,7 +292,7 @@
 					<td>${pr.status }</td>
 					<td>
 						<a id="${pr.id }" class="update btn btn-success btn-sm" href="#">Edit</a> |
-						<a id="${pr.id }" class="view btn btn-success btn-sm" href="#">View</a>
+						<a id="${pr.id }" class="view btn btn-success btn-sm" href="${pageContext.request.contextPath}/pr/detail/${pr.id}">View</a>
 					</td>
 				</tr>
 			</c:forEach>

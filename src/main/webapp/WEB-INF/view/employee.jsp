@@ -31,44 +31,33 @@
 
 			//save
 			$('#btn-save').on('click', function() {
-
+				var form= $('#form-emp');
+				var valid = form.parsley().validate();
+				
 				var empOut = [];
 
 				$('.select-outlet:checked').each(function() {
 					var eo = {
-						id : $(
-								'#insert-empout-id')
-								.val(),
+						id : $('#insert-empout-id').val(),
 						outlet : {
-							id : $(
-									this)
-									.val()
+							id : $(this).val()
 						}
 					};
 					empOut.push(eo);
 				});
 
-				console.log(empOut);
-
 				var usr;
-
 				if ($('#cb-have-account').is(":checked")) {
 					var haveAkun = 1;
 					usr = {
-						id : $('#insert-user-id')
-								.val(),
-						username : $(
-								'#insert-username')
-								.val(),
-						password : $('#insert-pass')
-								.val(),
+						id : $('#insert-user-id').val(),
+						username : $('#insert-username').val(),
+						password : $('#insert-pass').val(),
 						role : {
-							id : $('#insert-role')
-									.val()
+							id : $('#insert-role').val()
 						}
 					}
-				}
-				;
+				};
 
 				var employee = {
 					id : $('#insert-emp-id').val(),
@@ -83,19 +72,21 @@
 				};
 				console.log(employee);
 
-				$.ajax({
-					type : 'POST',
-					url : '${pageContext.request.contextPath}/employee/save',
-					data : JSON.stringify(employee),
-					contentType : 'application/json',
-					success : function() {
-						window.location = '${pageContext.request.contextPath}/employee';
-					},
-					error : function() {
-						alert('save failed');
-					}
+				if (valid == true){
+					$.ajax({
+						type : 'POST',
+						url : '${pageContext.request.contextPath}/employee/save',
+						data : JSON.stringify(employee),
+						contentType : 'application/json',
+						success : function() {
+							window.location = '${pageContext.request.contextPath}/employee';
+						},
+						error : function() {
+							alert('save failed');
+						}
 
-				});
+					}); 
+				 }
 			});
 
 			//edit
@@ -152,78 +143,54 @@
 				$('#cb-have-account').val(emp.haveAccount)
 			}
 
-			$('.btn-x')
-					.on(
-							'click',
-							function(evt) {
-								evt.preventDefault();
-								var id = $(this).attr('id');
+			$('.btn-x').on('click', function(evt) {
+				evt.preventDefault();
+				var id = $(this).attr('id');
 
-								console.log(id);
+				console.log(id);
 
-								//ajax ambil data
-								$
-										.ajax({
-											url : '${pageContext.request.contextPath}/employee/get-one/'
-													+ id,
-											type : 'GET',
-											dataType : 'json',
-											success : function(emp) {
-												setEditEmployee(emp);
-												$(
-														'input[name="cb-have-account"]')
-														.prop(
-																'checked',
-																false);
-												if (emp.haveAccount != 0) {
-													$(
-															'input[name="cb-have-account"]')
-															.prop(
-																	'checked',
-																	true);
-												}
-												$('#delete-data')
-														.modal();
-											},
-											error : function() {
-												alert('fail ambil data');
-											}
-										});
-							});
+				//ajax ambil data
+				$.ajax({
+					url : '${pageContext.request.contextPath}/employee/get-one/'+ id,
+					type : 'GET',
+					dataType : 'json',
+					success : function(emp) {
+						setEditEmployee(emp);
+						$('input[name="cb-have-account"]').prop('checked', false);
+						if (emp.haveAccount != 0) {
+							$('input[name="cb-have-account"]').prop('checked', true);
+						}
+						$('#delete-data').modal();
+					},
+					error : function() {
+						alert('fail ambil data');
+					}
+				});
+			});
 
-			$('#btn-delete')
-					.click(
-							function() {
-								var emp = {
-									id : $('#insert-emp-id').val(),
-									firstName : $(
-											'#insert-first-name')
-											.val(),
-									lastName : $(
-											'#insert-last-name')
-											.val(),
-									email : $('#insert-email')
-											.val(),
-									title : $('#insert-title')
-											.val(),
-									haveAccount : $(
-											'#cb-have-account')
-											.val()
-								};
+			$('#btn-delete').click(function() {
+				var emp = {
+					id : $('#insert-emp-id').val(),
+					firstName : $('#insert-first-name').val(),
+					lastName : $('#insert-last-name').val(),
+					email : $('#insert-email').val(),
+					title : $('#insert-title').val(),
+					haveAccount : $('#cb-have-account').val()
+				};
 
-								$.ajax({
-									url : '${pageContext.request.contextPath}/employee/update-status',
-									type : 'PUT',
-									data : JSON.stringify(emp),
-									contentType : 'application/json',
-									success : function(data) {
-										window.location = '${pageContext.request.contextPath}/employee';
-									},
-									error : function() {
-										alert('update failed');
-									}
-								});
-							});
+				$.ajax({
+					url : '${pageContext.request.contextPath}/employee/update-status',
+					type : 'PUT',
+					data : JSON.stringify(emp),
+					contentType : 'application/json',
+					success : function(data) {
+						window.location = '${pageContext.request.contextPath}/employee';
+					},
+					error : function() {
+						alert('update failed');
+					}
+				});
+			});
 
 			$('#btn-cancel').on('click', function() {
 				clearForm();
@@ -253,96 +220,89 @@
 <hr>
 <h6>ADD EMPLOYEE</h6>
 <hr>
-	<div class="row">
-		<div class="col-md-3">
-			<input type="hidden" id="insert-emp-id" name="insert-emp-id" />
-			<div class="form-group">
-				<input type="text" class="form-control"
-					id="insert-first-name" placeholder="First Name">
+	<form id="form-emp">
+		<div class="row">
+			<div class="col-md-3">
+				<input type="hidden" id="insert-emp-id" name="insert-emp-id" />
+				<div class="form-group">
+					<input type="text" data-parsley-required="true" class="form-control" id="insert-first-name" placeholder="First Name">
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<input type="text" data-parsley-required="true" class="form-control" id="insert-last-name" placeholder="Last Name">
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<input type="text" data-parsley-required="true" class="form-control" id="insert-email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<select name="title" data-parsley-required="true" id="insert-title" class="form-control custom-select custom-select-md">
+						<option selected disabled>Title</option>
+						<option value="Mr.">Mr.</option>
+						<option value="Ms.">Ms.</option>
+					</select>
+				</div>
 			</div>
 		</div>
-		<div class="col-md-3">
-			<div class="form-group">
-				<input type="text" class="form-control"
-					id="insert-last-name" placeholder="Last Name">
+		<div class="row">
+			<div class="col-md-3">
+				<div class="form-group">
+					<button type="button" id="btn-assign-outlet" class="btn btn-success btn-block">Assign Outlet</button>
+				</div>
+			</div>
+			<div class="col-md-8" style="padding-top: 8px;">
+				<div class="custom-control custom-checkbox">
+					<input type="checkbox" class="custom-control-input" id="cb-have-account" name="cb-have-account" value="cbaccount"> 
+					<label class="custom-control-label" for="cb-have-account">Create Account?</label>
+				</div>
 			</div>
 		</div>
-		<div class="col-md-3">
-			<div class="form-group">
-				<input type="text" class="form-control" id="insert-email"
-					placeholder="Email">
+	
+		<hr>
+		<div class="row" id="row-user" style="display: none">
+			<div class="col-md-3">
+				<div class="form-group">
+					<select name="role" id="insert-role" class="form-control custom-select custom-select-md" placeholder="Role">
+						<option selected>Role</option>
+						<c:forEach var="role" items="${roles }">
+							<option value="${role.id }">${role.name }</option>
+						</c:forEach>
+					</select>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<input type="hidden" id="insert-user-id"
+					name="insert-user-id" />
+				<div class="form-group">
+					<input type="text" class="form-control" id="insert-username" placeholder="Username">
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<input type="password" class="form-control" id="insert-pass" placeholder="Password">
+				</div>
 			</div>
 		</div>
-		<div class="col-md-3">
-			<div class="form-group">
-				<select name="title" id="insert-title" class="form-control custom-select custom-select-md">
-					<option selected>Title</option>
-					<option value="Mr.">Mr.</option>
-					<option value="Ms.">Ms.</option>
-				</select>
+		<div class="row">
+			<div class="col-md-8"></div>
+			<div class="col-md-2">
+				<div class="form-group">
+					<button type="button" id="btn-cancel"
+						class="btn btn-success btn-block">Cancel</button>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					<button type="button" id="btn-save"
+						class="btn btn-success btn-block">Save</button>
+				</div>
 			</div>
 		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-3">
-			<div class="form-group">
-				<button type="button" id="btn-assign-outlet"
-					class="btn btn-success btn-block">Assign Outlet</button>
-			</div>
-		</div>
-		<div class="col-md-8" style="padding-top: 8px;">
-			<div class="custom-control custom-checkbox">
-				<input type="checkbox" class="custom-control-input"
-					id="cb-have-account" name="cb-have-account"
-					value="cbaccount"> <label
-					class="custom-control-label" for="cb-have-account">Create
-					Account?</label>
-			</div>
-		</div>
-	</div>
-
-	<hr>
-	<div class="row" id="row-user" style="display: none">
-		<div class="col-md-3">
-			<div class="form-group">
-				<select name="role" id="insert-role" class="form-control custom-select custom-select-md" placeholder="Role">
-					<option selected>Role</option>
-					<c:forEach var="role" items="${roles }">
-						<option value="${role.id }">${role.name }</option>
-					</c:forEach>
-				</select>
-			</div>
-		</div>
-		<div class="col-md-3">
-			<input type="hidden" id="insert-user-id"
-				name="insert-user-id" />
-			<div class="form-group">
-				<input type="text" class="form-control" id="insert-username"
-					placeholder="Username">
-			</div>
-		</div>
-		<div class="col-md-3">
-			<div class="form-group">
-				<input type="text" class="form-control" id="insert-pass"
-					placeholder="Password">
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-8"></div>
-		<div class="col-md-2">
-			<div class="form-group">
-				<button type="button" id="btn-cancel"
-					class="btn btn-success btn-block">Cancel</button>
-			</div>
-		</div>
-		<div class="col-md-2">
-			<div class="form-group">
-				<button type="button" id="btn-save"
-					class="btn btn-success btn-block">Save</button>
-			</div>
-		</div>
-	</div>
+	</form>
 	Staff List
 	<hr>
 	<table id="dt-table"
@@ -392,10 +352,7 @@
 							}
 						</script>
 					</td>
-					<td><a id="${emp.id }"
-						class="update btn btn-info btn-sm" href="#">Edit</a> | <a
-						id="${emp.id }" class="btn-x btn btn-danger btn-sm"
-						href="#"> X </a></td>
+					<td><a id="${emp.id }" class="update btn btn-info btn-sm" href="#">Edit</a> | <a id="${emp.id }" class="btn-x btn btn-danger btn-sm" href="#"> X </a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

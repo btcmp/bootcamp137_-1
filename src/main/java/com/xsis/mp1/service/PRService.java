@@ -79,6 +79,7 @@ public class PRService {
 		}else {
 			pr.setPrDetails(prds);
 		}
+		
 		if(prhs.isEmpty()) {
 			
 		}else {
