@@ -18,11 +18,13 @@
 						<input type="text" data-parsley-required="true"
 							class="form-control" id="edit-supp-name"
 							placeholder="Supplier Name">
+							<p style = "color : red;"><small>*Letters only(A-Z) </small></p>
 					</div>
 					<div class="form-group" >
 						<input type="text" data-parsley-required="true"
-							class="form-control" id="edit-address" aria-describedby="emailHelp"
+							class="form-control" id="edit-address" 
 							placeholder="Address">
+							<p style = "color : red;"><small>*Required</small></p>
 					</div>	
 					<div class="form-group">
 					<div class= "row">			
@@ -59,18 +61,21 @@
 					<div class= "row">
 					<div class="col-sm-4">
 						<input type="text" data-parsley-required="true"
-							class="form-control" id="edit-postal-code" aria-describedby="emailHelp"
-							placeholder="Postal Code">
+							class="form-control" id="edit-postal-code" 
+							placeholder="Postal Code" pattern="[0-9]+">
+							<p style = "color : red; "><small> *number only , max length = 6 </small></p>
 					</div>
 					<div class="col-sm-4">
 						<input type="text" data-parsley-required="true"
-							class="form-control" id="edit-phone" aria-describedby="emailHelp"
-							placeholder="Phone">
+							class="form-control" id="edit-phone" 
+							placeholder="Phone" pattern="^\d{12}$">
+								<p style = "color : red;"><small> *number only, ex : 087651234567 </small></p>
 					</div>
 					<div class="col-sm-4">
 						<input type="text" data-parsley-required="true"
-							class="form-control" id="edit-email" aria-describedby="emailHelp"
-							placeholder="Email">
+							class="form-control" id="edit-email" 
+							placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+							<p style = "color : red;"><small>ex : abc@something.com</small></p>
 					</div>
 					</div>
 					</div>

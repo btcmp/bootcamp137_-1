@@ -13,36 +13,37 @@
 			</div>
 			<form id="target" data-parsley-validate>
 				<div class="modal-body">
-
 					<input type="hidden" id="edit-id" name="input-id" />
 					<div class="form-group">
-						<input data-parsley-required="true" type="text" class="form-control" id="input-supp-name"
+						<input data-parsley-required="true" type="text"
+							class="form-control" id="input-supp-name"
 							placeholder="Supplier Name">
-						<!-- <p>
-							<small>Max length = 50 </small>
-						</p> -->
+						<p style="color: red;">
+							<small>*Letters only(A-Z) </small>
+						</p>
 					</div>
 					<div class="form-group">
-						<input data-parsley-required="true" type="text" class="form-control" id="input-address"
-							aria-describedby="emailHelp" placeholder="Address">
+						<input data-parsley-required="true" type="text"
+							class="form-control" id="input-address" placeholder="Address">
+						<p style="color: red;">
+							<small>*Required</small>
+						</p>
 					</div>
 					<div class="form-group">
 						<div class="row">
 							<div class="col-sm-4">
 								<select data-parsley-required="true" name="countries"
-									id="input-province"
-									style="width: 210px; margin-right: 30px;">
-									<option value="" selected="selected">CHOOSE
-										PROVINCE</option>
+									id="input-province" style="width: 210px; margin-right: 30px;">
+									<option value="" selected="selected">CHOOSE PROVINCE</option>
 									<c:forEach var="prov" items="${provinces}">
 										<option value="${prov.id}">${prov.name}</option>
 									</c:forEach>
+
 								</select>
 							</div>
 							<div class="col-sm-4">
 								<select data-parsley-required="true" name="countries"
-									id="input-region"
-									style="width: 210px; margin-right: 30px;">
+									id="input-region" style="width: 210px; margin-right: 30px;">
 									<option value="" selected="selected">CHOOSE REGION</option>
 									<c:forEach var="reg" items="${regions}">
 										<option value="${reg.id}">${reg.name}</option>
@@ -51,10 +52,8 @@
 							</div>
 							<div class="col-sm-4">
 								<select data-parsley-required="true" name="countries"
-									id="input-district"
-									style="width: 210px; margin-right: 30px; ">
-									<option value="" selected="selected">CHOOSE
-										DISTRICT</option>
+									id="input-district" style="width: 210px; margin-right: 30px;">
+									<option value="" selected="selected">CHOOSE DISTRICT</option>
 									<c:forEach var="dis" items="${districts}">
 										<option value="${dis.id}">${dis.name}</option>
 									</c:forEach>
@@ -65,16 +64,29 @@
 					<div class="from-group">
 						<div class="row">
 							<div class="col-sm-4">
-								<input data-parsley-required="true" type="text" class="form-control" id="input-postal-code"
-									aria-describedby="emailHelp" placeholder="Postal Code">
+								<input data-parsley-required="true" type="text"
+									class="form-control" id="input-postal-code"
+									placeholder="Postal Code" pattern="[0-9]+">
+								<p style="color: red;">
+									<small> *number only , max length = 6 </small>
+								</p>
 							</div>
 							<div class="col-sm-4">
-								<input data-parsley-required="true" type="text" class="form-control" id="input-phone"
-									aria-describedby="emailHelp" placeholder="Phone">
+								<input data-parsley-required="true" type="text"
+									class="form-control" id="input-phone" placeholder="Phone"
+									pattern="^\d{12}$">
+								<p style="color: red;">
+									<small> *number only, ex : 087651234567 </small>
+								</p>
 							</div>
 							<div class="col-sm-4">
-								<input data-parsley-required="true" type="text" class="form-control" id="input-email"
-									aria-describedby="emailHelp" placeholder="Email">
+								<input data-parsley-required="true" type="text"
+									class="form-control" id="input-email"
+									pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+									placeholder="Email">
+								<p style="color: red;">
+									<small>ex : abc@something.com</small>
+								</p>
 							</div>
 						</div>
 					</div>
