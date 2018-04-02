@@ -41,23 +41,45 @@
 								}
 							}
 							
-							  if (valid == true){   
-								$
-								.ajax({
-									url : '${pageContext.request.contextPath}/supplier/save',
-									type : 'POST',
-									contentType : 'application/json',
-									data : JSON.stringify(supplier),
-									success : function(data) {
-										//console.log(data); 
-										window.location = "${pageContext.request.contextPath}/supplier"
-										//alert('berhasil'); 
-									},
-									error : function() {
-										alert('save failed');
-									}
-								});
-			 				  } 
+							  if (valid == true){
+								  $.ajax({
+										url : '${pageContext.request.contextPath}/supplier/get-all', 
+										type :'GET', 
+										success : function (data){
+												var sameEmail = 0; 
+												$(data).each(function(index, data2){
+													if ( supplier.email.toLowerCase() == data2.email.toLowerCase()){
+														sameEmail ++ ; 
+													} 
+												}); 
+												 if ( sameEmail > 0){
+													alert ('This email has been used'); 
+												}
+												else {
+												$.ajax({
+													url : '${pageContext.request.contextPath}/supplier/save',
+													type : 'POST',
+													contentType : 'application/json',
+													data : JSON.stringify(supplier),
+													success : function(data) {
+													//console.log(data); 
+													window.location = "${pageContext.request.contextPath}/supplier"
+													//alert('berhasil'); 
+													},
+													error : function() {
+													alert('save failed');
+													}
+												});
+												}  
+										}, 
+										error : function (){
+											alert ('failed'); 
+										}
+									 }); 
+								} 
+								else {
+									alert ('Complete your form '); 
+								} 
 						});
 
 		function setEditSupplier(supplier) {
@@ -119,20 +141,43 @@
 								}
 							}
 							if (valid == true){
-								$
-								.ajax({
-									url : '${pageContext.request.contextPath}/supplier/update',
-									type : 'PUT',
-									data : JSON.stringify(supplier),
-									contentType : 'application/json',
-									success : function(data) {
-										window.location = '${pageContext.request.contextPath}/supplier';
-									},
-									error : function() {
-										alert('update failed');
-									}
-								});
-							}
+								 $.ajax({
+										url : '${pageContext.request.contextPath}/supplier/get-all', 
+										type :'GET', 
+										success : function (data){
+												var sameEmail = 0; 
+												$(data).each(function(index, data2){
+													if ( supplier.email.toLowerCase() == data2.email.toLowerCase()){
+														sameEmail ++ ; 
+													} 
+												}); 
+												 if ( sameEmail > 0){
+													alert ('This email has been used'); 
+												}
+												else {
+														$
+														.ajax({
+															url : '${pageContext.request.contextPath}/supplier/update',
+															type : 'PUT',
+															data : JSON.stringify(supplier),
+															contentType : 'application/json',
+															success : function(data) {
+															window.location = '${pageContext.request.contextPath}/supplier';
+																},
+															error : function() {
+															alert('update failed');
+																}
+														});
+												}  
+										}, 
+										error : function (){
+											alert ('failed'); 
+										}
+									 }); 
+								} 
+								else {
+									alert ('Complete your form '); 
+								} 
 						});
 
 		$('#input-province')

@@ -6,6 +6,11 @@
 	var customer = {};
 	$(function() {
 		//setup data untuk datatable
+		
+		var add = [];
+		var addQty = [];
+		var quantity;
+		
 		$('#sod-tabel').DataTable({
 			paging : true, 
 			searching : false,
@@ -177,17 +182,19 @@
 		$('#btn-search-variant')
 				.click(
 						function() {
-							var variant = $('#input-search-variant').val();
+							var item = $('#input-search-variant').val();
 							//alert (variant); 
 							$
 									.ajax({
-										url : "${pageContext.request.contextPath}/sales-order/search-variant?variant="
-												+ variant,
+										url : "${pageContext.request.contextPath}/sales-order/search-item?inventory="
+												+ item,
 										type : 'GET',
 										success : function(data) {
+											
+												isiTableSearchItem(data);
 											//console.log(data); 
 											//window.location = '${pageContext.request.contextPath}/sales-order'; 
-											isiTableSearchItem(data);
+											
 											//	alert('success search variant');
 										},
 										error : function(data) {
@@ -201,68 +208,114 @@
 		function isiTableSearchItem(data) {
 			var oTable = $('#items-table');
 			var rawData = "";
-			$
-					.each(
-							data,
-							function(index, value) {
+			$.each(data,function(index, value) {
+				if (addQty.indexOf(value.id)== -1){
 								rawData += "<tr>";
 								rawData += "<td>";
-								rawData += value.item.name + " - " + value.name;
+								rawData += value.variant.item.name + " - " + value.variant.name;
 								rawData += "</td>";
 								rawData += "<td>";
 								rawData += "Rp.";
 								rawData += "</td>";
 								rawData += "<td>";
-								rawData += value.price;
+								rawData += value.variant.price;
 								rawData += "</td>";
 								rawData += "<td id='td-qty "+ value.id +"' >";
-								rawData += "<input type='number' class='add-item-qty"+value.id+"' value='1'/>";
+								rawData += "<input type='number' class='add-item-qty"+value.id+"' value='1' min ='1' max='"+value.endingQty+"'/>";
 								rawData += "</td>";
 								rawData += "<td >";
-								rawData += "<button type='button' id='"+value.id+"' class='btn-add-item btn btn-primary btn-sm'>Add</a>";
+								rawData += "<button type='button' id='"+value.id+"' class='btn-add-item"+value.id+" btn-add-item btn btn-primary btn-sm'>Add</button><button type='button' id='"+ value.id +"' class='btn-added-item"+value.id+" btn-added-item btn btn-primary btn-sm'>Added</button>";
 								rawData += "</td>";
 								rawData += "</tr>";
+								var tbody = oTable.find("tbody");
+								tbody.empty();
+								tbody.append(rawData);
+								$('.btn-added-item').hide();
+				} else {
+					var a = addQty.indexOf(value.id); 
+					rawData += "<tr>";
+					rawData += "<td>";
+					rawData += value.variant.item.name + " - " + value.variant.name;
+					rawData += "</td>";
+					rawData += "<td>";
+					rawData += "Rp.";
+					rawData += "</td>";
+					rawData += "<td>";
+					rawData += value.variant.price;
+					rawData += "</td>";
+					rawData += "<td id='td-qty "+ value.id +"' >";
+					rawData += addQty[a];
+					rawData += "</td>";
+					rawData += "<td >";
+					rawData += "<button type='button' id='"+value.id+"' class='btn-add-item"+value.id+" btn-add-item btn btn-primary btn-sm'>Add</button><button type='button' id='"+ value.id +"' class='btn-added-item"+ value.id +" btn-added-item btn-primary btn>Added</button>";
+					rawData += "</td>";
+					rawData += "</tr>";
+					var tbody = oTable.find("tbody");
+					tbody.empty();
+					tbody.append(rawData);
+					
+					$('.btn-add-item').hide(); 
+				}
+			});
+		}
+		
+		/*  */
+		
+		/*  Fungsi untuk mengisi table saat search */
+		/* function isiTableSearchItemAdd(data) {
+			var oTable = $('#items-table');
+			var rawData = "";
+			
+			$
+					.each(
+							data,
+							function(index, value) {
+								
 							});
 			var tbody = oTable.find("tbody");
 			tbody.empty();
 			tbody.append(rawData);
-		}
-
+			
+		} */
 		/* ---------------------------BATAS-------------------------- */
-		var add = [];
-		var addQty = [];
-		var quantity;
+		
 
 		/*  Eksekusi Button V Pilih Item */
-		$(document)
-				.on(
-						'click',
-						'.btn-add-item',
-						function() {
+		$(document).on('click','.btn-add-item',function() {
 							var id = $(this).attr('id');
 							//	console.log(id); 
 							quantity = $('.add-item-qty' + id).val();
 							console.log(quantity);
-							add.push(id);
-							addQty.push(quantity);
-							$('#td-qty' + id).html(quantity);
-							$
-									.ajax({
-										url : "${pageContext.request.contextPath}/sales-order/get-item/"
-												+ id,
-										type : 'GET',
-										success : function(data) {
-											//console.log(data.id); 
-											isiTableDetailItem(data, quantity);
-											$('#qty' + data.id).html(quantity);
-											//alert('success search variant');
+							if ( quantity < 1){
+								alert ("quantity < 1"); 
+							} else {
+								add.push(id);
+								addQty.push(quantity);
+								$('#td-qty' + id).html(quantity);
+								$(this).hide();
+								$('.btn-added-item' + id ).show();
+								$
+										.ajax({
+											url : "${pageContext.request.contextPath}/sales-order/get-item/"
+													+ id,
+											type : 'GET',
+											success : function(data) {
+												//console.log(data.id); 
+												if (add.length=="1"){
+													$('#table-dso-body').empty(); 
+												}
+												isiTableDetailItem(data, quantity);
+												$('#qty' + data.id).html(quantity);
+												//alert('success search variant');
 
-										},
-										error : function(data) {
-											alert('failed get variant');
-										},
-										dataType : 'json',
-									});
+											},
+											error : function(data) {
+												alert('failed get variant');
+											},
+											dataType : 'json',
+										});
+							}
+							
 						});
 
 		/*  Memasukan Data ke tabel detail */
@@ -272,17 +325,17 @@
 			/* oTable.empty();  */
 			/* 	var id = $(this).attr('id');  */
 			//console.log(data);
-			var subTotal = quantity * data.price;
+			var subTotal = quantity * data.variant.price;
 			var rawData = "";
 			rawData += "<tr id='tr-tbody-dso"+ data.id +"'>";
-			rawData += "<td id='"+ data.id +"'>";
-			rawData += data.item.name + "-" + data.name;
+			rawData += "<td id='"+ data.variant.id +"'>";
+			rawData += data.variant.item.name + "-" + data.variant.name;
 			rawData += "</td>";
 			rawData += "<td id='qty"+data.id+"'>";
 			rawData += "";
 			rawData += "</td>";
 			rawData += "<td>";
-			rawData += "Rp." + data.price;
+			rawData += "Rp." + data.variant.price;
 			rawData += "</td>";
 			rawData += "<td>";
 			rawData += "Rp." + subTotal;
@@ -291,7 +344,7 @@
 			rawData += "<button type='button' id='"+ data.id +"' class='btn-cancel-item"
 			+ data.id +" btn-cancel-item btn btn-danger'>Cancel</button>";
 			rawData += "</td>";
-			rawData += "</tr>";
+			rawData += "</tr>"; 
 			oTable.append(rawData);
 			tFoot.empty();
 			var total = 0;
@@ -310,22 +363,18 @@
 			rawDataFoot += "</th>";
 			rawDataFoot += "</tr>";
 			tFoot.append(rawDataFoot);
+			
 		}
 
 		/* -------------------------------------------END BTN PILIH---------------------------- */
 		/*-------------------------BTN CANCEL-----------------------  */
-		$(document)
-				.on(
-						'click',
-						'.btn-cancel-item',
-						function() {
-
+		$(document).on('click','.btn-cancel-item',function() {
 							var id = $(this).attr('id');
 							console.log(id);
-							$('#tr-tbody-dso' + id).remove();
-							$('#qty' + id)
-									.html(
-											'<input type="number" class="add-item-qty'+ id +'" value="1" />');
+							$('#tr-tbody-dso'+id).remove();
+							$('.btn-added-item'+id).hide();
+							$('.btn-add-item'+id).show();
+							$('#qty' + id).html('<input type="number" class="add-item-qty'+ id +'" value="1" />');
 							var a = add.indexOf(id.toString());
 							add.splice(a, 1);
 							addQty.splice(a, 1);
@@ -342,7 +391,7 @@
 												.text().split("Rp.")[1];
 										total = total + parseInt(price);
 									})
-							$('#table-dso-body').append(
+							$('#table-dso-foot').append(
 									'<tr id="tr-total-item"><th colspan="3">TOTAL</th><th colspan="2">Rp. '
 											+ total + '</th></tr>');
 							$('#btn-charge').text("Charge Rp." + total)

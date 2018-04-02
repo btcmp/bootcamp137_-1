@@ -69,7 +69,7 @@
 					<div class="col-sm-4">
 						<input type="text" data-parsley-required="true"
 							class="form-control" id="edit-phone" aria-describedby="emailHelp"
-							placeholder="Phone" pattern="^\d{3}-\d{7}$">
+							placeholder="Phone" pattern="^\d{3,4}-\d{6,8}$">
 								<p style = "color : red;"><small> *number only, ex : 021-2233445 </small></p>
 					</div>
 					<div class="col-sm-4">

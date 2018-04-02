@@ -18,7 +18,7 @@
 					<div class="form-group">
 						<input type="text" data-parsley-required="true"
 							class="form-control" id="input-outlet-name" aria-describedby="emailHelp"
-							placeholder="Outlet Name">
+							placeholder="Outlet Name" pattern="[A-Za-z]{1,50}$">
 							<p style = "color : red;"><small>*Required</small></p>
 					</div>
 					<div class="form-group" >
@@ -69,7 +69,7 @@
 					<div class="col-sm-4">
 						<input type="text" data-parsley-required="true"
 							class="form-control" id="input-phone" aria-describedby="emailHelp"
-							placeholder="Phone"  pattern="^\d{3}-\d{7}$">
+							placeholder="Phone"  pattern="^\d{3,4}-\d{6,8}$">
 								<p style = "color : red;"><small> *number only, ex : 021-2233445 </small></p>
 					</div>
 					<div class="col-sm-4">

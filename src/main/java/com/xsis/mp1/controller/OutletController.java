@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.xsis.mp1.model.Customer;
 import com.xsis.mp1.model.District;
 import com.xsis.mp1.model.Outlet;
 import com.xsis.mp1.model.Province;
@@ -99,5 +100,11 @@ public class OutletController {
 	@ResponseStatus(HttpStatus.OK)
 	public void update(@RequestBody Outlet outlet) {
 		outletService.update(outlet); 
+	}
+	
+	@RequestMapping(value="/get-all", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Outlet> getAll(){
+		return outletService.selectAll(); 
 	}
 }

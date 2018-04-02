@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.xsis.mp1.model.District;
+import com.xsis.mp1.model.Outlet;
 import com.xsis.mp1.model.Province;
 import com.xsis.mp1.model.Region;
 import com.xsis.mp1.model.Supplier;
@@ -98,5 +99,11 @@ public class SupplierController {
 	@ResponseStatus(HttpStatus.OK)
 	public void update(@RequestBody Supplier supplier) {
 		supplierService.update(supplier);
+	}
+	
+	@RequestMapping(value="/get-all", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Supplier> getAll(){
+		return supplierService.selectAll(); 
 	}
 }

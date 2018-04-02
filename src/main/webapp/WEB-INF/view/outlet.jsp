@@ -17,9 +17,7 @@
 		});
 
 		//btn save  
-		$('#btn-save')
-				.on(
-						'click',
+		$('#btn-save').on('click',
 						function(evt) {
 							evt.preventDefault();
 							var form = $('#target');
@@ -42,22 +40,44 @@
 							}
 
 							if (valid == true) {
-								$
-										.ajax({
-											url : '${pageContext.request.contextPath}/outlet/save',
-											type : 'POST',
-											contentType : 'application/json',
-											data : JSON.stringify(outlet),
-											success : function(data) {
-												window.location = "${pageContext.request.contextPath}/outlet"
-											},
-											error : function() {
-												alert('save failed');
-											}
-										});
-							}
+								 $.ajax({
+										url : '${pageContext.request.contextPath}/outlet/get-all', 
+										type :'GET', 
+										success : function (data){
+												var sameEmail = 0; 
+												$(data).each(function(index, data2){
+													if ( outlet.email.toLowerCase() == data2.email.toLowerCase()){
+														sameEmail ++ ; 
+													} 
+												}); 
+												 if ( sameEmail > 0){
+													alert ('This email has been used'); 
+												}
+												else {
+													$.ajax({
+														url : '${pageContext.request.contextPath}/outlet/save',
+														type : 'POST',
+														contentType : 'application/json',
+														data : JSON.stringify(outlet),
+														success : function(data) {
+														window.location = "${pageContext.request.contextPath}/outlet"
+														},
+														error : function() {
+																alert('save failed');
+														}
+													});
+												}
+						}, 
+						error : function (){
+							alert ('failed'); 
+						} 
+								 }); 
+							} 
+								 else {
+							alert ('Complete your form '); 		
+										}
 						});
-
+		
 		$('.btn-edit')
 				.on(
 						'click',
@@ -120,6 +140,20 @@
 								}
 							}
 							if (valid == true) {
+								 $.ajax({
+										url : '${pageContext.request.contextPath}/outlet/get-all', 
+										type :'GET', 
+										success : function (data){
+												var sameEmail = 0; 
+												$(data).each(function(index, data2){
+													if ( outlet.email.toLowerCase() == data2.email.toLowerCase()){
+														sameEmail ++ ; 
+													} 
+												}); 
+												 if ( sameEmail > 0){
+													alert ('This email has been used'); 
+												}
+												else {
 								$
 										.ajax({
 											url : '${pageContext.request.contextPath}/outlet/update',
@@ -135,6 +169,15 @@
 											}
 										});
 							}
+										}, 
+										error : function (){
+											alert ('failed'); 
+										} 
+												 }); 
+											} 
+												 else {
+											alert ('Complete your form '); 		
+														}
 						});
 		$('#input-province')
 				.change(
