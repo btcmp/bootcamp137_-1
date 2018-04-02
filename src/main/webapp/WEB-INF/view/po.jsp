@@ -3,20 +3,44 @@
 <script type="text/javascript">
 	jQuery(document).ready(function(){		
 		$('.btn-edit-po').on('click', function(evt){
-			//$('#modal-edit-po').modal('show');
+			
 			evt.preventDefault();
 			var id = $(this).attr('id');
-			/* console.log(id); */
-			$.ajax({
+			 $.ajax({
 				url:'${pageContext.request.contextPath}/po/get-one/'+id,
 				type:'GET',
 				contentType:'application/json',
-				success : function(result){
-					variants=[];
-					$.each(result, function(key, variant){
-						var idvar=variant.id;
-						console.log(idvar);
+				success : function(data){
+					$('#modal-edit-po').modal('show');
+					var beginnings=[];
+					var out=data.outletId.name;
+					var outId=data.outletId.id
+					var total=[];
+					
+					$('#input-outlet').val(out);
+					$(data.prDetails).each(function(key, val){
+						var varId=val.variant.id;
+						var itemName=val.variant.item.name;
+						var outIdItem=val.variant.item.outlet.id;
+						var qty=val.requestQty;
+						var price=val.variant.price;
+						var subTotal=qty*price;
+						total.push(subTotal);
+						 if(outId==outIdItem){
+						 $('#tbody-edit-po').append(
+							'<tr id-var="'+val.variant.id+'"><td>'+val.variant.item.name+'-'+val.variant.name+
+							'</td><td>'+val.requestQty+ 
+							'</td><td>'+val.requestQty+
+							'</td><td>'+val.variant.price+ 
+							'</td><td>'+subTotal+'</td></tr>');
+						}
+						/* $(val.variant).each(function(key, valu){
+							console.log("sukses coba saja");
+							//console.log("juga");
+						}); */
 					});
+					var gTotal=total.reduce(function(a,b){return a+b},0);
+					$("#input-total").val(gTotal);
 				}
 			});
 		});
@@ -30,6 +54,9 @@
 		$('.btn-view-po').on('click', function(){
 			window.location.assign("${pageContext.request.contextPath}/po/detail-po")
 		});
+		
+		
+		
 	});
 </script>
 
@@ -94,15 +121,15 @@
 		</thead>
 		<tbody>
 		<c:forEach items="${pos}" var="po">
-			<tr>
-				<td style="display: none">${po.id }</td>
+			<tr id="${po.prId }">
+				<td style="display: none">${po.prId }</td>
 				<td><center>${po.createdOn }</center></td>
 				<td>${po.supplierId.name }</td>
 				<td>${po.poNo }</td>
 				<td>${po.grandTotal}</td>
 				<td>A</td>
 				<td><center>
-					<a id="${po.id }" class="btn-edit-po btn btn-info btn-sm" href="#">Edit</a>
+					<a id="${po.prId.id }" class="btn-edit-po btn btn-info btn-sm" href="#">Edit</a>
 					<a id="btn-view-po" class="btn-view-po btn btn-info btn-sm" href="#">View</a></center>
 				</td>
 			</tr>

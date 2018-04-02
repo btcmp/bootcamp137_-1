@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.xsis.mp1.dao.InventoryDao;
 import com.xsis.mp1.model.Inventory;
 import com.xsis.mp1.model.Item;
+import com.xsis.mp1.model.Outlet;
+import com.xsis.mp1.model.Supplier;
 import com.xsis.mp1.model.Variant;
 
 
@@ -56,5 +58,17 @@ public class InventoryService {
 	public List<Inventory> searchInventoryByItemName(String search) {
 		return inventoryDao.searchInventoryByItemName(search);
 	}
+
+
+	public List<Inventory> selectAllByItemOulet(Outlet outlet) {
+		return inventoryDao.selectAllByItemOutlet(outlet);
+	}
+
+	public List<Inventory> selectAllByItemSupplierByPo(Supplier supplier) {
+		// TODO Auto-generated method stub
+		return inventoryDao.selectAllByItemPo(supplier);
+	}
+
+	
 
 }

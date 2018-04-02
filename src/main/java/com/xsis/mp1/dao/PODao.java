@@ -8,4 +8,6 @@ public interface PODao {
 
 	public List<PurchaseOrder> selectAll();
 
+	public PurchaseOrder geOne(long id);
+
 }

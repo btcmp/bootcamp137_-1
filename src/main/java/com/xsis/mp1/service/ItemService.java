@@ -11,6 +11,7 @@ import com.xsis.mp1.dao.ItemDao;
 import com.xsis.mp1.dao.VariantDao;
 import com.xsis.mp1.model.Inventory;
 import com.xsis.mp1.model.Item;
+import com.xsis.mp1.model.Supplier;
 import com.xsis.mp1.model.Variant;
 
 @Transactional
@@ -100,5 +101,10 @@ public class ItemService {
 				}
 			}
 		}
+	}
+
+	public List<Item> selectAllBySupplier(Supplier supplier) {
+		// TODO Auto-generated method stub
+		return itemDao.selectAllBySupplier(supplier);
 	}
 }

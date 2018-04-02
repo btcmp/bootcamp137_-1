@@ -48,6 +48,7 @@
 				<value>com.xsis.mp1.model.Supplier</value>
 				<value>com.xsis.mp1.model.District</value>
 				<value>com.xsis.mp1.model.PurchaseOrder</value>
+				<value>com.xsis.mp1.model.PurchaseOrderDetail</value>
 				<value>com.xsis.mp1.model.PurchaseRequest</value>
 				<value>com.xsis.mp1.model.PurchaseRequestDetail</value> 
 				<value>com.xsis.mp1.model.PurchaseRequestHistory</value>

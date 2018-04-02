@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.xsis.mp1.model.Category;
 import com.xsis.mp1.model.Item;
+import com.xsis.mp1.model.Supplier;
 
 
 public interface ItemDao {
@@ -29,5 +30,7 @@ public interface ItemDao {
 		public List<Item> getItemsByCategory(Category category);
  
 		public void updateItemByName(Item item);
+
+		public List<Item> selectAllBySupplier(Supplier supplier);
 }
  

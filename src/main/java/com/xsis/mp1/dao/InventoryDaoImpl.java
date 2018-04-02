@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.xsis.mp1.model.Inventory;
 import com.xsis.mp1.model.Item;
+import com.xsis.mp1.model.Outlet;
+import com.xsis.mp1.model.Supplier;
 
 @Repository
 public class InventoryDaoImpl implements InventoryDao {
@@ -71,5 +73,28 @@ public class InventoryDaoImpl implements InventoryDao {
 			return inventories;
 		}
 	}
+	
+	public List<Inventory> selectAllByItemOutlet(Outlet outlet) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql="from Inventory i where i.variant.item.outlet = :outlet";
+		List<Inventory> inventories=session.createQuery(hql).setParameter("outlet", outlet).list();
+		System.out.println(outlet);
+		if(inventories.isEmpty())
+			return null;
+		else
+			return inventories;
+	}
 
+	public List<Inventory> selectAllByItemPo(Supplier supplier) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql="from Inventory i, PurchaseRequestDetail prd where i.variant.item.supplier = :supp and prd.variant.item.supplier =:supplier ";
+		List<Inventory> inventories=session.createQuery(hql).setParameter("supp", supplier).setParameter("supplier", supplier).list();
+		if(inventories.isEmpty())
+			return null;
+		else
+			return inventories;
+	}
+	
+
+	
 }

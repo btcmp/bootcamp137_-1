@@ -48,6 +48,7 @@
 			<th>SKU</th>
 			<th>Beginning Stock</th>
 			<th style="display: none;">alert Stock</th>
+			<th style="display: none;">Outlet</th>
 			<th>#</th>
 		</thead>
 		<tbody id="tbody-add-variant-create-item"></tbody>
@@ -104,10 +105,22 @@
 						</div>			
 					</div>				
 					<div><br/><br/>
-						<h5>Set Beginning Stock</h5>
+						<div class="row">
+							<div class="col-md-3">
+								<h5>Set Beginning Stock</h5>
+							</div>
+							<div class="form-group col-md-3">
+						   	 <select name="title" id="input-outlet" class="form-control custom-select custom-select-md">
+						    	<option value="">Outlet</option>
+						    	<c:forEach items= "${outlet}" var="outlet">
+									<option value="${outlet.id}">${outlet.name}</option>
+								</c:forEach>
+						    </select>
+							</div>
+						</div>
 						<hr widht="100%"/>
 						</div><br/>
-						<div class="row">
+						<div class="row" style="display: none" id="inventory-store">
 						<div class="form-group col-md-6">
 							<input type="text" class="form-control " id="input-beginning-stock" placeholder="Beginning Stock">
 						</div>
@@ -156,7 +169,19 @@
 						</div>			
 					</div>				
 					<div><br/><br/>
-						<h5>Set Beginning Stock</h5>
+						<div class="row">
+							<div class="col-md-3">
+								<h5>Set Beginning Stock</h5>
+							</div>
+							<div class="form-group col-md-3">
+						   	 <select name="title" id="input-edit-outlet" class="form-control custom-select custom-select-md">
+						    	<option value="">Outlet</option>
+						    	<c:forEach items= "${outlet}" var="outlet">
+									<option value="${outlet.id}">${outlet.name}</option>
+								</c:forEach>
+						    </select>
+							</div>
+						</div>
 						<hr widht="100%"/>
 						</div><br/>
 						<div class="row">

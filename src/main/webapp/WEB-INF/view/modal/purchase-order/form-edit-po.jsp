@@ -16,13 +16,14 @@
 			
 			<div class="modal-body">
 				<form id="target" data-parsley-validate>
-					<h5>EDIT NEW PO: "outlet login"</h5>
+					<h5>EDIT NEW PO: <input id="input-outlet" style="border: none"/>
+					</h5>
 					<hr/>
 						<h5>Choose Supplier</h5>			
 						<div class ="form-group">
 							<div class="row">
 								<div class="col-md-12">
-									<select data-parsley-required="true" name="countries" id="input-province" style="width: 100%; height:110% ">
+									<select data-parsley-required="true" name="countries" id="input-supplier" style="width: 100%; height:110% ">
 									<option value="" selected="selected">Supplier</option>
 									 <c:forEach var="sup" items= "${suppliers}">
 										<option value="${sup.id}">${sup.name}</option>
@@ -44,24 +45,26 @@
 					<th>Unit Cost</th>
 					<th>Sub Total</th>
 				</thead>
-				<tbody>
+				<tbody id="tbody-edit-po">
 				<c:forEach var="po" items= "${pos}">
 					<tr>
-						<td>${po.prId }</td>
+						<%-- <td>${po.prId }</td>
 						<td><center>3</center></td>
 						<td><center>3</center></td>
 						<td><center>Rp. 300.000</center></td>
-						<td><center>Rp. 900.000</center></td>
+						<td><center>Rp. 900.000</center></td> --%>
 					</tr><br/>
 				</c:forEach>
 				</tbody>
-				<tr>
-						<td colspan="4"><h5>TOTAL</h5></td>
-						<td><h5>Rp. 900.000</h5></td>
+				<tfoot>
+					<tr style=" border: none; background: none;">
+						<td colspan="4">TOTAL</td>
+						<td><input id="input-total" style="border: none;"/></td>
 					</tr>
+				</tfoot>
 			</table>
 					
-</form>
+			</form>
 			</div>
 			<div class="modal-footer" style="margin: auto;">
 				<div class="row">

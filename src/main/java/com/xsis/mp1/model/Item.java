@@ -53,6 +53,9 @@ public class Item {
 	@ManyToOne
 	private Category categoryId;
 	
+	@ManyToOne
+	private Outlet outlet;
+	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="item", cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<Variant> variants;
 	
@@ -131,6 +134,14 @@ public class Item {
 
 	public void setCategoryId(Category categoryId) {
 		this.categoryId = categoryId;
+	}
+
+	public Outlet getOutlet() {
+		return outlet;
+	}
+
+	public void setOutlet(Outlet outlet) {
+		this.outlet = outlet;
 	}
 
 	public List<Variant> getVariants() {

@@ -19,6 +19,11 @@ public class POService {
 	public List<PurchaseOrder> selectAll() {
 		return poDao.selectAll();
 	}
+
+	public PurchaseOrder getOne(long id) {
+		// TODO Auto-generated method stub
+		return poDao.geOne(id);
+	}
 	
 	
 }

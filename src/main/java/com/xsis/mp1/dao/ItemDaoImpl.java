@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.xsis.mp1.model.Category;
 import com.xsis.mp1.model.Employee;
 import com.xsis.mp1.model.Item;
+import com.xsis.mp1.model.Supplier;
 
 @Repository
 public class ItemDaoImpl implements ItemDao {
@@ -77,6 +78,16 @@ public class ItemDaoImpl implements ItemDao {
 		query.setParameter("id", item.getId());
 		query.executeUpdate();
 		session.flush();
+	}
+
+	public List<Item> selectAllBySupplier(Supplier supplier) {
+		Session session = sessionFactory.getCurrentSession(); 
+		String hql = "from Item i where i.supplier.id =:supplier"; 
+		List<Item> items = session.createQuery(hql).setParameter("supplier", supplier.getId()).list(); 
+		if (items.isEmpty()) {
+			return null; 
+		}
+		return items;
 	} 
  
 }

@@ -72,6 +72,9 @@ public class Outlet {
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="outletId", cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<PurchaseRequest> purchaseRequests;
 	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="outlet", cascade=CascadeType.ALL, orphanRemoval=true)
+	private  List<Item> items;
+	
 	@ManyToOne
 	private Province province;
 	
@@ -86,38 +89,6 @@ public class Outlet {
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="outlet", cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<Inventory> inventories;
-	
-	public List<EmployeeOutlet> getEmpouts() {
-		return empouts;
-	}
-
-	public void setEmpouts(List<EmployeeOutlet> empouts) {
-		this.empouts = empouts;
-	}
-
-	public Province getProvince() {
-		return province;
-	}
-
-	public void setProvince(Province province) {
-		this.province = province;
-	}
-
-	public Region getRegion() {
-		return region;
-	}
-
-	public void setRegion(Region region) {
-		this.region = region;
-	}
-
-	public District getDistrict() {
-		return district;
-	}
-
-	public void setDistrict(District district) {
-		this.district = district;
-	}
 
 	public long getId() {
 		return id;
@@ -223,6 +194,46 @@ public class Outlet {
 		this.purchaseRequests = purchaseRequests;
 	}
 
+	public List<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+
+	public Province getProvince() {
+		return province;
+	}
+
+	public void setProvince(Province province) {
+		this.province = province;
+	}
+
+	public Region getRegion() {
+		return region;
+	}
+
+	public void setRegion(Region region) {
+		this.region = region;
+	}
+
+	public District getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(District district) {
+		this.district = district;
+	}
+
+	public List<EmployeeOutlet> getEmpouts() {
+		return empouts;
+	}
+
+	public void setEmpouts(List<EmployeeOutlet> empouts) {
+		this.empouts = empouts;
+	}
+
 	public List<Inventory> getInventories() {
 		return inventories;
 	}
@@ -230,6 +241,6 @@ public class Outlet {
 	public void setInventories(List<Inventory> inventories) {
 		this.inventories = inventories;
 	}
-
-
+	
+	
 }

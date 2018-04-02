@@ -19,6 +19,7 @@ import com.xsis.mp1.model.Variant;
 import com.xsis.mp1.service.ItemService;
 import com.xsis.mp1.service.OutletService;
 import com.xsis.mp1.service.POService;
+import com.xsis.mp1.service.PRService;
 import com.xsis.mp1.service.SupplierService;
 import com.xsis.mp1.service.VariantService;
 
@@ -40,22 +41,36 @@ public class PurchaseOrderController {
 	@Autowired
 	VariantService variantService;
 	
+	@Autowired
+	PRService prService;
+	
+	@Autowired
+	OutletService outletService;
+	
 	@RequestMapping
 	public String index(Model model) {
 		List<PurchaseOrder> pos = poService.selectAll();
 		List<Supplier> suppliers = supplierService.selectAll();
 		model.addAttribute("pos", pos);
 		model.addAttribute("suppliers", suppliers);
+		List<Outlet> outlet = outletService.selectAll();
+		model.addAttribute("outlet", outlet);
 		return "po";
 	}
 	
-	@RequestMapping(value="/get-one/{id}", method=RequestMethod.GET)
+	/*@RequestMapping(value="/get-one/{id}", method=RequestMethod.GET)
 	@ResponseBody
 	public List<Variant> getOne(@PathVariable long id, Model model, PurchaseRequest purchaseRequest){
 		List<Variant> variants=variantService.getVariantByPR(purchaseRequest);
 		System.out.println("dapat");
 		model.addAttribute("variants", variants);
 		return variants;
+	}*/
+	
+	@RequestMapping(value = "/get-one/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public PurchaseRequest getOne(@PathVariable long id) {
+		return prService.getOne(id);
 	}
 	
 	@RequestMapping(value="/detail-po")
