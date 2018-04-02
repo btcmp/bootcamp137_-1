@@ -35,10 +35,27 @@
 			$('#modal-pr-add-item').modal();
 		});
 
+		var itemnya = [];
+		
 		$('#btn-add-item-var').on('click', function(){
 			$('#modal-pr-add-item').modal('hide');
 			$('#modal-pr-input').modal('show');
 			$('#btn-submit').show();
+			
+			$.ajax({
+				type : 'GET',
+				url : '${pageContext.request.contextPath}/item/get-inventory',
+				dataType : 'json',
+				success : function(data){
+					$.each(data, function(key, val) {
+						var namaItem = val.variant.item.name +'-'+ val.variant.name;
+						itemnya.push(namaItem);
+					});
+					console.log(itemnya);
+				}, error : function(){
+					
+				}
+			});
 		});
 		
 		$('#btn-cancel-add').on('click', function(){
@@ -95,7 +112,7 @@
 				notes : $('#input-note').val(),
 				status : "created",
 				outletId : {
-					id : $('input-outlet').val(),
+					id : $('#input-outlet').val(),
 				},
 				prDetails : prDet
 			};
@@ -167,16 +184,16 @@
 			var inStock = element.find('td').eq(1).text();
 			var reqQty = $('#add-qty'+id).val();
 			
-			if(added.indexOf(id.toString()) == -1) {
-				var oTableAddItem = '<tr id-var="'+idVar+'" id="'+id+'"><td>'+itemVar+'</td>' +
+			if(added.indexOf(idVar.toString()) == -1) {
+				var oTableAddItem = '<tr id-var="'+idVar+'" id="'+idVar+'"><td>'+itemVar+'</td>' +
 					'<td>'+inStock+'</td>' +
 					'<td>'+reqQty+'</td>' +
 					'<td><button type="button" class="btn-cancel-item btn btn-danger" id="btn-del'+id+'" id-var="'+id+'">&times;</button>'
 					'</tr>';
 				$('#tbody-add-item').append(oTableAddItem);
-				added.push(id);
+				added.push(idVar);
 			}else{
-				var trItem = $('#tbody-add-item > #'+id+'');
+				var trItem = $('#tbody-add-item > #'+idVar+'');
 				var oldReqQty = trItem.find('td').eq(2).text();
 				var newReqQty = parseInt(oldReqQty)+parseInt(reqQty);
 				trItem.find('td').eq(2).text(newReqQty);
@@ -198,6 +215,7 @@
 		
 		//edit PR
 		$('#dt-table').on('click', '.update', function(){
+			//added= [];
 			var id = $(this).attr('id');
 			$('#tbody-add-item').empty();
 			$.ajax({
@@ -213,13 +231,24 @@
 					$('#insert-target').val(dates);
 					
 					$(data.prDetails).each(function(key, val){
+						added.push(''+val.variant.id+'');
 						$('#tbody-add-item').append(
-							'<tr id-var="'+val.variant.id+'"><td>'+val.variant.item.name+'-'+val.variant.name+'</td>'
-							+'<td>12</td>'
+							'<tr id-var="'+val.variant.id+'" id="'+val.variant.id+'"><td>'+val.variant.item.name+'-'+val.variant.name+'</td>'
+							+'<td id="td'+val.id+'"></td>'
 							+'<td>'+val.requestQty+'</td>'
 							+'<td><button type="button" class="btn btn-danger btn-cancel-item" id="btn-del'+id+'" id-var="'+id+'">&times;</button>'
 						);
-					})
+					});
+					
+					// get inStock from inventory
+					$.ajax({
+						type : 'GET',
+						url : '${pageContext.request.contextPath}/transaksi/pr/get-inventory?idPr='+id+'&idPrd='+val.id,
+						dataType: 'json',
+						success : function(inventory){
+							$('#td'+val.id).append(inventory[0]);
+						}
+					});
 					$('#modal-pr-input').modal();
 				},
 				error : function(){
@@ -329,8 +358,9 @@
 		</tbody>
 	</table>
 
-<!-- Call modal -->
-<!-- Modal Purchase Input -->
+
+<!------------------------------------------------------ Modal Purchase Input --------------------------------------------------->
+
 <div class="modal fade" id="modal-pr-input" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
@@ -403,7 +433,8 @@
 	</div>
 </div>
 
-<!-- Modal Add Item -->
+<!----------------------------------------------------- Modal Add Item ------------------------------------------------------------>
+
 <div class="modal fade" id="modal-pr-add-item" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">

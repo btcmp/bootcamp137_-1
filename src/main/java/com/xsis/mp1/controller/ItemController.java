@@ -77,4 +77,10 @@ public class ItemController {
 		//System.out.println("update");
 		return item;
 	}
+	
+	@RequestMapping(value="/get-inventory")
+	@ResponseBody
+	public List<Inventory> getAllInventory(){
+		return inventoryService.selectAll();
+	}
 }
