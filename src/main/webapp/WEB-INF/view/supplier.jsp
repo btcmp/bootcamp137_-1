@@ -6,8 +6,9 @@
 	$(function() {
 		//datatable
 		$('#supplier-tbl').DataTable({
-			/* paging : false, */
+			paging : true,
 			searching : false,
+			ordering : false
 		});
 
 		//button-create 
@@ -269,10 +270,7 @@
 						});
 
 		//button-search
-		$('#btn-search')
-				.on(
-						'click',
-						function() {
+		$('#btn-search').on('click',function() {
 							var word = $('#search').val();
 							window.location = '${pageContext.request.contextPath}/supplier/search?search='
 									+ word;

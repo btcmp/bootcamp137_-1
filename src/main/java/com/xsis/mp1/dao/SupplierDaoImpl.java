@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.xsis.mp1.model.Category;
 import com.xsis.mp1.model.Supplier;
 
 @Repository
@@ -24,7 +25,9 @@ public class SupplierDaoImpl implements SupplierDao{
 	public List<Supplier> selectAll() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession(); 
-		return session.createCriteria(Supplier.class).list();
+		String hql = "from Supplier supp order by supp.id desc"; 
+		List<Supplier> suppliers = session.createQuery(hql).list();
+		return suppliers;
 	}
 
 	public Supplier getOne(Supplier supplier) {
@@ -56,7 +59,7 @@ public class SupplierDaoImpl implements SupplierDao{
 
 	public List<Supplier> getSupplierBySearchName(String search) {
 		// TODO Auto-generated method stub
-		String hql = "from Supplier supp where lower(supp.name) like :name"; 
+		String hql = "from Supplier supp where lower(supp.name) like :name order by supp.id desc"; 
 		Session session = sessionFactory.getCurrentSession(); 
 		List<Supplier> suppliers = session.createQuery(hql).setParameter("name", "%"+search.toLowerCase()+"%").list(); 
 		if (suppliers.isEmpty()) {

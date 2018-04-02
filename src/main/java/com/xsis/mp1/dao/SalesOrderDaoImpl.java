@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.xsis.mp1.model.SalesOrder;
 
 @Repository
-public class SalsOrderDaoImpl implements SalesOrderDao{
+public class SalesOrderDaoImpl implements SalesOrderDao{
 
 	
 	@Autowired

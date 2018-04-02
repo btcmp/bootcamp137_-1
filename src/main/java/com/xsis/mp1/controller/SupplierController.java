@@ -45,7 +45,7 @@ public class SupplierController {
 		List<Supplier> suppliers = supplierService.selectAll(); 
 		List<Province> provinces = provinceService.selectAll(); 
 		List<Region> regions = regionService.selectAll();  
-		List<District> districts = districtService.selectAll(); 
+		List<District> districts = districtService.selectAll(); 		
 		model.addAttribute("suppliers", suppliers); 
 		model.addAttribute("provinces", provinces); 
 		model.addAttribute("regions", regions); 
@@ -70,14 +70,14 @@ public class SupplierController {
 	@RequestMapping(value="/search", method = RequestMethod.GET)
 	public String Search(Model model, @RequestParam(value="search", defaultValue="")String search) {
 		List<Supplier> supplier = supplierService.getSupplierBySearchName(search); 
-//		List<Province> provinces = provinceService.selectAll(); 
-//		List<Region> regions = regionService.selectAll();  
-//		List<District> districts = districtService.selectAll(); 
+		List<Province> provinces = provinceService.selectAll(); 
+		List<Region> regions = regionService.selectAll();  
+		List<District> districts = districtService.selectAll(); 
 		
 		model.addAttribute("suppliers", supplier); 
-//		model.addAttribute("provinces", provinces); 
-//		model.addAttribute("regions", regions); 
-//		model.addAttribute("districts", districts); 
+		model.addAttribute("provinces", provinces); 
+		model.addAttribute("regions", regions); 
+		model.addAttribute("districts", districts); 
 		System.out.println("search:" + search);
 		return "supplier"; 
 	}
