@@ -15,12 +15,41 @@
 	    });
 		
 		$(function() {
-		    $('input[name="daterange"]').daterangepicker();
+			var today = new Date();
+			var dd = today.getDate();
+			var mm = today.getMonth()+1; //January is 0!
+			var yyyy = today.getFullYear();
+
+			if(dd<10) {
+			    dd = '0'+dd
+			} 
+			if(mm<10) {
+			    mm = '0'+mm
+			} 
+			today = yyyy + '-' + mm + '-' + dd;
+		    $('input[name="daterange"]').daterangepicker({
+		    	maxDate: new Date(today)
+		    });
+		    
 		});
 		
 		$(function() {
-		    $('#insert-target').daterangepicker({
+			var today = new Date();
+			var dd = today.getDate();
+			var mm = today.getMonth()+1; //January is 0!
+			var yyyy = today.getFullYear();
+
+			if(dd<10) {
+			    dd = '0'+dd
+			} 
+			if(mm<10) {
+			    mm = '0'+mm
+			} 
+			today = yyyy + '-' + mm + '-' + dd;
+			
+			$('#insert-target').daterangepicker({
 		        singleDatePicker: true,
+		        minDate: new Date(today),
 		        showDropdowns: true,
 		        dateFormat: 'dd-mm-yyyy'
 		    });
@@ -389,7 +418,7 @@
 					</div>
 					<div class="form-group">
 						<label for="input-name">Target Waktu Item Ready</label>
-						<input type="text" class="form-control" id="insert-target" name="target-pr" value="03/18/2018">
+						<input type="text" class="form-control" id="insert-target" name="target-pr" value="03/18/2018" min="04/03/2018" required>
 					</div>
 					
 					<div class="form-group">

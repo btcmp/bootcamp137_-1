@@ -23,9 +23,21 @@
 				if (this.checked) {
 					$('#row-user').show(1000);
 					$('#cb-have-account').val('true');
+					$('#insert-username').attr('data-parsley-required', true);
+		        	$('#insert-username').prop('required', true);
+		        	$('#insert-pass').attr('data-parsley-required', true);
+		        	$('#insert-pass').prop('required', true);
+		        	$('#insert-role').attr('data-parsley-required', true);
+		        	$('#insert-role').prop('required', true);
 				} else {
 					$('#row-user').hide(1000);
 					$('#cb-have-account').val('false');
+					$('#insert-username').attr('data-parsley-required', false);
+		        	$('#insert-username').prop('required', false);
+	        		$('#insert-pass').attr('data-parsley-required', false);
+	        		$('#insert-pass').prop('required', false);
+	        		$('#insert-role').attr('data-parsley-required', false);
+		        	$('#insert-role').prop('required', false);
 				}
 			});
 
@@ -274,8 +286,8 @@
 		<div class="row" id="row-user" style="display: none">
 			<div class="col-md-3">
 				<div class="form-group">
-					<select name="role" id="insert-role" class="form-control custom-select custom-select-md" placeholder="Role">
-						<option selected>Role</option>
+					<select name="role" id="insert-role" class="form-control custom-select custom-select-md">
+						<option selected disabled>Role</option>
 						<c:forEach var="role" items="${roles }">
 							<option value="${role.id }">${role.name }</option>
 						</c:forEach>
