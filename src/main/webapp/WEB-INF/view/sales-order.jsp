@@ -10,7 +10,12 @@
 			paging : true, 
 			searching : false,
 		});
-
+		
+		$('#cust-tabel').DataTable({
+			paging : true, 
+			searching : false, 
+			ordering : false
+		}); 
 		/* Memunculkan modal */
 		//button-choose cust 
 		$('.btn-choosecust').click(function() {
@@ -495,9 +500,9 @@
 
 <!-- =================================================================================================================== -->
 
-<div>
-	<b>Sales Order</b>
-</div>
+<hr>
+	<h5>Sales Order</h5>
+<hr>
 
 <div class="form-group">
 	<div class="row show-grid">
