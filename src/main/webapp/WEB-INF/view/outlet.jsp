@@ -6,8 +6,9 @@
 	$(function() {
 		//untuk datatable
 		$('#outlet-tbl').DataTable({
-			/* paging : false, */
+			paging : true,
 			searching : false,
+			ordering : false
 		});
 
 		//button-create 

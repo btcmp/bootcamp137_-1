@@ -25,7 +25,9 @@ public class OutletDaoImpl implements OutletDao {
 	public List<Outlet> selectAll() {
 		// TODO Auto-generated method stub
 		Session session= sessionFactory.getCurrentSession(); 
-		return session.createCriteria(Outlet.class).list();
+		String hql = "from Outlet out order by out.id desc";
+		List<Outlet> outlets = session.createQuery(hql).list(); 
+		return outlets;
 	}
 
 	public Outlet getOne(Outlet outlet) {
@@ -57,7 +59,7 @@ public class OutletDaoImpl implements OutletDao {
 
 	public List<Outlet> getOutletBySearchName(String search) {
 		// TODO Auto-generated method stub
-		String hql = "from Outlet out where lower(out.name) like :name"; 
+		String hql = "from Outlet out where lower(out.name) like :name order by out.id desc "; 
 		Session session= sessionFactory.getCurrentSession(); 
 		List<Outlet> outlets = session.createQuery(hql).setParameter("name", "%"+search.toLowerCase()+"%").list(); 
 		if (outlets.isEmpty()) {
@@ -65,16 +67,5 @@ public class OutletDaoImpl implements OutletDao {
 		}
 			return outlets; 
 	}
-
-	/*public EmployeeOutlet getOutletByEmployeeId(EmployeeOutlet eo) {
-		// TODO Auto-generated method stub
-		Session session = sessionFactory.getCurrentSession();
-		String hql = "from EmployeeOutlet eo where eo.employee = :employee and eo.outlet = :outlet";
-		List<EmployeeOutlet> eos = session.createQuery(hql).setParameter("employee", eo.getEmployee() ).setParameter("outlet", eo.getOutlet()).list();
-		if(eos.isEmpty()) {
-			return null;
-		}
-		return eos.get(0);
-	}*/
 	
 }

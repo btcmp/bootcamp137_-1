@@ -58,15 +58,15 @@ public class OutletController {
 	@RequestMapping(value="/search", method = RequestMethod.GET)
 	public String indexMainSearch(Model model, @RequestParam(value="search", defaultValue="")String search) {
 		List<Outlet> outlets = outletService.getOutletBySerachName(search); 
-		/*List<Province> provinces = provinceService.selectAll(); 
+		List<Province> provinces = provinceService.selectAll(); 
 		List<Region> regions = regionService.selectAll();  
-		List<District> districts = districtService.selectAll(); */
+		List<District> districts = districtService.selectAll(); 
 		
 		model.addAttribute("outlets", outlets); 
-		/*model.addAttribute("provinces", provinces); 
+		model.addAttribute("provinces", provinces); 
 		model.addAttribute("regions", regions); 
 		model.addAttribute("districts", districts); 
-		System.out.println("search:" + search);*/
+		System.out.println("search:" + search);
 		return "outlet"; 
 	}
 		
