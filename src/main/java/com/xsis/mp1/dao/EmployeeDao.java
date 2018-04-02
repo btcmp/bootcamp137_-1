@@ -30,5 +30,7 @@ public interface EmployeeDao {
 	public void updateStatus(Employee employee);
 
 	public List<Employee> getListByStatus();
+
+	public List<Employee> getOneByUsername(String username);
 	
 }

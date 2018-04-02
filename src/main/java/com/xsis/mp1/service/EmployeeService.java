@@ -110,4 +110,7 @@ public class EmployeeService {
 //		return employeeDao.getListByStatus();
 	}
 
+	public List<Employee> getOneByUsername(String username) {
+		return employeeDao.getOneByUsername(username);
+	}
 }

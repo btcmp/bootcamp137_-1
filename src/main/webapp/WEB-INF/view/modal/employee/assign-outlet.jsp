@@ -21,7 +21,7 @@
 					<div class="input-group">
 		                  <input type="text" readonly class="form-control" value="${outlet.name }">
 		                  <span class="form- control input-group-addon">
-		                    <input type="checkbox" data-parsley-required="true" value="${outlet.id }" class="select-outlet" name="select-outlet" />
+		                    <input type="checkbox" data-parsley-checkmin="1" required value="${outlet.id }" class="select-outlet" name="select-outlet" />
 		                  </span>
 		            </div><br>
 		            </c:forEach>

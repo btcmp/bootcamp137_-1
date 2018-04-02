@@ -35,7 +35,6 @@
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="annotatedClasses">
 			<list>
-				<value>com.xsis.mp1.model.Adjustment</value>
 				<value>com.xsis.mp1.model.Outlet</value>
 				<value>com.xsis.mp1.model.Employee</value>
 				<value>com.xsis.mp1.model.Role</value>
@@ -56,6 +55,7 @@
 				<value>com.xsis.mp1.model.TransferStock</value>
 				<value>com.xsis.mp1.model.TransferStockDetail</value>
 				<value>com.xsis.mp1.model.TransferStockHistory</value>
+				<value>com.xsis.mp1.model.Adjustment</value>
 				<value>com.xsis.mp1.model.EmployeeOutlet</value>
 				<value>com.xsis.mp1.model.Customer</value>
 				<value>com.xsis.mp1.model.SalesOrder</value>
@@ -78,4 +78,5 @@
 		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	<import resource="spring-security.xml"/>
 </beans>

@@ -48,6 +48,9 @@
 
 				var usr;
 				if ($('#cb-have-account').is(":checked")) {
+					/* $('#insert-username').parsley({required : true});
+					$('#insert-pass').parsley({required : true});
+					$('#insert-role').parsley({required : true}); */
 					var haveAkun = 1;
 					usr = {
 						id : $('#insert-user-id').val(),
@@ -71,12 +74,6 @@
 					active : 0
 				};
 				console.log(employee);
-				
-				/* if($('#cb-have-account').is(":checked")){
-					
-				}else{
-					
-				} */
 
 				if (valid == true){
 					$.ajax({
