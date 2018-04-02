@@ -8,19 +8,7 @@
 	        "searching":   false,
 	        "info":     false
 	    });
-		
-		$(function() {
-		    $('input[name="daterange"]').daterangepicker();
-		});
-		
-		$(function() {
-		    $('#insert-target').daterangepicker({
-		        singleDatePicker: true,
-		        showDropdowns: true,
-		        dateFormat: 'dd-mm-yyyy'
-		    });
-		});
-		
+
 		$('#btn-create').on('click', function(){
 			$('#modal-pr-input').modal();
 		});
@@ -64,8 +52,12 @@
 			
 			var ts = {
 				id : $('#input-id').val(),
-				fromOutlet : $('#input-from-outlet').val(),
-				toOutlet : $('#input-to-outlet').val(),
+				fromOutlet : {
+					id : $('#input-from-outlet').val()
+				},
+				toOutlet : {
+					id : $('#input-to-outlet').val()
+				},
 				notes : $('#input-note').val(),
 				status : "Submitted",
 				tsDetails : tsDet
@@ -218,8 +210,8 @@
 			<c:forEach items="${tss }" var="ts">
 				<tr>
 					<td>${ts.createdOn }</td>
-					<td>${ts.fromOutlet }</td>
-					<td>${ts.toOutlet }</td>
+					<td>${ts.fromOutlet.name }</td>
+					<td>${ts.toOutlet.name }</td>
 					<td>${ts.status }</td>
 					<td>
 						<a id="${ts.id }" class="view btn btn-success btn-sm" href="#">View</a>
