@@ -238,16 +238,17 @@
 							+'<td>'+val.requestQty+'</td>'
 							+'<td><button type="button" class="btn btn-danger btn-cancel-item" id="btn-del'+id+'" id-var="'+id+'">&times;</button>'
 						);
-					});
-					
-					// get inStock from inventory
-					$.ajax({
-						type : 'GET',
-						url : '${pageContext.request.contextPath}/transaksi/pr/get-inventory?idPr='+id+'&idPrd='+val.id,
-						dataType: 'json',
-						success : function(inventory){
-							$('#td'+val.id).append(inventory[0]);
-						}
+						
+						// get inStock from inventory
+						$.ajax({
+							type : 'GET',
+							url : '${pageContext.request.contextPath}/pr/get-inventory?idPr='+id+'&idPrd='+val.id,
+							dataType: 'json',
+							success : function(inventory){
+								console.log(inventory);
+								$('#td'+val.id).append(inventory[0]);
+							}
+						});
 					});
 					$('#modal-pr-input').modal();
 				},

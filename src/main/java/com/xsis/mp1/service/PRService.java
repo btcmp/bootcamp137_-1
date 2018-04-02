@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.xsis.mp1.dao.InventoryDao;
 import com.xsis.mp1.dao.PRDao;
 import com.xsis.mp1.dao.PRDetailDao;
 import com.xsis.mp1.dao.PRHistoryDao;
@@ -26,6 +27,9 @@ public class PRService {
 	
 	@Autowired
 	PRDetailDao prdDao;
+	
+	@Autowired
+	InventoryDao invDao;
 
 	public List<PurchaseRequest> selectAll() {
 		List<PurchaseRequest> prs = prDao.selectAll();
@@ -146,6 +150,12 @@ public class PRService {
 		prh.setPr(pr);
 		prh.setStatus(pr.getStatus());
 		prhDao.save(prh);
+	}
+
+	public List<Object> getInventoryByVariantAndOutlet(long idPrd, long idPr) {
+		PurchaseRequest pr = prDao.getOne(idPr);
+		PurchaseRequestDetail prd = prdDao.getOne(idPrd);
+		return invDao.searchInventoryByVariantAndOutlet(prd.getVariant());
 	}
 	
 	

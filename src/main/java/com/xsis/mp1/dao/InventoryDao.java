@@ -6,6 +6,7 @@ import com.xsis.mp1.model.Inventory;
 import com.xsis.mp1.model.Item;
 import com.xsis.mp1.model.Outlet;
 import com.xsis.mp1.model.Supplier;
+import com.xsis.mp1.model.Variant;
 
 public interface InventoryDao {
 	//save
@@ -35,4 +36,6 @@ public interface InventoryDao {
 	public List<Inventory> selectAllByItemOutlet(Outlet outlet);
 
 	public List<Inventory> selectAllByItemPo(Supplier supplier);
+
+	public List<Object> searchInventoryByVariantAndOutlet(Variant variant);
 }

@@ -13,4 +13,6 @@ public interface PRDetailDao {
 
 	void delete(PurchaseRequestDetail prDetails);
 
+	PurchaseRequestDetail getOne(long idPrd);
+
 }

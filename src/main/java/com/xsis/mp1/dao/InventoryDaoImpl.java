@@ -11,6 +11,7 @@ import com.xsis.mp1.model.Inventory;
 import com.xsis.mp1.model.Item;
 import com.xsis.mp1.model.Outlet;
 import com.xsis.mp1.model.Supplier;
+import com.xsis.mp1.model.Variant;
 
 @Repository
 public class InventoryDaoImpl implements InventoryDao {
@@ -93,6 +94,17 @@ public class InventoryDaoImpl implements InventoryDao {
 			return null;
 		else
 			return inventories;
+	}
+
+	public List<Object> searchInventoryByVariantAndOutlet(Variant variant) {
+		Session session=sessionFactory.getCurrentSession();
+		String hql="select beginning from Inventory where variant = :variant";
+		List<Object> inventories = session.createQuery(hql).setParameter("variant", variant).list();
+		if(inventories.isEmpty()) {
+			return null;
+		}else {
+			return inventories;
+		}
 	}
 	
 

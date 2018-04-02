@@ -41,4 +41,9 @@ public class PRDetailDaoImpl implements PRDetailDao {
 		session.flush();
 	}
 
+	public PurchaseRequestDetail getOne(long idPrd) {
+		Session session = sessionFactory.getCurrentSession();
+		return session.get(PurchaseRequestDetail.class, idPrd);
+	}
+
 }

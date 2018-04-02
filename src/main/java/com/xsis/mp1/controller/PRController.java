@@ -100,4 +100,10 @@ public class PRController {
 	public void createPo(@PathVariable long id) {
 		prService.createPo(id);
 	}
+	
+	@RequestMapping(value="/get-inventory", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Object> getInventory(@RequestParam(value="idPr", defaultValue="") long idPr, @RequestParam(value="idPrd", defaultValue="") long idPrd){
+		return prService.getInventoryByVariantAndOutlet(idPrd, idPr);
+	}
 }
