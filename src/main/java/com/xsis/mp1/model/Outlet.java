@@ -36,7 +36,7 @@ public class Outlet {
 	
 	@Column(nullable= false, length = 50 )
 	private String name; 
-	
+	 
 	@Column(length= 255)
 	private String address; 
 	

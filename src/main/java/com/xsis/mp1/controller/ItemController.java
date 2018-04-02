@@ -34,10 +34,10 @@ public class ItemController {
 	 
 	@Autowired
 	CategoryService CategoryService;
-	
+	 
 	@Autowired
 	VariantService variantService;
-	
+	 
 	@Autowired
 	InventoryService inventoryService;
 	

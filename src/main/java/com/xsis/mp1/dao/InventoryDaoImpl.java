@@ -28,7 +28,7 @@ public class InventoryDaoImpl implements InventoryDao {
 		Session session = sessionFactory.getCurrentSession();
 		return session.createCriteria(Inventory.class).list();
 	}
-
+ 
 	public Inventory getOne(Inventory inventory) {
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(Inventory.class, inventory.getId());

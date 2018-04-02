@@ -25,7 +25,7 @@
 				<div class="col-md-2">
 				<select data-parsley-required="true" class="btn-primary" name="countries" id="input-province" style="width: 100%; height:120% ">
 					<option value="" >Approve</option>
-					<option value="" >Reject</option>
+	 				<option value="" >Reject</option>
 					<option value="" >Process</option>
 					<option value="" >Print</option>
 					<option value="" selected="selected" >More</option>

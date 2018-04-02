@@ -24,7 +24,7 @@
 							<div class="row">
 								<div class="col-md-12">
 									<select data-parsley-required="true" name="countries" id="input-supplier" style="width: 100%; height:110% ">
-									<option value="" selected="selected">Supplier</option>
+					 				<option value="" selected="selected">Supplier</option>
 									 <c:forEach var="sup" items= "${suppliers}">
 										<option value="${sup.id}">${sup.name}</option>
 									</c:forEach> 

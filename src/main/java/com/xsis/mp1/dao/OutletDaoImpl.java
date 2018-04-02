@@ -35,7 +35,7 @@ public class OutletDaoImpl implements OutletDao {
 		Session session= sessionFactory.getCurrentSession(); 
 		return session.get(Outlet.class, outlet.getId()); 
 	}
-
+ 
 	public void update(Outlet outlet) {
 		// TODO Auto-generated method stub
 		Session session=sessionFactory.getCurrentSession(); 

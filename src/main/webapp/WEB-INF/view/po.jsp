@@ -26,7 +26,7 @@
 						var price=val.variant.price;
 						var subTotal=qty*price;
 						total.push(subTotal);
-						 if(outId==outIdItem){
+   						 if(outId==outIdItem){
 						 $('#tbody-edit-po').append(
 							'<tr id-var="'+val.variant.id+'"><td>'+val.variant.item.name+'-'+val.variant.name+
 							'</td><td>'+val.requestQty+ 

@@ -69,6 +69,6 @@ public class InventoryService {
 		return inventoryDao.selectAllByItemPo(supplier);
 	}
 
-	
+	 
 
 }

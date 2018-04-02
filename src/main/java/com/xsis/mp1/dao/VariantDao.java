@@ -22,7 +22,7 @@ public interface VariantDao {
 
 	// delete
 	public void delete(Variant variant);
-
+ 
 	// save or update
 	public void saveOrUpdate(Variant variant);
  

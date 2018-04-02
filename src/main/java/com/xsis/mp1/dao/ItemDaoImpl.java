@@ -35,7 +35,7 @@ public class ItemDaoImpl implements ItemDao {
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(Item.class, item.getId());
 	}
-
+ 
 	public void update(Item item) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();

@@ -36,7 +36,7 @@ public class Item {
 	
 	@Column(name="created_on")
 	private Date createdOn;
-	
+	 
 	@Column(name="modified_by")
 	private long modifiedBy;
 	

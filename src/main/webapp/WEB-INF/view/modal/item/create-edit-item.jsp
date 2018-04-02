@@ -19,7 +19,7 @@
 								<input type='file' onchange="readURL(this);" />
 								<img id="blah" src="" alt="your image" style="max-width: 100%"/>
 							</div>
-							<div class="col-md-8">
+			 				<div class="col-md-8">
 								<input type="hidden" id="input-item-id"/>		
 								<div class="form-group">
 									<input type="text" class="form-control" id="input-item-name" placeholder="Item Name">

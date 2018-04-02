@@ -31,7 +31,7 @@ public class Inventory {
 	
 	@ManyToOne
 	private Outlet outlet;
-	
+	 
 	@Column(nullable=false)
 	@NotNull
 	private int beginning;

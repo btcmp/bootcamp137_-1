@@ -35,7 +35,7 @@ public class Supplier {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "idtsup")
 	@SequenceGenerator(initialValue = 1212, name = "idtsup", sequenceName = "idtsup")
 	private long id;
-	
+	 
 	@Column(nullable= false, length = 50 )
 	@NotNull
 	private String name; 

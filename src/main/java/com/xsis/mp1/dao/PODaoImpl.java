@@ -25,6 +25,6 @@ public class PODaoImpl implements PODao {
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(PurchaseOrder.class, id);
 	}
-	
+	 
 	
 }

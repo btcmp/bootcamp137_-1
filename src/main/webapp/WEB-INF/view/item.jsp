@@ -26,7 +26,7 @@
 			<th>Category</th>
 			<th>Unit Price</th>
 			<th>In Stock</th>
-			<th>Stock Alert</th>
+	 		<th>Stock Alert</th>
 			<th>#</th>
 		</thead>
 		<tbody class="tbody-item-list">

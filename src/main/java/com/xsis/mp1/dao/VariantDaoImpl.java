@@ -38,7 +38,7 @@ public class VariantDaoImpl implements VariantDao {
 		Session session = sessionFactory.getCurrentSession();
 		session.update(variant);
 		session.flush();
-	}
+	} 
 
 	public void delete(Variant variant) {
 		Session session = sessionFactory.getCurrentSession();

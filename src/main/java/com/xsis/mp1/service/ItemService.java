@@ -25,7 +25,7 @@ public class ItemService {
 	
 	@Autowired
 	InventoryDao inventoryDao;
-
+ 
 	public void save(Item item) {
 		List<Variant> variants = item.getVariants();
 		item.setVariants(null);

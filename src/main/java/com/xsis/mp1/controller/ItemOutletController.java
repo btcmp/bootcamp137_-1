@@ -42,7 +42,7 @@ public class ItemOutletController {
 	
 	@Autowired
 	VariantService variantService;
-	
+	 
 	@Autowired
 	InventoryService inventoryService;
 	

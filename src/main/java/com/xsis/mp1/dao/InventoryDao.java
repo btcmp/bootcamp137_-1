@@ -23,7 +23,7 @@ public interface InventoryDao {
 
 	// delete
 	public void delete(Inventory inventory);
-
+ 
 	// save or update
 	public void saveOrUpdate(Inventory inventory);
 	

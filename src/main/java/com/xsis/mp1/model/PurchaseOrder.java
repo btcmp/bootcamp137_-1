@@ -20,7 +20,7 @@ public class PurchaseOrder {
 		this.createdOn = new Date();
 		this.modifiedOn = new Date();
 	}
-
+ 
 	@Id
 	@NotNull
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "idtpo")
