@@ -26,11 +26,11 @@
 					</div>
 					<div class="col-lg-2">
 						<button type="button" id ="btn-search-cust" class=" btn btn-primary"
-							data-dismiss="modal">Search</button>
+							>Search</button>
 					</div>
 					<div class="col-lg-2">
 						<button type="button" id ="btn-create-cust" class=" btn btn-primary"
-							data-dismiss="modal">Add New</button>
+							>Add New</button>
 					</div>
 				</div>
 				<table id="cust-tabel"

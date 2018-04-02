@@ -7,7 +7,7 @@
 	$(function() {
 		//setup data untuk datatable
 		$('#sod-tabel').DataTable({
-			/* paging : false, */
+			paging : true, 
 			searching : false,
 		});
 
@@ -24,14 +24,86 @@
 
 		/* Button Charge  */
 		$('#btn-charge').click(function() {
-			$('#modal-charge').modal();
+			if ($('.btn-choosecust').attr('id')=="empty") {
+				alert("your customer is empty");
+			}else {
+				$('#modal-charge').modal();
+			}	
 		});
 
 		/* Modal Done Order  */
 		$('#btn-done-order').click(function() {
 			$('#modal-done-order').modal();
 		});
+		
+		/* -----------------------------------BTN CUSTOMER-------------------------------------- */
+		/* Eksekusi btn add customer */
+		//btn save
+		$('#btn-add-cust').on('click',function(evt) {
+							evt.preventDefault();
+							var form = $('#target-create-cust');
+							var valid = form.parsley().validate();
+							var customer = {
+								name : $('#input-cust-name').val(),
+								address : $('#input-cust-address').val(),
+								email : $('#input-cust-email').val(),
+								phone : $('#input-cust-phone').val(),
+								dob : $('#input-cust-dob').val(),
+								province : {
+									id : $('#input-province').val()
+								},
+								region : {
+									id : $('#input-region').val()
+								},
+								district : {
+									id : $('#input-district').val()
+								}, 
+								active : true
+							}
+							if ( valid == true ){
+								 $.ajax({
+									url : '${pageContext.request.contextPath}/sales-order/get-all-customer', 
+									type :'GET', 
+									success : function (data){
+											var sameEmail = 0; 
+											$(data).each(function(index, data2){
+												if ( customer.email.toLowerCase() == data2.email.toLowerCase()){
+													sameEmail ++ ; 
+												} 
+											}); 
+											 if ( sameEmail > 0){
+												alert ('This email has been used'); 
+											} 
+											else {
+												$.ajax({
+													url : '${pageContext.request.contextPath}/sales-order/save-customer',
+													type : 'POST',
+													contentType : 'application/json',
+													data : JSON.stringify(customer),
+													success : function(data) {
+														//window.location = '${pageContext.request.contextPath}/sales-order';
+														/* var word = $('#btn-search-cust').val(); 
+														var cust = $('#input-search-cust').val();  */
+														 $('#modal-create-cust').modal('toggle');
+													},
+													error : function() {
+														alert('save new customer failed');
+													}
+												});	
+											}  
+									}, 
+									error : function (){
+										alert ('failed'); 
+									}
+								 }); 
+							} 
+							else {
+								alert ('Complete your form '); 
+							}
+			});
 
+		
+		
 		/* Search Customer By Name */
 		$('#btn-search-cust')
 				.click(
@@ -176,7 +248,6 @@
 										type : 'GET',
 										success : function(data) {
 											//console.log(data.id); 
-											//window.location = '${pageContext.request.contextPath}/sales-order'; 
 											isiTableDetailItem(data, quantity);
 											$('#qty' + data.id).html(quantity);
 											//alert('success search variant');
@@ -346,51 +417,6 @@
 										}
 									})
 						});
-		/* -----------------------------------BTN CUSTOMER-------------------------------------- */
-		/* Eksekusi btn add customer */
-		//btn save
-		$('#btn-add-cust')
-				.on(
-						'click',
-						function(evt) {
-							evt.preventDefault();
-							var form = $('#target-create-cust');
-							var valid = form.parsley().validate();
-							var customer = {
-								name : $('#input-cust-name').val(),
-								address : $('#input-cust-address').val(),
-								email : $('#input-cust-email').val(),
-								phone : $('#input-cust-phone').val(),
-								dob : $('#input-cust-dob').val(),
-								province : {
-									id : $('#input-province').val()
-								},
-								region : {
-									id : $('#input-region').val()
-								},
-								district : {
-									id : $('#input-district').val()
-								}
-							}
-							if ( valid == true ){
-								$
-								.ajax({
-									url : '${pageContext.request.contextPath}/sales-order/save-customer',
-									type : 'POST',
-									contentType : 'application/json',
-									data : JSON.stringify(customer),
-									success : function(data) {
-										/* 	$('#modal-create-cust').attr('hidden', 'hidden'); */
-										window.location = '${pageContext.request.contextPath}/sales-order';
-										//alert ('save berhasil'); 
-									},
-									error : function() {
-										alert('save failed');
-									}
-								});
-							}
-						});
-
 		//untuk input province dan region 
 		$('#input-province')
 				.change(
@@ -502,7 +528,7 @@
 		</div>
 		<div class="col-md-6">
 			<div class="col-lg-12">
-				<button type="button" id="" class=" btn-choosecust btn btn-primary"
+				<button type="button" id="empty" class=" btn-choosecust btn btn-primary"
 					style="width: 100%; margin-top: 10px; margin-bottom: 10px;">Choose
 					Customer</button>
 			</div>

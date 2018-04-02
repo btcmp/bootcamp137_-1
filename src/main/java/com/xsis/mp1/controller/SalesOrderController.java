@@ -90,6 +90,13 @@ public class SalesOrderController {
 		model.addAttribute("customers", customers); 
 		return "choose-cust"; 
 	}
+	
+	@RequestMapping(value="/get-all-customer", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Customer> getAll(){
+		return customerService.selectAll(); 
+	}
+	
 	@RequestMapping(value="/save-customer", method=RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public void saveCustomer(@RequestBody Customer customer) {
