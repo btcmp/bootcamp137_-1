@@ -106,6 +106,12 @@ public class InventoryDaoImpl implements InventoryDao {
 			return inventories;
 		}
 	}
+
+	public Inventory getOneInvetory(long id) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession(); 
+		return session.get(Inventory.class, id); 
+	}
 	
 
 	

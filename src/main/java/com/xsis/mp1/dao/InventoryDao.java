@@ -38,4 +38,6 @@ public interface InventoryDao {
 	public List<Inventory> selectAllByItemPo(Supplier supplier);
 
 	public List<Object> searchInventoryByVariantAndOutlet(Variant variant);
+
+	public Inventory getOneInvetory(long id);
 }

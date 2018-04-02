@@ -69,6 +69,11 @@ public class InventoryService {
 		return inventoryDao.selectAllByItemPo(supplier);
 	}
 
+	public Inventory getOneInventory(long id) {
+		// TODO Auto-generated method stub
+		return inventoryDao.getOneInvetory(id);
+	}
+
 	 
 
 }
