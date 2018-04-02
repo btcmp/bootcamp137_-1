@@ -83,4 +83,5 @@ public class ItemController {
 	public List<Inventory> getAllInventory(){
 		return inventoryService.selectAll();
 	}
+	
 }

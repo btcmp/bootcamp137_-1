@@ -266,6 +266,7 @@
 			$('#src-item-variant').val('');
 			$('#tbl-add-item-purchase').empty();
 		}
+		
 	});
 </script>
 
