@@ -22,7 +22,7 @@ public class Adjustment {
 	@NotNull
 	private long id;
 	
-	//@ManyToOne
+	@ManyToOne
 	//@Column(nullable=false)
 	private Outlet outlet;
 	

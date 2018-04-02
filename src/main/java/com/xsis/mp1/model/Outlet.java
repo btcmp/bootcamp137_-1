@@ -75,6 +75,9 @@ public class Outlet {
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="outlet", cascade=CascadeType.ALL, orphanRemoval=true)
 	private  List<Item> items;
 	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="outlet", cascade=CascadeType.ALL, orphanRemoval=true)
+	private  List<Adjustment> adjustments;
+	
 	@ManyToOne
 	private Province province;
 	
