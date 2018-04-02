@@ -287,6 +287,42 @@
 			});
 		});
 		
+		$('#src-status').change(function(){
+			var status = $('#src-status').val();
+			console.log(status);
+			var keyword = '';
+			if(status == 'All'){
+				window.location = '${pageContext.request.contextPath}/pr';
+			}else{
+				$.ajax({
+					type : 'GET',
+					url : '${pageContext.request.contextPath}/pr/search-status?search='+status,
+					success : function(data){
+						$('#dt-table-pr').empty();
+						console.log(data);
+						$(data).each(function(key, val){
+							
+							var json_data = '/Date('+val.createdOn+')/';
+							var asAMoment = moment(json_data);
+							var tanggal = asAMoment.format('DD-MM-YYYY HH:mm:ss');
+							
+							$('#dt-table-pr').append('<tr><td>'+tanggal+'</td>'
+								+'<td>'+val.prNo+'</td>'
+								+'<td>'+val.notes+'</td>'
+								+'<td>'+val.status+'</td>'
+								+'<td><input type="button" class="update btn btn-success btn-sm" value="Edit" key-id="'+val.id+'" pr-status="'+val.status+'"> | '
+								+'<a href="${pageContext.request.contextPath}/pr/detail/'+val.id+'" class="view btn btn-success btn-sm" key-id="'+val.id+'">View</a></td>');
+						})
+						
+					},
+					error : function(){
+						$('#dt-table-pr').empty();
+						console.log('search failed');
+					}
+				});
+			}
+		});
+		
 		function clearForm() {
 			$('#input-note').val('');
 			$('#tbody-add-item').empty();
@@ -323,11 +359,13 @@
 	  </div>
 	  <div class="col-md-2">
 	  	<div class="form-group">
-		    <select name="title" id="insert-title" class="form-control custom-select custom-select-md">
-		    	<option selected>Status</option>
-		    		<option value="">Submitted</option>
-		    		<option value="">Approved</option>
-		    		<option value="">Rejected</option>
+		    <select name="title" id="src-status" class="form-control custom-select custom-select-md">
+		    	<option selected disabled>Status</option>
+		    		<option value="created">Created</option>
+		    		<option value="Submitted">Submitted</option>
+		    		<option value="Approved">Approved</option>
+		    		<option value="Rejected">Rejected</option>
+		    		<option value="PO Created">PO Created</option>
 		    </select>
 		</div>
 	  </div>
@@ -358,7 +396,7 @@
 			<th><center>Status</center></th>
 			<th><center>#</center></th>
 		</thead>
-		<tbody>
+		<tbody id="dt-table-pr">
 			<c:forEach items="${prs }" var="pr">
 				<tr>
 					<td>

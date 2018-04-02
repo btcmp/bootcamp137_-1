@@ -157,6 +157,10 @@ public class PRService {
 		PurchaseRequestDetail prd = prdDao.getOne(idPrd);
 		return invDao.searchInventoryByVariantAndOutlet(prd.getVariant());
 	}
+
+	public List<PurchaseRequest> getPRByStatus(String status) {
+		return prDao.searchPRByStatus(status);
+	}
 	
 	
 }

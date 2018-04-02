@@ -20,4 +20,6 @@ public interface PRDao {
 
 	public void createPo(long id);
 
+	public List<PurchaseRequest> searchPRByStatus(String status);
+
 }

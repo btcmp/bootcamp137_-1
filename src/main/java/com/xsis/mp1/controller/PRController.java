@@ -83,6 +83,12 @@ public class PRController {
 		return inventories;
 	}
 	
+	@RequestMapping(value = "/search-status", method = RequestMethod.GET)
+	@ResponseBody
+	public List<PurchaseRequest> getByStatus(@RequestParam(value="search", defaultValue="") String status){
+		return prService.getPRByStatus(status);
+	}
+	
 	@RequestMapping(value="/approve/{id}", method=RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	public void approve(@PathVariable long id) {
@@ -106,4 +112,6 @@ public class PRController {
 	public List<Object> getInventory(@RequestParam(value="idPr", defaultValue="") long idPr, @RequestParam(value="idPrd", defaultValue="") long idPrd){
 		return prService.getInventoryByVariantAndOutlet(idPrd, idPr);
 	}
+	
+	
 }

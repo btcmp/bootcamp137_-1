@@ -57,6 +57,17 @@ public class PRDaoImpl implements PRDao {
 		String hql = "update PurchaseRequest set status='PO Created' where id = :id";
 		session.createQuery(hql).setParameter("id", id).executeUpdate();
 	}
+
+	public List<PurchaseRequest> searchPRByStatus(String status) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from PurchaseRequest where status = :status";
+		List<PurchaseRequest> prs = session.createQuery(hql).setParameter("status", status).list();
+		if(prs.isEmpty()) {
+			return null;
+		}else {
+			return prs;
+		}
+	}
 	
 	
 }
