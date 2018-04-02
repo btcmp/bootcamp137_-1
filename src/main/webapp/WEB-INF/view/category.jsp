@@ -8,6 +8,7 @@
 			$('#category-tbl').DataTable({
 			/* 	paging : false, */
 				searching : false, 
+				ordering : false
 			});	
 			
 			//button-create 

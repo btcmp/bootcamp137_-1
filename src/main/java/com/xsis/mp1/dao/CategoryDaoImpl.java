@@ -25,10 +25,12 @@ public class CategoryDaoImpl implements CategoryDao{
 	public List<Category> selectAll() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession(); 
-		String hql = "from Category c where c.active = 0";
+		String hql = "from Category c where c.active = 0 order by c.id desc ";
 		List<Category> categories = session.createQuery(hql).list();
-		if (categories.isEmpty()) {
-			return null;
+		if (categories == null) {
+			Category c = new Category();
+			categories.set(0, c);
+			return categories;
 		}else {
 			return categories; 
 		}
@@ -97,8 +99,10 @@ public class CategoryDaoImpl implements CategoryDao{
 		String hql = "from Category c where lower(c.name) like :name and c.active = 0" ; 
 		Session session = sessionFactory.getCurrentSession(); 
 		List<Category> categories = session.createQuery(hql).setParameter("name", "%"+search.toLowerCase()+"%").list(); 
-		if (categories.isEmpty()) {
-			return null;
+		if (categories == null) {
+			Category c = new Category();
+			categories.set(0, c);
+			return categories;
 		}
 		return categories; 
 	}

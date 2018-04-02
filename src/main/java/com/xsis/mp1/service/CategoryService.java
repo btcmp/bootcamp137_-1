@@ -78,6 +78,15 @@ public class CategoryService {
 
 	public List<Category> getCategoryBySearchName(String search) {
 		// TODO Auto-generated method stub
-		return categoryDao.getCategoryBySearchName(search);
+		List<Category> categories = categoryDao.getCategoryBySearchName(search);
+		for (Category category : categories) {
+			List<Item> items = itemDao.getItemsByCategory(category);
+			if (items == null) {
+				category.setItemStock(0);
+			} else {
+				category.setItemStock(items.size());
+			}
+		}
+		return categories;
 	}
 }
