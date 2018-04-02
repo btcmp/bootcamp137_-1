@@ -38,7 +38,7 @@
 
 				$('.select-outlet:checked').each(function() {
 					var eo = {
-						id : $('#insert-empout-id').val(),
+						//id : $('#insert-empout-id').val(),
 						outlet : {
 							id : $(this).val()
 						}
@@ -71,6 +71,12 @@
 					active : 0
 				};
 				console.log(employee);
+				
+				/* if($('#cb-have-account').is(":checked")){
+					
+				}else{
+					
+				} */
 
 				if (valid == true){
 					$.ajax({
@@ -117,7 +123,12 @@
 							$('#insert-username').val(emp.user.username);
 							$('#insert-pass').val(emp.user.password);
 							$('#insert-role').val(emp.user.role.id);
-							
+						/* }else if(emp.haveAccount == 0 && emp.user.active == 0){
+							$('input[name="cb-have-account"]').prop('checked', false);
+							$('#insert-user-id').val('');
+							$('#insert-username').val('');
+							$('#insert-pass').val('');
+							$('#insert-role').val(''); */
 						};
 						if (emp.empouts != null) {
 							$.each(emp.empouts,function(i, item) {
@@ -278,12 +289,12 @@
 				<input type="hidden" id="insert-user-id"
 					name="insert-user-id" />
 				<div class="form-group">
-					<input type="text" class="form-control" id="insert-username" placeholder="Username">
+					<input type="text" data-parsley-required="false" class="form-control" id="insert-username" placeholder="Username">
 				</div>
 			</div>
 			<div class="col-md-3">
 				<div class="form-group">
-					<input type="password" class="form-control" id="insert-pass" placeholder="Password">
+					<input type="password" data-parsley-required="false" class="form-control" id="insert-pass" placeholder="Password">
 				</div>
 			</div>
 		</div>

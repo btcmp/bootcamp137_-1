@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.xsis.mp1.model.Employee;
 import com.xsis.mp1.model.EmployeeOutlet;
+import com.xsis.mp1.model.TransferStockDetail;
 
 @Repository
 public class EmployeeOutletDaoImpl implements EmployeeOutletDao {
@@ -29,8 +30,9 @@ public class EmployeeOutletDaoImpl implements EmployeeOutletDao {
 	}
 
 	public void delete(EmployeeOutlet empOutlet) {
-		// TODO Auto-generated method stub
-		
+		Session session = sessionFactory.getCurrentSession();
+		session.delete(empOutlet);
+		session.flush();
 	}
 
 	public List<EmployeeOutlet> selectAll() {
@@ -51,7 +53,14 @@ public class EmployeeOutletDaoImpl implements EmployeeOutletDao {
 
 	public List<EmployeeOutlet> getEmployeeOutletByEmployee(Employee emp) {
 		Session session = sessionFactory.getCurrentSession();
-		return session.createCriteria(EmployeeOutlet.class).add(Restrictions.eq("employee.id", emp.getId())).list();
+		String hql = "from EmployeeOutlet eo where eo.employee=:eo_emp";
+		List<EmployeeOutlet> eouts = session.createQuery(hql).setParameter("eo_emp", emp).list();
+		if(eouts.isEmpty()) {
+ 			return null;
+ 		}else {
+ 			return eouts;
+ 		}
+		//return session.createCriteria(EmployeeOutlet.class).add(Restrictions.eq("employee.id", emp.getId())).list();
 	}
 
 	

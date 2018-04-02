@@ -66,13 +66,22 @@ public class EmployeeService {
 		emp.setActive(employee.isActive());
 		employeeDao.saveOrUpdate(emp);
 		
+		List<EmployeeOutlet> empOutss = empOutletDao.getEmployeeOutletByEmployee(emp);
+		if(empOutss!=null) {
+			System.out.println("masuk delete");
+			for(EmployeeOutlet empouts : empOutss) {
+				System.out.println("masuk");
+				empOutletDao.delete(empouts);
+			}
+		}
+		
 		if(employee.getEmpouts()!=null) {
 			for(EmployeeOutlet empOut : employee.getEmpouts()) {
 				EmployeeOutlet empOutlet = new EmployeeOutlet();
-				empOutlet.setId(empOut.getId());
+				//empOutlet.setId(empOut.getId());
 				empOutlet.setEmployee(emp);
 				empOutlet.setOutlet(empOut.getOutlet());
-				empOutletDao.saveOrUpdate(empOutlet);
+				empOutletDao.save(empOutlet);
 			}
 		}
 		

@@ -15,14 +15,13 @@
 
 			<div class="modal-body">
 				<form id="target">
-					<input type="hidden" id="insert-empout-id"
-						name="insert-empout-id" /> <input type="hidden"
-						id="insert-outlet-id" name="insert-outlet-id" />
+					<input type="hidden" id="insert-empout-id" name="insert-empout-id" /> 
+					<input type="hidden" id="insert-outlet-id" name="insert-outlet-id" />
 					<c:forEach var="outlet" items="${outlets }">
 					<div class="input-group">
 		                  <input type="text" readonly class="form-control" value="${outlet.name }">
 		                  <span class="form- control input-group-addon">
-		                    <input type="checkbox" value="${outlet.id }" class="select-outlet" name="select-outlet" />
+		                    <input type="checkbox" data-parsley-required="true" value="${outlet.id }" class="select-outlet" name="select-outlet" />
 		                  </span>
 		            </div><br>
 		            </c:forEach>

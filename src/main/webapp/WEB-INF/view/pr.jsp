@@ -43,11 +43,13 @@
 		
 		$('#btn-cancel-add').on('click', function(){
 			$('#modal-pr-input').modal();
-			$('#btn-submit').hide();
+			clearFormSrc();
+			//$('#btn-submit').hide();
 		});
 		
 		$('#btn-cancel-input').on('click', function(){
 			$('#btn-submit').hide();
+			clearForm();
 		});
 		
 		
@@ -93,7 +95,7 @@
 				notes : $('#input-note').val(),
 				status : "created",
 				outletId : {
-					id : 2273
+					id : $('input-outlet').val(),
 				},
 				prDetails : prDet
 			};
@@ -150,7 +152,7 @@
 						});
 					}, 
 					error : function(){
-						$('tbl-add-item-purchase').empty();
+						$('#tbl-add-item-purchase').empty();
 					}
 				});
 			}
@@ -215,7 +217,7 @@
 							'<tr id-var="'+val.variant.id+'"><td>'+val.variant.item.name+'-'+val.variant.name+'</td>'
 							+'<td>12</td>'
 							+'<td>'+val.requestQty+'</td>'
-							+'<td><button type="button" class="btn btn-danger btn-hapus-barang" id="btn-del'+id+'" id-var="'+id+'">&times;</button>'
+							+'<td><button type="button" class="btn btn-danger btn-cancel-item" id="btn-del'+id+'" id-var="'+id+'">&times;</button>'
 						);
 					})
 					$('#modal-pr-input').modal();
@@ -226,6 +228,15 @@
 			});
 		});
 		
+		function clearForm() {
+			$('#input-note').val('');
+			$('#tbody-add-item').empty();
+		}
+		
+		function clearFormSrc() {
+			$('#src-item-variant').val('');
+			$('#tbl-add-item-purchase').empty();
+		}
 	});
 </script>
 
@@ -290,11 +301,26 @@
 		<tbody>
 			<c:forEach items="${prs }" var="pr">
 				<tr>
-					<td>${pr.createdOn }</td>
+					<td>
+						<script>
+							var times = '${pr.createdOn }';
+							var time = times.split(':');
+							document.write(time[0]+':'+time[1]);
+						</script>
+					</td>
 					<td>${pr.prNo }</td>
 					<td>${pr.notes }</td>
 					<td>${pr.status }</td>
 					<td>
+						<script type="text/javascript">
+							var cek = '${pr.status }';
+							console.log(cek);
+							if(cek == "Approved"){
+								$('.update').prop('disabled', true);
+							}else{
+								$('.update').prop('disabled', false);
+							}
+						</script>
 						<a id="${pr.id }" class="update btn btn-success btn-sm" href="#">Edit</a> |
 						<a id="${pr.id }" class="view btn btn-success btn-sm" href="${pageContext.request.contextPath}/pr/detail/${pr.id}">View</a>
 					</td>
@@ -320,7 +346,7 @@
 					<input type="hidden" id="input-id" name="input-id" />
 					<div class="form-group">
 						<label for="input-name">CREATE NEW PR : </label>
-						<select name="role" id="insert-role">
+						<select name="role" id="input-outlet">
 							<c:forEach var="out" items="${outlets }">
 								<option value="${out.id }">${out.name }</option>
 							</c:forEach>

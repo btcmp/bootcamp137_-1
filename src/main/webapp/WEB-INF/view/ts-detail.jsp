@@ -23,6 +23,10 @@
 				});
 			}
 		});
+		
+		$('.done').on('click', function(){
+			window.location = '${pageContext.request.contextPath}/ts';
+		});
 	});
 </script>
 
@@ -126,7 +130,7 @@
 <br>
 <div class="row">
 	<div class="col-xs-11"></div>
-	<div class="col-xs-1"><a href="${pageContext.request.contextPath}/ts" class="btn btn-primary btn-block">Done</a></div>
+	<div class="col-xs-1"><a href="#" class="done btn btn-primary btn-block">Done</a></div>
 </div>
 
 <!-- ======================================================================================================================= -->
