@@ -9,9 +9,9 @@
 	
 	
 	<http auto-config="true" use-expressions="true">
-		<intercept-url pattern="/home**" access="hasRole('ROLE_USER')" />
-		<intercept-url pattern="/employees/**" access="hasRole('ROLE_ADMIN')"/>
-		<intercept-url pattern="/prs/**" access="hasAnyRole('ROLE_BACK_OFFICE', 'ROLE_ADMIN')"/>
+		<intercept-url pattern="/home**" access="hasRole('admin')" />
+		<intercept-url pattern="/employee/**" access="hasRole('admin')"/>
+		<intercept-url pattern="/prs/**" access="hasAnyRole('Role_Back_Office', 'Role_Administrator')"/>
 		<form-login
 			login-processing-url="/j_spring_security_check"
 			login-page="/login"
