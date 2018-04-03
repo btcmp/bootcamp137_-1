@@ -1,16 +1,24 @@
 package com.xsis.mp1.model;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="pos_t_po")
@@ -29,14 +37,25 @@ public class PurchaseOrder {
 	
 
 	@ManyToOne
+	@JsonBackReference
 	private PurchaseRequest prId;
 	
 	
 	@ManyToOne
+	@JsonBackReference
 	private Outlet outletId;
 
 	@ManyToOne
+	@JsonBackReference
 	private Supplier supplierId;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="purchaseOrder", cascade = CascadeType.ALL)
+	@JsonManagedReference
+	private List<PurchaseOrderDetail> purchaseOrderDetails;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="purchaseOrder", cascade = CascadeType.ALL)
+	@JsonManagedReference
+	private List<PurchaseOrderHistory> purchaseOrderHistories ;
 	
 	@NotNull
 	@Column(name="po_no", length=50, nullable=false)
@@ -95,6 +114,26 @@ public class PurchaseOrder {
 
 	public void setSupplierId(Supplier supplierId) {
 		this.supplierId = supplierId;
+	}
+
+	
+
+	public List<PurchaseOrderDetail> getPurchaseOrderDetails() {
+		return purchaseOrderDetails;
+	}
+
+	public void setPurchaseOrderDetails(List<PurchaseOrderDetail> purchaseOrderDetails) {
+		this.purchaseOrderDetails = purchaseOrderDetails;
+	}
+
+	
+
+	public List<PurchaseOrderHistory> getPurchaseOrderHistories() {
+		return purchaseOrderHistories;
+	}
+
+	public void setPurchaseOrderHistories(List<PurchaseOrderHistory> purchaseOrderHistories) {
+		this.purchaseOrderHistories = purchaseOrderHistories;
 	}
 
 	public String getPoNo() {
@@ -161,5 +200,8 @@ public class PurchaseOrder {
 		this.modifiedOn = modifiedOn;
 	}
 
+
+	
+	
 	
 }

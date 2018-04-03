@@ -49,6 +49,7 @@
 				<value>com.xsis.mp1.model.District</value>
 				<value>com.xsis.mp1.model.PurchaseOrder</value>
 				<value>com.xsis.mp1.model.PurchaseOrderDetail</value>
+				<value>com.xsis.mp1.model.PurchaseOrderHistory</value>
 				<value>com.xsis.mp1.model.PurchaseRequest</value>
 				<value>com.xsis.mp1.model.PurchaseRequestDetail</value> 
 				<value>com.xsis.mp1.model.PurchaseRequestHistory</value>
@@ -56,6 +57,8 @@
 				<value>com.xsis.mp1.model.TransferStockDetail</value>
 				<value>com.xsis.mp1.model.TransferStockHistory</value>
 				<value>com.xsis.mp1.model.Adjustment</value>
+				<value>com.xsis.mp1.model.AdjustmentDetail</value>
+				<value>com.xsis.mp1.model.AdjustmentHistory</value>
 				<value>com.xsis.mp1.model.EmployeeOutlet</value>
 				<value>com.xsis.mp1.model.Customer</value>
 				<value>com.xsis.mp1.model.SalesOrder</value>

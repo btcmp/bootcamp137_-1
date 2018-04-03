@@ -1,13 +1,17 @@
 package com.xsis.mp1.model;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -26,10 +30,16 @@ public class Adjustment {
 	//@Column(nullable=false)
 	private Outlet outlet;
 	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="adjustment", cascade=CascadeType.ALL, orphanRemoval=true)
+	private List<AdjustmentDetail> adjustmentDetails;
+	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="adjustment", cascade=CascadeType.ALL, orphanRemoval=true)
+	private List<AdjustmentHistory> adjustmentHistory;
+	
 	private String notes;
 	
 	private String status;
-	
+	 
 	@Column(name="created_by")
 	private long createdBy;
 	
@@ -61,6 +71,22 @@ public class Adjustment {
 
 	public void setOutlet(Outlet outlet) {
 		this.outlet = outlet;
+	}
+
+	public List<AdjustmentDetail> getAdjustmentDetails() {
+		return adjustmentDetails;
+	}
+
+	public void setAdjustmentDetails(List<AdjustmentDetail> adjustmentDetails) {
+		this.adjustmentDetails = adjustmentDetails;
+	}
+
+	public List<AdjustmentHistory> getAdjustmentHistory() {
+		return adjustmentHistory;
+	}
+
+	public void setAdjustmentHistory(List<AdjustmentHistory> adjustmentHistory) {
+		this.adjustmentHistory = adjustmentHistory;
 	}
 
 	public String getNotes() {
@@ -110,6 +136,6 @@ public class Adjustment {
 	public void setModifiedOn(Date modifiedOn) {
 		this.modifiedOn = modifiedOn;
 	}
-	
-	
+
+
 }

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -22,14 +23,14 @@ public class AdjustmentDetail {
 	@NotNull
 	private long id;
 	
-	//@ManyToOne
+	@ManyToOne
 	//@Column(nullable=false)
 	private Adjustment adjustment;
 	
-	//@ManyToOne
+	@ManyToOne
 	//@Column(nullable=false)
 	private Variant variant;
-	
+	 
 	@Column(name="in_stock",nullable=false)
 	private int inStock;
 	
@@ -124,7 +125,8 @@ public class AdjustmentDetail {
 	public void setModifiedOn(Date modifiedOn) {
 		this.modifiedOn = modifiedOn;
 	}
-	
+
+
 	
 	
 	
