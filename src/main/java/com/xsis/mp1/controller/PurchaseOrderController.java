@@ -3,13 +3,17 @@ package com.xsis.mp1.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.xsis.mp1.model.Category;
 import com.xsis.mp1.model.Item;
 import com.xsis.mp1.model.Outlet;
 import com.xsis.mp1.model.PurchaseOrder;
@@ -73,6 +77,19 @@ public class PurchaseOrderController {
 		return prService.getOne(id);
 	}
 	
+	
+	@RequestMapping(value = "/get-onepo/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public PurchaseOrder getOnePO(@PathVariable long id) {
+		return poService.getOne(id);
+	}
+	
+	@RequestMapping(value="/update", method=RequestMethod.PUT)
+	@ResponseStatus(HttpStatus.OK)
+	public void update(@RequestBody PurchaseOrder po) {
+		poService.update(po);
+	}
+	
 	@RequestMapping(value="/detail-po")
 	public String indexDetailPO(Model model) {
 		List<PurchaseOrder> pos = poService.selectAll();
@@ -80,34 +97,14 @@ public class PurchaseOrderController {
 		return "detail-po";
 	}
 	
-//	test adjusment di titip disini
-	@RequestMapping(value="/adjustment-list")
-	public String indexa(Model model) {
-		
-		return "adjustment-list";
+	@RequestMapping(value="/detail/{id}", method = RequestMethod.GET)
+	public String cari(@PathVariable long id, Model model) {
+		System.out.println("search =" + id);
+		PurchaseOrder po = poService.getOne(id);
+		model.addAttribute("po", po);
+		return "detail-po";
 	}
 	
-//	test adjusment-detail di titip disini
-	@RequestMapping(value="/detail-adjustment")
-	public String indexde(Model model) {
-		
-		return "detail-adjustment";
-	}
-	
-//	test transferStrock
-	@RequestMapping(value="/transfer-stock")
-	public String indexts(Model model) {
-		
-		return "transfer-stock";
-	}
-	
-//	test transfer-stock-detail di titip disini
-	@RequestMapping(value="/transfer-stock-detail")
-	public String indexTSD(Model model) {
-		
-		return "transfer-stock-detail";
-	}
-
 	
 }
 
