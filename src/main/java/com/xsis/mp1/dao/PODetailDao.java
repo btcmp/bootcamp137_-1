@@ -3,9 +3,13 @@ package com.xsis.mp1.dao;
 import java.util.List;
 
 import com.xsis.mp1.model.PurchaseOrderDetail;
+import com.xsis.mp1.model.PurchaseOrder;
+import com.xsis.mp1.model.PurchaseOrderDetail;
 
 public interface PODetailDao {
-	public void save(PurchaseOrderDetail purchaseOrderDetail);
-	
-	public List<PurchaseOrderDetail> selectAll();
+	void save(PurchaseOrderDetail poDetail);
+
+	List<PurchaseOrderDetail> selectPODetailByPO(PurchaseOrder po);
+
+	void delete(PurchaseOrderDetail poDetails);
 }
