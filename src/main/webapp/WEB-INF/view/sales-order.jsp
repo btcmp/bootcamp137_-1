@@ -6,7 +6,6 @@
 	var customer = {};
 	$(function() {
 		//setup data untuk datatable
-		
 		var add = [];
 		var addQty = [];
 		var quantity;
@@ -212,19 +211,19 @@
 				if (addQty.indexOf(value.id)== -1){
 								rawData += "<tr>";
 								rawData += "<td>";
-								rawData += value.variant.item.name + " - " + value.variant.name;
+								rawData += value[0] + " - " + value[2];
 								rawData += "</td>";
 								rawData += "<td>";
 								rawData += "Rp.";
 								rawData += "</td>";
 								rawData += "<td>";
-								rawData += value.variant.price;
+								rawData += value[3];
 								rawData += "</td>";
-								rawData += "<td id='td-qty "+ value.id +"' >";
-								rawData += "<input type='number' class='add-item-qty"+value.id+"' value='1' min ='1' max='"+value.endingQty+"'/>";
+								rawData += "<td id='td-qty "+ value[1] +"' >";
+								rawData += "<input type='number' class='add-item-qty"+value[1]+"' value='1' min ='1' max='"+value[4]+"'/>";
 								rawData += "</td>";
 								rawData += "<td >";
-								rawData += "<button type='button' id='"+value.id+"' class='btn-add-item"+value.id+" btn-add-item btn btn-primary btn-sm'>Add</button><button type='button' id='"+ value.id +"' class='btn-added-item"+value.id+" btn-added-item btn btn-primary btn-sm'>Added</button>";
+								rawData += "<button type='button' id='"+value[1]+"' class='btn-add-item"+value[1]+" btn-add-item btn btn-primary btn-sm'>Add</button><button type='button' id='"+ value[1] +"' class='btn-added-item"+value[1]+" btn-added-item btn btn-primary btn-sm'>Added</button>";
 								rawData += "</td>";
 								rawData += "</tr>";
 								var tbody = oTable.find("tbody");
@@ -235,19 +234,19 @@
 					var a = addQty.indexOf(value.id); 
 					rawData += "<tr>";
 					rawData += "<td>";
-					rawData += value.variant.item.name + " - " + value.variant.name;
+					rawData += value[0] + " - " + value[2];
 					rawData += "</td>";
 					rawData += "<td>";
 					rawData += "Rp.";
 					rawData += "</td>";
 					rawData += "<td>";
-					rawData += value.variant.price;
+					rawData += value[3];
 					rawData += "</td>";
-					rawData += "<td id='td-qty "+ value.id +"' >";
+					rawData += "<td id='td-qty "+ value[1] +"' >";
 					rawData += addQty[a];
 					rawData += "</td>";
 					rawData += "<td >";
-					rawData += "<button type='button' id='"+value.id+"' class='btn-add-item"+value.id+" btn-add-item btn btn-primary btn-sm'>Add</button><button type='button' id='"+ value.id +"' class='btn-added-item"+ value.id +" btn-added-item btn-primary btn>Added</button>";
+					rawData += "<button type='button' id='"+value[1]+"' class='btn-add-item"+value[1]+" btn-add-item btn btn-primary btn-sm'>Add</button><button type='button' id='"+ value[1] +"' class='btn-added-item"+ value[1] +" btn-added-item btn-primary btn>Added</button>";
 					rawData += "</td>";
 					rawData += "</tr>";
 					var tbody = oTable.find("tbody");
@@ -464,7 +463,8 @@
 										data : JSON.stringify(salesOrder),
 										contentType : 'application/json',
 										success : function() {
-											window.location = "${pageContext.request.contextPath}/sales-order";
+											/* window.location = "${pageContext.request.contextPath}/sales-order"; */
+											/* alert('sukses');  */
 										},
 										error : function() {
 											alert('gagal save');

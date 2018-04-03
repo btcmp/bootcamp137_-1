@@ -39,7 +39,7 @@
 							placeholder="Customer Email">
 						</div>
 						<div class="col-lg-2">
-						<button type="button" class="btn btn-primary" data-dismiss="modal">DONE</button></div>
+						<button type="button" class="btn-send btn btn-primary" data-dismiss="modal">SEND</button></div>
 					</div> 
 				</div>
 				
