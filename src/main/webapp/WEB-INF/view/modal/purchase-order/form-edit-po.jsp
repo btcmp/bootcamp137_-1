@@ -5,7 +5,8 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">PURCHASE ORDER</h5>
+				<h5 class="modal-title" id="exampleModalLabel">PURCHASE ORDER</h5><input id="input-po-id" style="display: none"/>
+				<input id="input-po-no" style="display: none"/><input id="input-pr-id" style="display: none"/>
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -16,7 +17,7 @@
 			
 			<div class="modal-body">
 				<form id="target" data-parsley-validate>
-					<h5>EDIT NEW PO: <input id="input-outlet" style="border: none"/>
+					<h5>EDIT NEW PO: <input id="input-outlet" style="border: none"/><input id="input-outlet-id" style="display: none"/>
 					</h5>
 					<hr/>
 						<h5>Choose Supplier</h5>			
@@ -34,10 +35,10 @@
 						</div>
 					<div>
 						<h5>Notes</h5>
-						<textarea rows="" cols="" style="width: 100%; height: 123px;" ></textarea>
+						<textarea rows="" cols="" style="width: 100%; height: 123px;" id="input-notes" ></textarea>
 					</div><br/>
 					<h5>Purchace Order</h5>
-			<table id="emp-table" class="table table-sm table-striped table-bordered" cellspacing="0" width="100%">
+			<table id="item-po-table" class="table table-sm table-striped table-bordered" cellspacing="0" width="100%">
 				<thead class="thead-dark">
 					<th>Item</th>
 					<th>In Stock</th>
@@ -69,13 +70,13 @@
 			<div class="modal-footer" style="margin: auto;">
 				<div class="row">
 					<div class="col-md-4">
-						<button type="button" id="btn-cancel" class="btn btn-primary" style="width: 100%;"  data-dismiss="modal">Submit</button>
+						<button type="button" id="btn-submit" class="btn btn-primary" style="width: 100%;" >Submit</button>
 					</div>
 					<div class="col-md-4">
-						<button type="button" id="btn-cancel" class="btn btn-primary" style="width: 100%;"   data-dismiss="modal">Cancel</button>
+						<button type="button" id="btn-cancel" class="btn btn-primary" style="width: 100%;"  data-dismiss="modal">Cancel</button>
 					</div>
 					<div class="col-md-4">
-						<button type="button" id="btn-cancel" class="btn btn-primary" style="width: 100%;"  data-dismiss="modal">Save</button>
+						<button type="button" id="btn-save" class="btn btn-primary" style="width: 100%;" >Save</button>
 					</div>
 				</div>
 			</div>
