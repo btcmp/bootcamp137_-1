@@ -12,6 +12,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="pos_t_po_detail")
 public class PurchaseOrderDetail {
@@ -28,7 +30,9 @@ public class PurchaseOrderDetail {
 	private long id;
 	
 	@ManyToOne
+	@JsonBackReference
 	private PurchaseOrder purchaseOrder;
+	
 	
 	@ManyToOne
 	private Variant variant;

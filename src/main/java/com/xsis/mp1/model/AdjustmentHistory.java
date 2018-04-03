@@ -83,5 +83,4 @@ public class AdjustmentHistory {
 	public void setAdjusment(Adjustment adjusment) {
 		this.adjustment = adjustment;
 	}
-
 }

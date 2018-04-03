@@ -37,16 +37,13 @@ public class PurchaseOrder {
 	
 
 	@ManyToOne
-	@JsonBackReference
 	private PurchaseRequest prId;
 	
 	
 	@ManyToOne
-	@JsonBackReference
 	private Outlet outletId;
 
 	@ManyToOne
-	@JsonBackReference
 	private Supplier supplierId;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="purchaseOrder", cascade = CascadeType.ALL)

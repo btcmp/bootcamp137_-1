@@ -56,6 +56,7 @@ public class PurchaseRequestDetail {
 		return variant;
 	}
 
+	
 	public void setVariant(Variant variant) {
 		this.variant = variant;
 	}

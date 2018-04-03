@@ -82,4 +82,5 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	<import resource="spring-security.xml"/>
+	
 </beans>

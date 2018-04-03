@@ -16,6 +16,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="pos_t_adjustment")
 public class Adjustment {
@@ -31,9 +33,11 @@ public class Adjustment {
 	private Outlet outlet;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="adjustment", cascade=CascadeType.ALL, orphanRemoval=true)
+	@JsonManagedReference
 	private List<AdjustmentDetail> adjustmentDetails;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="adjustment", cascade=CascadeType.ALL, orphanRemoval=true)
+	@JsonManagedReference
 	private List<AdjustmentHistory> adjustmentHistory;
 	
 	private String notes;
@@ -136,6 +140,5 @@ public class Adjustment {
 	public void setModifiedOn(Date modifiedOn) {
 		this.modifiedOn = modifiedOn;
 	}
-
 
 }

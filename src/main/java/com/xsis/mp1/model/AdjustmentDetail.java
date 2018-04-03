@@ -12,6 +12,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="pos_t_adjustment_detail")
 public class AdjustmentDetail {
@@ -24,6 +26,7 @@ public class AdjustmentDetail {
 	private long id;
 	
 	@ManyToOne
+	@JsonBackReference
 	//@Column(nullable=false)
 	private Adjustment adjustment;
 	
@@ -125,9 +128,5 @@ public class AdjustmentDetail {
 	public void setModifiedOn(Date modifiedOn) {
 		this.modifiedOn = modifiedOn;
 	}
-
-
-	
-	
 	
 }
