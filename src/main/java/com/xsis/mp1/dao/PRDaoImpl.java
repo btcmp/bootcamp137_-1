@@ -79,6 +79,16 @@ public class PRDaoImpl implements PRDao {
 			return prs;
 		}
 	}
+
+	public int getRowsPR(int bln, int thn) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from PurchaseRequest where MONTH(createdOn) = :month and YEAR(createdOn) = :year";
+		List<PurchaseRequest> prs = session.createQuery(hql).setParameter("month", bln).setParameter("year", thn).list();
+		if(prs.isEmpty()) {
+			return 0;
+		}
+		return prs.size();
+	}
 	
 	
 }

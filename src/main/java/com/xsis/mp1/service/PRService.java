@@ -1,5 +1,8 @@
 package com.xsis.mp1.service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -66,6 +69,26 @@ public class PRService {
 			preq.setCreatedOn(new Date());
 		}
 		
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+		Date date = new Date();
+		String tgl = dateFormat.format(date);
+		
+		Calendar cal = Calendar.getInstance();
+		int thn = cal.get(Calendar.YEAR);
+		int bln = cal.get(Calendar.MONTH)+1;
+		int no = prDao.getRowsPR(bln, thn)+1;
+		String nomor;
+		
+		if(no < 10) {
+			nomor = "00"+no;
+		} else if(no < 100) {
+			nomor = "0"+no;
+		} else {
+			nomor = Integer.toString(no);
+		}
+		
+		String prNo = "PR/"+"KEL1/"+tgl+"/"+nomor;
+		preq.setPrNo(prNo);
 		prDao.save(preq);
 		
 		//hapus data lama

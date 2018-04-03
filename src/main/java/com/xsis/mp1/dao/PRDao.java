@@ -24,4 +24,6 @@ public interface PRDao {
 
 	public List<PurchaseRequest> searchPRByGlobal(String global);
 
+	public int getRowsPR(int bln, int thn);
+
 }

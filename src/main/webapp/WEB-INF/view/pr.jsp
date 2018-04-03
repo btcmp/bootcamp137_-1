@@ -191,7 +191,7 @@
 			var pr = {
 				id : $('#input-id').val(),
 				readyTime : ready,
-				prNo : genCode,
+				//prNo : genCode,
 				notes : $('#input-note').val(),
 				status : stat,
 				outletId : {
@@ -298,7 +298,7 @@
 		
 		//edit PR
 		$('#dt-table').on('click', '.update', function(){
-			//added= [];
+			$('#btn-save').prop('disabled', true);
 			var id = $(this).attr('id');
 			$('#tbody-add-item').empty();
 			$.ajax({
