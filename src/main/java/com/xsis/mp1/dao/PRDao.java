@@ -22,4 +22,6 @@ public interface PRDao {
 
 	public List<PurchaseRequest> searchPRByStatus(String status);
 
+	public List<PurchaseRequest> searchPRByGlobal(String global);
+
 }

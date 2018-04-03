@@ -161,6 +161,10 @@ public class PRService {
 	public List<PurchaseRequest> getPRByStatus(String status) {
 		return prDao.searchPRByStatus(status);
 	}
+
+	public List<PurchaseRequest> getPRByGlobal(String global) {
+		return prDao.searchPRByGlobal(global);
+	}
 	
 	
 }

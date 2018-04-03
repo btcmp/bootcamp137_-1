@@ -14,6 +14,8 @@
 	        "info":     false
 	    });
 		
+		$('#btn-save').prop('disabled', true);
+		
 		$(function() {
 			var today = new Date();
 			var dd = today.getDate();
@@ -28,8 +30,42 @@
 			} 
 			today = yyyy + '-' + mm + '-' + dd;
 		    $('input[name="daterange"]').daterangepicker({
-		    	maxDate: new Date(today)
+		    	maxDate: new Date(today),
+		    
 		    });
+		    $('input[name="daterange"]').on('change', function(){
+		    	var start = '';
+		    	var end = '';
+		    	$('input[name="daterange"]').html();
+		    	 /* $('input[name="daterange"]').html(start.format('D MMMM YYYY') + ' - ' + end.format('D MMMM YYYY'));
+			        awal = start.format('YYYY-MM-DD');
+			        akhir = end.format('YYYY-MM-DD');
+			        console(awal);
+			        ur = '${pageContext.request.contextPath}/transaksi/pr/src-date?awal='+awal+'&akhir='+akhir;
+			        $.ajax({
+						type : 'GET',
+						url : ur,
+						success : function(data){
+							$('#isi-data-pr').empty();
+							$(data).each(function(key, val){
+								var json_data = '/Date('+val.createdOn+')/';
+								var asAMoment = moment(json_data);
+								var tanggal = asAMoment.format('DD-MM-YYYY HH:mm:ss');
+								
+								$('#isi-data-pr').append('<tr><td>'+tanggal+'</td>'
+									+'<td>'+val.prNo+'</td>'
+									+'<td>'+val.notes+'</td>'
+									+'<td>'+val.status+'</td>'
+									+'<td><input type="button" class="btn-edit-pr btn btn-default" value="Edit" key-id="'+val.id+'" pr-status="'+val.status+'"> | '
+									+'<a href="${pageContext.request.contextPath}/transaksi/purchase-request/detail/'+val.id+'" class="btn-view-pr btn btn-info" key-id="'+val.id+'">View</a></td>');
+							})
+						},
+						error : function(){
+							$('#isi-data-pr').empty();
+							console.log('gagal');
+						}
+					});*/
+			}); 
 		    
 		});
 		
@@ -69,6 +105,7 @@
 		$('#btn-add-item-var').on('click', function(){
 			$('#modal-pr-add-item').modal('hide');
 			$('#modal-pr-input').modal('show');
+			$('#btn-save').prop('disabled', false);
 			$('#btn-submit').show();
 			
 			$.ajax({
@@ -111,10 +148,21 @@
 		};
 		var code = 'PR'+'AddwwwwAAAddd'.replace(/[Adw]/g, randChar)
 			
-		
-		//save
-		$('#btn-save').on('click', function(){
-			
+		var stat = '';
+	    
+	    $('#btn-save').on('click',function(evt) {
+			evt.preventDefault();
+			stat = 'Created';
+			save();
+		}); 
+	    
+	    $('#btn-submit').on('click', function(evt){
+	    	evt.preventDefault();
+	    	stat = 'Submitted';
+	    	save();
+	    });
+	    
+	    function save(){
 			var prDet = [];
 			
 			$('#tbl-pr-add-item > tbody > tr').each(function(index, data) {
@@ -125,12 +173,18 @@
 						}
 				};
 				prDet.push(detail);
-				console.log('tes');
 			});
 			
 			var matriks = $('#insert-target').val().split('/');
 			var ready = matriks[2]+'-'+matriks[0]+'-'+matriks[1];
 			
+			/* var genCode = $('#input-prNo').val(data.prNo);
+			if(genCode!=""){
+				genCode = genCode;
+			}else{
+				genCode = code;
+			}*/
+			 
 			var genCode = code;
 			console.log(code);
 			
@@ -139,7 +193,7 @@
 				readyTime : ready,
 				prNo : genCode,
 				notes : $('#input-note').val(),
-				status : "created",
+				status : stat,
 				outletId : {
 					id : $('#input-outlet').val(),
 				},
@@ -159,8 +213,8 @@
 					alert('save failed');
 				}
 
-			});
-		});
+			});	
+	    }
 		
 		//view detail
 		$('.view').on('click', function(){
@@ -255,6 +309,7 @@
 					console.log(data);
 					$('#input-id').val(data.id);
 					$('#input-note').val(data.notes);
+					$('#input-prNo').val(data.prNo);
 					var date = data.readyTime.split('-');
 					var dates = date[1]+'/'+date[2]+'/'+date[0];
 					$('#insert-target').val(dates);
@@ -287,16 +342,16 @@
 			});
 		});
 		
+		// Search by Status
 		$('#src-status').change(function(){
 			var status = $('#src-status').val();
-			console.log(status);
 			var keyword = '';
 			if(status == 'All'){
 				window.location = '${pageContext.request.contextPath}/pr';
 			}else{
 				$.ajax({
 					type : 'GET',
-					url : '${pageContext.request.contextPath}/pr/search-status?search='+status,
+					url : '${pageContext.request.contextPath}/pr/src-status?search='+status,
 					success : function(data){
 						$('#dt-table-pr').empty();
 						console.log(data);
@@ -310,7 +365,42 @@
 								+'<td>'+val.prNo+'</td>'
 								+'<td>'+val.notes+'</td>'
 								+'<td>'+val.status+'</td>'
-								+'<td><input type="button" class="update btn btn-success btn-sm" value="Edit" key-id="'+val.id+'" pr-status="'+val.status+'"> | '
+								+'<td><input type="button" class="update btn btn-success btn-sm" value="Edit" id="'+val.id+'" pr-status="'+val.status+'"> | '
+								+'<a href="${pageContext.request.contextPath}/pr/detail/'+val.id+'" class="view btn btn-success btn-sm" key-id="'+val.id+'">View</a></td>');
+						})
+						
+					},
+					error : function(){
+						$('#dt-table-pr').empty();
+						console.log('search failed');
+					}
+				});
+			}
+		});
+		
+		// Search Global
+		$('#src-global').on('input', function(){
+			var global = $('#src-global').val();
+			if(global == ''){
+				$('#dt-table-pr').empty();
+			}else{
+				$.ajax({
+					type : 'GET',
+					url : '${pageContext.request.contextPath}/pr/src-global?search='+global,
+					success : function(data){
+						$('#dt-table-pr').empty();
+						console.log(data);
+						$(data).each(function(key, val){
+							
+							var json_data = '/Date('+val.createdOn+')/';
+							var asAMoment = moment(json_data);
+							var tanggal = asAMoment.format('DD-MM-YYYY HH:mm:ss');
+							
+							$('#dt-table-pr').append('<tr><td>'+tanggal+'</td>'
+								+'<td>'+val.prNo+'</td>'
+								+'<td>'+val.notes+'</td>'
+								+'<td>'+val.status+'</td>'
+								+'<td><input type="button" class="update btn btn-success btn-sm" value="Edit" id="'+val.id+'" pr-status="'+val.status+'"> | '
 								+'<a href="${pageContext.request.contextPath}/pr/detail/'+val.id+'" class="view btn btn-success btn-sm" key-id="'+val.id+'">View</a></td>');
 						})
 						
@@ -353,7 +443,7 @@
               <div class="input-group-addon">
                 <i class="fa fa-calendar"></i>
               </div>
-              <input type="text" class="form-control pull-right" name="daterange" id="reservation">
+              <input type="text" class="form-control pull-right" name="daterange" id="src-date">
             </div>
 		</div>
 	  </div>
@@ -361,6 +451,7 @@
 	  	<div class="form-group">
 		    <select name="title" id="src-status" class="form-control custom-select custom-select-md">
 		    	<option selected disabled>Status</option>
+		    		<option value="All">All</option>
 		    		<option value="created">Created</option>
 		    		<option value="Submitted">Submitted</option>
 		    		<option value="Approved">Approved</option>
@@ -371,7 +462,7 @@
 	  </div>
 	  <div class="col-md-2">
 	  	<div class="form-group">
-			<input type="text" class="form-control" id="insert-search" placeholder="Search">
+			<input type="text" class="form-control" id="src-global" placeholder="Search">
 		</div>
 	  </div>
 	  <div class="col-md-1">
@@ -464,6 +555,7 @@
 						<textarea class="form-control" id="input-note" rows="5"></textarea>
 					</div>
 					<div class="form-group">
+						<input type="hidden" id="input-prNo" name="input-prNo" />
 						<label for="input-name">Purchase Request</label>
 						<hr>
 						

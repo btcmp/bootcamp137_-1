@@ -68,6 +68,17 @@ public class PRDaoImpl implements PRDao {
 			return prs;
 		}
 	}
+
+	public List<PurchaseRequest> searchPRByGlobal(String global) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from PurchaseRequest where lower(prNo) like :global or lower(status) like :global or lower(notes) like :global";
+		List<PurchaseRequest> prs = session.createQuery(hql).setParameter("global", "%"+global.toLowerCase()+"%").list();
+		if(prs.isEmpty()) {
+			return null;
+		}else {
+			return prs;
+		}
+	}
 	
 	
 }

@@ -83,10 +83,16 @@ public class PRController {
 		return inventories;
 	}
 	
-	@RequestMapping(value = "/search-status", method = RequestMethod.GET)
+	@RequestMapping(value = "/src-status", method = RequestMethod.GET)
 	@ResponseBody
 	public List<PurchaseRequest> getByStatus(@RequestParam(value="search", defaultValue="") String status){
 		return prService.getPRByStatus(status);
+	}
+	
+	@RequestMapping(value = "/src-global", method = RequestMethod.GET)
+	@ResponseBody
+	public List<PurchaseRequest> getByGlobal(@RequestParam(value="search", defaultValue="") String global){
+		return prService.getPRByGlobal(global);
 	}
 	
 	@RequestMapping(value="/approve/{id}", method=RequestMethod.GET)
