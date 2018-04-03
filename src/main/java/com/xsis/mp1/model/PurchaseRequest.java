@@ -179,4 +179,5 @@ public class PurchaseRequest {
 	public void setPurchaseOrders(List<PurchaseOrder> purchaseOrders) {
 		this.purchaseOrders = purchaseOrders;
 	}
+	
 }

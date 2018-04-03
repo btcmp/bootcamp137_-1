@@ -33,7 +33,6 @@ public class PurchaseOrderDetail {
 	@JsonBackReference
 	private PurchaseOrder purchaseOrder;
 	
-	
 	@ManyToOne
 	private Variant variant;
 	

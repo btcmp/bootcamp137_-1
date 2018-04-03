@@ -123,8 +123,6 @@ public class PurchaseOrder {
 		this.purchaseOrderDetails = purchaseOrderDetails;
 	}
 
-	
-
 	public List<PurchaseOrderHistory> getPurchaseOrderHistories() {
 		return purchaseOrderHistories;
 	}

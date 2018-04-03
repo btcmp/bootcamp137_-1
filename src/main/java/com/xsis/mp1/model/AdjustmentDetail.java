@@ -129,4 +129,5 @@ public class AdjustmentDetail {
 		this.modifiedOn = modifiedOn;
 	}
 	
+	
 }
