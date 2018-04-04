@@ -191,7 +191,7 @@
 			var pr = {
 				id : $('#input-id').val(),
 				readyTime : ready,
-				//prNo : genCode,
+				prNo : $('#input-prNo').val(),
 				notes : $('#input-note').val(),
 				status : stat,
 				outletId : {

@@ -14,6 +14,7 @@ import com.xsis.mp1.dao.InventoryDao;
 import com.xsis.mp1.dao.PRDao;
 import com.xsis.mp1.dao.PRDetailDao;
 import com.xsis.mp1.dao.PRHistoryDao;
+import com.xsis.mp1.model.PurchaseOrder;
 import com.xsis.mp1.model.PurchaseRequest;
 import com.xsis.mp1.model.PurchaseRequestDetail;
 import com.xsis.mp1.model.PurchaseRequestHistory;
@@ -88,7 +89,13 @@ public class PRService {
 		}
 		
 		String prNo = "PR/"+"KEL1/"+tgl+"/"+nomor;
-		preq.setPrNo(prNo);
+		
+		if(preq.getId()!=0) {
+			preq.setPrNo(pr.getPrNo());
+		}else {
+			preq.setPrNo(prNo);
+		}
+		
 		prDao.save(preq);
 		
 		//hapus data lama
@@ -166,6 +173,9 @@ public class PRService {
 	}
 
 	public void createPo(long id) {
+		
+		
+		
 		prDao.createPo(id);
 		PurchaseRequest pr = prDao.getOne(id);
 		PurchaseRequestHistory prh = new PurchaseRequestHistory();
