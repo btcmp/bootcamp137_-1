@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.xsis.mp1.dao.InventoryDao;
 import com.xsis.mp1.dao.TransferStockDao;
 import com.xsis.mp1.dao.TransferStockDetailDao;
 import com.xsis.mp1.dao.TransferStockHistoryDao;
+import com.xsis.mp1.model.Inventory;
 import com.xsis.mp1.model.TransferStock;
 import com.xsis.mp1.model.TransferStockDetail;
 import com.xsis.mp1.model.TransferStockHistory;
@@ -26,6 +28,9 @@ public class TransferStockService {
 	
 	@Autowired
 	TransferStockHistoryDao tshDao;
+	
+	@Autowired
+	InventoryDao inventoryDao;
 	
 	public List<TransferStock> selectAll() {
 		List<TransferStock> tss = tsDao.selectAll();
@@ -107,6 +112,40 @@ public class TransferStockService {
 		tsh.setTransfer(ts);;
 		tsh.setStatus(ts.getStatus());
 		tshDao.save(tsh);
+	}
+
+	public void updateStockInventory(long id) {
+		tsDao.approve(id);
+		
+		TransferStock ts = new TransferStock();
+		
+		long idToOutlet = ts.getToOutlet().getId();
+		long idFromOutlet = ts.getFromOutlet().getId();
+		List<TransferStockDetail> TSD = tsDao.getTfStockByTfStockId(ts.getId());
+		for(TransferStockDetail TSDetail : TSD) {
+			long variantId = TSDetail.getVariant().getId();
+			Inventory invent = inventoryDao.searchInventoryByVarAndOutlet(variantId, idFromOutlet);
+			invent.setEndingQty(invent.getEndingQty()-TSDetail.getTransferQty());
+			
+			Inventory iv = inventoryDao.searchInventoryByVarAndOutlet(variantId, idToOutlet);
+			if (iv != null) {
+				iv.setEndingQty(invent.getEndingQty()+TSDetail.getTransferQty());
+			} else {
+				Inventory ivNew = new Inventory();
+				ivNew.setAdjustementqty(0);
+				ivNew.setAlertAtQty(1);
+				ivNew.setBeginning(TSDetail.getTransferQty());
+				ivNew.setEndingQty(TSDetail.getTransferQty());
+				ivNew.setVariant(TSDetail.getVariant());
+				ivNew.setOutlet(ts.getToOutlet());
+				ivNew.setCreatedBy(0);
+				ivNew.setModifiedBy(0);
+				ivNew.setPurchaseQty(0);
+				ivNew.setSalesOrderQty(0);
+				ivNew.setTransferStockQty(0);
+				inventoryDao.save(ivNew);
+			}
+		}
 	}
 	
 }

@@ -140,6 +140,17 @@ public class InventoryDaoImpl implements InventoryDao {
 			return inv;
 		}
 	}
+
+	public Inventory searchInventoryByVarAndOutlet(long variantId, long outletId) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from ItemInventory inv where inv.itemVariant.id =:variantId and inv.outlet.id =:outletId";
+		List <Inventory> itemInventory = session.createQuery(hql).setParameter("variantId", variantId).setParameter("outletId", outletId).list();
+		if (itemInventory.isEmpty()) {
+			return null;
+		} else {
+			return itemInventory.get(0);
+		}
+	}
 	
 
 	

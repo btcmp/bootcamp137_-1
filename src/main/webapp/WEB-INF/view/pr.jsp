@@ -136,7 +136,7 @@
 		});
 		
 		
-		var CHAR_SETS = {
+		/* var CHAR_SETS = {
 			    d: '0123456789',
 			    A: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
 			    w: '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -146,7 +146,7 @@
 		    var chars = CHAR_SETS[charType];
 		    return chars.charAt(parseInt(Math.random() * chars.length));
 		};
-		var code = 'PR'+'AddwwwwAAAddd'.replace(/[Adw]/g, randChar)
+		var code = 'PR'+'AddwwwwAAAddd'.replace(/[Adw]/g, randChar) */
 			
 		var stat = '';
 	    
@@ -177,16 +177,6 @@
 			
 			var matriks = $('#insert-target').val().split('/');
 			var ready = matriks[2]+'-'+matriks[0]+'-'+matriks[1];
-			
-			/* var genCode = $('#input-prNo').val(data.prNo);
-			if(genCode!=""){
-				genCode = genCode;
-			}else{
-				genCode = code;
-			}*/
-			 
-			var genCode = code;
-			console.log(code);
 			
 			var pr = {
 				id : $('#input-id').val(),
@@ -221,7 +211,11 @@
 			var id = $(this).attr('id');
 			console.log(id);
 			window.location = '${pageContext.request.contextPath}/pr/detail?id=' + id;
-			console.log(data);
+		});
+		
+		//export pdf
+		$('#btn-export').on('click', function(){
+			window.location = '${pageContext.request.contextPath}/generate/pr';
 		});
 		
 		var added = [];
@@ -502,9 +496,12 @@
 					<td>${pr.status }</td>
 					<td>
 						<script type="text/javascript">
+							var element = $('#dt-table-pr').parent().parent();
+							var state = element.find('td').eq(3).text();
+							console.log(state);
 							/* var cek = '${pr.status }';
 							console.log(cek); */
-							if('${pr.status }' === 'Approved'){
+							if(state == 'Approved'){
 								$('.update').prop('disabled', true);
 							}else{
 								$('.update').prop('disabled', false);

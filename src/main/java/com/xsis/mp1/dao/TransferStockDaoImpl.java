@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.xsis.mp1.model.TransferStock;
+import com.xsis.mp1.model.TransferStockDetail;
 
 @Repository
 public class TransferStockDaoImpl implements TransferStockDao{
@@ -41,6 +42,11 @@ public class TransferStockDaoImpl implements TransferStockDao{
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "update TransferStock set status='Rejected' where id = :id";
 		session.createQuery(hql).setParameter("id", id).executeUpdate();
+	}
+
+	public List<TransferStockDetail> getTfStockByTfStockId(long id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

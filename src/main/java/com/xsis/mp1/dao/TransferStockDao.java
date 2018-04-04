@@ -3,6 +3,7 @@ package com.xsis.mp1.dao;
 import java.util.List;
 
 import com.xsis.mp1.model.TransferStock;
+import com.xsis.mp1.model.TransferStockDetail;
 
 public interface TransferStockDao {
 
@@ -15,5 +16,7 @@ public interface TransferStockDao {
 	void approve(long id);
 
 	void reject(long id);
+
+	List<TransferStockDetail> getTfStockByTfStockId(long id);
 
 }

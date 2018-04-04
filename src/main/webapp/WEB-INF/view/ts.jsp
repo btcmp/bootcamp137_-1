@@ -209,7 +209,13 @@
 		<tbody>
 			<c:forEach items="${tss }" var="ts">
 				<tr>
-					<td>${ts.createdOn }</td>
+					<td>
+						<script>
+							var times = '${ts.createdOn }';
+							var time = times.split(':');
+							document.write(time[0]+':'+time[1]);
+						</script>
+					</td>
 					<td>${ts.fromOutlet.name }</td>
 					<td>${ts.toOutlet.name }</td>
 					<td>${ts.status }</td>
