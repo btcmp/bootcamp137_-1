@@ -62,14 +62,6 @@ public class PurchaseOrderController {
 		return "po";
 	}
 	
-	/*@RequestMapping(value="/get-one/{id}", method=RequestMethod.GET)
-	@ResponseBody
-	public List<Variant> getOne(@PathVariable long id, Model model, PurchaseRequest purchaseRequest){
-		List<Variant> variants=variantService.getVariantByPR(purchaseRequest);
-		System.out.println("dapat");
-		model.addAttribute("variants", variants);
-		return variants;
-	}*/
 	
 	@RequestMapping(value = "/get-one/{id}", method = RequestMethod.GET)
 	@ResponseBody

@@ -37,10 +37,10 @@
 			</div>
 			<hr style="float: left; width: 83%"/><br/><br/><br/>
 				<c:forEach items="${pos}" var="po">
-					<p>${po.supplierId.name}</p>	
+					
 						<table border="1px" style="width: 100%">
 							<tr>
-								<td>${po.supplierId.phone}</td>
+								<td id="input-supplayer-name"></td>
 								<td colspan="2">${po.supplierId.email}</td>
 							</tr>
 							<tr>

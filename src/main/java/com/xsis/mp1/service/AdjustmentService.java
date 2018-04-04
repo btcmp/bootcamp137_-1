@@ -47,7 +47,6 @@ public class AdjustmentService {
 
 	public void save(Adjustment adjustment) {
 		Adjustment adj = new Adjustment();
-		adj.setId(adjustment.getId());
 		adj.setOutlet(adjustment.getOutlet());
 		adj.setStatus(adjustment.getStatus());
 		adj.setNotes(adjustment.getNotes());
@@ -84,15 +83,36 @@ public class AdjustmentService {
 			}
 		}
 		
-		if(adjustment.getId() != 0 && adjustment.getStatus()=="created") {
+		if(adjustment.getAdjustmentHistory()!=null) {
+			for(AdjustmentHistory adjustmentHistory : adjustment.getAdjustmentHistory()) {
+				AdjustmentHistory adjustmentH = new AdjustmentHistory();
+				adjustmentH.setId(adjustmentHistory.getId());
+				adjustmentH.setAdjustment(adj);;
+				System.out.println(adj.getId());
+				adjustmentH.setStatus(adjustmentHistory.getStatus());
+				adjustmentHystoryDao.save(adjustmentH);
+				System.out.println("adjustment "+adj.getId());
+			}
+		}
+		
+			/*AdjustmentHistory adjh = new AdjustmentHistory();
+			Adjustment adj2= new Adjustment();
+			adj2.setId(adj.getId());
+			adj2.setAdjustmentDetails(adj.getAdjustmentDetails());
+			adj2.setAdjustmentHistory(adj.getAdjustmentHistory());
+			adj2.setNotes(adj.getNotes());
+			adj2.setOutlet(adj.getOutlet());
+			System.out.println(adj2.getId());
+			System.out.println("ada");
+			adjh.setAdjusment(adj2);
+			System.out.println(adj2.getId());
 			
-		}else {
-			AdjustmentHistory adjh = new AdjustmentHistory();
-			adjh.setAdjusment(adj);
+			System.out.println("ini id adjustment dari history "+adjh.getAdjustment());
+			System.out.println(adj2.getId());
 			adjh.setStatus(adj.getStatus());
 			adjh.setCreatedOn(adj.getCreatedOn());
-			adjustmentHystoryDao.save(adjh);
-		}
+			adjustmentHystoryDao.save(adjh);*/
+		
 	}
 
 	public Adjustment getOne(long id) {
@@ -108,7 +128,7 @@ public class AdjustmentService {
 		if(adjh.isEmpty()) {
 			
 		}else {
-			adj.setAdjustmentHistory(adjh);;
+			adj.setAdjustmentHistory(adjh);
 		}
 		return adj;
 	}
@@ -122,7 +142,7 @@ public class AdjustmentService {
 		Adjustment adj = adjustmentDao.getOne(id);
 		AdjustmentHistory adjh = new AdjustmentHistory();
 		adjh.setCreatedOn(new Date());
-		adjh.setAdjusment(adj);
+		adjh.setAdjustment(adj);;
 		adjh.setStatus(adj.getStatus());
 		adjustmentHystoryDao.save(adjh);
 	}
@@ -132,7 +152,7 @@ public class AdjustmentService {
 		Adjustment adj = adjustmentDao.getOne(id);
 		AdjustmentHistory adjh = new AdjustmentHistory();
 		adjh.setCreatedOn(new Date());
-		adjh.setAdjusment(adj);
+		adjh.setAdjustment(adj);;
 		adjh.setStatus(adj.getStatus());
 		adjustmentHystoryDao.save(adjh);
 	}
@@ -142,7 +162,7 @@ public class AdjustmentService {
 		Adjustment adj = adjustmentDao.getOne(id);
 		AdjustmentHistory adjh = new AdjustmentHistory();
 		adjh.setCreatedOn(new Date());
-		adjh.setAdjusment(adj);
+		adjh.setAdjustment(adj);;
 		adjh.setStatus(adj.getStatus());
 		adjustmentHystoryDao.save(adjh);
 	}

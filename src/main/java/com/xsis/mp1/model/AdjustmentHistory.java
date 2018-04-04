@@ -80,8 +80,10 @@ public class AdjustmentHistory {
 		return adjustment;
 	}
 
-	public void setAdjusment(Adjustment adjusment) {
+	public void setAdjustment(Adjustment adjustment) {
 		this.adjustment = adjustment;
 	}
+
+	
 	
 }

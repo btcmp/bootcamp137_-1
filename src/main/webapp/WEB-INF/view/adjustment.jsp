@@ -51,30 +51,19 @@
 			<th><center>#</center></th>
 		</thead>
 		<tbody>
-			<c:forEach items="${prs }" var="pr">
+			<c:forEach items="${adj}" var="adj">
 				<tr>
 					<td>
 						<script>
-							var times = '${pr.createdOn }';
+							var times = '${adj.createdOn }';
 							var time = times.split(':');
 							document.write(time[0]+':'+time[1]);
 						</script>
 					</td>
-					<td>${pr.prNo }</td>
-					<td>${pr.notes }</td>
-					<td>${pr.status }</td>
+					<td>${adj.notes }</td>
+					<td>${adj.status }</td>
 					<td>
-						<script type="text/javascript">
-							var cek = '${pr.status }';
-							console.log(cek);
-							if(cek == "Approved"){
-								$('.update').prop('disabled', true);
-							}else{
-								$('.update').prop('disabled', false);
-							}
-						</script>
-						<a id="${pr.id }" class="update btn btn-success btn-sm" href="#">Edit</a> |
-						<a id="${pr.id }" class="view btn btn-success btn-sm" href="${pageContext.request.contextPath}/pr/detail/${pr.id}">View</a>
+						<a id="${adj.id }" class="view btn btn-success btn-sm" href="${pageContext.request.contextPath}/adjustment/detail/${adj.id}">View</a>
 					</td>
 				</tr>
 			</c:forEach>

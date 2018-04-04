@@ -56,9 +56,11 @@ public class AdjustmentController {
 	}
 	
 	@RequestMapping(value="/save", method=RequestMethod.POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	public void save(@RequestBody Adjustment adjustment) {
+	//@ResponseStatus(HttpStatus.CREATED)
+	@ResponseBody
+	public Adjustment save(@RequestBody Adjustment adjustment) {
 		adjustmentService.save(adjustment);
+		return adjustment;
 	}
 	
 	@RequestMapping(value = "/get-one/{id}", method = RequestMethod.GET)

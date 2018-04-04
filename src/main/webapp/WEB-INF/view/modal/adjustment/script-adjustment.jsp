@@ -48,6 +48,7 @@
 		$('#btn-save').on('click', function(){
 			
 			var adjDet = [];
+			var adjHis = [];
 			
 			$('#tbl-adj-add-item > tbody > tr').each(function(index, data) {
 				var detail = {
@@ -57,34 +58,44 @@
 						}
 				};
 				adjDet.push(detail);
+				
+				var history = {
+						"status" :"Submitted"
+						
+				};
+				adjHis.push(history);
 				//console.log('tes');
 			});
+			
+			
 			//console.log(adjDet);
 			
 			var adj = {
 				id : $('#input-id').val(),
 				notes : $('#input-note').val(),
-				status : "created",
+				status : "Submitted",
 				outlet : {
 					id : $('#input-outlet').val(),
 				},
-				adjustmentDetails : adjDet
+				adjustmentDetails : adjDet,
+				adjustmentHistory: adjHis
 			};
 			console.log(adj);
 
-			$.ajax({
+			 $.ajax({
 				type : 'POST',
 				url : '${pageContext.request.contextPath}/adjustment/save',
 				data : JSON.stringify(adj),
 				contentType : 'application/json',
-				success : function() {
-					window.location = '${pageContext.request.contextPath}/adjustment';
+				success : function(data) {
+					//window.location = '${pageContext.request.contextPath}/adjustment';
+					console.log(data)
 				},
 				error : function() {
 					alert('save failed');
 				}
 
-			}); 
+			});  
 		});
 		
 		//view detail
@@ -129,7 +140,7 @@
 			}
 		});
 		
-		//tambah tabel item ke modal create PR
+		//tambah tabel item ke modal create Adjustment
 		$('#tbl-add-item-purchase').on('click', '.btn-add-item', function(){
 			var element = $(this).parent().parent();
 			var id = $(this).attr('id');
@@ -167,10 +178,11 @@
 		});
 		
 		
-		//edit PR
+		//edit Adjustment
 		$('#dt-table').on('click', '.update', function(){
 			var id = $(this).attr('id');
-			$('#tbody-add-item').empty();
+			//console.log(id);
+			 $('#tbody-add-item').empty();
 			$.ajax({
 				type : 'GET',
 				url : '${pageContext.request.contextPath}/adjustment/get-one/'+id,
@@ -196,7 +208,7 @@
 				error : function(){
 					console.log('get data failed');
 				}
-			});
+			}); 
 		});
 		
 		function clearForm() {

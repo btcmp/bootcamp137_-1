@@ -26,8 +26,8 @@ public class POHistoryDaoImpl implements POHistoryDao {
 
 	public List<PurchaseOrderHistory> selectHistoryByPO(PurchaseOrder po) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from PurchaseOrderHistory poh where poh.po=:po_poh order by poh.id desc";
-		List<PurchaseOrderHistory> poHistories = session.createQuery(hql).setParameter("po_poh", po).list();
+		String hql = "from PurchaseOrderHistory poh where poh.purchaseOrder=:po order by poh.id desc";
+		List<PurchaseOrderHistory> poHistories = session.createQuery(hql).setParameter("po", po).list();
 		//List<PurchaseOrderHistory> pohs = session.createCriteria(PurchaseOrderHistory.class).add(Restrictions.eq("po.id", po.getId())).list(); 
  		if(poHistories.isEmpty()) {
  			return null;

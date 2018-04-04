@@ -32,11 +32,11 @@ public class Adjustment {
 	//@Column(nullable=false)
 	private Outlet outlet;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="adjustment", cascade=CascadeType.ALL, orphanRemoval=true)
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="adjustment", cascade=CascadeType.ALL)
 	@JsonManagedReference
 	private List<AdjustmentDetail> adjustmentDetails;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="adjustment", cascade=CascadeType.ALL, orphanRemoval=true)
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="adjustment", cascade=CascadeType.ALL)
 	@JsonManagedReference
 	private List<AdjustmentHistory> adjustmentHistory;
 	

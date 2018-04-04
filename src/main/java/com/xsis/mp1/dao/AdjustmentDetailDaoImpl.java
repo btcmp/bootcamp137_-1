@@ -25,9 +25,9 @@ public class AdjustmentDetailDaoImpl implements AdjustmentDetailDao {
 
 	public List<AdjustmentDetail> selectAdjustmentDetailByadjustment(Adjustment adjustment) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from AdjustmentDetail add where add.adjustment=:add.adjustment";
+		String hql = "from AdjustmentDetail add where add.adjustment=:adjustment";
 		//List<PurchaseRequestDetail> prDetails = session.createCriteria(PurchaseRequestDetail.class).add(Restrictions.eq("pr.id", pr.getId())).list(); 
- 		List<AdjustmentDetail> adjustmentDetails = session.createQuery(hql).setParameter("add.adjustment", adjustment).list();
+ 		List<AdjustmentDetail> adjustmentDetails = session.createQuery(hql).setParameter("adjustment", adjustment).list();
 		if(adjustmentDetails.isEmpty()) {
  			return null;
  		}else {
