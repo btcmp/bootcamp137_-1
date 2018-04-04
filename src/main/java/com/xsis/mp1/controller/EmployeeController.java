@@ -22,7 +22,7 @@ import com.xsis.mp1.service.OutletService;
 import com.xsis.mp1.service.RoleService;
 
 @Controller
-@RequestMapping("/employee")
+@RequestMapping("/mst/employee")
 public class EmployeeController {
 
 	@Autowired
