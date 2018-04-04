@@ -86,7 +86,7 @@ public class PurchaseOrderController {
 	public String indexDetailPO(Model model) {
 		List<PurchaseOrder> pos = poService.selectAll();
 		model.addAttribute("pos", pos);
-		return "detail-po";
+		return "po-detail";
 	}
 	
 	@RequestMapping(value="/detail/{id}", method = RequestMethod.GET)
@@ -94,7 +94,7 @@ public class PurchaseOrderController {
 		System.out.println("search =" + id);
 		PurchaseOrder po = poService.getOne(id);
 		model.addAttribute("po", po);
-		return "detail-po";
+		return "po-detail";
 	}
 	
 	

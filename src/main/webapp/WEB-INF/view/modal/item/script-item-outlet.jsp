@@ -127,7 +127,8 @@
 			 $('#tbody-add-variant-create-item>.row-add-variant').each(function(index,data){
 				 var inventory = {
 						 beginning :$(data).find('td').eq(3).text(),
-					     alertAtQty :$(data).find('td').eq(4).text()
+					     alertAtQty :$(data).find('td').eq(4).text(),
+					     endingQty: $(data).find('td').eq(3).text(),
 				 }
 				 var variant={
 							name: $(data).find('td').eq(0).text(),
@@ -200,6 +201,7 @@
 						"</td><td style='text-align:center;'>" + inventory.variant.sku + 
 						"</td><td style='text-align:center;'>" + inventory.beginning + 
 						"</td><td style='display:none'>" + inventory.alertAtQty+ 
+						"</td><td style='display:none'>" + inventory.endingQty+ 
 						"</td><td style='display:none'>" + inventory.variant.id+ 
 						"</td><td style='text-align:center;'><a class='btn-edit-edit-variant btn btn-info btn-sm' href='#'>Edit</a>|<a class='btn-edit-remove-variant btn btn-danger btn-sm' href='#'>X</a></td></tr>";
 				
@@ -266,6 +268,7 @@
 				"</td><td style='text-align:center;'>" + $('#edit-edit-variant-sku').val() + 
 				"</td><td style='text-align:center;'>" + $('#edit-edit-beginning-stock').val() + 
 				"</td><td style='display:none'>"+ $('#edit-edit-alert-at').val() + 
+				"</td><td style='display:none'>"+ $('#edit-edit-add-alert-at').val() + 
 				"</td><td style='text-align:center;'><a class='btn-edit-edit-variant btn btn-info btn-sm' href='#'>Edit</a>|<a class='btn-add-remove-variant btn btn-danger btn-sm' href='#'>X</a></td></tr>";
 				
 				$("#tbody-variant").append(markup);
@@ -292,7 +295,8 @@
 				 var inventory = {
 						 id: $(this).parent().find('tr').eq(i++).attr('data-id-inv'),
 						 beginning :$(data).find('td').eq(3).text(),
-					     alertAtQty :$(data).find('td').eq(4).text()
+					     alertAtQty :$(data).find('td').eq(4).text(),
+					      endingtQty :$(data).find('td').eq(3).text()
 				 };
 				 //inventories.push(inventory);
 				  var variant={

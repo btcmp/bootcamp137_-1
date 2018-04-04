@@ -48,6 +48,7 @@
 			<th>SKU</th>
 			<th>Beginning Stock</th>
 			<th style="display: none;">alert Stock</th>
+			<th style="display: none;">ending Quantity</th>
 			<th style="display: none;">Outlet</th>
 			<th>#</th>
 		</thead>
@@ -256,6 +257,7 @@
 			<th>SKU</th>
 			<th>Beginning Stock</th>
 			<th style="display: none">alert Stock</th>
+			<th style="display: none;">ending Quantity</th>
 			<th style="display: none">id</th>
 			<th>#</th>
 		</thead>

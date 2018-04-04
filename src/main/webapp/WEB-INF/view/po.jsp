@@ -12,8 +12,8 @@
 				type:'GET',
 				contentType:'application/json',
 				success : function(data){
-					console.log(data);
-					console.log(data.supplierId.id);
+					//console.log(data);
+					//console.log(data.supplierId.id);
 					$("#input-notes").val(data.notes);
 					
 					$("#input-supplier").val(data.supplierId.id);
@@ -38,19 +38,49 @@
 					$('#input-po-id').val(po);
 					$('#input-po-no').val(poNo);
 					
+					/* looping pr-detail  */
 					$(data.prDetails).each(function(key, val){
+						//console.log(val.id);
 						var varId=val.variant.id;
 						var itemName=val.variant.item.name;
+						var itemId=val.variant.item.id;
 						var outIdItem=val.variant.item.outlet.id;
 						var qty=val.requestQty;
 						var price=val.variant.price;
 						var subTotal=qty*price;
 						total.push(subTotal);
+						var idInv=0;
+						$.ajax({
+								url:'${pageContext.request.contextPath}/pr/search-item/?search='+itemName,
+								type:'GET',
+								contentType:'application/json',
+								success : function(dataku){
+									var endQty=0;
+									$(dataku).each(function(k,v){
+										 if(val.variant.id=v.variant.id){
+											idInv=v.endingQty;
+											/* console.log(val.variant.name);
+											console.log(v.variant.name);
+											console.log(val.id); */
+											//console.log(idInv);
+											//console.log(v.id);
+											endQty=v.endingQty;
+											 $(".quantity").html(endQty);
+											 console.log(endQty);
+										 }
+										 else
+											 console("lewat")
+										
+									});
+									//console.log(idInv);
+								}
+						 });
+						console.log(idInv);
+						
    						 //if(outId==outIdItem){
 						 $('#tbody-edit-po').append(
 							'<tr id-var="'+val.variant.id+'" class="item"><td>'+val.variant.item.name+'-'+val.variant.name+
-							'</td><td>'+val.requestQty+ 
-							'</td><td>'+val.requestQty+
+							'</td><td class="quantity"></td><td>'+val.requestQty+
 							'</td><td>'+val.variant.price+ 
 							'</td><td>'+subTotal+'</td></tr>');
 						//}
@@ -126,7 +156,11 @@
 		
 		/* view detail-po */
 		$('.btn-view-po').on('click', function(){
-			window.location.assign("${pageContext.request.contextPath}/po/detail-po")
+			
+				var id = $(this).attr('id');
+				console.log(id);
+				window.location = '${pageContext.request.contextPath}/po/detail/'+ id;
+				console.log(data);
 		});
 		
 		
@@ -204,7 +238,7 @@
 				<td>${po.status}</td>
 				<td><center>
 					<a id="${po.prId.id }" class="btn-edit-po btn btn-info btn-sm" name="${po.id}" poNo="${po.poNo }" href="#">Edit</a>
-					<a id="btn-view-po" class="btn-view-po btn btn-info btn-sm" href="#">View</a></center>
+					<a id="${po.id}" class="btn-view-po btn btn-info btn-sm" href="#">View</a></center>
 				</td>
 			</tr>
 		</c:forEach>

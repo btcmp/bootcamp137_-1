@@ -25,8 +25,7 @@ public class PODetailDaoImpl implements PODetailDao {
 	public List<PurchaseOrderDetail> selectPODetailByPO(PurchaseOrder po) {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "from PurchaseOrderDetail pod where pod.purchaseOrder=:po_pod";
-		//List<PurchaseOrderDetail> prDetails = session.createCriteria(PurchaseOrderDetail.class).add(Restrictions.eq("pr.id", pr.getId())).list(); 
- 		List<PurchaseOrderDetail> prDetails = session.createQuery(hql).setParameter("po_pod", po).list();
+		List<PurchaseOrderDetail> prDetails = session.createQuery(hql).setParameter("po_pod", po).list();
 		if(prDetails.isEmpty()) {
  			return null;
  		}else {
