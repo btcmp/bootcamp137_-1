@@ -265,6 +265,16 @@ public class PRService {
 	public List<PurchaseRequest> getPRByGlobal(String global) {
 		return prDao.searchPRByGlobal(global);
 	}
+
+	public void submitted(long id) {
+		prDao.submitted(id);
+		PurchaseRequest pr = prDao.getOne(id);
+		PurchaseRequestHistory prh = new PurchaseRequestHistory();
+		prh.setCreatedOn(new Date());
+		prh.setPr(pr);
+		prh.setStatus(pr.getStatus());
+		prhDao.save(prh);
+	}
 	
 	
 }

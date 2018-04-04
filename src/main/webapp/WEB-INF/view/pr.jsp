@@ -502,9 +502,9 @@
 					<td>${pr.status }</td>
 					<td>
 						<script type="text/javascript">
-							var cek = '${pr.status }';
-							console.log(cek);
-							if(cek == "Approved"){
+							/* var cek = '${pr.status }';
+							console.log(cek); */
+							if('${pr.status }' === 'Approved'){
 								$('.update').prop('disabled', true);
 							}else{
 								$('.update').prop('disabled', false);

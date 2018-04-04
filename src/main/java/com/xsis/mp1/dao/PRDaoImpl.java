@@ -89,6 +89,12 @@ public class PRDaoImpl implements PRDao {
 		}
 		return prs.size();
 	}
+
+	public void submitted(long id) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update PurchaseRequest set status='Submitted' where id = :id";
+		session.createQuery(hql).setParameter("id", id).executeUpdate();
+	}
 	
 	
 }

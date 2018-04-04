@@ -95,6 +95,12 @@ public class PRController {
 		return prService.getPRByGlobal(global);
 	}
 	
+	@RequestMapping(value="/submitted/{id}", method=RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	public void submitted(@PathVariable long id) {
+		prService.submitted(id);
+	}
+	
 	@RequestMapping(value="/approve/{id}", method=RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	public void approve(@PathVariable long id) {

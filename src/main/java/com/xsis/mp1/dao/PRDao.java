@@ -26,4 +26,6 @@ public interface PRDao {
 
 	public int getRowsPR(int bln, int thn);
 
+	public void submitted(long id);
+
 }
