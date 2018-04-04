@@ -156,6 +156,42 @@
 			console.log(id);
 			window.location = '${pageContext.request.contextPath}/ts/detail/' + id;
 		});
+		
+		// Search by To Outlet
+		$('#src-outlet').change(function(){
+			var cari = $('#src-outlet').val();
+			console.log(cari);
+			if(status == 'All'){
+				window.location = '${pageContext.request.contextPath}/ts';
+			}else{
+				$.ajax({
+					type : 'GET',
+					url : '${pageContext.request.contextPath}/ts/src-outlet?search='+cari,
+					success : function(data){
+						$('#dt-table-ts').empty();
+						console.log(data);
+						$(data).each(function(key, val){
+							
+							var json_data = '/Date('+val.createdOn+')/';
+							var asAMoment = moment(json_data);
+							var tanggal = asAMoment.format('DD-MM-YYYY HH:mm:ss');
+							
+							$('#dt-table-ts').append('<tr><td>'+tanggal+'</td>'
+								+'<td>'+val.fromOutlet.name+'</td>'
+								+'<td>'+val.toOutlet.name+'</td>'
+								+'<td>'+val.status+'</td>'
+								+'<td><input type="button" class="update btn btn-success btn-sm" value="Edit" id="'+val.id+'" pr-status="'+val.status+'"> | '
+								+'<a href="${pageContext.request.contextPath}/ts/detail/'+val.id+'" class="view btn btn-success btn-sm" key-id="'+val.id+'">View</a></td>');
+						})
+						
+					},
+					error : function(){
+						$('#dt-table-ts').empty();
+						console.log('search failed');
+					}
+				});
+			}
+		});
 	});
 </script>
 
@@ -171,7 +207,7 @@
 	<div class="row">
 	  <div class="col-md-2">
 	  	<div class="form-group">
-		   <select name="role" id="insert-role" class="form-control">
+		   <select name="outlet" id="src-outlet" class="form-control">
 		   		<option selected disabled>To Outlet</option>
 				<c:forEach var="out" items="${outlets }">
 					<option value="${out.id }">${out.name }</option>
@@ -206,7 +242,7 @@
 			<th><center>Status</center></th>
 			<th><center>#</center></th>
 		</thead>
-		<tbody>
+		<tbody id="dt-table-ts">
 			<c:forEach items="${tss }" var="ts">
 				<tr>
 					<td>

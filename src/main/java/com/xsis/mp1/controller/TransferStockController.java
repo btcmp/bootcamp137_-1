@@ -56,6 +56,14 @@ public class TransferStockController {
 	public TransferStock getOne(@PathVariable long id) {
 		return tsService.getOne(id);
 	}
+	
+	/*@RequestMapping(value = "/approve/{id}", method = RequestMethod.PUT)
+	@ResponseStatus(HttpStatus.OK)
+	public void updateStatusAndStock(@RequestBody String newStatus, @PathVariable long id) {
+		TransferStock ts = tsService.getOne(id);
+		ts.setStatus(newStatus);
+		tsService.updateStock(ts);
+	}*/
 
 	@RequestMapping(value="/detail/{id}", method = RequestMethod.GET)
 	public String cari(@PathVariable long id, Model model) {
@@ -71,6 +79,12 @@ public class TransferStockController {
 		List<Inventory> inventories = inventoryService.searchInventoryByItemName(search);
 		System.out.println("search"+search);
 		return inventories;
+	}
+	
+	@RequestMapping(value = "/src-outlet", method = RequestMethod.GET)
+	@ResponseBody
+	public List<TransferStock> getByStatus(@RequestParam(value="search", defaultValue="") long cari){
+		return tsService.getTSByOutlet(cari);
 	}
 	
 	@RequestMapping(value="/approve/{id}", method=RequestMethod.GET)

@@ -36,4 +36,15 @@ public class TransferStockDetailDaoImpl implements TransferStockDetailDao {
  		}
 	}
 
+	public List<TransferStockDetail> getTfStockByTfStockId(long id) {
+		String hql = "from TransferStockDetail TSD where TSD.transfer.id = :idts";
+		Session session = sessionFactory.getCurrentSession();
+		List<TransferStockDetail> transferStockDetails = session.createQuery(hql).setParameter("idts", id).list();
+		if (transferStockDetails.isEmpty()) {
+			return null;
+		} else {
+			return transferStockDetails;
+		}
+	}
+
 }

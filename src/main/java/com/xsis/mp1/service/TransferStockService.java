@@ -95,33 +95,14 @@ public class TransferStockService {
 	}
 
 	public void approve(long id) {
-		tsDao.approve(id);
-		TransferStock ts = tsDao.getOne(id);
-		TransferStockHistory tsh = new TransferStockHistory();
-		tsh.setCreatedOn(new Date());
-		tsh.setTransfer(ts);;
-		tsh.setStatus(ts.getStatus());
-		tshDao.save(tsh);
-	}
-
-	public void reject(long id) {
-		tsDao.reject(id);
-		TransferStock ts = tsDao.getOne(id);
-		TransferStockHistory tsh = new TransferStockHistory();
-		tsh.setCreatedOn(new Date());
-		tsh.setTransfer(ts);;
-		tsh.setStatus(ts.getStatus());
-		tshDao.save(tsh);
-	}
-
-	public void updateStockInventory(long id) {
-		tsDao.approve(id);
 		
-		TransferStock ts = new TransferStock();
+		TransferStock tstok = tsDao.getOne(id);
 		
-		long idToOutlet = ts.getToOutlet().getId();
-		long idFromOutlet = ts.getFromOutlet().getId();
-		List<TransferStockDetail> TSD = tsDao.getTfStockByTfStockId(ts.getId());
+		//TransferStock tstok = new TransferStock();
+		
+		long idToOutlet = tstok.getToOutlet().getId();
+		long idFromOutlet = tstok.getFromOutlet().getId();
+		List<TransferStockDetail> TSD = tsdDao.getTfStockByTfStockId(tstok.getId());
 		for(TransferStockDetail TSDetail : TSD) {
 			long variantId = TSDetail.getVariant().getId();
 			Inventory invent = inventoryDao.searchInventoryByVarAndOutlet(variantId, idFromOutlet);
@@ -137,7 +118,7 @@ public class TransferStockService {
 				ivNew.setBeginning(TSDetail.getTransferQty());
 				ivNew.setEndingQty(TSDetail.getTransferQty());
 				ivNew.setVariant(TSDetail.getVariant());
-				ivNew.setOutlet(ts.getToOutlet());
+				ivNew.setOutlet(tstok.getToOutlet());
 				ivNew.setCreatedBy(0);
 				ivNew.setModifiedBy(0);
 				ivNew.setPurchaseQty(0);
@@ -146,6 +127,37 @@ public class TransferStockService {
 				inventoryDao.save(ivNew);
 			}
 		}
+		tsDao.approve(id);
+		//TransferStock ts = tsDao.getOne(id);
+		TransferStockHistory tsh = new TransferStockHistory();
+		tsh.setCreatedOn(new Date());
+		tsh.setTransfer(tstok);
+		tsh.setStatus(tstok.getStatus());
+		tshDao.save(tsh);
+	}
+
+	public void reject(long id) {
+		tsDao.reject(id);
+		TransferStock ts = tsDao.getOne(id);
+		TransferStockHistory tsh = new TransferStockHistory();
+		tsh.setCreatedOn(new Date());
+		tsh.setTransfer(ts);
+		tsh.setStatus(ts.getStatus());
+		tshDao.save(tsh);
+	}
+
+	public void updateStockInventory(long id) {
+		tsDao.approve(id);
+		
+		
+	}
+
+	public void updateStock(TransferStock ts) {
+		
+	}
+
+	public List<TransferStock> getTSByOutlet(long cari) {
+		return tsDao.searchTSByOutlet(cari);
 	}
 	
 }

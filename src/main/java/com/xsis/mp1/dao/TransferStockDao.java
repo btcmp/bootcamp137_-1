@@ -19,4 +19,6 @@ public interface TransferStockDao {
 
 	List<TransferStockDetail> getTfStockByTfStockId(long id);
 
+	List<TransferStock> searchTSByOutlet(long cari);
+
 }

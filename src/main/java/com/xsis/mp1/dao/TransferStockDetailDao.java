@@ -11,4 +11,6 @@ public interface TransferStockDetailDao {
 
 	List<TransferStockDetail> selectTsDetailByTS(TransferStock ts);
 
+	List<TransferStockDetail> getTfStockByTfStockId(long id);
+
 }
