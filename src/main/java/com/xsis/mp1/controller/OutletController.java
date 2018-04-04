@@ -107,4 +107,5 @@ public class OutletController {
 	public List<Outlet> getAll(){
 		return outletService.selectAll(); 
 	}
+	
 }

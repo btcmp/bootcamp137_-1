@@ -18,6 +18,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Email;
+
 
 @Entity
 @Table(name="pos_mst_outlet")
@@ -25,7 +27,6 @@ public class Outlet {
 	
 	public Outlet() {
 		this.createdOn = new Date();
-		this.modifiedOn = new Date(); 
 	}
 	
 	@Id
@@ -43,6 +44,7 @@ public class Outlet {
 	@Column(length=16)
 	private String phone;
 	
+	@Email
 	@Column(length=50)
 	private String email; 
 	

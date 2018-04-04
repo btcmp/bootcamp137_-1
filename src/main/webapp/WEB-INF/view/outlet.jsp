@@ -16,8 +16,14 @@
 			$('#modal-create-outlet').modal();
 		});
 
+		//button-export
+		$('#btn-export').click(function() {
+			alert('yuhuu');
+		})
 		//btn save  
-		$('#btn-save').on('click',
+		$('#btn-save')
+				.on(
+						'click',
 						function(evt) {
 							evt.preventDefault();
 							var form = $('#target');
@@ -36,48 +42,64 @@
 								},
 								district : {
 									id : $('#input-district').val()
-								}
+								},
+								createdOn : new Date(),
+								modifiedOn : new Date()
 							}
 
 							if (valid == true) {
-								 $.ajax({
-										url : '${pageContext.request.contextPath}/outlet/get-all', 
-										type :'GET', 
-										success : function (data){
-												var sameEmail = 0; 
-												$(data).each(function(index, data2){
-													if ( outlet.email.toLowerCase() == data2.email.toLowerCase()){
-														sameEmail ++ ; 
-													} 
-												}); 
-												 if ( sameEmail > 0){
-													alert ('This email has been used'); 
+								$
+										.ajax({
+											url : '${pageContext.request.contextPath}/outlet/get-all',
+											type : 'GET',
+											success : function(data) {
+												var sameEmail = 0;
+												var sameName = 0;
+												$(data)
+														.each(
+																function(index,
+																		data2) {
+																	if (outlet.email
+																			.toLowerCase() == data2.email
+																			.toLowerCase()) {
+																		sameEmail++;
+																	} else if (outlet.name
+																			.toLowerCase() == data2.name
+																			.toLowerCase()) {
+																		sameName++;
+																	}
+																});
+												if (sameEmail > 0) {
+													alert('This email has been used');
+												} else if (sameName > 0) {
+													alert('This name has been used');
+												} else {
+													$
+															.ajax({
+																url : '${pageContext.request.contextPath}/outlet/save',
+																type : 'POST',
+																contentType : 'application/json',
+																data : JSON
+																		.stringify(outlet),
+																success : function(
+																		data) {
+																	window.location = "${pageContext.request.contextPath}/outlet"
+																},
+																error : function() {
+																	alert('save failed');
+																}
+															});
 												}
-												else {
-													$.ajax({
-														url : '${pageContext.request.contextPath}/outlet/save',
-														type : 'POST',
-														contentType : 'application/json',
-														data : JSON.stringify(outlet),
-														success : function(data) {
-														window.location = "${pageContext.request.contextPath}/outlet"
-														},
-														error : function() {
-																alert('save failed');
-														}
-													});
-												}
-						}, 
-						error : function (){
-							alert ('failed'); 
-						} 
-								 }); 
-							} 
-								 else {
-							alert ('Complete your form '); 		
-										}
+											},
+											error : function() {
+												alert('failed');
+											}
+										});
+							} else {
+								alert('Complete your form ');
+							}
 						});
-		
+
 		$('.btn-edit')
 				.on(
 						'click',
@@ -115,7 +137,7 @@
 		}
 
 		//execute btn update 
-		$('.btn-save-outlet')
+		$('.btn-update-outlet')
 				.on(
 						'click',
 						function(evt) {
@@ -137,23 +159,10 @@
 								},
 								district : {
 									id : $('#edit-district').val()
-								}
+								},
+								modifiedOn : new Date()
 							}
 							if (valid == true) {
-								 $.ajax({
-										url : '${pageContext.request.contextPath}/outlet/get-all', 
-										type :'GET', 
-										success : function (data){
-												var sameEmail = 0; 
-												$(data).each(function(index, data2){
-													if ( outlet.email.toLowerCase() == data2.email.toLowerCase()){
-														sameEmail ++ ; 
-													} 
-												}); 
-												 if ( sameEmail > 0){
-													alert ('This email has been used'); 
-												}
-												else {
 								$
 										.ajax({
 											url : '${pageContext.request.contextPath}/outlet/update',
@@ -169,15 +178,10 @@
 											}
 										});
 							}
-										}, 
-										error : function (){
-											alert ('failed'); 
-										} 
-												 }); 
-											} 
-												 else {
-											alert ('Complete your form '); 		
-														}
+
+							else {
+								alert('Your form not valid ');
+							}
 						});
 		$('#input-province')
 				.change(
@@ -318,7 +322,7 @@
 						'click',
 						function() {
 							var word = $('#search').val();
-							window.location = '${pageContext.request.contextPath}/outlet/search?search='
+window.location = '${pageContext.request.contextPath}/outlet/search?search='
 									+ word;
 						});
 	});
@@ -337,8 +341,8 @@
 <div id="save-form" style="margin-top: 20px; margin-bottom: 20px;">
 	<form action="#">
 		<div id="search-box" style="margin-top: 20px; margin-botton: 20px">
-			<span><input type="text" id="search" placeholder="search" /></span> <span><a
-				id="btn-search" href="#" class="btn btn-primary">Search</a></span>
+			<span><input type="text" id="search" placeholder="search" /></span>
+			<span><a id="btn-search" href="#" class="btn btn-primary">Search</a></span>
 			<button type="button" id="btn-create" class="btn btn-primary"
 				style="float: right; margin-right: 0px; width: 150px;">Create</button>
 			<button type="button" id="btn-export" class="btn btn-primary"
