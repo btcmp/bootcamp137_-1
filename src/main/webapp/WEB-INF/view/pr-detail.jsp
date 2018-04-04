@@ -74,6 +74,7 @@
 						+'<option value="create-po">Create PO</option>');
 			}
 		</script>
+		
 		</select>
 	</div>
 </div>
