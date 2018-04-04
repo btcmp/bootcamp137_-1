@@ -10,15 +10,16 @@
 		var addQty = [];
 		var quantity;
 		
-		$('#sod-tabel').DataTable({
+		/* $('#sod-tabel').DataTable({
 			paging : true, 
 			searching : false,
-		});
+		}); */
+		
 		
 		$('#cust-tabel').DataTable({
+			searching : false,
 			paging : true, 
-			searching : false, 
-			ordering : false
+			ordering : false,
 		}); 
 		/* Memunculkan modal */
 		//button-choose cust 
@@ -30,7 +31,10 @@
 		$('#btn-create-cust').click(function() {
 			$('#modal-create-cust').modal();
 		});
-
+		
+		$('#btn-print-pdf').click(function(){
+			window.location = '${pageContext.request.contextPath}/generate/sales-order'; 
+		})
 		/* Button Charge  */
 		$('#btn-charge').click(function() {
 			if ($('.btn-choosecust').attr('id')=="empty") {
@@ -45,6 +49,10 @@
 			$('#modal-done-order').modal();
 		});
 		
+		$('#input-cust-dob').datepicker({
+			dateFormat : 'yy-mm-dd',
+			maxDate : 0 
+		})
 		/* -----------------------------------BTN CUSTOMER-------------------------------------- */
 		/* Eksekusi btn add customer */
 		//btn save
@@ -135,7 +143,7 @@
 
 		/* Mengisi Table Customer Setelah di Search */
 		function isiTableSearchCustomer(data) {
-			var oTable = $('#cust-tabel');
+			var oTable = $('#cust-tbody');
 			var rawData = "";
 			$
 					.each(
@@ -160,10 +168,10 @@
 
 							});
 
-			var tbody = oTable.find("tbody");
-			tbody.empty();
-			tbody.append(rawData);
-			console.log(tbody);
+			//var tbody = oTable.find("tbody");
+			oTable.empty();
+			oTable.append(rawData);
+			//console.log(tbody);
 		}
 
 		/* Mengeksekusi Btn Pilih Customer  */

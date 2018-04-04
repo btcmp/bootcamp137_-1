@@ -34,7 +34,7 @@
 					</div>
 				</div>
 				<table id="cust-tabel"
-					class="table table-sm table-striped table-bordered" width="100%"
+					class="table-sm table-striped table-bordered" width="100%"
 					cellspacing="0">
 					<thead class="thead-dark" >
 						<th><center>Name</center></th>
@@ -42,7 +42,7 @@
 						<th><center>Email</center></th>
 						<th><center>Action</center><th>
 					</thead>
-					<tbody>
+					<tbody id="cust-tbody">
 						
 					</tbody>
 				</table>

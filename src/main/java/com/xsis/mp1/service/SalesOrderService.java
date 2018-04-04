@@ -34,4 +34,9 @@ public class SalesOrderService {
 		}
 	}
 
+	public List<SalesOrder> selectAll() {
+		// TODO Auto-generated method stub
+		return salesOrderDao.selectAll();
+	}
+
 }

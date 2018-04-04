@@ -18,7 +18,7 @@
 
 		//button-export
 		$('#btn-export').click(function() {
-			alert('yuhuu');
+			window.location='${pageContext.request.contextPath}/generate/outlet'; 
 		})
 		//btn save  
 		$('#btn-save')

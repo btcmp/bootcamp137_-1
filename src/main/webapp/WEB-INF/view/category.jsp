@@ -18,7 +18,7 @@
 		
 		//button export 
 		$('#btn-export').click(function(){
-			alert ('yeay'); 
+			window.location = '${pageContext.request.contextPath}/generate/category'; 
 		}); 
 		//untuk ngesave 
 		$('#btn-save-cat')
