@@ -27,7 +27,6 @@ public class Supplier {
 	
 	public Supplier() {
 		this.createdOn = new Date();
-		this.modifiedOn = new Date();
 	}
 	
 	@Id

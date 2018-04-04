@@ -24,7 +24,7 @@
 					<div class="form-group" >
 						<input type="text" data-parsley-required="true"
 							class="form-control" id="edit-address" aria-describedby="emailHelp"
-							placeholder="Address">
+							placeholder="Address" pattern="^[0-9a-zA-Z. ]+$">
 							<p style = "color : red;"><small>*Required</small></p>
 					</div>	
 					<div class="form-group">

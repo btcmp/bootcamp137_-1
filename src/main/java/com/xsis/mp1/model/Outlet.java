@@ -35,6 +35,7 @@ public class Outlet {
 	@SequenceGenerator(initialValue = 2121, name = "idtout", sequenceName = "idtout")
 	private long id;
 	
+	@NotNull
 	@Column(nullable= false, length = 50 )
 	private String name; 
 	 

@@ -17,14 +17,15 @@
 					<div class="form-group">
 						<input data-parsley-required="true" type="text"
 							class="form-control" id="input-supp-name"
-							placeholder="Supplier Name">
+							placeholder="Supplier Name" pattern="^[0-9a-zA-Z. ]+$">
 						<p style="color: red;">
-							<small>*Letters only(A-Z) </small>
+							<small>*Letters only</small>
 						</p>
 					</div>
 					<div class="form-group">
 						<input data-parsley-required="true" type="text"
-							class="form-control" id="input-address" placeholder="Address">
+							class="form-control" id="input-address" placeholder="Address"
+							pattern="^[0-9a-zA-Z. ]+$">
 						<p style="color: red;">
 							<small>*Required</small>
 						</p>
@@ -66,7 +67,7 @@
 							<div class="col-sm-4">
 								<input data-parsley-required="true" type="text"
 									class="form-control" id="input-postal-code"
-									placeholder="Postal Code" pattern="[0-9]+">
+									placeholder="Postal Code" pattern="([0-9]){5,6}$">
 								<p style="color: red;">
 									<small> *number only , max length = 6 </small>
 								</p>
@@ -74,7 +75,7 @@
 							<div class="col-sm-4">
 								<input data-parsley-required="true" type="text"
 									class="form-control" id="input-phone" placeholder="Phone"
-									pattern="^\d{12}$">
+									pattern="^\d{10,12}$">
 								<p style="color: red;">
 									<small> *number only, ex : 087651234567 </small>
 								</p>

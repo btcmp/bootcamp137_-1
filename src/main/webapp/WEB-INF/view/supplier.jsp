@@ -15,7 +15,12 @@
 		$('#btn-create').click(function() {
 			$('#modal-create-supp').modal();
 		});
-
+		
+		//button export 
+		$('#btn-export').click(function(){
+			window.location = '${pageContext.request.contextPath}/generate/supplier'; 
+		})
+		
 		//btn save 
 		$('#btn-save')
 				.on(
@@ -38,7 +43,8 @@
 								},
 								district : {
 									id : $('#input-district').val()
-								}
+								}, 
+								modifiedOn : new Date(), 
 							}
 							
 							  if (valid == true){
@@ -47,13 +53,18 @@
 										type :'GET', 
 										success : function (data){
 												var sameEmail = 0; 
+												var sameName = 0; 
 												$(data).each(function(index, data2){
 													if ( supplier.email.toLowerCase() == data2.email.toLowerCase()){
 														sameEmail ++ ; 
-													} 
+													} else if (supplier.name.toLowerCase() == data2.name.toLowerCase()){
+														sameName ++ ; 
+													}
 												}); 
 												 if ( sameEmail > 0){
 													alert ('This email has been used'); 
+												} else if (sameName > 0){
+													alert ('This name has been used'); 
 												}
 												else {
 												$.ajax({
@@ -78,7 +89,7 @@
 									 }); 
 								} 
 								else {
-									alert ('Complete your form '); 
+									alert ('your form is not valid '); 
 								} 
 						});
 
@@ -138,43 +149,23 @@
 								},
 								district : {
 									id : $('#edit-district').val()
-								}
+								}, 
+								modifiedOn: new Date(), 
 							}
 							if (valid == true){
-								 $.ajax({
-										url : '${pageContext.request.contextPath}/supplier/get-all', 
-										type :'GET', 
-										success : function (data){
-												var sameEmail = 0; 
-												$(data).each(function(index, data2){
-													if ( supplier.email.toLowerCase() == data2.email.toLowerCase()){
-														sameEmail ++ ; 
-													} 
-												}); 
-												 if ( sameEmail > 0){
-													alert ('This email has been used'); 
-												}
-												else {
-														$
-														.ajax({
-															url : '${pageContext.request.contextPath}/supplier/update',
-															type : 'PUT',
-															data : JSON.stringify(supplier),
-															contentType : 'application/json',
-															success : function(data) {
-															window.location = '${pageContext.request.contextPath}/supplier';
-																},
-															error : function() {
-															alert('update failed');
-																}
-														});
-												}  
-										}, 
-										error : function (){
-											alert ('failed'); 
-										}
-									 }); 
-								} 
+									$.ajax({
+										url : '${pageContext.request.contextPath}/supplier/update',
+										type : 'PUT',
+										data : JSON.stringify(supplier),
+										contentType : 'application/json',
+										success : function(data) {
+													window.location = '${pageContext.request.contextPath}/supplier';
+													},
+										error : function() {
+													alert('update failed');
+													}
+										})
+							}
 								else {
 									alert ('Complete your form '); 
 								} 
