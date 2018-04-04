@@ -152,7 +152,18 @@
 		<c:forEach items="${pr.prDetails }" var ="prd">
 			<tr>
 				<td>${prd.variant.item.name }-${prd.variant.name }</td>
-				<td></td>
+				<td id="td${prd.id}">
+					<script type="text/javascript">
+					$.ajax({
+						type : 'GET',
+						url : '${pageContext.request.contextPath}/pr/get-inventory?idPr='+${pr.id}+'&idPrd='+${prd.id},
+						dataType: 'json',
+						success : function(inventory){
+							$('#td${prd.id}').append(inventory[0]);
+						}
+					});
+					</script>
+				</td>
 				<td>${prd.requestQty }</td>
 			</tr>
 		</c:forEach>

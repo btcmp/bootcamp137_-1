@@ -60,9 +60,6 @@
 
 				var usr;
 				if ($('#cb-have-account').is(":checked")) {
-					/* $('#insert-username').parsley({required : true});
-					$('#insert-pass').parsley({required : true});
-					$('#insert-role').parsley({required : true}); */
 					var haveAkun = 1;
 					usr = {
 						id : $('#insert-user-id').val(),
@@ -86,22 +83,47 @@
 					active : 0
 				};
 				console.log(employee);
-
+				
+				var emailExist = '';
+				
 				if (valid == true){
+					var emailnya = $('#insert-email').val();
 					$.ajax({
-						type : 'POST',
-						url : '${pageContext.request.contextPath}/employee/save',
-						data : JSON.stringify(employee),
-						contentType : 'application/json',
-						success : function() {
-							window.location = '${pageContext.request.contextPath}/employee';
+						url : '${pageContext.request.contextPath}/mst/employee/get-all',
+						type : 'GET',
+						success : function(data) {
+							var sameEmail = 0;
+							var sameName = 0;
+							$(data).each(function(index, data2) {
+								if (employee.email.toLowerCase() == data2.email.toLowerCase() && emailnya != emailExist) {
+									sameEmail++;
+								}
+							});
+							
+							if (sameEmail > 0) {
+								alert('This email has been used');
+							} else {$.ajax({
+									type : 'POST',
+									url : '${pageContext.request.contextPath}/mst/employee/save',
+									data : JSON.stringify(employee),
+									contentType : 'application/json',
+									success : function() {
+										window.location = '${pageContext.request.contextPath}/mst/employee';
+									},
+									error : function() {
+										alert('save failed');
+									}
+	
+								}); 
+							}
 						},
 						error : function() {
-							alert('save failed');
+							alert('failed');
 						}
-
-					}); 
-				 }
+					});
+				} else {
+					alert('Complete your form ');
+				}
 			});
 
 			//edit
@@ -112,7 +134,7 @@
 
 				//ajax ambil data
 				$.ajax({
-					url : '${pageContext.request.contextPath}/employee/get-one/'+ id,
+					url : '${pageContext.request.contextPath}/mst/employee/get-one/'+ id,
 					type : 'GET',
 					dataType : 'json',
 					success : function(emp) {
@@ -126,7 +148,7 @@
 							$('#insert-pass').val(emp.user.password);
 							$('#insert-role').val(emp.user.role.id);
 							$('#row-user').fadeIn('fast');
-						}else if(emp.haveAccount == 0 && emp.user.active == 0){
+						}else if(emp.haveAccount == 0 && emp.user.active == 1){
 							$('input[name="cb-have-account"]').prop('checked', false);
 							$('#insert-user-id').val(emp.user.id);
 							$('#insert-username').val(emp.user.username);
@@ -171,7 +193,7 @@
 
 				//ajax ambil data
 				$.ajax({
-					url : '${pageContext.request.contextPath}/employee/get-one/'+ id,
+					url : '${pageContext.request.contextPath}/mst/employee/get-one/'+ id,
 					type : 'GET',
 					dataType : 'json',
 					success : function(emp) {
@@ -199,12 +221,12 @@
 				};
 
 				$.ajax({
-					url : '${pageContext.request.contextPath}/employee/update-status',
+					url : '${pageContext.request.contextPath}/mst/employee/update-status',
 					type : 'PUT',
 					data : JSON.stringify(emp),
 					contentType : 'application/json',
 					success : function(data) {
-						window.location = '${pageContext.request.contextPath}/employee';
+						window.location = '${pageContext.request.contextPath}/mst/employee';
 					},
 					error : function() {
 						alert('update failed');
@@ -359,9 +381,9 @@
 						</ol></td>
 					<td>
 						<script>
-							if("${emp.haveAccount}" === "true" && "${emp.user.active}" === "false"){
+							if("${emp.haveAccount}" === "true" && "${emp.user.active}" === "true"){
 									document.write("${emp.user.role.name }");
-								}else if("${emp.haveAccount}" === "false" && "${emp.user.active}" === "false"){
+								}else if("${emp.haveAccount}" === "false" && "${emp.user.active}" === "true"){
 									document.write('<FONT COLOR="red">');
 									document.write(' User Not Active ');
 									document.write('</FONT>');

@@ -60,6 +60,12 @@ public class EmployeeController {
 		return employeeService.getOne(id);
 	}
 	
+	@RequestMapping(value="/get-all", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Employee> getAll(){
+		return employeeService.selectAll(); 
+	}
+	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.OK)
 	public void delete(@PathVariable long id) {

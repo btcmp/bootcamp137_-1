@@ -92,6 +92,7 @@ public class EmployeeService {
 			user.setRole(employee.getUser().getRole());
 			user.setUsername(employee.getUser().getUsername());
 			user.setPassword(employee.getUser().getPassword());
+			user.setActive(true);
 			userDao.saveOrUpdate(user);
 		}
 	}
