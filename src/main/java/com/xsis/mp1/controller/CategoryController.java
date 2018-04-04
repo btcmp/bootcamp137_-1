@@ -75,4 +75,10 @@ public class CategoryController {
 	public void delete(@PathVariable long id) {
 		categoryService.delete(id); 
 	}
+	
+	@RequestMapping(value="/get-all", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Category> getAll(){
+		return categoryService.selectAll(); 
+	}
 }

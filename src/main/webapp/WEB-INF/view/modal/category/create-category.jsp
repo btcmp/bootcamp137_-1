@@ -16,9 +16,13 @@
 				<div class="modal-body">
 					<input type="hidden" id="input-id" name="input-id" />
 					<div class="form-group">
-						<input type="text" data-parsley-required="true" class="form-control" id="input-category-name"
-							aria-describedby="emailHelp" placeholder="Category Name">
-							<p style = "color : red;"><small>*Required</small></p>
+						<input type="text" data-parsley-required="true"
+							class="form-control" id="input-category-name"
+							aria-describedby="emailHelp" placeholder="Category Name"
+							pattern="([A-z0-9\s]){2,50}$">
+						<p style="color: red;">
+							<small>*Required</small>
+						</p>
 					</div>
 				</div>
 				<div class="modal-footer">

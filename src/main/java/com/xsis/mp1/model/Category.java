@@ -22,12 +22,18 @@ import javax.validation.constraints.NotNull;
 @Table(name="pos_mst_category")
 public class Category {
 	
+	public Category() {
+		this.createdOn=new Date();
+	}
+
+	
 	@Id
 	@NotNull
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "idcat")
 	@SequenceGenerator(initialValue = 181818, name = "idcat", sequenceName = "idcat")
 	private long id; 
 	
+	@NotNull
 	@Column(nullable=false, length=50)
 	private String name; 
 	
@@ -64,10 +70,6 @@ public class Category {
 		this.itemStock = itemStock;
 	}
 
-	public Category() {
-		this.createdOn=new Date();
-		this.modifiedOn=new Date();
-	}
 
 	public long getId() {
 		return id;
