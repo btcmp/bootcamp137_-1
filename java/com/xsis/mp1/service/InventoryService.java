@@ -74,6 +74,7 @@ public class InventoryService {
 		return inventoryDao.getOneInvetory(id);
 	}
 
+	
 	public List<Object[]> searchInventoryByItemAndVariantName(String search) {
 		// TODO Auto-generated method stub
 		return inventoryDao.searchInventoryByItemAndVariantName(search);

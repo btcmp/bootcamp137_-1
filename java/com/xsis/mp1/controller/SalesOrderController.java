@@ -76,6 +76,7 @@ public class SalesOrderController {
 		System.out.println("qty :" + salesOrder.getSalesOrderDetails().get(0).getQty());
 	}
 	
+	
 	@RequestMapping(value="/get-region", method=RequestMethod.GET)
 	@ResponseBody
 	public List<Region> getRegion(Model model, @RequestParam(value="id", defaultValue="") long id){

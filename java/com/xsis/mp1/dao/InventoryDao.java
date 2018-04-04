@@ -22,6 +22,7 @@ public interface InventoryDao {
 	// update
 	public void update(Inventory inventory);
 
+	
 	// delete
 	public void delete(Inventory inventory);
  

@@ -26,10 +26,11 @@ public class SalesOrderService {
 	public void save(SalesOrder salesOrder) {
 		// TODO Auto-generated method stub
 		
+		
 		salesOrderDao.save(salesOrder);  
 		List<SalesOrderDetail> sodetails = salesOrder.getSalesOrderDetails(); 
 		for(SalesOrderDetail salesOrderDetail : sodetails) {
-		Inventory inventory = inventoryDao.getVariant(salesOrderDetail.getVariant().getId());
+			Inventory inventory = inventoryDao.getVariant(salesOrderDetail.getVariant().getId());
 			inventory.setEndingQty(inventory.getEndingQty()-salesOrderDetail.getQty());
 			inventory.setSalesOrderQty(salesOrderDetail.getQty());
 			inventoryDao.update(inventory);

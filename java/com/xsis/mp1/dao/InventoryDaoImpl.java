@@ -128,6 +128,7 @@ public class InventoryDaoImpl implements InventoryDao {
 			return inv;
 		}
 		
+		
 	}
 	
 	public List<Object[]> searchInventoryByItemAndVariantName(String search) {
