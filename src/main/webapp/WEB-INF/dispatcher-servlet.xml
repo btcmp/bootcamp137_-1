@@ -25,6 +25,7 @@
 		<property name="basename" value="views"></property>
 	</bean>
 	
+	
 	<!-- untuk mengaktifkan spring mvc -->
 	<mvc:annotation-driven />
 	<!-- untuk membuat path resources/assets -->
