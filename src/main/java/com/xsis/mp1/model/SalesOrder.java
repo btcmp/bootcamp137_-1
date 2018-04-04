@@ -72,7 +72,7 @@ public class SalesOrder {
 		this.id = id;
 	}
 
-	public double getGrandTotal() {
+	public float getGrandTotal() {
 		return grandTotal;
 	}
 

@@ -473,6 +473,18 @@
 										success : function() {
 											/* window.location = "${pageContext.request.contextPath}/sales-order"; */
 											/* alert('sukses');  */
+											$.ajax({
+												url : '${pageContext.request.contextPath}/sales-order/update-stock', 
+												type : 'PUT', 
+												data : JSON.stringify(salesOrder),
+												contentType : 'application/json', 
+												success : function(){
+													 
+												}, 
+												error : function(){
+													alert ('update stock failed'); 
+												}
+											})
 										},
 										error : function() {
 											alert('gagal save');

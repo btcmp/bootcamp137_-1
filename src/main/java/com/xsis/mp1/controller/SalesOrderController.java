@@ -75,6 +75,12 @@ public class SalesOrderController {
 		salesOrderService.save(salesOrder); 
 	}
 	
+	@RequestMapping(value="/update-stock", method=RequestMethod.PUT)
+	@ResponseStatus(HttpStatus.OK)
+	public void updateStock (@RequestBody SalesOrder salesOrder) {
+		salesOrderService.updateStock(salesOrder); 
+	}
+	
 	@RequestMapping(value="/get-region", method=RequestMethod.GET)
 	@ResponseBody
 	public List<Region> getRegion(Model model, @RequestParam(value="id", defaultValue="") long id){

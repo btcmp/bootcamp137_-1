@@ -18,6 +18,10 @@ import javax.validation.constraints.NotNull;
 @Table(name="pos_t_so_detail" )
 public class SalesOrderDetail {
 	
+	public SalesOrderDetail() {
+		this.createdOn = new Date(); 
+		this.modifiedOn = new Date(); 
+	}
 	@Id
 	@NotNull
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "idtsod")
@@ -27,6 +31,7 @@ public class SalesOrderDetail {
 	@Column(nullable = false)
 	private int qty; 
 	
+	@NotNull
 	@Column(name="unit_price", nullable = false)
 	private float unitPrice;
 	
