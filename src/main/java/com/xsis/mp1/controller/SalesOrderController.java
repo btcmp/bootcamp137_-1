@@ -111,7 +111,7 @@ public class SalesOrderController {
 	@RequestMapping(value="/search-cust", method=RequestMethod.GET)
 	@ResponseBody
 	public List<Customer> getCustomerByName(@RequestParam (value="customer", defaultValue="") String name) {
-		System.out.println("search =" + name);
+		//System.out.println("search =" + name);
 		List<Customer> customers = customerService.getCustomerByName(name); 
 		return customers; 
 	}
@@ -124,17 +124,11 @@ public class SalesOrderController {
 		return variants; 
 	}
 	
-	/*@RequestMapping (value= "/get-item/{id}", method = RequestMethod.GET)
-	@ResponseBody
-	public Variant getOneItem(@PathVariable long id) {
-		return variantService.getOneItem(id); 
-	}*/
-	
 	@RequestMapping(value="/search-item", method=RequestMethod.GET)
 	@ResponseBody
-	public List<Inventory> getInventoryByItemName(@RequestParam(value="inventory", defaultValue="")String search){
-		System.out.println("search = " + search);
-		List<Inventory> inventories = inventoryService.searchInventoryByItemName(search); 
+	public List<Object[]> getInventoryByItemAndVariantName(@RequestParam(value="inventory", defaultValue="")String search){
+		//System.out.println("search = " + search);
+		List<Object[]> inventories = inventoryService.searchInventoryByItemAndVariantName(search); 
 		return inventories; 
 	}
 	
