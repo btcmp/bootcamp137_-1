@@ -1,24 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<c:url value="/j_spring_security_logout" var="logoutUrl" />
-<spring:url value="/resources/adminLTE" var="url"></spring:url>
-<spring:url value="/resources/js/jquery-3.3.1.js" var="jq"></spring:url>
-<spring:url value="/resources/js/parsley.js" var="parsley"></spring:url>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>AdminLTE 2 | Log in</title>
-<!-- Tell the browser to be responsive to screen width -->
-<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-<meta name="_csrf" content="${_csrf.token}"/>
-	<!-- default header name is X-CSRF-TOKEN -->
-	<meta name="_csrf_header" content="${_csrf.headerName}"/>
-	<!-- ... -->
-<title>Login</title>
+<%@ include file="/WEB-INF/view/template/master-header.jsp"%>
+
 </head><!-- comment -->
 <body class="hold-transition login-page">
 	

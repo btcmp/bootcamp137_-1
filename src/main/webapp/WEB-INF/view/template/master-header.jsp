@@ -11,6 +11,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>P O S | Kelompok 1</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta
