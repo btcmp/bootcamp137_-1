@@ -21,5 +21,7 @@ public interface PODao {
 
 	public void update(PurchaseOrder po);
 
+	public int getRowsPR(int bln, int thn);
+
 }
  

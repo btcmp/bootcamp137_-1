@@ -11,10 +11,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.xsis.mp1.dao.InventoryDao;
+import com.xsis.mp1.dao.PODao;
+import com.xsis.mp1.dao.PODetailDao;
+import com.xsis.mp1.dao.POHistoryDao;
 import com.xsis.mp1.dao.PRDao;
 import com.xsis.mp1.dao.PRDetailDao;
 import com.xsis.mp1.dao.PRHistoryDao;
 import com.xsis.mp1.model.PurchaseOrder;
+import com.xsis.mp1.model.PurchaseOrderDetail;
+import com.xsis.mp1.model.PurchaseOrderHistory;
 import com.xsis.mp1.model.PurchaseRequest;
 import com.xsis.mp1.model.PurchaseRequestDetail;
 import com.xsis.mp1.model.PurchaseRequestHistory;
@@ -31,6 +36,15 @@ public class PRService {
 	
 	@Autowired
 	PRDetailDao prdDao;
+	
+	@Autowired
+	PODao poDao;
+	
+	@Autowired
+	PODetailDao podDao;
+	
+	@Autowired
+	POHistoryDao pohDao;
 	
 	@Autowired
 	InventoryDao invDao;
@@ -173,16 +187,69 @@ public class PRService {
 	}
 
 	public void createPo(long id) {
-		
-		
-		
 		prDao.createPo(id);
 		PurchaseRequest pr = prDao.getOne(id);
+		
+		List<PurchaseRequestDetail> prds = prdDao.selectPrDetailByPr(pr);
+		
+		if(prds.isEmpty()) {
+			
+		}else {
+			pr.setPrDetails(prds);
+		}
+		
 		PurchaseRequestHistory prh = new PurchaseRequestHistory();
 		prh.setCreatedOn(new Date());
 		prh.setPr(pr);
 		prh.setStatus(pr.getStatus());
 		prhDao.save(prh);
+		
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+		Date date = new Date();
+		String tgl = dateFormat.format(date);
+		
+		Calendar cal = Calendar.getInstance();
+		int thn = cal.get(Calendar.YEAR);
+		int bln = cal.get(Calendar.MONTH)+1;
+		int no = poDao.getRowsPR(bln, thn)+1;
+		String nomor;
+		
+		if(no < 10) {
+			nomor = "00"+no;
+		} else if(no < 100) {
+			nomor = "0"+no;
+		} else {
+			nomor = Integer.toString(no);
+		}
+		
+		String poNo = "PO/"+"KEL1/"+tgl+"/"+nomor;
+		
+		PurchaseOrder po = new PurchaseOrder();
+		po.setCreatedOn(new Date());
+		po.setNotes(pr.getNotes());
+		po.setPoNo(poNo);
+		po.setPrId(pr);
+		po.setStatus("PO Created");
+		po.setOutletId(pr.getOutletId());
+		poDao.save(po);
+		if(pr.getPrDetails() == null) {
+			
+		}else {
+			for(PurchaseRequestDetail prd : pr.getPrDetails()) {
+				PurchaseOrderDetail pod = new PurchaseOrderDetail();
+				pod.setCreatedOn(po.getCreatedOn());
+				pod.setPurchaseOrder(po);
+				pod.setRequestQty(prd.getRequestQty());
+				pod.setVariant(prd.getVariant());
+				podDao.save(pod);
+			}
+		}
+		
+		PurchaseOrderHistory poh = new PurchaseOrderHistory();
+		poh.setCreatedOn(po.getCreatedOn());
+		poh.setPurchaseOrder(po);
+		poh.setStatus(po.getStatus());
+		pohDao.save(poh);
 	}
 
 	public List<Object> getInventoryByVariantAndOutlet(long idPrd, long idPr) {

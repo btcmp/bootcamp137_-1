@@ -44,7 +44,7 @@
 	</div>
 	<div class="col-xs-3">
 		<script>
-			if('${pr.status}' == 'created'){
+			if('${pr.status}' == 'Created'){
 				document.write('<select id="action-pr" class="btn-primary form-control" key-id="${pr.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve">Approve</option>'

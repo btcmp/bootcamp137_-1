@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.xsis.mp1.model.PurchaseOrder;
+import com.xsis.mp1.model.PurchaseRequest;
 import com.xsis.mp1.model.PurchaseOrder;
 
 @Repository
@@ -57,6 +58,16 @@ public class PODaoImpl implements PODao {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "update PurchaseOrder set status='Rejected' where id = :id";
 		session.createQuery(hql).setParameter("id", id).executeUpdate();
+	}
+
+	public int getRowsPR(int bln, int thn) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from PurchaseOrder where MONTH(createdOn) = :month and YEAR(createdOn) = :year";
+		List<PurchaseOrder> pos = session.createQuery(hql).setParameter("month", bln).setParameter("year", thn).list();
+		if(pos.isEmpty()) {
+			return 0;
+		}
+		return pos.size();
 	}
 	
 }
