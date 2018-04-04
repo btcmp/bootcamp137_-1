@@ -518,7 +518,6 @@
 		</tbody>
 	</table>
 
-
 <!------------------------------------------------------ Modal Purchase Input --------------------------------------------------->
 
 <div class="modal fade" id="modal-pr-input" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
