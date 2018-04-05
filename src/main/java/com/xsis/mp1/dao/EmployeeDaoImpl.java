@@ -46,6 +46,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 	public void saveOrUpdate(Employee employee) {
 		Session session = sessionFactory.getCurrentSession();
+		session.clear();
 		session.saveOrUpdate(employee);
 		session.flush();
 	}

@@ -65,6 +65,7 @@
 						id : $('#insert-user-id').val(),
 						username : $('#insert-username').val(),
 						password : $('#insert-pass').val(),
+						active : 1,
 						role : {
 							id : $('#insert-role').val()
 						}
@@ -157,16 +158,17 @@
 					dataType : 'json',
 					success : function(emp) {
 						console.log(emp);
+						emailValid = 1;
 						setEditEmployee(emp);
 						//$('input[name="cb-have-account"]').prop('checked', false);
-						if (emp.haveAccount != 0 ) {
+						if (emp.haveAccount != 0 && emp.user.active == 1 ) {
 							$('input[name="cb-have-account"]').prop('checked', true);
 							$('#insert-user-id').val(emp.user.id);
 							$('#insert-username').val(emp.user.username);
 							$('#insert-pass').val(emp.user.password);
 							$('#insert-role').val(emp.user.role.id);
 							$('#row-user').fadeIn('fast');
-						}else if(emp.haveAccount == 0 && emp.user.active == 1){
+						}else if(emp.haveAccount == 1 && emp.user.active == 0){
 							$('input[name="cb-have-account"]').prop('checked', false);
 							$('#insert-user-id').val(emp.user.id);
 							$('#insert-username').val(emp.user.username);
@@ -408,7 +410,7 @@
 									}else{
 										document.write("Role Cashier");
 									}
-								}else if("${emp.haveAccount}" === "false" && "${emp.user.active}" === "true"){
+								}else if("${emp.haveAccount}" === "true" && "${emp.user.active}" === "false"){
 									document.write('<FONT COLOR="red">');
 									document.write(' User Not Active ');
 									document.write('</FONT>');

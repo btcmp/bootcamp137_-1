@@ -1,9 +1,16 @@
 package com.xsis.mp1.dao;
 
+import com.xsis.mp1.model.Employee;
 import com.xsis.mp1.model.User;
 
 public interface UserDao {
 
 	// save or update
 	public void saveOrUpdate(User user);
+
+	public int countUser(String user);
+
+	public User getUserByEmployee(Employee emp);
+
+	public void setInactive(long id);
 }

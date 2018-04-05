@@ -30,7 +30,7 @@ public class User {
 	@NotNull
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "iduser")
 	@SequenceGenerator(initialValue = 5121, name = "iduser", sequenceName = "iduser")
-	private int id;
+	private long id;
 	
 	@NotNull
 	@Column(length=50, nullable=false)
@@ -41,13 +41,13 @@ public class User {
 	private String password;
 	
 	@Column(name="created_by")
-	private int createdBy;
+	private long createdBy;
 	
 	@Column(name="created_on")
 	private Date createdOn;
 	
 	@Column(name="modified_by")
-	private int modifiedBy;
+	private long modifiedBy;
 	
 	@Column(name="modified_on")
 	private Date modifiedOn;
@@ -64,45 +64,12 @@ public class User {
 	@JsonBackReference
 	@JoinColumn(name="employee_id", unique=true)
 	private Employee employee;
-	
-	
-	/*@ManyToMany
-	@JoinTable(
-			name = "user_roles",
-			joinColumns={@JoinColumn(name="user_id")},
-			inverseJoinColumns={@JoinColumn(name="role_id")}
-			)
-	private List<Role> roles;
 
-	public List<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
-	}*/
-
-	public Employee getEmployee() {
-		return employee;
-	}
-
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
-
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -122,11 +89,11 @@ public class User {
 		this.password = password;
 	}
 
-	public int getCreatedBy() {
+	public long getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(int createdBy) {
+	public void setCreatedBy(long createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -138,11 +105,11 @@ public class User {
 		this.createdOn = createdOn;
 	}
 
-	public int getModifiedBy() {
+	public long getModifiedBy() {
 		return modifiedBy;
 	}
 
-	public void setModifiedBy(int modifiedBy) {
+	public void setModifiedBy(long modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}
 
@@ -161,4 +128,39 @@ public class User {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+	
+	
+	/*@ManyToMany
+	@JoinTable(
+			name = "user_roles",
+			joinColumns={@JoinColumn(name="user_id")},
+			inverseJoinColumns={@JoinColumn(name="role_id")}
+			)
+	private List<Role> roles;
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}*/
+
+	
 }

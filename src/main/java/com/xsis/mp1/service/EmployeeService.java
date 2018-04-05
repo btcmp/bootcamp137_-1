@@ -62,8 +62,22 @@ public class EmployeeService {
 		emp.setLastName(employee.getLastName());
 		emp.setEmail(employee.getEmail());
 		emp.setTitle(employee.getTitle());
-		emp.setHaveAccount(employee.isHaveAccount());
+		//emp.setHaveAccount(employee.isHaveAccount());
 		emp.setActive(employee.isActive());
+		
+		if(emp.getId()!=0) {
+			User user = userDao.getUserByEmployee(emp);
+			if(user == null) {
+				emp.setHaveAccount(false);
+			}else {
+				emp.setHaveAccount(true);
+				if(employee.isHaveAccount() == false) {
+					userDao.setInactive(user.getId());
+				}
+			}
+		}else {
+			emp.setHaveAccount(employee.isHaveAccount());
+		}
 		employeeDao.saveOrUpdate(emp);
 		
 		List<EmployeeOutlet> empOutss = empOutletDao.getEmployeeOutletByEmployee(emp);
@@ -92,7 +106,7 @@ public class EmployeeService {
 			user.setRole(employee.getUser().getRole());
 			user.setUsername(employee.getUser().getUsername());
 			user.setPassword(employee.getUser().getPassword());
-			user.setActive(true);
+			user.setActive(employee.getUser().isActive());
 			userDao.saveOrUpdate(user);
 		}
 	}
@@ -120,6 +134,6 @@ public class EmployeeService {
 	}
 
 	public int countUser(String user) {
-		return employeeDao.countUser(user);
+		return userDao.countUser(user);
 	}
 }
