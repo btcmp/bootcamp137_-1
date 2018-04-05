@@ -1,23 +1,21 @@
 <script type="text/javascript">
 	jQuery(document).ready(function(){
 		/* =======================LIST ITEM =========================*/
-		/*list By supplier  */
-		/* $('#input-supplier').on('input',function(e){
+		/*list By outlet  */
+		 $('#list-by-outlet').on('input',function(e){
 			e.preventDefault();
 			var id = $(this).val();
-			//console.log(id);
 			if(id=="")
-				$('#tbody-item-list').empty();
+				window.location = '${pageContext.request.contextPath}/item-outlet';
 			else{
 				$.ajax({
 					type : 'PUT',
 					url : '${pageContext.request.contextPath}/item-outlet/get-item/'+id,
 					contentType:'application/json',
 					success : function(result){
-						//console.log("ini");
-						$('#tbody-item-list').empty();
+						$('.tbody-item-list').empty();
 						 var idInv=[];
-						$.each(result, function(key, inventory){		
+						 $.each(result, function(key, inventory){		
 							var idInv=inventory.id;
 							var idIn=inventory.variant.item.id;
 							var item=inventory.variant.item.name;
@@ -32,17 +30,16 @@
 			 					"</td><td style='text-align:center;'><a id='"+inventory.variant.item.id+"' class='btn-item-edit btn btn-info btn-sm' href='#'>Edit</a></td></tr>";
 						
 							$(".tbody-item-list").append(markup);
-		 
 							//console.log(idIn);
-						});
-					}, 
+						}); 
+		 			}, 
 					error : function(){
 						$
 					}
 				});
 			}
 		});
-		 */
+		 
 		/* ==============New ITEM================ */
 		/* create new item */
 		$('#btn-create').on('click', function(){

@@ -15,8 +15,16 @@
 		<form action="#">
 			<div class="row">
 				<div class="col-md-5">
-				  	<div class="form-group col-md-8">
+				  	<div class="form-group col-md-6">
 							<input type="text" class="form-control" id="insert-search" placeholder="Search">
+				 	 </div>
+				 	 <div class="form-group col-md-6">
+				 	 	 <select name="title" id="list-by-outlet" class="form-control custom-select custom-select-md">
+						    	<option value="">from All Outlet</option>
+						    	<c:forEach items= "${outlet}" var="outlet">
+									<option value="${outlet.id}">${outlet.name}</option>
+								</c:forEach>
+						  </select>
 				 	 </div>
 				  	
 				</div>

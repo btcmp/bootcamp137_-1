@@ -22,7 +22,9 @@
 			 				<div class="col-md-8">
 								<input type="hidden" id="input-item-id"/>		
 								<div class="form-group">
-									<input type="text" class="form-control" id="input-item-name" placeholder="Item Name">
+									<input type="text" class="form-control" id="input-item-name" 
+									 placeholder="Item Name"aria-describedby="emailHelp" pattern="([A-z0-9\s]){2,50}$">
+									<p style = "color : red;"><small>*Required</small></p>
 								</div><br/>
 								<div class ="form-group">
 									<select id="input-item-category" style="width: 100%; height: 35px;">
@@ -96,10 +98,14 @@
 					<input type="hidden" id="input-varian-id" name="input-id" />		
 					<div class="row">
 						<div class="form-group col-md-4">
-							<input type="text" class="form-control " id="input-variant-name" placeholder="Variant Name">
+							<input type="text" class="form-control " id="input-variant-name" placeholder="Variant Name"
+							 aria-describedby="emailHelp" data-parsley-length="[4,20]" data-parsley-group="block1">
+							
 						</div>
 						<div class="form-group col-md-4">
-							<input type="text" class="form-control " id="input-variant-price" placeholder="Unit Price">
+							<input type="text" class="form-control " id="input-variant-price" placeholder="Unit Price"
+							pattern="^\d{3,4}-\d{6,8}$" aria-describedby="emailHelp">
+							<p style = "color : red;"><small> *number only, ex : 500000 </small></p>
 						</div>
 						<div class="form-group col-md-4">
 							<input type="text" class="form-control " id="input-variant-sku" placeholder="SKU">
