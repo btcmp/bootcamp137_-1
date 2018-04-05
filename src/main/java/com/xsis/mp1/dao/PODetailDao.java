@@ -12,4 +12,8 @@ public interface PODetailDao {
 	List<PurchaseOrderDetail> selectPODetailByPO(PurchaseOrder po);
 
 	void delete(PurchaseOrderDetail poDetails);
+
+	List<PurchaseOrderDetail> selectPoDetailByPo(PurchaseOrder po);
+
+	PurchaseOrderDetail getOne(long idPod);
 }

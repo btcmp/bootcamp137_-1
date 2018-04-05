@@ -51,36 +51,20 @@
 						total.push(subTotal);
 						var idInv=0;
 						$.ajax({
-								url:'${pageContext.request.contextPath}/pr/search-item/?search='+itemName,
-								type:'GET',
-								contentType:'application/json',
-								success : function(dataku){
-									var endQty=0;
-									$(dataku).each(function(k,v){
-										 if(val.variant.id=v.variant.id){
-											idInv=v.endingQty;
-											/* console.log(val.variant.name);
-											console.log(v.variant.name);
-											console.log(val.id); */
-											//console.log(idInv);
-											//console.log(v.id);
-											endQty=v.endingQty;
-											 $(".quantity").html(endQty);
-											 console.log(endQty);
-										 }
-										 else
-											 console("lewat")
-										
-									});
-									//console.log(idInv);
-								}
-						 });
-						console.log(idInv);
+							type : 'GET',
+							url : '${pageContext.request.contextPath}/pr/get-inventory?idPr='+data.id+'&idPrd='+val.id,
+							dataType: 'json',
+							success : function(inventory){
+								console.log(inventory[0]);
+								$('#quantity'+val.id).append(inventory[0]);
+							}
+						});
+						
 						
    						 //if(outId==outIdItem){
 						 $('#tbody-edit-po').append(
 							'<tr id-var="'+val.variant.id+'" class="item"><td>'+val.variant.item.name+'-'+val.variant.name+
-							'</td><td class="quantity"></td><td>'+val.requestQty+
+							'</td><td id="quantity'+val.id+'"></td><td>'+val.requestQty+
 							'</td><td>'+val.variant.price+ 
 							'</td><td>'+subTotal+'</td></tr>');
 						//}
@@ -143,6 +127,7 @@
 				data : JSON.stringify(po),
 				success : function(){
 					console.log("save")
+					window.location = '${pageContext.request.contextPath}/po';
 				},error:function(){
 					alert("error");
 				}
