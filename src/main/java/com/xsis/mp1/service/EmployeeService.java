@@ -114,4 +114,12 @@ public class EmployeeService {
 	public List<Employee> getOneByUsername(String username) {
 		return employeeDao.getOneByUsername(username);
 	}
+
+	public int countEmail(String email) {
+		return employeeDao.countEmail(email);
+	}
+
+	public int countUser(String user) {
+		return employeeDao.countUser(user);
+	}
 }

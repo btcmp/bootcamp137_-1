@@ -74,5 +74,29 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		List<Employee> employee = session.createQuery(hql).setParameter("username", username).list();
 		return employee;
 	}
+
+	public int countEmail(String email) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from Employee where lower(email) = :email";
+		List<Employee> emps = session.createQuery(hql).setParameter("email", email).list();
+		if(emps.isEmpty()) {
+			return 0;
+		}
+		else{
+			return emps.size();
+		}
+	}
+
+	public int countUser(String user) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from Employee where user.username = :user";
+		List<Employee> emps = session.createQuery(hql).setParameter("user", user).list();
+		if(emps.isEmpty()) {
+			return 0;
+		}
+		else{
+			return emps.size();
+		}
+	}
 	
 }

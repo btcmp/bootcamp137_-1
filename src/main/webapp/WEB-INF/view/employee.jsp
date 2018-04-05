@@ -84,46 +84,64 @@
 				};
 				console.log(employee);
 				
-				var emailExist = '';
-				
-				if (valid == true){
-					var emailnya = $('#insert-email').val();
+				if (valid == true && emailValid==1){
 					$.ajax({
-						url : '${pageContext.request.contextPath}/mst/employee/get-all',
-						type : 'GET',
-						success : function(data) {
-							var sameEmail = 0;
-							var sameName = 0;
-							$(data).each(function(index, data2) {
-								if (employee.email.toLowerCase() == data2.email.toLowerCase() && emailnya != emailExist) {
-									sameEmail++;
-								}
-							});
-							
-							if (sameEmail > 0) {
-								alert('This email has been used');
-							} else {$.ajax({
-									type : 'POST',
-									url : '${pageContext.request.contextPath}/mst/employee/save',
-									data : JSON.stringify(employee),
-									contentType : 'application/json',
-									success : function() {
-										window.location = '${pageContext.request.contextPath}/mst/employee';
-									},
-									error : function() {
-										alert('save failed');
-									}
-	
-								}); 
-							}
+						type : 'POST',
+						url : '${pageContext.request.contextPath}/mst/employee/save',
+						data : JSON.stringify(employee),
+						contentType : 'application/json',
+						success : function() {
+							window.location = '${pageContext.request.contextPath}/mst/employee';
 						},
 						error : function() {
-							alert('failed');
+							alert('save failed');
 						}
-					});
-				} else {
-					alert('Complete your form ');
-				}
+
+					}); 
+				 } else if(valid == true && emailValid==0){
+					 alert('This email has been used');
+				 } else {
+					 alert('Complete your form ');
+				 }
+			});
+
+			var emailEdit = '';
+			var emailValid = 0;
+			
+			$('#insert-email').on('keyup',function(){
+				var email = $('#insert-email').val();
+				$.ajax({
+					type : 'GET',
+					url : '${pageContext.request.contextPath}/mst/employee/check-email?email='+email,
+					success : function(data){
+						console.log(email);
+						if(data > 0 && email != emailEdit){
+							emailValid = 0;
+						}else{
+							emailValid = 1;
+						}
+					}, error : function(){
+						console.log('check email failed')
+					}
+				});
+			});
+			
+			$('#insert-username').on('keyup',function(){
+				var user = $('#insert-username').val();
+				$.ajax({
+					type : 'GET',
+					url : '${pageContext.request.contextPath}/mst/employee/check-user?user='+user,
+					success : function(data){
+						console.log(user);
+						if(data > 0 && user != userEdit){
+							userValid = 0;
+						}else{
+							userValid = 1;
+						}
+					}, error : function(){
+						console.log('check user failed')
+					}
+				});
 			});
 
 			//edit
@@ -267,12 +285,12 @@
 			<div class="col-md-3">
 				<input type="hidden" id="insert-emp-id" name="insert-emp-id" />
 				<div class="form-group">
-					<input type="text" data-parsley-required="true" class="form-control" id="insert-first-name" placeholder="First Name">
+					<input type="text" data-parsley-required="true" pattern="([A-z0-9\s]){2,50}$" class="form-control" id="insert-first-name" placeholder="First Name">
 				</div>
 			</div>
 			<div class="col-md-3">
 				<div class="form-group">
-					<input type="text" data-parsley-required="true" class="form-control" id="insert-last-name" placeholder="Last Name">
+					<input type="text" data-parsley-required="true" pattern="([A-z0-9\s]){2,50}$" class="form-control" id="insert-last-name" placeholder="Last Name">
 				</div>
 			</div>
 			<div class="col-md-3">
@@ -382,7 +400,14 @@
 					<td>
 						<script>
 							if("${emp.haveAccount}" === "true" && "${emp.user.active}" === "true"){
-									document.write("${emp.user.role.name }");
+									//document.write("${emp.user.role.name }");
+									if("${emp.user.role.name }" == "ROLE_ADMIN"){
+										document.write("Role Admin");
+									}else if("${emp.user.role.name }" == "ROLE_BACK_OFFICE"){
+										document.write("Role Back Office");
+									}else{
+										document.write("Role Cashier");
+									}
 								}else if("${emp.haveAccount}" === "false" && "${emp.user.active}" === "true"){
 									document.write('<FONT COLOR="red">');
 									document.write(' User Not Active ');
