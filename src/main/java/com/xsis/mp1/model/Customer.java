@@ -18,6 +18,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Email;
+
 @Entity
 @Table(name="pos_mst_customer")
 public class Customer {
@@ -33,9 +35,11 @@ public class Customer {
 	@SequenceGenerator(initialValue = 282828, name = "idtcust", sequenceName = "idtcust")
 	private long id; 
 	
+	@NotNull
 	@Column(nullable = false, length = 50)
 	private String name; 
 	
+	@Email
 	@Column(nullable = false, length = 50)
 	private String email; 
 	

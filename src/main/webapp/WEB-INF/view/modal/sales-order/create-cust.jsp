@@ -20,18 +20,17 @@
 						<h5>PROFILE</h5>
 						<input type="text" data-parsley-required="true"
 							class="form-control" id="input-cust-name"
-							placeholder="Customer Name" pattern="[A-Za-z]{1,50}$"><p style = "color : red;"><small>*Required</small></p> <br> 
-							
+							placeholder="Customer Name" pattern="[A-Za-z]|'|]"><p style = "color : red;"><small>*Required</small></p> <br> 	
 							<input type="text"
 							data-parsley-required="true" class="form-control"
 							id="input-cust-email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
 							<p style = "color : red;"><small>ex : abc@something.com</small></p> <br />
 							 <input
 							type="text" data-parsley-required="true" class="form-control"
-							id="input-cust-phone" placeholder="Phone Number" pattern="^\d{10,12}$">
-							<p style = "color : red;"><small> *number only, ex : 087651234567 </small></p>
+							id="input-cust-phone" placeholder="Phone Number" maxlength= "12">
+							<p style = "color : red;"><small> *number only, ex : 08xxxxxxxxxx </small></p>
 					</div>
-
+					
 					<div class="form-group">
 						<h5>DAY OF BIRTH</h5>
 						<input type="text" data-parsley-required="true"
