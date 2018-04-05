@@ -22,7 +22,7 @@ import com.xsis.mp1.service.OutletService;
 import com.xsis.mp1.service.PRService;
 
 @Controller
-@RequestMapping("/pr")
+@RequestMapping("/t/pr")
 public class PRController {
 
 	@Autowired

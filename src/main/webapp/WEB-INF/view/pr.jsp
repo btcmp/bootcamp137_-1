@@ -37,34 +37,7 @@
 		    	var start = '';
 		    	var end = '';
 		    	$('input[name="daterange"]').html();
-		    	 /* $('input[name="daterange"]').html(start.format('D MMMM YYYY') + ' - ' + end.format('D MMMM YYYY'));
-			        awal = start.format('YYYY-MM-DD');
-			        akhir = end.format('YYYY-MM-DD');
-			        console(awal);
-			        ur = '${pageContext.request.contextPath}/transaksi/pr/src-date?awal='+awal+'&akhir='+akhir;
-			        $.ajax({
-						type : 'GET',
-						url : ur,
-						success : function(data){
-							$('#isi-data-pr').empty();
-							$(data).each(function(key, val){
-								var json_data = '/Date('+val.createdOn+')/';
-								var asAMoment = moment(json_data);
-								var tanggal = asAMoment.format('DD-MM-YYYY HH:mm:ss');
-								
-								$('#isi-data-pr').append('<tr><td>'+tanggal+'</td>'
-									+'<td>'+val.prNo+'</td>'
-									+'<td>'+val.notes+'</td>'
-									+'<td>'+val.status+'</td>'
-									+'<td><input type="button" class="btn-edit-pr btn btn-default" value="Edit" key-id="'+val.id+'" pr-status="'+val.status+'"> | '
-									+'<a href="${pageContext.request.contextPath}/transaksi/purchase-request/detail/'+val.id+'" class="btn-view-pr btn btn-info" key-id="'+val.id+'">View</a></td>');
-							})
-						},
-						error : function(){
-							$('#isi-data-pr').empty();
-							console.log('gagal');
-						}
-					});*/
+		    	 
 			}); 
 		    
 		});
@@ -185,7 +158,7 @@
 				notes : $('#input-note').val(),
 				status : stat,
 				outletId : {
-					id : $('#input-outlet').val(),
+					id : ${outlet.id}
 				},
 				prDetails : prDet
 			};
@@ -193,11 +166,11 @@
 
 			$.ajax({
 				type : 'POST',
-				url : '${pageContext.request.contextPath}/pr/save',
+				url : '${pageContext.request.contextPath}/t/pr/save',
 				data : JSON.stringify(pr),
 				contentType : 'application/json',
 				success : function() {
-					window.location = '${pageContext.request.contextPath}/pr';
+					window.location = '${pageContext.request.contextPath}/t/pr';
 				},
 				error : function() {
 					alert('save failed');
@@ -210,12 +183,12 @@
 		$('.view').on('click', function(){
 			var id = $(this).attr('id');
 			console.log(id);
-			window.location = '${pageContext.request.contextPath}/pr/detail?id=' + id;
+			window.location = '${pageContext.request.contextPath}/t/pr/detail?id=' + id;
 		});
 		
 		//export pdf
 		$('#btn-export').on('click', function(){
-			window.location = '${pageContext.request.contextPath}/generate/pr';
+			window.location = '${pageContext.request.contextPath}/generate/t/pr';
 		});
 		
 		var added = [];
@@ -229,7 +202,7 @@
 			} else {
 				$.ajax({
 					type : 'GET',
-					url : '${pageContext.request.contextPath}/pr/search-item?search='+word,
+					url : '${pageContext.request.contextPath}/t/pr/search-item?search='+word,
 					dataType: 'json',
 					success : function(data){
 						console.log(data);
@@ -237,7 +210,7 @@
 						$.each(data, function(key, val) {
 							var oTableItem = "<tr>"+
 								'<td>'+ val.variant.item.name +'-'+ val.variant.name +'</td>' +
-								'<td id="inStock'+ val.id +'">'+ val.beginning +'</td>' +
+								'<td id="inStock'+ val.id +'">'+ val.endingQty +'</td>' +
 								'<td id="td-qty'+ val.id +'"><input type="number" id="add-qty'+ val.id +'" value="1" /></td>' +
 								'<td><button type="button" id="'+ val.id +'" class="btn-add-item'+val.id +' btn-add-item btn btn-primary" id-var="'+val.variant.id+'">Add</button></td>' +
 								"</tr>";
@@ -297,7 +270,7 @@
 			$('#tbody-add-item').empty();
 			$.ajax({
 				type : 'GET',
-				url : '${pageContext.request.contextPath}/pr/get-one/'+id,
+				url : '${pageContext.request.contextPath}/t/pr/get-one/'+id,
 				dataType: 'json',
 				success : function(data){
 					console.log(data);
@@ -320,7 +293,7 @@
 						// get inStock from inventory
 						$.ajax({
 							type : 'GET',
-							url : '${pageContext.request.contextPath}/pr/get-inventory?idPr='+id+'&idPrd='+val.id,
+							url : '${pageContext.request.contextPath}/t/pr/get-inventory?idPr='+id+'&idPrd='+val.id,
 							dataType: 'json',
 							success : function(inventory){
 								console.log(inventory);
@@ -341,11 +314,11 @@
 			var status = $('#src-status').val();
 			var keyword = '';
 			if(status == 'All'){
-				window.location = '${pageContext.request.contextPath}/pr';
+				window.location = '${pageContext.request.contextPath}/t/pr';
 			}else{
 				$.ajax({
 					type : 'GET',
-					url : '${pageContext.request.contextPath}/pr/src-status?search='+status,
+					url : '${pageContext.request.contextPath}/t/pr/src-status?search='+status,
 					success : function(data){
 						$('#dt-table-pr').empty();
 						console.log(data);
@@ -360,7 +333,7 @@
 								+'<td>'+val.notes+'</td>'
 								+'<td>'+val.status+'</td>'
 								+'<td><input type="button" class="update btn btn-success btn-sm" value="Edit" id="'+val.id+'" pr-status="'+val.status+'"> | '
-								+'<a href="${pageContext.request.contextPath}/pr/detail/'+val.id+'" class="view btn btn-success btn-sm" key-id="'+val.id+'">View</a></td>');
+								+'<a href="${pageContext.request.contextPath}/t/pr/detail/'+val.id+'" class="view btn btn-success btn-sm" key-id="'+val.id+'">View</a></td>');
 						})
 						
 					},
@@ -380,7 +353,7 @@
 			}else{
 				$.ajax({
 					type : 'GET',
-					url : '${pageContext.request.contextPath}/pr/src-global?search='+global,
+					url : '${pageContext.request.contextPath}/t/pr/src-global?search='+global,
 					success : function(data){
 						$('#dt-table-pr').empty();
 						console.log(data);
@@ -395,7 +368,7 @@
 								+'<td>'+val.notes+'</td>'
 								+'<td>'+val.status+'</td>'
 								+'<td><input type="button" class="update btn btn-success btn-sm" value="Edit" id="'+val.id+'" pr-status="'+val.status+'"> | '
-								+'<a href="${pageContext.request.contextPath}/pr/detail/'+val.id+'" class="view btn btn-success btn-sm" key-id="'+val.id+'">View</a></td>');
+								+'<a href="${pageContext.request.contextPath}/t/pr/detail/'+val.id+'" class="view btn btn-success btn-sm" key-id="'+val.id+'">View</a></td>');
 						})
 						
 					},
@@ -508,7 +481,7 @@
 							}
 						</script>
 						<a id="${pr.id }" class="update btn btn-success btn-sm" href="#">Edit</a> |
-						<a id="${pr.id }" class="view btn btn-success btn-sm" href="${pageContext.request.contextPath}/pr/detail/${pr.id}">View</a>
+						<a id="${pr.id }" class="view btn btn-success btn-sm" href="${pageContext.request.contextPath}/t/pr/detail/${pr.id}">View</a>
 					</td>
 				</tr>
 			</c:forEach>
@@ -531,12 +504,12 @@
 				<form id="target" data-parsley-validate>
 					<input type="hidden" id="input-id" name="input-id" />
 					<div class="form-group">
-						<label for="input-name">CREATE NEW PR : </label>
-						<select name="role" id="input-outlet">
+						<label for="input-name">CREATE NEW PR : </label> ${outlet.name}
+						<%-- <select name="role" id="input-outlet">
 							<c:forEach var="out" items="${outlets }">
 								<option value="${out.id }">${out.name }</option>
 							</c:forEach>
-						</select>
+						</select> --%>
 					</div>
 					<div class="form-group">
 						
@@ -629,7 +602,7 @@
 					
 					</div>
 					<div class="col-md-5">
-						<button type="button" id="btn-add-item-var" class="btn btn-primary btn-block">Add</button>
+						<button type="button" id="btn-add-item-var" class="btn btn-primary btn-block">Next</button>
 					</div>
 				</div>
 			</div>

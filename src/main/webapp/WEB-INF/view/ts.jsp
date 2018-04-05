@@ -379,7 +379,7 @@
 					
 					</div>
 					<div class="col-md-5">
-						<button type="button" id="btn-add-item-var" class="btn btn-primary btn-block">Add</button>
+						<button type="button" id="btn-add-item-var" class="btn btn-primary btn-block">Next</button>
 					</div>
 				</div>
 			</div>

@@ -133,7 +133,7 @@ public class PRService {
 			}
 		}
 		
-		if(pr.getId() != 0 && pr.getStatus()=="created") {
+		if(pr.getId() != 0 && pr.getStatus().equals("Created")) {
 			
 		}else {
 			PurchaseRequestHistory prh = new PurchaseRequestHistory();

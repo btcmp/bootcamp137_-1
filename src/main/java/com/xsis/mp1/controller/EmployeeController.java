@@ -88,12 +88,14 @@ public class EmployeeController {
 	@RequestMapping("/check-email")
 	@ResponseBody
 	public int getEmail(@RequestParam(value="email", defaultValue="") String email) {
+		System.out.println("masuk email");
 		return employeeService.countEmail(email);
 	}
 	
 	@RequestMapping("/check-user")
 	@ResponseBody
 	public int getUser(@RequestParam(value="user", defaultValue="") String user) {
+		System.out.println("masuk");
 		return employeeService.countUser(user);
 	}
 }

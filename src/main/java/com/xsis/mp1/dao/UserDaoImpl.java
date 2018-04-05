@@ -27,6 +27,7 @@ public class UserDaoImpl implements UserDao {
 		String hql = "from User where username = :user";
 		List<User> users = session.createQuery(hql).setParameter("user", user).list();
 		if(users.isEmpty()) {
+			System.out.println(0);
 			return 0;
 		}
 		else{

@@ -84,8 +84,8 @@
 					active : 0
 				};
 				console.log(employee);
-				
-				if (valid == true && emailValid==1){
+				console.log(userOK);
+				if (valid == true && emailOK==1){
 					$.ajax({
 						type : 'POST',
 						url : '${pageContext.request.contextPath}/mst/employee/save',
@@ -99,15 +99,22 @@
 						}
 
 					}); 
-				 } else if(valid == true && emailValid==0){
+					
+				 } else if(valid == true && emailOK==0 && userOK==0){
+					 alert('This email and user has been used');
+				 } else if(valid == true && emailOK==0 && userOK==1){
 					 alert('This email has been used');
-				 } else {
+				 } else if(valid == true && emailOK==1 && userOK==0){
+					 alert('This user has been used');
+				 }  else {
 					 alert('Complete your form ');
 				 }
 			});
 
-			var emailEdit = '';
-			var emailValid = 0;
+			var emailExist = '';
+			var emailOK = 0;
+			var userExist = '';
+			var userOK = 0;
 			
 			$('#insert-email').on('keyup',function(){
 				var email = $('#insert-email').val();
@@ -116,10 +123,10 @@
 					url : '${pageContext.request.contextPath}/mst/employee/check-email?email='+email,
 					success : function(data){
 						console.log(email);
-						if(data > 0 && email != emailEdit){
-							emailValid = 0;
+						if(data > 0 && email != emailExist){
+							emailOK = 0;
 						}else{
-							emailValid = 1;
+							emailOK = 1;
 						}
 					}, error : function(){
 						console.log('check email failed')
@@ -133,11 +140,11 @@
 					type : 'GET',
 					url : '${pageContext.request.contextPath}/mst/employee/check-user?user='+user,
 					success : function(data){
-						console.log(user);
-						if(data > 0 && user != userEdit){
-							userValid = 0;
+						console.log(data);
+						if(data > 0 && $('input[name="cb-have-account"]').is(":checked") && user != userExist){
+							userOK = 0;
 						}else{
-							userValid = 1;
+							userOK = 1;
 						}
 					}, error : function(){
 						console.log('check user failed')
@@ -158,7 +165,8 @@
 					dataType : 'json',
 					success : function(emp) {
 						console.log(emp);
-						emailValid = 1;
+						emailOK = 1;
+						userOK = 1;
 						setEditEmployee(emp);
 						//$('input[name="cb-have-account"]').prop('checked', false);
 						if (emp.haveAccount != 0 && emp.user.active == 1 ) {
