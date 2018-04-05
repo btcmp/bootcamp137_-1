@@ -419,77 +419,85 @@
 						'click',
 						function(evt) {
 							evt.preventDefault();
-							$('#modal-done-order').modal();
+							
 							var payment = ($('#input-payment').val()); // di inputkan 
 							var total = ($('#btn-charge').text().split("Rp.")[1]);
 							$('#kembalian').val("Rp." + (payment - total));
 							$('#charge-cash').html("Rp." + payment);
-
-							var salesOrderDetails = [];
-							$('#table-dso-body > tr')
-									.each(
-											function(index, data) {
-												var sod = {
-													variant : {
-														id : $(data).find('td')
-																.eq(0).attr(
-																		'id')
-													},
-													qty : $(data).find('td')
-															.eq(1).text(),
-													unitPrice : $(data).find(
-															'td').eq(2).text()
-															.split("Rp.")[1],
-													subTotal : $(data).find(
-															'td').eq(3).text()
-															.split("Rp.")[1]
-												}
-												salesOrderDetails.push(sod);
-											})
-
-							var salesOrder = {
-								customer : {
-									id : $('.btn-choosecust').attr('id'),
-								},
-								grandTotal : $('#btn-charge').text().split(
-										"Rp.")[1],
-								salesOrderDetails : salesOrderDetails
-							}
-							$
-									.ajax({
-										url : '${pageContext.request.contextPath }/sales-order/save',
-										type : 'POST',
-										data : JSON.stringify(salesOrder),
-										contentType : 'application/json',
-										success : function() {
-											$
-													.ajax({
-														url : '${pageContext.request.contextPath}/sales-order/update-stock',
-														type : 'PUT',
-														data : JSON
-																.stringify(salesOrder),
-														contentType : 'application/json',
-														success : function() {
-
+							if (payment == 0 ){
+								alert ('your payment is empty ')
+							} else {
+								$('#modal-done-order').modal();
+								var salesOrderDetails = [];
+								$('#table-dso-body > tr')
+										.each(
+												function(index, data) {
+													var sod = {
+														variant : {
+															id : $(data).find('td')
+																	.eq(0).attr(
+																			'id')
 														},
-														error : function() {
-															alert('update stock failed');
-														}
-													})
-										},
-										error : function() {
-											alert('gagal save');
-										}
-									})
+														qty : $(data).find('td')
+																.eq(1).text(),
+														unitPrice : $(data).find(
+																'td').eq(2).text()
+																.split("Rp.")[1],
+														subTotal : $(data).find(
+																'td').eq(3).text()
+																.split("Rp.")[1]
+													}
+													salesOrderDetails.push(sod);
+												})
+
+								var salesOrder = {
+									customer : {
+										id : $('.btn-choosecust').attr('id'),
+									},
+									grandTotal : $('#btn-charge').text().split(
+											"Rp.")[1],
+									salesOrderDetails : salesOrderDetails
+								}
+								$
+										.ajax({
+											url : '${pageContext.request.contextPath }/sales-order/save',
+											type : 'POST',
+											data : JSON.stringify(salesOrder),
+											contentType : 'application/json',
+											success : function() {
+												$
+														.ajax({
+															url : '${pageContext.request.contextPath}/sales-order/update-stock',
+															type : 'PUT',
+															data : JSON
+																	.stringify(salesOrder),
+															contentType : 'application/json',
+															success : function() {
+
+															},
+															error : function() {
+																alert('update stock failed');
+															}
+														})
+											},
+											error : function() {
+												alert('gagal save');
+											}
+										})
+							}
+							
 						});
 
 		/* -----------------------------------------button print receipt-------------------------------------  */
-		/* $('#btn-print-pdf')
+		 $('#btn-print-pdf')
 				.click(
 						function() {
 							window.location = '${pageContext.request.contextPath}/generate/sales-order';
 						})
- */
+		
+		$('#btn-no-thx').click(function(){
+			window.location = '${pageContext.request.contextPath}/sales-order'; 
+		})
 		/* ==================================================SELECT OPTION PROVINCE, REGION, DISTRICT ============================================== */
 		/* ------------------Untuk Input Region--------------------  */
 		$('#input-province')

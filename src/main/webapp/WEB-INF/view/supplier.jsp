@@ -10,7 +10,14 @@
 			searching : false,
 			ordering : false
 		});
+		
 
+		$("#input-phone").keyup(
+				function() {
+					$(this).val(
+							$(this).val().replace(/^(\d{4})(\d{4})(\d{4})+$/,
+									"$1-$2-$3"));
+				});
 		//button-create 
 		$('#btn-create').click(function() {
 			$('#modal-create-supp').modal();

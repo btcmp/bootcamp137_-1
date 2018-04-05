@@ -53,7 +53,7 @@
 
 				</div>
 				<div class="form-group">
-					<button type="button" class="btn btn-primary btn-danger"
+					<button type="button" id="btn-no-thx" class="btn btn-primary btn-danger"
 						data-dismiss="modal" style="width: 100%; margin-top: 10px;">No,
 						Thanks & Done</button>
 				</div>
