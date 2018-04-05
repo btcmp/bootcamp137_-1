@@ -23,5 +23,7 @@ public interface PODao {
 
 	public int getRowsPR(int bln, int thn);
 
+	public void process(long id);
+
 }
  

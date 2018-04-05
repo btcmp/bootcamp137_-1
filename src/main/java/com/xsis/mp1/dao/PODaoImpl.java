@@ -69,5 +69,11 @@ public class PODaoImpl implements PODao {
 		}
 		return pos.size();
 	}
+
+	public void process(long id) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update PurchaseOrder set status='Process' where id = :id";
+		session.createQuery(hql).setParameter("id", id).executeUpdate();
+	}
 	
 }

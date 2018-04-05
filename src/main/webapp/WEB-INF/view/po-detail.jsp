@@ -15,6 +15,7 @@
 					url : '${pageContext.request.contextPath}/po/'+action+'/'+id,
 					success : function(){
 						console.log('Status Updated');
+						console.log(action);
 						window.location = '${pageContext.request.contextPath}/po/detail/'+id;
 					},
 					error : function(){
@@ -44,34 +45,34 @@
 	</div>
 	<div class="col-xs-3">
 		<script>
-			if('${pr.status}' == 'Created'){
-				document.write('<select id="action-pr" class="btn-primary form-control" key-id="${pr.id }">'
+			if('${po.status}' == 'created'){
+				document.write('<select id="action-po" class="btn-primary form-control" key-id="${po.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve">Approve</option>'
 						+'<option value="reject">Reject</option>'
-						+'<option value="print">Print</option>'
-						+'<option value="create-po" disabled>Create PO</option>');
-			}else if('${pr.status}' == 'rejected'){
-				document.write('<select id="action-pr" class="btn-primary form-control" key-id="${pr.id }">'
+						+'<option value="process" disabled selected>Process</option>'
+						+'<option value="print" disabled selected>Print</option>');
+			}else if('${po.status}' == 'Rejected'){
+				document.write('<select id="action-po" class="btn-primary form-control" key-id="${po.id }">'
 						+'<option disabled selected>More</option>'
-						+'<option value="approve" disabled>Approve</option>'
-						+'<option value="reject" disabled>Reject</option>'
-						+'<option value="print">Print</option>'
-						+'<option value="create-po" disabled>Create PO</option>');
-			}else if('${pr.status}' == 'PO Created'){
-				document.write('<select id="action-pr" class="btn-primary form-control" key-id="${pr.id }">'
+						+'<option value="approve" disabled selected>Approve</option>'
+						+'<option value="reject" disabled selected>Reject</option>'
+						+'<option value="process" disabled selected>Process</option>'
+						+'<option value="print">Print</option>');
+			}else if('${po.status}' == 'Approved'){
+				document.write('<select id="action-po" class="btn-primary form-control" key-id="${po.id }">'
 						+'<option disabled selected>More</option>'
-						+'<option value="approve" disabled>Approve</option>'
-						+'<option value="reject" disabled>Reject</option>'
-						+'<option value="print">Print</option>'
-						+'<option value="create-po" disabled>Create PO</option>');
-			}else if('${pr.status}' == 'Approved'){
-				document.write('<select id="action-pr" class="btn-primary form-control" key-id="${pr.id }">'
+						+'<option value="approve" disabled selected>Approve</option>'
+						+'<option value="reject" >Reject</option>'
+						+'<option value="process">Process</option>'
+						+'<option value="print">Print</option>');
+			}else if('${po.status}' == 'Process'){
+				document.write('<select id="action-po" class="btn-primary form-control" key-id="${po.id }">'
 						+'<option disabled selected>More</option>'
-						+'<option value="approve" disabled>Approve</option>'
-						+'<option value="reject" disabled>Reject</option>'
-						+'<option value="print">Print</option>'
-						+'<option value="create-po">Create PO</option>');
+						+'<option value="approve" disabled selected>Approve</option>'
+						+'<option value="reject" disabled selected>Reject</option>'
+						+'<option value="process" disabled selected>Process</option>'
+						+'<option value="print" >Print</option>');
 			}
 		</script>
 			
@@ -100,7 +101,41 @@
 	<textarea class="form-control" id="input-note" rows="5" disabled="disabled">${po.notes }</textarea>
 </div>
 
-<table>
+
+
+<table id="item-poe" class="table table-sm table-striped table-bordered" cellspacing="0" width="100%">
+				<thead class="thead-dark">
+					<th>Item</th>
+					<th>In Stock</th>
+				</thead>
+				<tbody id="tbody-detail-po">
+					<c:forEach items="${pos}" var ="po">
+						<tr>
+							<td>iasdf</td>
+							<td id="td${pod.id}">
+								 <script type="text/javascript">
+									var i=0;
+									$.ajax({
+										type : 'GET',
+										url : '${pageContext.request.contextPath}/po/get-inventory?idPo='+${po.id}+'&idPod='+${po.supplierId.id},
+										dataType: 'json',
+										success : function(data){
+											//$('#td${pod.id}').append(inventory[0]);
+											console.log("test");
+										}
+									});
+								</script>
+							</td>
+							
+						</tr>
+					</c:forEach>
+				</tbody>
+				<tfoot>
+				
+				</tfoot>
+			</table>
+
+<%-- <table>
 	<tr>
 		<th>PO Number </th>
 		<td></td>
@@ -118,20 +153,20 @@
 		<th>PO Status </th>
 		<td></td>
 		<td> : </td>
-		<td>$asd{po.status }</td>
+		<td>${po.status }</td>
 	</tr>
-</table>
+</table> --%>
 <h5><b>Status History</b></h5>
 <hr>
 <div class="row">
 	<div class="col-xs-5">
 		<table id="dt-history" class="table table-hover">
-			<c:forEach items="$asfd{po.poHistories }" var="history">
+			<c:forEach items="${po.purchaseOrderHistories }" var="history">
 				<tr>
 					<td>On</td>
 					<td>
 						<script>
-							var times = '$asd{history.createdOn}';
+							var times = '${history.createdOn}';
 							var time = times.split('.');
 							document.write(time[0]);
 						</script>
@@ -140,7 +175,7 @@
 					<td>-</td>
 					<td>${po.poNo }</td>
 					<td>is</td>
-					<td>${asdfhistory.status }</td>
+					<td>${history.status }</td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -156,21 +191,46 @@
 					<th>Unit Cost</th>
 					<th>Sub Total</th>
 				</thead>
-				<tbody id="tbody-edit-po">
-				<c:forEach var="po" items= "${pos}">
-					<tr>
-						<%-- <td>${po.prId }</td>
-						<td><center>3</center></td>
-						<td><center>3</center></td>
-						<td><center>Rp. 300.000</center></td>
-						<td><center>Rp. 900.000</center></td> --%>
-					</tr><br/>
-				</c:forEach>
+				<tbody id="tbody-detail-po">
+					<c:forEach items="${po.purchaseOrderDetails }" var ="pod">
+						<tr>
+							<td>${pod.variant.item.name }-${pod.variant.name }</td>
+							<td id="td${pod.id}">
+								 <script type="text/javascript">
+									var i=0;
+									$.ajax({
+										type : 'GET',
+										url : '${pageContext.request.contextPath}/po/get-inventory?idPo='+${po.id}+'&idPod='+${pod.id},
+										dataType: 'json',
+										success : function(inventory){
+											$('#td${pod.id}').append(inventory[0]);
+											//console.log("test");
+										}
+									});
+								</script>
+							</td>
+							<td>${pod.requestQty }</td>
+							<td>${pod.unitCost }</td>
+							<td>${pod.subTotal }</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 				<tfoot>
 					<tr style=" border: none; background: none;">
 						<td colspan="4">TOTAL</td>
-						<td><input id="input-total" style="border: none;"/></td>
+						<td id="total">
+							<script type="text/javascript">
+								var total=[];
+								var j= $("#tbody-detail-po > tr").length;
+								for (var i = 0; i < j; i++) {
+									var l=parseInt($("#tbody-detail-po > tr").parent().find('td').eq(4).text());
+									total.push(l);
+								}
+								var gTotal=total.reduce(function(a,b){return a+b},0);
+								//console.log(gTotal);
+								$('#total').append(gTotal);
+							</script>
+						</td>
 					</tr>
 				</tfoot>
 			</table>

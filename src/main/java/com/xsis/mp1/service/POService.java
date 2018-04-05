@@ -1,5 +1,8 @@
 package com.xsis.mp1.service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -7,13 +10,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.xsis.mp1.dao.InventoryDao;
 import com.xsis.mp1.dao.PODao;
 import com.xsis.mp1.dao.PODetailDao;
 import com.xsis.mp1.dao.POHistoryDao;
 import com.xsis.mp1.dao.PRDetailDao;
+import com.xsis.mp1.dao.SupplierDao;
 import com.xsis.mp1.model.PurchaseOrder;
 import com.xsis.mp1.model.PurchaseOrderDetail;
 import com.xsis.mp1.model.PurchaseOrderHistory;
+import com.xsis.mp1.model.PurchaseRequest;
+import com.xsis.mp1.model.PurchaseRequestDetail;
+import com.xsis.mp1.model.PurchaseRequestHistory;
+import com.xsis.mp1.model.Supplier;
 
 @Service
 @Transactional
@@ -27,6 +36,12 @@ public class POService {
 	
 	@Autowired
 	PODetailDao podDao;
+	
+	@Autowired
+	InventoryDao invDao;
+	
+	@Autowired
+	SupplierDao supDao;
 
 	public List<PurchaseOrder> selectAll() {
 		List<PurchaseOrder> pos = poDao.selectAll();
@@ -113,8 +128,8 @@ public class POService {
 		return po;
 	}
 
-	public void delete(PurchaseOrder pr) {
-		poDao.delete(pr);
+	public void delete(PurchaseOrder po) {
+		poDao.delete(po);
 	}
 
 	public void approve(long id) {
@@ -128,7 +143,7 @@ public class POService {
 	}
 
 	public void reject(long id) {
-		poDao.approve(id);
+		poDao.reject(id);
 		PurchaseOrder po = poDao.getOne(id);
 		PurchaseOrderHistory poh = new PurchaseOrderHistory();
 		poh.setCreatedOn(new Date());
@@ -137,14 +152,47 @@ public class POService {
 		pohDao.save(poh);
 	}
 
-	public void createPo(long id) {
-		poDao.approve(id);
+	public void process(long id) {
+		poDao.process(id);
 		PurchaseOrder po = poDao.getOne(id);
+		
+		List<PurchaseOrderDetail> pods = podDao.selectPoDetailByPo(po);
+		
+		if(pods.isEmpty()) {
+			
+		}else {
+			po.setPurchaseOrderDetails(pods);
+		}
+		
+		
+		
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+		Date date = new Date();
+		String tgl = dateFormat.format(date);
+		
+		Calendar cal = Calendar.getInstance();
+		int thn = cal.get(Calendar.YEAR);
+		int bln = cal.get(Calendar.MONTH)+1;
+		int no = poDao.getRowsPR(bln, thn)+1;
+		String nomor;
+		
+		if(no < 10) {
+			nomor = "00"+no;
+		} else if(no < 100) {
+			nomor = "0"+no;
+		} else {
+			nomor = Integer.toString(no);
+		}
+		
+		String poNo = "PO/"+"KEL1/"+tgl+"/"+nomor;
+		
+		
 		PurchaseOrderHistory poh = new PurchaseOrderHistory();
 		poh.setCreatedOn(new Date());
 		poh.setPurchaseOrder(po);
 		poh.setStatus(po.getStatus());
 		pohDao.save(poh);
+
 	}
 
 	public void update(PurchaseOrder po) {
@@ -186,6 +234,20 @@ public class POService {
 				podDao.save(pod2);
 			}
 		}
+	}
+
+	public List<Object> getInventoryByVariantAndOutlet(long idPod, long idPo) {
+		PurchaseOrder po = poDao.getOne(idPo);
+		PurchaseOrderDetail pod = podDao.getOne(idPod);
+		return invDao.searchInventoryByVariantAndOutlet(pod.getVariant());
+	}
+
+	public Supplier getSupplierByPo(long idPo, long idSup) {
+		PurchaseOrder po = poDao.getOne(idPo);
+		Supplier sup= new Supplier();
+		sup.setId(idSup);
+		supDao.getOne(sup);
+		return sup;
 	}
 	
 	

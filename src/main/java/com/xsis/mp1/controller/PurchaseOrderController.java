@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -96,6 +97,42 @@ public class PurchaseOrderController {
 		model.addAttribute("po", po);
 		return "po-detail";
 	}
+	
+	@RequestMapping(value="/get-inventory", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Object> getInventory(@RequestParam(value="idPo", defaultValue="") long idPo, @RequestParam(value="idPod", defaultValue="") long idPod){
+		return poService.getInventoryByVariantAndOutlet(idPod, idPo);
+	}
+	
+	@RequestMapping(value="/get-supplier", method=RequestMethod.GET)
+	@ResponseBody
+	public Supplier getSupplierByPo(@RequestParam(value="idPo", defaultValue="") long idPo, @RequestParam(value="idSup", defaultValue="") long idSup){
+		return poService.getSupplierByPo(idSup, idPo);
+	}
+	
+	
+//	status PO
+	
+	
+	
+	@RequestMapping(value="/approve/{id}", method=RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	public void approve(@PathVariable long id) {
+		poService.approve(id);
+	}
+	
+	@RequestMapping(value="/reject/{id}", method= RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	public void reject(@PathVariable long id) {
+		poService.reject(id);
+	}
+	
+	@RequestMapping(value="/process/{id}", method=RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	public void Process(@PathVariable long id) {
+		poService.process(id);
+	}
+	
 	
 	
 }
