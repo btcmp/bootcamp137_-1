@@ -158,7 +158,7 @@
 				notes : $('#input-note').val(),
 				status : stat,
 				outletId : {
-					id : ${outlet.id}
+					id : '${outlet.id}'
 				},
 				prDetails : prDet
 			};
