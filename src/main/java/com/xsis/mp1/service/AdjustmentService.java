@@ -10,9 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.xsis.mp1.dao.AdjustmentDao;
 import com.xsis.mp1.dao.AdjustmentDetailDao;
 import com.xsis.mp1.dao.AdjustmentHistoryDao;
+import com.xsis.mp1.dao.InventoryDao;
 import com.xsis.mp1.model.Adjustment;
 import com.xsis.mp1.model.AdjustmentDetail;
 import com.xsis.mp1.model.AdjustmentHistory;
+import com.xsis.mp1.model.PurchaseRequest;
+import com.xsis.mp1.model.PurchaseRequestDetail;
 
 
 @Service
@@ -27,6 +30,9 @@ public class AdjustmentService {
 	
 	@Autowired
 	AdjustmentDetailDao adjustmentDetailDao;
+	
+	@Autowired
+	InventoryDao invDao;
 
 	public List<Adjustment> selectAll() {
 		List<Adjustment> adj = adjustmentDao.selectAll();
@@ -78,6 +84,8 @@ public class AdjustmentService {
 				adjustmentDetail.setId(adjustmentDetails.getId());
 				adjustmentDetail.setAdjustment(adj);
 				adjustmentDetail.setVariant(adjustmentDetails.getVariant());
+				System.out.println("get Instock "+adjustmentDetails);
+				adjustmentDetail.setInStock(adjustmentDetails.getInStock());
 				adjustmentDetail.setActualStock(adjustmentDetails.getActualStock());
 				adjustmentDetailDao.save(adjustmentDetail);
 			}
@@ -165,6 +173,12 @@ public class AdjustmentService {
 		adjh.setAdjustment(adj);;
 		adjh.setStatus(adj.getStatus());
 		adjustmentHystoryDao.save(adjh);
+	}
+
+	public List<Object> getInventoryByVariantAndOutlet(long idAdj, long idAdjd) {
+		Adjustment adjust = adjustmentDao.getOne(idAdj);
+		AdjustmentDetail adjustD = adjustmentDetailDao.getOne(idAdjd);
+		return invDao.searchInventoryByVariantAndOutlet(adjustD.getVariant());
 	}
 	
 	

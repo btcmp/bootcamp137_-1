@@ -52,6 +52,7 @@
 			
 			$('#tbl-adj-add-item > tbody > tr').each(function(index, data) {
 				var detail = {
+						"inStock" : $(this).find('td').eq(1).text(),
 						"actualStock" : $(this).find('td').eq(2).text(),
 						"variant" : {
 							"id" : $(this).attr('id-var')
@@ -88,7 +89,7 @@
 				data : JSON.stringify(adj),
 				contentType : 'application/json',
 				success : function(data) {
-					//window.location = '${pageContext.request.contextPath}/adjustment';
+					window.location = '${pageContext.request.contextPath}/adjustment';
 					console.log(data)
 				},
 				error : function() {

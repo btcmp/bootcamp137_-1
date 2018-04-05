@@ -52,17 +52,14 @@
 			</div>
 			<div class="modal-footer">
 				<div class="row">
-					<div class="col-md-3">
+					<div class="col-md-6">
 					
-					</div>
-					<div class="col-md-3" >
-						<button type="button" id="btn-submit" class="btn btn-success btn-block" style="display: none">Submit</button>
 					</div>
 					<div class="col-md-3">
 						<button type="button" id="btn-cancel-input" class="btn btn-primary btn-block" data-dismiss="modal">Cancel</button>
 					</div>
 					<div class="col-md-3">
-						<button type="button" id="btn-save" class="btn btn-primary btn-block">Save</button>
+						<button type="button" id="btn-save" class="btn btn-success btn-block">Save and Submit</button>
 					</div>
 				</div>				
 			</div>
@@ -94,7 +91,7 @@
 					<thead>
 						<th>Item</th>
 						<th>Stock</th>
-						<th>Trans. Qty</th>
+						<th>Adj. Qty</th>
 						<th>Action</th>
 					</thead>
 					<tbody id="tbl-add-item-purchase">
@@ -108,7 +105,7 @@
 					
 					</div>
 					<div class="col-md-5">
-						<button type="button" id="btn-add-item-var" class="btn btn-primary btn-block">Add</button>
+						<button type="button" id="btn-add-item-var" class="btn btn-primary btn-block">Close</button>
 					</div>
 				</div>
 			</div>

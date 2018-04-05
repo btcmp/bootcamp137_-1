@@ -103,4 +103,12 @@ public class AdjustmentController {
 	public void createPo(@PathVariable long id) {
 		adjustmentService.createPo(id);
 	}
+	
+	
+	//get inventory
+	@RequestMapping(value="/get-inventory", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Object> getInventory(@RequestParam(value="idAdj", defaultValue="") long idAdj, @RequestParam(value="idAdjd", defaultValue="") long idAdjd){
+		return adjustmentService.getInventoryByVariantAndOutlet(idAdj, idAdjd);
+	}
 }

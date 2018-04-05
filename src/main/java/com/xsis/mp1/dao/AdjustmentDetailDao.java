@@ -12,5 +12,7 @@ public interface AdjustmentDetailDao {
 	List<AdjustmentDetail> selectAdjustmentDetailByadjustment(Adjustment adjustment);
 
 	void delete(AdjustmentDetail adjustmentDetail);
+
+	AdjustmentDetail getOne(long idAdjd);
 }
  

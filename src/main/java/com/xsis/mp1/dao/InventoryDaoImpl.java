@@ -98,7 +98,7 @@ public class InventoryDaoImpl implements InventoryDao {
 
 	public List<Object> searchInventoryByVariantAndOutlet(Variant variant) {
 		Session session=sessionFactory.getCurrentSession();
-		String hql="select beginning from Inventory where variant = :variant";
+		String hql="select endingQty from Inventory where variant = :variant";
 		List<Object> inventories = session.createQuery(hql).setParameter("variant", variant).list();
 		if(inventories.isEmpty()) {
 			return null;

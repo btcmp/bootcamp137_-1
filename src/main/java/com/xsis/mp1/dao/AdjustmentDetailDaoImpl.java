@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.xsis.mp1.model.Adjustment;
 import com.xsis.mp1.model.AdjustmentDetail;
+import com.xsis.mp1.model.PurchaseOrderDetail;
 
 
 @Repository
@@ -39,6 +40,11 @@ public class AdjustmentDetailDaoImpl implements AdjustmentDetailDao {
 		Session session = sessionFactory.getCurrentSession();
 		session.delete(adjustmentDetail);
 		session.flush();
+	}
+
+	public AdjustmentDetail getOne(long idAdjd) {
+		Session session = sessionFactory.getCurrentSession();
+		return session.get(AdjustmentDetail.class, idAdjd);
 	}
 
 }
