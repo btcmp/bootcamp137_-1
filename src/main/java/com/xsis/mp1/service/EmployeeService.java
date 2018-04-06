@@ -1,5 +1,6 @@
 package com.xsis.mp1.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import com.xsis.mp1.dao.EmployeeOutletDao;
 import com.xsis.mp1.dao.UserDao;
 import com.xsis.mp1.model.Employee;
 import com.xsis.mp1.model.EmployeeOutlet;
+import com.xsis.mp1.model.Outlet;
 import com.xsis.mp1.model.User;
 
 @Service
@@ -135,5 +137,18 @@ public class EmployeeService {
 
 	public int countUser(String user) {
 		return userDao.countUser(user);
+	}
+
+	public List<Outlet> getOutletByEmployee(Employee empl) {
+		List<EmployeeOutlet> empOuts = empOutletDao.getEmployeeOutletByEmployee(empl);
+		List<Outlet> outlets = new ArrayList<>();
+		if(empOuts==null) {
+			return null;
+		}else {
+			for(EmployeeOutlet eo : empOuts) {
+				outlets.add(eo.getOutlet());
+			}
+			return outlets;
+		}
 	}
 }

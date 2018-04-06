@@ -1,11 +1,11 @@
 <%@ include file="/WEB-INF/view/template/master-header.jsp"%>
 
 </head><!-- comment -->
-<body class="hold-transition login-page">
+<body class="login-img3-body hold-transition login-page">
 	
 	<div class="login-box">
 	  <div class="login-logo">
-	    <a href="../../index2.html"><b>Admin</b>LTE</a>
+	    <a href="../../index2.html"><b>Kelompok</b>Satu</a>
 	  </div>
 	  <!-- /.login-logo -->
 	  <div class="login-box-body">
@@ -19,7 +19,7 @@
 	
 	    <form name='loginForm' action="<c:url value='j_spring_security_check' />" method='POST'>
 	      <div class="form-group has-feedback">
-	        <input type="text" class="form-control" placeholder="Email/Username" name='username'>
+	        <input type="text" class="form-control" placeholder="Username" name='username'>
 	        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
 	      </div>
 	      <div class="form-group has-feedback">

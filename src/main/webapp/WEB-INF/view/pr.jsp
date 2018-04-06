@@ -188,7 +188,7 @@
 		
 		//export pdf
 		$('#btn-export').on('click', function(){
-			window.location = '${pageContext.request.contextPath}/generate/t/pr';
+			window.location = '${pageContext.request.contextPath}/generate/pr';
 		});
 		
 		var added = [];
@@ -474,11 +474,11 @@
 							console.log(state);
 							/* var cek = '${pr.status }';
 							console.log(cek); */
-							if(state == 'Approved'){
+							/* if(state == 'Approved'){
 								$('.update').prop('disabled', true);
 							}else{
 								$('.update').prop('disabled', false);
-							}
+							} */
 						</script>
 						<a id="${pr.id }" class="update btn btn-success btn-sm" href="#">Edit</a> |
 						<a id="${pr.id }" class="view btn btn-success btn-sm" href="${pageContext.request.contextPath}/t/pr/detail/${pr.id}">View</a>

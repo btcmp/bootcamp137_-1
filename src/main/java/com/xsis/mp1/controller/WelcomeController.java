@@ -1,6 +1,7 @@
 package com.xsis.mp1.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xsis.mp1.model.Employee;
+import com.xsis.mp1.model.EmployeeOutlet;
 import com.xsis.mp1.model.Outlet;
 import com.xsis.mp1.service.EmployeeService;
 import com.xsis.mp1.service.OutletService;
@@ -46,7 +48,7 @@ public class WelcomeController {
 		}
 		httpSession.setAttribute("username", username);
 		httpSession.setAttribute("employee", empl);
-		List<Outlet> outlets = outletService.selectAll();
+		List<Outlet> outlets = employeeService.getOutletByEmployee(empl);
 		model.addAttribute("outlets", outlets);
 		return "choose-outlet";
 	}

@@ -12,10 +12,10 @@
 			}else{
 				$.ajax({
 					type : 'GET',
-					url : '${pageContext.request.contextPath}/pr/'+action+'/'+id,
+					url : '${pageContext.request.contextPath}/t/pr/'+action+'/'+id,
 					success : function(){
 						console.log('Status Updated');
-						window.location = '${pageContext.request.contextPath}/pr/detail/'+id;
+						window.location = '${pageContext.request.contextPath}/t/pr/detail/'+id;
 					},
 					error : function(){
 						console.log('Update Status Failed');
@@ -25,7 +25,7 @@
 		});
 		
 		$('.done').on('click', function(){
-			window.location = '${pageContext.request.contextPath}/pr';
+			window.location = '${pageContext.request.contextPath}/t/pr';
 		});
 	});
 </script>
@@ -166,7 +166,7 @@
 					<script type="text/javascript">
 					$.ajax({
 						type : 'GET',
-						url : '${pageContext.request.contextPath}/pr/get-inventory?idPr='+${pr.id}+'&idPrd='+${prd.id},
+						url : '${pageContext.request.contextPath}/t/pr/get-inventory?idPr='+${pr.id}+'&idPrd='+${prd.id},
 						dataType: 'json',
 						success : function(inventory){
 							$('#td${prd.id}').append(inventory[0]);
