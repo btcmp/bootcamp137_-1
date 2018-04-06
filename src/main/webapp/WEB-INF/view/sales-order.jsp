@@ -22,6 +22,7 @@
 			maxDate : 20,
 		});
  */
+ 
 		$('#cust-tabel').DataTable({
 			searching : false,
 			paging : true,

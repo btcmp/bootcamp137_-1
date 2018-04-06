@@ -31,6 +31,7 @@
 							<p style = "color : red;"><small> *number only, ex : 08xxxxxxxxxx </small></p>
 					</div>
 					
+					
 					<div class="form-group">
 						<h5>DAY OF BIRTH</h5>
 						<input type="date" data-parsley-required="true"
