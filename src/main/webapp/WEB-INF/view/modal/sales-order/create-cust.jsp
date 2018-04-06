@@ -27,13 +27,13 @@
 							<p style = "color : red;"><small>ex : abc@something.com</small></p> <br />
 							 <input
 							type="text" data-parsley-required="true" class="form-control"
-							id="input-cust-phone" placeholder="Phone Number" maxlength= "12">
+							id="input-cust-phone" placeholder="Phone Number" maxlength= "14">
 							<p style = "color : red;"><small> *number only, ex : 08xxxxxxxxxx </small></p>
 					</div>
 					
 					<div class="form-group">
 						<h5>DAY OF BIRTH</h5>
-						<input type="text" data-parsley-required="true"
+						<input type="date" data-parsley-required="true"
 							class="form-control" id="input-cust-dob"
 							placeholder="Day Of Birth ">
 							<p style = "color : red;"><small>*Required</small></p>

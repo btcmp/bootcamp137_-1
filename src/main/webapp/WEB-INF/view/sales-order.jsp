@@ -17,11 +17,11 @@
 		}); */
 
 		//set Date on Form Customer 
-		$('#input-cust-dob').datepicker({
-			dateFormat : "yy-mm-dd",
+		/* $('#input-cust-dob').datepicker({
+			dateFormat : "mm-dd-yyyy",
 			maxDate : 20,
 		});
-
+ */
 		$('#cust-tabel').DataTable({
 			searching : false,
 			paging : true,

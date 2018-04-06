@@ -156,6 +156,7 @@ public class Outlet {
 		return createdOn;
 	}
 
+	
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
