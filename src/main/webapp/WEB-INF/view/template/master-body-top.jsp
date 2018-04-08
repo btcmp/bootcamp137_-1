@@ -43,7 +43,16 @@
 										<a href="#" class="btn btn-default btn-flat">Profile</a>
 									</div>
 									<div class="pull-right">
-										<a href="#" class="btn btn-default btn-flat">Sign out</a>
+										<c:url value="/j_spring_security_logout" var="logoutUrl" />
+											<!-- csrt for log out-->
+											<form action="${logoutUrl}" method="post" id="logoutForm">
+											  <input type="hidden"
+												name="${_csrf.parameterName}"
+												value="${_csrf.token}" />
+												<input type="submit" class="btn btn-default btn-flat" name="logout" value="Sign Out"/>
+											</form>
+										
+										<!-- <a href="#" class="btn btn-default btn-flat">Sign out</a> -->
 									</div>
 								</li>
 							</ul></li>
@@ -77,10 +86,10 @@
 					</a>
 						<ul class="treeview-menu">
 							<li><a href="${pageContext.request.contextPath}/mst/employee"><i class="fa fa-circle-o"></i>Employee</a></li>
-							<li><a href="${pageContext.request.contextPath}/item"><i class="fa fa-circle-o"></i> Item</a></li>
-							<li><a href="${pageContext.request.contextPath}/outlet"><i class="fa fa-circle-o"></i> Outlet</a></li>
-							<li><a href="${pageContext.request.contextPath}/supplier"><i class="fa fa-circle-o"></i> Supplier</a></li>
-							<li><a href="${pageContext.request.contextPath}/category"><i class="fa fa-circle-o"></i> Category</a></li>
+							<li><a href="${pageContext.request.contextPath}/mst/item-outlet"><i class="fa fa-circle-o"></i> Item</a></li>
+							<li><a href="${pageContext.request.contextPath}/mst/outlet"><i class="fa fa-circle-o"></i> Outlet</a></li>
+							<li><a href="${pageContext.request.contextPath}/mst/supplier"><i class="fa fa-circle-o"></i> Supplier</a></li>
+							<li><a href="${pageContext.request.contextPath}/mst/category"><i class="fa fa-circle-o"></i> Category</a></li>
 						</ul>
 					</li>
 					<li class="treeview active"><a href="#"> <i
@@ -90,11 +99,11 @@
 						</span>
 					</a>
 						<ul class="treeview-menu">
-							<li><a href="${pageContext.request.contextPath}/pr"><i class="fa fa-circle-o"></i> Purchase Request </a></li>
-							<li><a href="${pageContext.request.contextPath}/po"><i class="fa fa-circle-o"></i> Purchase Order</a></li>
-							<li><a href="${pageContext.request.contextPath}/adjustment"><i class="fa fa-circle-o"></i> Adjustment</a></li>
-							<li><a href="${pageContext.request.contextPath}/ts"><i class="fa fa-circle-o"></i> Transfer Stock</a></li>
-							<li><a href="${pageContext.request.contextPath}/sales-order"><i class="fa fa-circle-o"></i> Sales Order </a></li>
+							<li><a href="${pageContext.request.contextPath}/t/pr"><i class="fa fa-circle-o"></i> Purchase Request </a></li>
+							<li><a href="${pageContext.request.contextPath}/t/po"><i class="fa fa-circle-o"></i> Purchase Order</a></li>
+							<li><a href="${pageContext.request.contextPath}/t/adjustment"><i class="fa fa-circle-o"></i> Adjustment</a></li>
+							<li><a href="${pageContext.request.contextPath}/t/ts"><i class="fa fa-circle-o"></i> Transfer Stock</a></li>
+							<li><a href="${pageContext.request.contextPath}/t/sales-order"><i class="fa fa-circle-o"></i> Sales Order </a></li>
 						</ul>
 					</li>
 				</ul>
