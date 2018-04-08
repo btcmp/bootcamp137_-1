@@ -19,7 +19,7 @@ import com.xsis.mp1.model.Item;
 import com.xsis.mp1.service.CategoryService;
 
 @Controller
-@RequestMapping("/category")
+@RequestMapping("/mst/category")
 public class CategoryController {
 	
 	@Autowired

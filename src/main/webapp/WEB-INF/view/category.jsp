@@ -35,7 +35,7 @@
 							if (valid == true) {
 								$
 										.ajax({
-											url : '${pageContext.request.contextPath}/category/get-all',
+											url : '${pageContext.request.contextPath}/mst/category/get-all',
 											type : 'GET',
 											success : function(data) {
 												var sameName = 0;
@@ -54,14 +54,14 @@
 												} else {
 													$
 															.ajax({
-																url : '${pageContext.request.contextPath}/category/save',
+																url : '${pageContext.request.contextPath}/mst/category/save',
 																type : 'POST',
 																contentType : 'application/json',
 																data : JSON
 																		.stringify(category),
 																success : function(
 																		data) {
-																	window.location = "${pageContext.request.contextPath}/category"
+																	window.location = "${pageContext.request.contextPath}/mst/category"
 																},
 																error : function() {
 																	alert('save failed');
@@ -86,7 +86,7 @@
 							var id = $(this).attr('id');
 							$
 									.ajax({
-										url : '${pageContext.request.contextPath}/category/get-one/'
+										url : '${pageContext.request.contextPath}/mst/category/get-one/'
 												+ id,
 										type : 'GET',
 										success : function(category) {
@@ -119,12 +119,12 @@
 							if (valid == true) {
 								$
 										.ajax({
-											url : '${pageContext.request.contextPath}/category/update',
+											url : '${pageContext.request.contextPath}/mst/category/update',
 											type : 'PUT',
 											data : JSON.stringify(category),
 											contentType : 'application/json',
 											success : function(data) {
-												window.location = '${pageContext.request.contextPath}/category';
+												window.location = '${pageContext.request.contextPath}/mst/category';
 											},
 											error : function() {
 												alert('update failed');
@@ -143,12 +143,12 @@
 							}
 							$
 									.ajax({
-										url : '${pageContext.request.contextPath}/category/update-status',
+										url : '${pageContext.request.contextPath}/mst/category/update-status',
 										type : 'PUT',
 										data : JSON.stringify(category),
 										contentType : 'application/json',
 										success : function(data) {
-											window.location = '${pageContext.request.contextPath}/category';
+											window.location = '${pageContext.request.contextPath}/mst/category';
 										},
 										error : function() {
 											alert('update failed');
@@ -161,7 +161,7 @@
 				.click(
 						function() {
 							var word = $('#search').val();
-							window.location = '${pageContext.request.contextPath}/category/search?search='
+							window.location = '${pageContext.request.contextPath}/mst/category/search?search='
 									+ word;
 						});
 	});

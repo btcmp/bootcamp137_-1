@@ -68,7 +68,7 @@
 					<div class="col-sm-4">
 						<input type="text" data-parsley-required="true"
 							class="form-control" id="edit-phone" 
-							placeholder="Phone" pattern="^\d{10,12}$">
+							placeholder="Phone" maxlength= "14">
 								<p style = "color : red;"><small> *number only, ex : 087651234567 </small></p>
 					</div>
 					<div class="col-sm-4">

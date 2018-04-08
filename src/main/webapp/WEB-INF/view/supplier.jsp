@@ -19,6 +19,13 @@
 							$(this).val().replace(/^(\d{4})(\d{4})(\d{4})+$/,
 									"$1-$2-$3"));
 				});
+		
+		$("#edit-phone").keyup(
+				function() {
+					$(this).val(
+							$(this).val().replace(/^(\d{4})(\d{4})(\d{4})+$/,
+									"$1-$2-$3"));
+				});
 		//button-create 
 		$('#btn-create').click(function() {
 			$('#modal-create-supp').modal();
@@ -57,7 +64,7 @@
 							
 							  if (valid == true){
 								  $.ajax({
-										url : '${pageContext.request.contextPath}/supplier/get-all', 
+										url : '${pageContext.request.contextPath}/mst/supplier/get-all', 
 										type :'GET', 
 										success : function (data){
 												var sameEmail = 0; 
@@ -76,13 +83,13 @@
 												}
 												else {
 												$.ajax({
-													url : '${pageContext.request.contextPath}/supplier/save',
+													url : '${pageContext.request.contextPath}/mst/supplier/save',
 													type : 'POST',
 													contentType : 'application/json',
 													data : JSON.stringify(supplier),
 													success : function(data) {
 													//console.log(data); 
-													window.location = "${pageContext.request.contextPath}/supplier"
+													window.location = "${pageContext.request.contextPath}/mst/supplier"
 													//alert('berhasil'); 
 													},
 													error : function() {
@@ -121,7 +128,7 @@
 							var id = $(this).attr('id');
 							$
 									.ajax({
-										url : '${pageContext.request.contextPath}/supplier/get-one/'
+										url : '${pageContext.request.contextPath}/mst/supplier/get-one/'
 												+ id,
 										type : 'GET',
 										dataType : 'json',
@@ -162,12 +169,12 @@
 							}
 							if (valid == true){
 									$.ajax({
-										url : '${pageContext.request.contextPath}/supplier/update',
+										url : '${pageContext.request.contextPath}/mst/supplier/update',
 										type : 'PUT',
 										data : JSON.stringify(supplier),
 										contentType : 'application/json',
 										success : function(data) {
-													window.location = '${pageContext.request.contextPath}/supplier';
+													window.location = '${pageContext.request.contextPath}/mst/supplier';
 													},
 										error : function() {
 													alert('update failed');
@@ -186,7 +193,7 @@
 							if (id !== "") {
 								$
 										.ajax({
-											url : '${pageContext.request.contextPath}/supplier/get-region?id='
+											url : '${pageContext.request.contextPath}/mst/supplier/get-region?id='
 													+ id,
 											type : 'GET',
 											success : function(data) {
@@ -219,7 +226,7 @@
 							if (id !== "") {
 								$
 										.ajax({
-											url : '${pageContext.request.contextPath}/supplier/get-district?id='
+											url : '${pageContext.request.contextPath}/mst/supplier/get-district?id='
 													+ id,
 											type : 'GET',
 											success : function(data) {
@@ -253,7 +260,7 @@
 							if (id !== "") {
 								$
 										.ajax({
-											url : '${pageContext.request.contextPath}/supplier/get-region?id='
+											url : '${pageContext.request.contextPath}/mst/supplier/get-region?id='
 													+ id,
 											type : 'GET',
 											success : function(data) {
@@ -286,7 +293,7 @@
 							if (id !== "") {
 								$
 										.ajax({
-											url : '${pageContext.request.contextPath}/supplier/get-district?id='
+											url : '${pageContext.request.contextPath}/mst/supplier/get-district?id='
 													+ id,
 											type : 'GET',
 											success : function(data) {
@@ -316,7 +323,7 @@
 		//button-search
 		$('#btn-search').on('click',function() {
 							var word = $('#search').val();
-							window.location = '${pageContext.request.contextPath}/supplier/search?search='
+							window.location = '${pageContext.request.contextPath}/mst/supplier/search?search='
 									+ word;
 						});
 		

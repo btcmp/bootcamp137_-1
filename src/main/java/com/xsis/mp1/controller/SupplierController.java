@@ -25,7 +25,7 @@ import com.xsis.mp1.service.RegionService;
 import com.xsis.mp1.service.SupplierService;
 
 @Controller
-@RequestMapping("/supplier")
+@RequestMapping("/mst/supplier")
 public class SupplierController {
 	
 	@Autowired

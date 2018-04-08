@@ -26,7 +26,7 @@ import com.xsis.mp1.service.ProvinceService;
 import com.xsis.mp1.service.RegionService;
 
 @Controller
-@RequestMapping("/outlet")
+@RequestMapping("/mst/outlet")
 public class OutletController {
 	
 	@Autowired

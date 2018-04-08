@@ -50,7 +50,7 @@
 							if (valid == true) {
 								$
 										.ajax({
-											url : '${pageContext.request.contextPath}/outlet/get-all',
+											url : '${pageContext.request.contextPath}/mst/outlet/get-all',
 											type : 'GET',
 											success : function(data) {
 												var sameEmail = 0;
@@ -76,14 +76,14 @@
 												} else {
 													$
 															.ajax({
-																url : '${pageContext.request.contextPath}/outlet/save',
+																url : '${pageContext.request.contextPath}/mst/outlet/save',
 																type : 'POST',
 																contentType : 'application/json',
 																data : JSON
 																		.stringify(outlet),
 																success : function(
 																		data) {
-																	window.location = "${pageContext.request.contextPath}/outlet"
+																	window.location = "${pageContext.request.contextPath}/mst/outlet"
 																},
 																error : function() {
 																	alert('save failed');
@@ -109,7 +109,7 @@
 							console.log(id);
 							$
 									.ajax({
-										url : '${pageContext.request.contextPath}/outlet/get-one/'
+										url : '${pageContext.request.contextPath}/mst/outlet/get-one/'
 												+ id,
 										type : 'GET',
 										success : function(outlet) {
@@ -165,12 +165,12 @@
 							if (valid == true) {
 								$
 										.ajax({
-											url : '${pageContext.request.contextPath}/outlet/update',
+											url : '${pageContext.request.contextPath}/mst/outlet/update',
 											type : 'PUT',
 											data : JSON.stringify(outlet),
 											contentType : 'application/json',
 											success : function(data) {
-												window.location = '${pageContext.request.contextPath}/outlet';
+												window.location = '${pageContext.request.contextPath}/mst/outlet';
 												/* 	alert ('update berhasil');  */
 											},
 											error : function() {
@@ -190,7 +190,7 @@
 							if (id !== "") {
 								$
 										.ajax({
-											url : '${pageContext.request.contextPath}/outlet/get-region?id='
+											url : '${pageContext.request.contextPath}/mst/outlet/get-region?id='
 													+ id,
 											type : 'GET',
 											success : function(data) {
@@ -223,7 +223,7 @@
 							if (id !== "") {
 								$
 										.ajax({
-											url : '${pageContext.request.contextPath}/outlet/get-district?id='
+											url : '${pageContext.request.contextPath}/mst/outlet/get-district?id='
 													+ id,
 											type : 'GET',
 											success : function(data) {
@@ -257,7 +257,7 @@
 							if (id !== "") {
 								$
 										.ajax({
-											url : '${pageContext.request.contextPath}/outlet/get-region?id='
+											url : '${pageContext.request.contextPath}/mst/outlet/get-region?id='
 													+ id,
 											type : 'GET',
 											success : function(data) {
@@ -290,7 +290,7 @@
 							if (id !== "") {
 								$
 										.ajax({
-											url : '${pageContext.request.contextPath}/outlet/get-district?id='
+											url : '${pageContext.request.contextPath}/mst/outlet/get-district?id='
 													+ id,
 											type : 'GET',
 											success : function(data) {
@@ -322,7 +322,7 @@
 						'click',
 						function() {
 							var word = $('#search').val();
-window.location = '${pageContext.request.contextPath}/outlet/search?search='
+window.location = '${pageContext.request.contextPath}/mst/outlet/search?search='
 									+ word;
 						});
 	});

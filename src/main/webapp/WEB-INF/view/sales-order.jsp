@@ -22,6 +22,27 @@
 			maxDate : 20,
 		});
  */
+ $(function() {
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0!
+		var yyyy = today.getFullYear();
+
+		if(dd<10) {
+		    dd = '0'+dd
+		} 
+		if(mm<10) {
+		    mm = '0'+mm
+		} 
+		today = yyyy + '-' + mm + '-' + dd;
+		
+		$('#insert-cust-dob').daterangepicker({
+	        singleDatePicker: true,
+	        maxDate: new Date(today),
+	        showDropdowns: true,
+	        dateFormat: 'dd-mm-yyyy'
+	    });
+	});
  
 		$('#cust-tabel').DataTable({
 			searching : false,
@@ -76,7 +97,7 @@
 							if (valid == true) {
 								$
 										.ajax({
-											url : '${pageContext.request.contextPath}/sales-order/get-all-customer',
+											url : '${pageContext.request.contextPath}/t/sales-order/get-all-customer',
 											type : 'GET',
 											success : function(data) {
 												var sameEmail = 0;
@@ -95,7 +116,7 @@
 												} else {
 													$
 															.ajax({
-																url : '${pageContext.request.contextPath}/sales-order/save-customer',
+																url : '${pageContext.request.contextPath}/t/sales-order/save-customer',
 																type : 'POST',
 																contentType : 'application/json',
 																data : JSON
@@ -129,7 +150,7 @@
 							var cust = $('#input-search-cust').val();
 							$
 									.ajax({
-										url : "${pageContext.request.contextPath}/sales-order/search-cust?customer="
+										url : "${pageContext.request.contextPath}/t/sales-order/search-cust?customer="
 												+ cust,
 										type : 'GET',
 										success : function(data) {
@@ -193,7 +214,7 @@
 							//alert (variant); 
 							$
 									.ajax({
-										url : "${pageContext.request.contextPath}/sales-order/search-item?inventory="
+										url : "${pageContext.request.contextPath}/t/sales-order/search-item?inventory="
 												+ item,
 										type : 'GET',
 										success : function(data) {
@@ -283,7 +304,7 @@
 								$('.btn-added-item' + id).show();
 								$
 										.ajax({
-											url : "${pageContext.request.contextPath}/sales-order/get-item/"
+											url : "${pageContext.request.contextPath}/t/sales-order/get-item/"
 													+ id,
 											type : 'GET',
 											success : function(data) {
@@ -461,14 +482,14 @@
 								}
 								$
 										.ajax({
-											url : '${pageContext.request.contextPath }/sales-order/save',
+											url : '${pageContext.request.contextPath }/t/sales-order/save',
 											type : 'POST',
 											data : JSON.stringify(salesOrder),
 											contentType : 'application/json',
 											success : function() {
 												$
 														.ajax({
-															url : '${pageContext.request.contextPath}/sales-order/update-stock',
+															url : '${pageContext.request.contextPath}/t/sales-order/update-stock',
 															type : 'PUT',
 															data : JSON
 																	.stringify(salesOrder),
@@ -497,7 +518,7 @@
 						})
 		
 		$('#btn-no-thx').click(function(){
-			window.location = '${pageContext.request.contextPath}/sales-order'; 
+			window.location = '${pageContext.request.contextPath}/t/sales-order'; 
 		})
 		/* ==================================================SELECT OPTION PROVINCE, REGION, DISTRICT ============================================== */
 		/* ------------------Untuk Input Region--------------------  */
@@ -508,7 +529,7 @@
 							if (id !== "") {
 								$
 										.ajax({
-											url : '${pageContext.request.contextPath}/sales-order/get-region?id='
+											url : '${pageContext.request.contextPath}/t/sales-order/get-region?id='
 													+ id,
 											type : 'GET',
 											success : function(data) {
@@ -542,7 +563,7 @@
 							if (id !== "") {
 								$
 										.ajax({
-											url : '${pageContext.request.contextPath}/sales-order/get-district?id='
+											url : '${pageContext.request.contextPath}/t/sales-order/get-district?id='
 													+ id,
 											type : 'GET',
 											success : function(data) {
