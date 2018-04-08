@@ -36,47 +36,51 @@
 		//save
 		$('#btn-save').on('click', function(){
 			
-			var tsDet = [];
-			
-			$('#tbl-ts-add-item > tbody > tr').each(function(index, data) {
-				var detail = {
-						"inStock" : $(this).find('td').eq(1).text(),
-						"transferQty" : $(this).find('td').eq(2).text(),
-						"variant" : {
-							"id" : $(this).attr('id-var')
-						}
+			if('${outlet.id}' == $('#input-to-outlet').val()){
+				alert('Outlet tujuan tidak boleh sama');
+			}else{
+				var tsDet = [];
+				
+				$('#tbl-ts-add-item > tbody > tr').each(function(index, data) {
+					var detail = {
+							"inStock" : $(this).find('td').eq(1).text(),
+							"transferQty" : $(this).find('td').eq(2).text(),
+							"variant" : {
+								"id" : $(this).attr('id-var')
+							}
+					};
+					tsDet.push(detail);
+					console.log('tes');
+				});
+				
+				var ts = {
+					id : $('#input-id').val(),
+					fromOutlet : {
+						id : '${outlet.id}'
+					},
+					toOutlet : {
+						id : $('#input-to-outlet').val()
+					},
+					notes : $('#input-note').val(),
+					status : "Submitted",
+					tsDetails : tsDet
 				};
-				tsDet.push(detail);
-				console.log('tes');
-			});
-			
-			var ts = {
-				id : $('#input-id').val(),
-				fromOutlet : {
-					id : $('#input-from-outlet').val()
-				},
-				toOutlet : {
-					id : $('#input-to-outlet').val()
-				},
-				notes : $('#input-note').val(),
-				status : "Submitted",
-				tsDetails : tsDet
-			};
-			console.log(ts);
+				console.log(ts);
 
-			$.ajax({
-				type : 'POST',
-				url : '${pageContext.request.contextPath}/ts/save',
-				data : JSON.stringify(ts),
-				contentType : 'application/json',
-				success : function() {
-					window.location = '${pageContext.request.contextPath}/ts';
-				},
-				error : function() {
-					alert('save failed');
-				}
+				$.ajax({
+					type : 'POST',
+					url : '${pageContext.request.contextPath}/t/ts/save',
+					data : JSON.stringify(ts),
+					contentType : 'application/json',
+					success : function() {
+						window.location = '${pageContext.request.contextPath}/t/ts';
+					},
+					error : function() {
+						alert('save failed');
+					}
 
-			});
+				});	
+			}
 		});
 		
 		var added = [];
@@ -90,7 +94,7 @@
 			} else {
 				$.ajax({
 					type : 'GET',
-					url : '${pageContext.request.contextPath}/ts/search-item?search='+word,
+					url : '${pageContext.request.contextPath}/t/ts/search-item?search='+word,
 					dataType: 'json',
 					success : function(data){
 						console.log(data);
@@ -98,7 +102,7 @@
 						$.each(data, function(key, val) {
 							var oTableItem = "<tr>"+
 								'<td>'+ val.variant.item.name +'-'+ val.variant.name +'</td>' +
-								'<td id="inStock'+ val.id +'">'+ val.beginning +'</td>' +
+								'<td id="inStock'+ val.id +'">'+ val.endingQty +'</td>' +
 								'<td id="td-qty'+ val.id +'"><input type="number" id="add-qty'+ val.id +'" value="1" /></td>' +
 								'<td><button type="button" id="'+ val.id +'" class="btn-add-item'+val.id +' btn-add-item btn btn-primary" id-var="'+val.variant.id+'">Add</button></td>' +
 								"</tr>";
@@ -154,7 +158,12 @@
 		$('.view').on('click', function(){
 			var id = $(this).attr('id');
 			console.log(id);
-			window.location = '${pageContext.request.contextPath}/ts/detail/' + id;
+			window.location = '${pageContext.request.contextPath}/t/ts/detail/' + id;
+		});
+		
+		//export pdf
+		$('#btn-export').on('click', function(){
+			window.location = '${pageContext.request.contextPath}/generate/ts';
 		});
 		
 		// Search by To Outlet
@@ -162,11 +171,11 @@
 			var cari = $('#src-outlet').val();
 			console.log(cari);
 			if(status == 'All'){
-				window.location = '${pageContext.request.contextPath}/ts';
+				window.location = '${pageContext.request.contextPath}/t/ts';
 			}else{
 				$.ajax({
 					type : 'GET',
-					url : '${pageContext.request.contextPath}/ts/src-outlet?search='+cari,
+					url : '${pageContext.request.contextPath}/t/ts/src-outlet?search='+cari,
 					success : function(data){
 						$('#dt-table-ts').empty();
 						console.log(data);
@@ -180,8 +189,8 @@
 								+'<td>'+val.fromOutlet.name+'</td>'
 								+'<td>'+val.toOutlet.name+'</td>'
 								+'<td>'+val.status+'</td>'
-								+'<td><input type="button" class="update btn btn-success btn-sm" value="Edit" id="'+val.id+'" pr-status="'+val.status+'"> | '
-								+'<a href="${pageContext.request.contextPath}/ts/detail/'+val.id+'" class="view btn btn-success btn-sm" key-id="'+val.id+'">View</a></td>');
+								+'<td><input type="button" class="update btn btn-success btn-sm" value="Edit" id="'+val.id+'" ts-status="'+val.status+'"> | '
+								+'<a href="${pageContext.request.contextPath}/t/ts/detail/'+val.id+'" class="view btn btn-success btn-sm" key-id="'+val.id+'">View</a></td>');
 						})
 						
 					},
@@ -279,12 +288,7 @@
 				<form id="target" data-parsley-validate>
 					<input type="hidden" id="input-id" name="input-id" />
 					<div class="form-group">
-						<label for="input-from">CREATE NEW TRANSFER STOCK FROM : </label>
-						<select name="role" id="input-from-outlet">
-							<c:forEach var="out" items="${outlets }">
-								<option value="${out.id }">${out.name }</option>
-							</c:forEach>
-						</select>
+						<label for="input-from">CREATE NEW TRANSFER STOCK FROM : </label> ${outlet.name}
 					</div>
 					<div class="form-group">
 						

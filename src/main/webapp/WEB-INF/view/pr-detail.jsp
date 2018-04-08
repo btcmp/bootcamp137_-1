@@ -8,6 +8,8 @@
 			var action = $(this).val();
 			var id = $(this).attr('key-id');
 			if(action == 'print'){
+				$('#action-pr').hide();
+				$('.done').hide();
 				window.print();
 			}else{
 				$.ajax({
@@ -100,7 +102,7 @@
 		<th>Created By </th>
 		<td></td>
 		<td> : </td>
-		<td>${pr.createdBy }</td>
+		<td></td>
 	</tr>
 	<tr>
 		<th>Target Waktu Item Ready </th>

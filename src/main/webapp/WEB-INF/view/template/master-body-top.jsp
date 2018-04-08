@@ -117,9 +117,6 @@
 			<section class="content-header">
 				<h2 style="text-align: center;">P O S</h2>
 				<ol class="breadcrumb">
-					<li><a href="${pageContext.request.contextPath}"><i
-							class="fa fa-dashboard"></i> Main</a></li>
-					<li class="active">Employee</li>
 				</ol>
 			</section>
 

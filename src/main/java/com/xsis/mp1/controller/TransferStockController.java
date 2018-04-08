@@ -23,7 +23,7 @@ import com.xsis.mp1.service.OutletService;
 import com.xsis.mp1.service.TransferStockService;
 
 @Controller
-@RequestMapping("/ts")
+@RequestMapping("/t/ts")
 public class TransferStockController {
 
 	@Autowired
@@ -56,14 +56,6 @@ public class TransferStockController {
 	public TransferStock getOne(@PathVariable long id) {
 		return tsService.getOne(id);
 	}
-	
-	/*@RequestMapping(value = "/approve/{id}", method = RequestMethod.PUT)
-	@ResponseStatus(HttpStatus.OK)
-	public void updateStatusAndStock(@RequestBody String newStatus, @PathVariable long id) {
-		TransferStock ts = tsService.getOne(id);
-		ts.setStatus(newStatus);
-		tsService.updateStock(ts);
-	}*/
 
 	@RequestMapping(value="/detail/{id}", method = RequestMethod.GET)
 	public String cari(@PathVariable long id, Model model) {

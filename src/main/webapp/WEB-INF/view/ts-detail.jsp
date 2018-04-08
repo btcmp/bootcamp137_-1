@@ -12,10 +12,10 @@
 			}else{
 				$.ajax({
 					type : 'GET',
-					url : '${pageContext.request.contextPath}/ts/'+action+'/'+id,
+					url : '${pageContext.request.contextPath}/t/ts/'+action+'/'+id,
 					success : function(){
 						console.log('Status Updated');
-						window.location = '${pageContext.request.contextPath}/ts/detail/'+id;
+						window.location = '${pageContext.request.contextPath}/t/ts/detail/'+id;
 					},
 					error : function(){
 						console.log('Update Status Failed');
@@ -74,7 +74,7 @@
 		<th>Created By </th>
 		<td></td>
 		<td> : </td>
-		<td>${ts.createdBy }</td>
+		<td>$('')</td>
 	</tr>
 	<tr>
 		<th>Transfer Status </th>

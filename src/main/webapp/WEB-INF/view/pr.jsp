@@ -107,19 +107,6 @@
 			$('#btn-submit').hide();
 			clearForm();
 		});
-		
-		
-		/* var CHAR_SETS = {
-			    d: '0123456789',
-			    A: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-			    w: '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-			};
-
-		function randChar(charType) {
-		    var chars = CHAR_SETS[charType];
-		    return chars.charAt(parseInt(Math.random() * chars.length));
-		};
-		var code = 'PR'+'AddwwwwAAAddd'.replace(/[Adw]/g, randChar) */
 			
 		var stat = '';
 	    
@@ -467,18 +454,6 @@
 					<td>${pr.notes }</td>
 					<td>${pr.status }</td>
 					<td>
-						<script type="text/javascript">
-							var element = $('#dt-table-pr').parent().parent();
-							var state = element.find('td').eq(3).text();
-							console.log(state);
-							/* var cek = '${pr.status }';
-							console.log(cek); */
-							/* if(state == 'Approved'){
-								$('.update').prop('disabled', true);
-							}else{
-								$('.update').prop('disabled', false);
-							} */
-						</script>
 						<a id="${pr.id }" class="update btn btn-success btn-sm" href="#">Edit</a> |
 						<a id="${pr.id }" class="view btn btn-success btn-sm" href="${pageContext.request.contextPath}/t/pr/detail/${pr.id}">View</a>
 					</td>
@@ -504,11 +479,6 @@
 					<input type="hidden" id="input-id" name="input-id" />
 					<div class="form-group">
 						<label for="input-name">CREATE NEW PR : </label> ${outlet.name}
-						<%-- <select name="role" id="input-outlet">
-							<c:forEach var="out" items="${outlets }">
-								<option value="${out.id }">${out.name }</option>
-							</c:forEach>
-						</select> --%>
 					</div>
 					<div class="form-group">
 						
