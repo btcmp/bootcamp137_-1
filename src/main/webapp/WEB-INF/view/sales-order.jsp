@@ -97,7 +97,7 @@
 							if (valid == true) {
 								$
 										.ajax({
-											url : '${pageContext.request.contextPath}/t/sales-order/get-all-customer',
+											url : '${pageContext.request.contextPath}/t/payment/sales-order/get-all-customer',
 											type : 'GET',
 											success : function(data) {
 												var sameEmail = 0;
@@ -116,7 +116,7 @@
 												} else {
 													$
 															.ajax({
-																url : '${pageContext.request.contextPath}/t/sales-order/save-customer',
+																url : '${pageContext.request.contextPath}/t/payment/sales-order/save-customer',
 																type : 'POST',
 																contentType : 'application/json',
 																data : JSON
@@ -150,7 +150,7 @@
 							var cust = $('#input-search-cust').val();
 							$
 									.ajax({
-										url : "${pageContext.request.contextPath}/t/sales-order/search-cust?customer="
+										url : "${pageContext.request.contextPath}/t/payment/sales-order/search-cust?customer="
 												+ cust,
 										type : 'GET',
 										success : function(data) {
@@ -214,7 +214,7 @@
 							//alert (variant); 
 							$
 									.ajax({
-										url : "${pageContext.request.contextPath}/t/sales-order/search-item?inventory="
+										url : "${pageContext.request.contextPath}/t/payment/sales-order/search-item?inventory="
 												+ item,
 										type : 'GET',
 										success : function(data) {
@@ -304,7 +304,7 @@
 								$('.btn-added-item' + id).show();
 								$
 										.ajax({
-											url : "${pageContext.request.contextPath}/t/sales-order/get-item/"
+											url : "${pageContext.request.contextPath}/t/payment/sales-order/get-item/"
 													+ id,
 											type : 'GET',
 											success : function(data) {
@@ -482,14 +482,14 @@
 								}
 								$
 										.ajax({
-											url : '${pageContext.request.contextPath }/t/sales-order/save',
+											url : '${pageContext.request.contextPath }/t/payment/sales-order/save',
 											type : 'POST',
 											data : JSON.stringify(salesOrder),
 											contentType : 'application/json',
 											success : function() {
 												$
 														.ajax({
-															url : '${pageContext.request.contextPath}/t/sales-order/update-stock',
+															url : '${pageContext.request.contextPath}/t/payment/sales-order/update-stock',
 															type : 'PUT',
 															data : JSON
 																	.stringify(salesOrder),
@@ -518,7 +518,7 @@
 						})
 		
 		$('#btn-no-thx').click(function(){
-			window.location = '${pageContext.request.contextPath}/t/sales-order'; 
+			window.location = '${pageContext.request.contextPath}/t/payment/sales-order'; 
 		})
 		/* ==================================================SELECT OPTION PROVINCE, REGION, DISTRICT ============================================== */
 		/* ------------------Untuk Input Region--------------------  */
@@ -529,7 +529,7 @@
 							if (id !== "") {
 								$
 										.ajax({
-											url : '${pageContext.request.contextPath}/t/sales-order/get-region?id='
+											url : '${pageContext.request.contextPath}/t/payment/sales-order/get-region?id='
 													+ id,
 											type : 'GET',
 											success : function(data) {
@@ -563,7 +563,7 @@
 							if (id !== "") {
 								$
 										.ajax({
-											url : '${pageContext.request.contextPath}/t/sales-order/get-district?id='
+											url : '${pageContext.request.contextPath}/t/payment/sales-order/get-district?id='
 													+ id,
 											type : 'GET',
 											success : function(data) {
