@@ -79,6 +79,11 @@ public class InventoryService {
 		return inventoryDao.searchInventoryByItemAndVariantName(search);
 	}
 
+	public List<Inventory> searchInventoryByItemNameAndOutLet(String search, long idOut) {
+		// TODO Auto-generated method stub
+		return inventoryDao.searchInventoryByItemAndVariantNameAndOutlet(search,idOut);
+	}
+
 	 
 
 }

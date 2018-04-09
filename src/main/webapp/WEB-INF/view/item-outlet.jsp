@@ -32,7 +32,7 @@
 				</div>
 				<div class="col-md-3">
 		 		  	<div class="form-group">
-						<button type="button" id="btn-export" class="btn btn-primary btn-block">Export</button>
+						<button type="button" id="btn-export-item" class="btn btn-primary btn-block">Export</button>
 					</div>
 				</div>
 				<div class="col-md-3">
@@ -60,7 +60,7 @@
 				<td><center>${inv.variant.item.categoryId.name }</center></td>
 				<td><center>Rp. ${inv.variant.price}</center></td>
 				<td><center>${inv.beginning }</center></td>
-				<td><center>${inv.variant.sku }</center></td>
+				<td><center>${inv.alertAtQty }</center></td>
 				<td><center>
 					<a id="${inv.variant.item.id}" class="btn-item-edit btn btn-info btn-sm" href="#">Edit</a></center>
 				</td>

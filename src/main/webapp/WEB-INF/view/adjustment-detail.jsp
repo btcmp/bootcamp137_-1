@@ -9,7 +9,11 @@
 			var id = $(this).attr('key-id');
 			if(action == 'print'){
 				window.print();
-			}else{
+			}
+			/* else if(action=='approve'){
+				
+			} */
+			else{
 				$.ajax({
 					type : 'GET',
 					url : '${pageContext.request.contextPath}/adjustment/'+action+'/'+id,
@@ -26,7 +30,7 @@
 		
 		$('.done').on('click', function(){
 			window.location = '${pageContext.request.contextPath}/adjustment';
-			var adjQty=
+			//var adjQty=
 		});
 	});
 </script>

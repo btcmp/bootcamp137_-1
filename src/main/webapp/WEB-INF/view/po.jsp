@@ -2,13 +2,20 @@
 
 <script type="text/javascript">
 	jQuery(document).ready(function(){		
+		/* =================export pdf============= */
+		$('#btn-export').on('click', function(){
+			window.location = '${pageContext.request.contextPath}/generate/po';
+		});
+	 
+		
+		
 		$('.btn-edit-po').on('click', function(evt){
 			evt.preventDefault();
 			var id = $(this).attr('id');
 			var po = $(this).attr('name');
 			var poNo = $(this).attr('poNo');
 			$.ajax({
-				url:'${pageContext.request.contextPath}/po/get-onepo/'+po,
+				url:'${pageContext.request.contextPath}/mst/po/get-onepo/'+po,
 				type:'GET',
 				contentType:'application/json',
 				success : function(data){
@@ -22,7 +29,7 @@
 			//console.log(poNo);
 			/* ajax get pr  */
 			  $.ajax({
-				url:'${pageContext.request.contextPath}/po/get-one/'+id,
+				url:'${pageContext.request.contextPath}/mst/po/get-one/'+id,
 				type:'GET',
 				contentType:'application/json',
 				success : function(data){
@@ -121,13 +128,13 @@
 				console.log(po);
 			
 			  $.ajax({
-				url:'${pageContext.request.contextPath}/po/update',
+				url:'${pageContext.request.contextPath}/mst/po/update',
 				type:'PUT',
 				contentType:'application/json',
 				data : JSON.stringify(po),
 				success : function(){
 					console.log("save")
-					window.location = '${pageContext.request.contextPath}/po';
+					window.location = '${pageContext.request.contextPath}/mst/po';
 				},error:function(){
 					alert("error");
 				}
@@ -144,7 +151,7 @@
 			
 				var id = $(this).attr('id');
 				console.log(id);
-				window.location = '${pageContext.request.contextPath}/po/detail/'+ id;
+				window.location = '${pageContext.request.contextPath}/mst/po/detail/'+ id;
 				console.log(data);
 		});
 		

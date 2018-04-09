@@ -12,11 +12,11 @@
 			}else{
 				$.ajax({
 					type : 'GET',
-					url : '${pageContext.request.contextPath}/po/'+action+'/'+id,
+					url : '${pageContext.request.contextPath}/mst/po/'+action+'/'+id,
 					success : function(){
 						console.log('Status Updated');
 						console.log(action);
-						window.location = '${pageContext.request.contextPath}/po/detail/'+id;
+						window.location = '${pageContext.request.contextPath}/mst/po/detail/'+id;
 					},
 					error : function(){
 						console.log('Update Status Failed');
@@ -26,7 +26,7 @@
 		});
 		
 		$('.done').on('click', function(){
-			window.location = '${pageContext.request.contextPath}/po';
+			window.location = '${pageContext.request.contextPath}/mst/po';
 		});
 	});
 </script>
@@ -117,7 +117,7 @@
 									var i=0;
 									$.ajax({
 										type : 'GET',
-										url : '${pageContext.request.contextPath}/po/get-inventory?idPo='+${po.id}+'&idPod='+${po.supplierId.id},
+										url : '${pageContext.request.contextPath}/mst/po/get-inventory?idPo='+${po.id}+'&idPod='+${po.supplierId.id},
 										dataType: 'json',
 										success : function(data){
 											//$('#td${pod.id}').append(inventory[0]);
@@ -200,7 +200,7 @@
 									var i=0;
 									$.ajax({
 										type : 'GET',
-										url : '${pageContext.request.contextPath}/po/get-inventory?idPo='+${po.id}+'&idPod='+${pod.id},
+										url : '${pageContext.request.contextPath}/mst/po/get-inventory?idPo='+${po.id}+'&idPod='+${pod.id},
 										dataType: 'json',
 										success : function(inventory){
 											$('#td${pod.id}').append(inventory[0]);

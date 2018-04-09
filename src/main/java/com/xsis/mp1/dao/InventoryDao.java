@@ -46,5 +46,7 @@ public interface InventoryDao {
 	public List<Object[]> searchInventoryByItemAndVariantName(String search);
 
 	public Inventory searchInventoryByVarAndOutlet(long variantId, long idFromOutlet);
+
+	public List<Inventory> searchInventoryByItemAndVariantNameAndOutlet(String search, long idOut);
 	
 }

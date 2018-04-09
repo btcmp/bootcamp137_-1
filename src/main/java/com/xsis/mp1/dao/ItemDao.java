@@ -32,5 +32,7 @@ public interface ItemDao {
 		public void updateItemByName(Item item);
 
 		public List<Item> selectAllBySupplier(Supplier supplier);
+
+		public void updateStatus(Long idItem);
 }
  

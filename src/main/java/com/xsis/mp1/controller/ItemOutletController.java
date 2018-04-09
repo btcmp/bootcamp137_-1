@@ -31,7 +31,7 @@ import com.xsis.mp1.service.VariantService;
 
 
 @Controller
-@RequestMapping("/item-outlet")
+@RequestMapping("/mst/item-outlet")
 public class ItemOutletController {
 
 	@Autowired
@@ -102,5 +102,19 @@ public class ItemOutletController {
 		model.addAttribute("inventories", inventories);
 		System.out.println("ada "+id);
 		return inventories;
+	}
+	
+	@RequestMapping(value = "/search-item", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Inventory> searchItemByOutlet(@RequestParam(value="search", defaultValue="") String search, @RequestParam(value="idOut", defaultValue="") long idOut) {
+		List<Inventory> inventories = inventoryService.searchInventoryByItemNameAndOutLet(search, idOut);
+		System.out.println("search"+search+"outlet "+idOut);
+		return inventories;
+	}
+	
+	@RequestMapping(value="/update-status/{id}", method=RequestMethod.PUT)
+	@ResponseStatus(HttpStatus.OK)
+	public void updateStatus(@RequestParam(value="idItem", defaultValue="") Long idItem) {
+		itemService.updateStatus(idItem); 
 	}
 }

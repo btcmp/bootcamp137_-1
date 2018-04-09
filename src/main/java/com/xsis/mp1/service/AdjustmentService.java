@@ -180,6 +180,11 @@ public class AdjustmentService {
 		AdjustmentDetail adjustD = adjustmentDetailDao.getOne(idAdjd);
 		return invDao.searchInventoryByVariantAndOutlet(adjustD.getVariant());
 	}
+
+	public void setInventory(long id) {
+		//adjustmentDao.setInventory(id);
+		
+	}
 	
 	
 }

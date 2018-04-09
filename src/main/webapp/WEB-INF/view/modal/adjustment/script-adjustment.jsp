@@ -1,6 +1,12 @@
 
 <script type="text/javascript">
 	jQuery(document).ready(function(){
+		
+		/* =================export pdf============= */
+		$('#btn-export').on('click', function(){
+			window.location = '${pageContext.request.contextPath}/generate/adjustment';
+		});
+		
 		$('#dt-table').DataTable( {
 	        "searching":   false,
 	        "info":     false
@@ -85,11 +91,11 @@
 
 			 $.ajax({
 				type : 'POST',
-				url : '${pageContext.request.contextPath}/adjustment/save',
+				url : '${pageContext.request.contextPath}/mst/adjustment/save',
 				data : JSON.stringify(adj),
 				contentType : 'application/json',
 				success : function(data) {
-					window.location = '${pageContext.request.contextPath}/adjustment';
+					window.location = '${pageContext.request.contextPath}/mst/adjustment';
 					console.log(data)
 				},
 				error : function() {
@@ -103,7 +109,7 @@
 		$('.view').on('click', function(){
 			var id = $(this).attr('id');
 			console.log(id);
-			window.location = '${pageContext.request.contextPath}/adjustment/detail?id=' + id;
+			window.location = '${pageContext.request.contextPath}/mst/adjustment/detail?id=' + id;
 			console.log(data);
 		});
 		
@@ -118,7 +124,7 @@
 			} else {
 				$.ajax({
 					type : 'GET',
-					url : '${pageContext.request.contextPath}/adjustment/search-item?search='+word,
+					url : '${pageContext.request.contextPath}/mst/adjustment/search-item?search='+word,
 					dataType: 'json',
 					success : function(data){
 						console.log(data);
@@ -186,7 +192,7 @@
 			 $('#tbody-add-item').empty();
 			$.ajax({
 				type : 'GET',
-				url : '${pageContext.request.contextPath}/adjustment/get-one/'+id,
+				url : '${pageContext.request.contextPath}/mst/adjustment/get-one/'+id,
 				dataType: 'json',
 				success : function(data){
 					console.log(data);

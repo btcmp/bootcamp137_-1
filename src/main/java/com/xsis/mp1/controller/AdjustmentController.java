@@ -24,7 +24,7 @@ import com.xsis.mp1.service.OutletService;
 import com.xsis.mp1.service.PRService;
 
 @Controller
-@RequestMapping("/adjustment")
+@RequestMapping("/mst/adjustment")
 public class AdjustmentController {
 
 	@Autowired
@@ -90,6 +90,7 @@ public class AdjustmentController {
 	@ResponseStatus(HttpStatus.OK)
 	public void approve(@PathVariable long id) {
 		adjustmentService.approve(id);
+		//adjustmentService.setInventory(id);
 	}
 	
 	@RequestMapping(value="/reject/{id}", method= RequestMethod.GET)

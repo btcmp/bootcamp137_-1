@@ -49,7 +49,7 @@
 			<th>Unit Price</th>
 			<th>SKU</th>
 			<th>Beginning Stock</th>
-			<th style="display: none;">alert Stock</th>
+			<th>alert Stock</th>
 			<th style="display: none;">ending Quantity</th>
 			<th style="display: none;">Outlet</th>
 			<th>#</th>
@@ -65,7 +65,8 @@
 						<button type="button" id="btn-cancel" class="btn btn-primary" style="width:100%;" data-dismiss="modal">Back</button>
 					</div>
 					<div class="col-md-4" style="margin: auto;">
-						<button type="button" id="btn-cancel" class="btn btn-primary" style="width:100%;" data-dismiss="modal">Cancel</button>
+						<button type="button" id="btn-cancel-create-item" class="btn btn-primary" style="width:100%;" 
+							onclick=" resetModalCreateItem()" value="Reset form">Cancel</button>
 					</div>
 					<div class="col-md-4" style="margin: auto;">
 						<button type="button" id="btn-save" class="btn btn-primary" style="width:100%;" href="#">Save</button>
@@ -94,7 +95,7 @@
 			
 			
 			<div class="modal-body">
-				<form id="target" data-parsley-validate>
+				<form id="form-variant" data-parsley-validate>
 					<input type="hidden" id="input-varian-id" name="input-id" />		
 					<div class="row">
 						<div class="form-group col-md-4">
@@ -154,6 +155,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLabel" style="text-align: center;">Add variant</h5>
+				<input type="text" class="id-add-edit-variant">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -162,7 +164,7 @@
 			
 			
 			<div class="modal-body">
-				<form id="target" data-parsley-validate>
+				<form id="form-edit-variant" data-parsley-validate>
 					<input type="hidden" id="input-edit-edit-varian-id" name="input-id" />		
 					<div class="row">
 						<div class="form-group col-md-4">
@@ -202,7 +204,7 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" id="btn-edit-cancel-add" class="btn btn-primary" style="float:right; margin-right: 31px; width:150px;" data-dismiss="modal">Cancel</button>
+				<button type="button" id="btn-add-edit-cancel-update" class="btn btn-primary" style="float:right; margin-right: 31px; width:150px;" data-dismiss="modal">Cancel</button>
 				<button type="button" id="" class="btn-add-edit-update-variant btn btn-primary" style="float:right; margin-right: 0px; width: 150px;">Update</button>
 			</div>
 		</div>
@@ -262,9 +264,10 @@
 			<th>Unit Price</th>
 			<th>SKU</th>
 			<th>Beginning Stock</th>
-			<th style="display: none">alert Stock</th>
-			<th style="display: none;">ending Quantity</th>
-			<th style="display: none">id</th>
+			<th style='display:none'> alert Stock</th>
+			<th style='display:none'> ending Quantity</th>
+			<th style='display:none'> id</th>
+			<th style='display:none'>outlet</th>
 			<th>#</th>
 		</thead>
 		<tbody id="tbody-variant">
@@ -272,7 +275,7 @@
 		</tbody>
 	</table>
 	<div class="row">
-		<button type="button" style="max-width:22%; margin-left:2%" id="btn-edit-delete-item" class="btn btn-danger" style="float:right; margin-right: 0px; width:150px;">Delete Item</button>
+		<button type="button" style="max-width:22%; margin-left:2%" id="" class="btn-edit-delete-item btn btn-danger" style="float:right; margin-right: 0px; width:150px;">Delete Item</button>
 	</div>
 </form>
 			</div>
@@ -324,8 +327,18 @@
 					</div>				
 					<div><br/><br/>
 						<h5>Set Beginning Stock</h5>
+						<div>
+						 <select name="title" id="edit-add-outlet" style="width: 20%"
+						 class="form-control custom-select custom-select-md"><br/>
+						    	<option value="">Outlet</option>
+						    	<c:forEach items= "${outlet}" var="outlet">
+									<option value="${outlet.id}">${outlet.name}</option>
+								</c:forEach>
+						    </select>
+						</div>
 						<hr widht="100%"/>
 						</div><br/>
+						
 						<div class="row">
 						<div class="form-group col-md-6">
 							<input type="text" class="form-control " id="input-edit-add-beginning-stock" placeholder="Beginning Stock">
@@ -334,6 +347,7 @@
 							<input type="text" class="form-control " id="input-edit-add-alert-at" placeholder="Alert At">
 						</div>			
 					</div>
+					
 					
 				</form>
 			</div>
@@ -377,6 +391,15 @@
 					</div>				
 					<div><br/><br/>
 						<h5>Set Beginning Stock</h5>
+						<div>
+						 	<select name="title" id="edit-edit-outlet" style="width: 20%"
+						 	class="form-control custom-select custom-select-md"><br/>
+						    	<option value="">Outlet</option>
+						    	<c:forEach items= "${outlet}" var="outlet">
+									<option value="${outlet.id}">${outlet.name}</option>
+								</c:forEach>
+						    </select>
+						</div>
 						<hr widht="100%"/>
 						</div><br/>
 						<div class="row">

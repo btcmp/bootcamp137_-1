@@ -31,7 +31,7 @@ import com.xsis.mp1.service.VariantService;
 
 
 @Controller
-@RequestMapping("/po")
+@RequestMapping("/mst/po")
 public class PurchaseOrderController {
 
 	@Autowired

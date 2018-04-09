@@ -20,5 +20,7 @@ public interface AdjustmentDao {
 	public void reject(long id);
 
 	public void createPo(long id);
+
+	//public void setInventory(long id);
 	
 } 

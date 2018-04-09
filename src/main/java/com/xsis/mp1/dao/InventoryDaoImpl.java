@@ -136,7 +136,6 @@ public class InventoryDaoImpl implements InventoryDao {
 			return null; 
 		} else {
 			Inventory inv = inventories.get(0);
-			System.out.println(inv);
 			return inv;
 		}
 	}
@@ -151,7 +150,18 @@ public class InventoryDaoImpl implements InventoryDao {
 			return itemInventory.get(0);
 		}
 	}
-	
 
+	public List<Inventory> searchInventoryByItemAndVariantNameAndOutlet(String search, long idOut) {
+		// TODO Auto-generated method stub
+				Session session = sessionFactory.getCurrentSession();
+				String hql = "from Inventory inv where lower(inv.variant.item.name) like :itemName or lower(inv.variant.name) like :itemName and inv.outlet.id =:outletId";
+				List<Inventory> inventories = session.createQuery(hql).setParameter("itemName", "%"+search.toLowerCase()+"%").setParameter("outletId", idOut).list();
+				System.out.println("ini inventor"+inventories);
+				if (inventories.isEmpty()) {
+					return null;
+				} else {
+					return inventories;
+				}	
+	}
 	
 }

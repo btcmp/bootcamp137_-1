@@ -71,7 +71,6 @@ public class ItemService {
 		//item.setVariants(null);
 		itemDao.updateItemByName(item);
 		List<Variant> variant2 = item.getVariants();
-		//variantDao.delete(item.getVariants());
 		List<Variant> variants=variantDao.getVarianByItem(item);
 		if(variants != null) {
 			for(Variant variant: variants) {
@@ -89,16 +88,21 @@ public class ItemService {
 			variant3.setSku(variant.getSku());
 			System.out.println(variant.getName());
 			variantDao.save(variant3);
-			List<Inventory> inventory=variant.getInventories();
+			Inventory inventory=variant.getInventories().get(0);
 			
 			if(inventory!=null) {
-				for(Inventory inventory2: inventory) {
+				
 					Inventory inventory3=new Inventory();
 					inventory3.setVariant(variant3);
-					inventory3.setAlertAtQty(inventory2.getAlertAtQty());
-					inventory3.setBeginning(inventory2.getBeginning());
+					inventory3.setAlertAtQty(inventory.getAlertAtQty());
+					inventory3.setBeginning(inventory.getBeginning());
+					inventory3.setEndingQty(inventory.getEndingQty());
+					inventory3.setOutlet(inventory.getOutlet());
+					inventory3.setCreatedBy(inventory.getCreatedBy());
+					inventory3.setCreatedOn(inventory.getCreatedOn());
+					//System.out.println(inventory2.getOutlet().getId());
 					inventoryDao.save(inventory3);
-				}
+				
 			}
 		}
 	}
@@ -106,5 +110,10 @@ public class ItemService {
 	public List<Item> selectAllBySupplier(Supplier supplier) {
 		// TODO Auto-generated method stub
 		return itemDao.selectAllBySupplier(supplier);
+	}
+
+	public void updateStatus(Long idItem) {
+		itemDao.updateStatus(idItem);
+		
 	}
 }
