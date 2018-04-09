@@ -59,8 +59,7 @@
 			$('#insert-target').daterangepicker({
 		        singleDatePicker: true,
 		        minDate: new Date(today),
-		        showDropdowns: true,
-		        dateFormat: 'dd-mm-yyyy'
+		        showDropdowns: true
 		    });
 		});
 		
@@ -76,25 +75,29 @@
 		var itemnya = [];
 		
 		$('#btn-add-item-var').on('click', function(){
-			$('#modal-pr-add-item').modal('hide');
-			$('#modal-pr-input').modal('show');
-			$('#btn-save').prop('disabled', false);
-			$('#btn-submit').show();
-			
-			$.ajax({
-				type : 'GET',
-				url : '${pageContext.request.contextPath}/item/get-inventory',
-				dataType : 'json',
-				success : function(data){
-					$.each(data, function(key, val) {
-						var namaItem = val.variant.item.name +'-'+ val.variant.name;
-						itemnya.push(namaItem);
-					});
-					console.log(itemnya);
-				}, error : function(){
-					
-				}
-			});
+			if($('#tbl-add-item-purchase').empty()){
+				alert('Choose item first');
+			}else{
+				$('#modal-pr-add-item').modal('hide');
+				$('#modal-pr-input').modal('show');
+				$('#btn-save').prop('disabled', false);
+				$('#btn-submit').show();
+				
+				$.ajax({
+					type : 'GET',
+					url : '${pageContext.request.contextPath}/item/get-inventory',
+					dataType : 'json',
+					success : function(data){
+						$.each(data, function(key, val) {
+							var namaItem = val.variant.item.name +'-'+ val.variant.name;
+							itemnya.push(namaItem);
+						});
+						console.log(itemnya);
+					}, error : function(){
+						
+					}
+				});
+			}
 		});
 		
 		$('#btn-cancel-add').on('click', function(){
@@ -386,7 +389,7 @@
 <!-- =================================================================================================================== -->
 
 <hr>
-<h6>PURCHASE REQUEST</h6>
+<h6><b>PURCHASE REQUEST</b></h6>
 <hr>
 	<div class="row">
 	  <div class="col-md-3">
@@ -548,7 +551,7 @@
 				<form id="target" data-parsley-validate>
 					<input type="hidden" id="input-id" name="input-id" />
 					<div class="form-group">
-						<input type="text" id="src-item-variant" class="form-control" placeholder="Item Name - Variant Name" />
+						<input type="text" id="src-item-variant" class="form-control" placeholder="Search Item Name - Variant Name" />
 					</div>
 				</form>
 			</div>

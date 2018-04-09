@@ -19,9 +19,14 @@
 		});
 
 		$('#btn-add-item-var').on('click', function(){
-			$('#modal-pr-add-item').modal('hide');
-			$('#modal-pr-input').modal('show');
-			$('#btn-submit').show();
+			if($('#tbl-add-item-transfer').empty()){
+				alert('Choose item first');
+			}else{
+				$('#modal-pr-add-item').modal('hide');
+				$('#modal-pr-input').modal('show');
+				$('#btn-save').prop('disabled', false);
+				$('#btn-submit').show();
+			}
 		});
 		
 		$('#btn-cancel-add').on('click', function(){
@@ -32,6 +37,8 @@
 		$('#btn-cancel-input').on('click', function(){
 			$('#btn-submit').hide();
 		});
+		
+		$('#btn-save').prop('disabled', true);
 		
 		//save
 		$('#btn-save').on('click', function(){
@@ -211,7 +218,7 @@
 <!-- =================================================================================================================== -->
 
 <hr>
-<h6>TRANSFER STOCK</h6>
+<h6><b>TRANSFER STOCK</b></h6>
 <hr>
 	<div class="row">
 	  <div class="col-md-2">
@@ -278,7 +285,7 @@
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Transfer Stock</h5>
+				<h5 class="modal-title" id="exampleModalLabel"><b>Transfer Stock</b></h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -331,7 +338,6 @@
 					
 					</div>
 					<div class="col-md-3" >
-						<button type="button" id="btn-submit" class="btn btn-success btn-block" style="display: none">Submit</button>
 					</div>
 					<div class="col-md-3">
 						<button type="button" id="btn-cancel-input" class="btn btn-primary btn-block" data-dismiss="modal">Cancel</button>
@@ -350,7 +356,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Add Purchase Item</h5>
+				<h5 class="modal-title" id="exampleModalLabel"><b>Add Purchase Item</b></h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -360,7 +366,7 @@
 				<form id="target" data-parsley-validate>
 					<input type="hidden" id="input-id" name="input-id" />
 					<div class="form-group">
-						<input type="text" id="src-item-variant" class="form-control" placeholder="Item Name - Variant Name" />
+						<input type="text" id="src-item-variant" class="form-control" placeholder="Search Item Name - Variant Name" />
 					</div>
 				</form>
 			</div>

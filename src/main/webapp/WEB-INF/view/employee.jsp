@@ -38,6 +38,7 @@
 	        		$('#insert-pass').prop('required', false);
 	        		$('#insert-role').attr('data-parsley-required', false);
 		        	$('#insert-role').prop('required', false);
+		        	userOK = 1;
 				}
 			});
 
@@ -85,7 +86,8 @@
 				};
 				console.log(employee);
 				console.log(userOK);
-				if (valid == true && emailOK==1){
+				console.log(emailOK);
+				if (valid == true && emailOK==1 && userOK==1){
 					$.ajax({
 						type : 'POST',
 						url : '${pageContext.request.contextPath}/mst/employee/save',
@@ -100,13 +102,13 @@
 
 					}); 
 					
-				 } else if(valid == true && emailOK==0 && userOK==0){
-					 alert('This email and user has been used');
 				 } else if(valid == true && emailOK==0 && userOK==1){
 					 alert('This email has been used');
 				 } else if(valid == true && emailOK==1 && userOK==0){
 					 alert('This user has been used');
-				 }  else {
+				 } else if(valid == true && emailOK==0 && userOK==0){
+					 alert('This email and user has been used');
+				 } else {
 					 alert('Complete your form ');
 				 }
 			});
@@ -114,7 +116,7 @@
 			var emailExist = '';
 			var emailOK = 0;
 			var userExist = '';
-			var userOK = 0;
+			var userOK = 1;
 			
 			$('#insert-email').on('keyup',function(){
 				var email = $('#insert-email').val();
@@ -141,7 +143,7 @@
 					url : '${pageContext.request.contextPath}/mst/employee/check-user?user='+user,
 					success : function(data){
 						console.log(data);
-						if(data > 0 && $('input[name="cb-have-account"]').is(":checked") && user != userExist){
+						if(data > 0 && $('#cb-have-account').is(":checked") && user != userExist){
 							userOK = 0;
 						}else{
 							userOK = 1;
