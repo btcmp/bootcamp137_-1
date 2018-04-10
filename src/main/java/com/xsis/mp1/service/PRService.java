@@ -6,6 +6,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,12 +19,14 @@ import com.xsis.mp1.dao.POHistoryDao;
 import com.xsis.mp1.dao.PRDao;
 import com.xsis.mp1.dao.PRDetailDao;
 import com.xsis.mp1.dao.PRHistoryDao;
+import com.xsis.mp1.dao.UserDao;
 import com.xsis.mp1.model.PurchaseOrder;
 import com.xsis.mp1.model.PurchaseOrderDetail;
 import com.xsis.mp1.model.PurchaseOrderHistory;
 import com.xsis.mp1.model.PurchaseRequest;
 import com.xsis.mp1.model.PurchaseRequestDetail;
 import com.xsis.mp1.model.PurchaseRequestHistory;
+import com.xsis.mp1.model.User;
 
 @Service
 @Transactional
@@ -48,6 +52,12 @@ public class PRService {
 	
 	@Autowired
 	InventoryDao invDao;
+	
+	@Autowired
+	UserDao userDao;
+	
+	@Autowired
+	HttpSession httpSession;
 
 	public List<PurchaseRequest> selectAll() {
 		List<PurchaseRequest> prs = prDao.selectAll();
@@ -67,6 +77,7 @@ public class PRService {
 	}
 
 	public void save(PurchaseRequest pr) {
+		User usr = (User) httpSession.getAttribute("usernya");
 		PurchaseRequest preq = new PurchaseRequest();
 		preq.setId(pr.getId());
 		preq.setOutletId(pr.getOutletId());
@@ -77,10 +88,12 @@ public class PRService {
 		
 		//jika data ada, modifiednya aja yg ganti
 		if(preq.getId()!=0) {
+			preq.setModifiedBy(usr.getId());
 			preq.setModifiedOn(new Date());
 			PurchaseRequest prc = prDao.getOne(preq.getId());
 			preq.setCreatedOn(prc.getCreatedOn());
 		}else {
+			preq.setCreatedBy(usr.getId());
 			preq.setCreatedOn(new Date());
 		}
 		
@@ -139,6 +152,7 @@ public class PRService {
 			PurchaseRequestHistory prh = new PurchaseRequestHistory();
 			prh.setPr(preq);
 			prh.setStatus(preq.getStatus());
+			prh.setCreatedBy(preq.getCreatedBy());
 			prh.setCreatedOn(preq.getCreatedOn());
 			prhDao.save(prh);
 		}
@@ -187,6 +201,7 @@ public class PRService {
 	}
 
 	public void createPo(long id) {
+		User usr = (User) httpSession.getAttribute("usernya");
 		prDao.createPo(id);
 		PurchaseRequest pr = prDao.getOne(id);
 		
@@ -199,6 +214,7 @@ public class PRService {
 		}
 		
 		PurchaseRequestHistory prh = new PurchaseRequestHistory();
+		prh.setCreatedBy(usr.getId());
 		prh.setCreatedOn(new Date());
 		prh.setPr(pr);
 		prh.setStatus(pr.getStatus());
@@ -225,6 +241,7 @@ public class PRService {
 		String poNo = "PO/"+"KEL1/"+tgl+"/"+nomor;
 		
 		PurchaseOrder po = new PurchaseOrder();
+		po.setCreatedBy(usr.getId());
 		po.setCreatedOn(new Date());
 		po.setNotes(pr.getNotes());
 		po.setPoNo(poNo);
@@ -246,6 +263,7 @@ public class PRService {
 		}
 		
 		PurchaseOrderHistory poh = new PurchaseOrderHistory();
+		poh.setCreatedBy(usr.getId());
 		poh.setCreatedOn(po.getCreatedOn());
 		poh.setPurchaseOrder(po);
 		poh.setStatus(po.getStatus());
@@ -274,6 +292,25 @@ public class PRService {
 		prh.setPr(pr);
 		prh.setStatus(pr.getStatus());
 		prhDao.save(prh);
+	}
+
+	public List<Object> getUsernameByPrId(long id) {
+		return userDao.getUsernameByPrId(id);
+	}
+
+	public List<PurchaseRequest> getPRByDate(Date awal, Date akhir) {
+		Date startDate = awal;
+		Calendar cal = Calendar.getInstance(); 
+		cal.setTime(startDate); 
+		cal.add(Calendar.DATE, -1);
+		startDate = cal.getTime();
+		
+		Date endDate = akhir;
+		Calendar cal2 = Calendar.getInstance(); 
+		cal2.setTime(endDate); 
+		cal2.add(Calendar.DATE, 1);
+		endDate = cal2.getTime();
+		return prDao.searchPRByDate(startDate, endDate);
 	}
 	
 	

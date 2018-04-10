@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.xsis.mp1.model.Employee;
+import com.xsis.mp1.model.Inventory;
 import com.xsis.mp1.model.User;
 
 @Repository
@@ -51,6 +52,17 @@ public class UserDaoImpl implements UserDao {
 		String hql = "update User set active=0 where id = :id";
 		session.createQuery(hql).setParameter("id", id).executeUpdate();
 		session.flush();
+	}
+
+	public List<Object> getUsernameByPrId(long id) {
+		Session session = sessionFactory.getCurrentSession(); 
+		String hql = "select username from User where id=:id";
+		List<Object> users = session.createQuery(hql).setParameter("id", id).list();
+		if (users.isEmpty()) {
+			return null; 
+		} else {
+			return users;
+		}
 	}
 
 }

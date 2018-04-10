@@ -1,5 +1,6 @@
 package com.xsis.mp1.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.xsis.mp1.model.PurchaseRequest;
@@ -27,5 +28,7 @@ public interface PRDao {
 	public int getRowsPR(int bln, int thn);
 
 	public void submitted(long id);
+
+	public List<PurchaseRequest> searchPRByDate(Date startDate, Date endDate);
 
 }

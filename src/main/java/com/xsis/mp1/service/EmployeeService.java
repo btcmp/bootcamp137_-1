@@ -1,6 +1,7 @@
 package com.xsis.mp1.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -73,7 +74,8 @@ public class EmployeeService {
 		emp.setActive(employee.isActive());
 		
 		if(emp.getId()!=0) {
-			//emp.setModifiedBy(usr);
+			emp.setModifiedBy(usr.getId());
+			emp.setModifiedOn(new Date());
 			
 			User user = userDao.getUserByEmployee(emp);
 			if(user == null) {
@@ -86,6 +88,8 @@ public class EmployeeService {
 			}
 		}else {
 			emp.setHaveAccount(employee.isHaveAccount());
+			emp.setCreatedBy(usr.getId());
+			emp.setCreatedOn(new Date());
 		}
 		employeeDao.saveOrUpdate(emp);
 		
@@ -131,7 +135,6 @@ public class EmployeeService {
 			employee.setEmpouts(empOUtlets);
 		}
 		return employees;
-//		return employeeDao.getListByStatus();
 	}
 
 	public Employee getOneByUsername(String username) {

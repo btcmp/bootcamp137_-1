@@ -55,14 +55,14 @@ public class Employee {
 	private boolean haveAccount;
 	
 	@Column(name="created_by")
-	private int createdBy;
+	private long createdBy;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name="created_on")
 	private Date createdOn;
 	
 	@Column(name="modified_by")
-	private int modifiedBy;
+	private long modifiedBy;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name="modified_on")
@@ -143,14 +143,6 @@ public class Employee {
 		this.haveAccount = haveAccount;
 	}
 
-	public int getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(int createdBy) {
-		this.createdBy = createdBy;
-	}
-
 	public Date getCreatedOn() {
 		return createdOn;
 	}
@@ -159,11 +151,19 @@ public class Employee {
 		this.createdOn = createdOn;
 	}
 
-	public int getModifiedBy() {
+	public long getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(long createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public long getModifiedBy() {
 		return modifiedBy;
 	}
 
-	public void setModifiedBy(int modifiedBy) {
+	public void setModifiedBy(long modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}
 

@@ -1,5 +1,6 @@
 package com.xsis.mp1.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -94,6 +95,17 @@ public class PRDaoImpl implements PRDao {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "update PurchaseRequest set status='Submitted' where id = :id";
 		session.createQuery(hql).setParameter("id", id).executeUpdate();
+	}
+
+	public List<PurchaseRequest> searchPRByDate(Date startDate, Date endDate) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from PurchaseRequest where createdOn BETWEEN :start AND  :end";
+		List<PurchaseRequest> prs = session.createQuery(hql).setParameter("start", startDate).setParameter("end", endDate).list();
+		if(prs.isEmpty()) {
+			return null;
+		}else {
+			return prs;
+		}
 	}
 	
 	

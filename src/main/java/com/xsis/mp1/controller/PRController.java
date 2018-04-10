@@ -1,8 +1,10 @@
 package com.xsis.mp1.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.xsis.mp1.model.Inventory;
 import com.xsis.mp1.model.Outlet;
 import com.xsis.mp1.model.PurchaseRequest;
+import com.xsis.mp1.model.User;
 import com.xsis.mp1.service.InventoryService;
 import com.xsis.mp1.service.OutletService;
 import com.xsis.mp1.service.PRService;
@@ -59,6 +62,12 @@ public class PRController {
 		prService.save(pr);
 	}
 	
+	@RequestMapping("/get-all")
+	@ResponseBody
+	public List<PurchaseRequest> getAll(){
+		return prService.selectAll();
+	}
+	
 	@RequestMapping(value = "/get-one/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public PurchaseRequest getOne(@PathVariable long id) {
@@ -81,6 +90,12 @@ public class PRController {
 		List<Inventory> inventories = inventoryService.searchInventoryByItemName(search);
 		System.out.println("search"+search);
 		return inventories;
+	}
+	
+	@RequestMapping("/src-rg-date")
+	@ResponseBody
+	public List<PurchaseRequest> getByDate(@RequestParam(value="awal", defaultValue="") @DateTimeFormat(pattern="yyyy-MM-dd") Date awal, @RequestParam(value="akhir", defaultValue="") @DateTimeFormat(pattern="yyyy-MM-dd") Date akhir){
+		return prService.getPRByDate(awal, akhir);
 	}
 	
 	@RequestMapping(value = "/src-status", method = RequestMethod.GET)
@@ -125,5 +140,10 @@ public class PRController {
 		return prService.getInventoryByVariantAndOutlet(idPrd, idPr);
 	}
 	
+	@RequestMapping(value="/get-created-by", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Object> getCreatedBy(@RequestParam(value="id", defaultValue="") long id){
+		return prService.getUsernameByPrId(id);
+	}
 	
 }

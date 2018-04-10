@@ -102,7 +102,20 @@
 		<th>Created By </th>
 		<td></td>
 		<td> : </td>
-		<td></td>
+		<td id="td-create">
+			<script type="text/javascript">
+				$.ajax({
+					type : 'GET',
+					url : '${pageContext.request.contextPath}/t/pr/get-created-by?id='+${pr.createdBy },
+					dataType: 'json',
+					success : function(data){
+						console.log(data);
+						$('#td-create').append(data[0]);
+						//document.write('${data.username}');
+					}
+				});
+			</script>
+		</td>
 	</tr>
 	<tr>
 		<th>Target Waktu Item Ready </th>
