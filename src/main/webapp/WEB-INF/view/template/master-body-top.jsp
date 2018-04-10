@@ -25,7 +25,7 @@
 						<li class="dropdown user user-menu"><a href="#"
 							class="dropdown-toggle" data-toggle="dropdown"> <img
 								src="${url}/dist/img/user2-160x160.jpg" class="user-image"
-								alt="User Image"> <span class="hidden-xs">Kel 1 BC137</span>
+								alt="User Image"> <span class="hidden-xs">${employee.user.username }</span>
 						</a>
 							<ul class="dropdown-menu">
 								<!-- User image -->
@@ -34,14 +34,11 @@
 									alt="User Image">
 
 									<p>
-										Kelompok 1 BC137 <small>Member since
+										${employee.firstName } ${employee.lastName } <small>Member since
 											Mar. 2018</small>
 									</p></li>
 								<!-- Menu Body -->
 								<li class="user-footer">
-									<div class="pull-left">
-										<a href="#" class="btn btn-default btn-flat">Profile</a>
-									</div>
 									<div class="pull-right">
 										<c:url value="/j_spring_security_logout" var="logoutUrl" />
 											<!-- csrt for log out-->
@@ -71,7 +68,7 @@
 							alt="User Image">
 					</div>
 					<div class="pull-left info">
-						<p>${outlet.name }</p>
+						<p>${employee.user.username }</p>
 						<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
 					</div>
 				</div>

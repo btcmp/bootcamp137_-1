@@ -3,6 +3,8 @@ package com.xsis.mp1.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +29,9 @@ public class EmployeeService {
 	
 	@Autowired
 	UserDao userDao;
+	
+	@Autowired
+	HttpSession httpSession;
 	
 	public void save(Employee employee) {
 		employeeDao.save(employee);
@@ -58,16 +63,18 @@ public class EmployeeService {
 	}
 	
 	public void saveOrUpdate(Employee employee) {
+		User usr = (User) httpSession.getAttribute("usernya");
 		Employee emp = new Employee();
 		emp.setId(employee.getId());
 		emp.setFirstName(employee.getFirstName());
 		emp.setLastName(employee.getLastName());
 		emp.setEmail(employee.getEmail());
 		emp.setTitle(employee.getTitle());
-		//emp.setHaveAccount(employee.isHaveAccount());
 		emp.setActive(employee.isActive());
 		
 		if(emp.getId()!=0) {
+			//emp.setModifiedBy(usr);
+			
 			User user = userDao.getUserByEmployee(emp);
 			if(user == null) {
 				emp.setHaveAccount(false);
@@ -127,7 +134,7 @@ public class EmployeeService {
 //		return employeeDao.getListByStatus();
 	}
 
-	public List<Employee> getOneByUsername(String username) {
+	public Employee getOneByUsername(String username) {
 		return employeeDao.getOneByUsername(username);
 	}
 
@@ -150,5 +157,9 @@ public class EmployeeService {
 			}
 			return outlets;
 		}
+	}
+
+	public User getUserByEmployee(Employee employee) {
+		return userDao.getUserByEmployee(employee);
 	}
 }

@@ -31,7 +31,7 @@ public interface EmployeeDao {
 
 	public List<Employee> getListByStatus();
 
-	public List<Employee> getOneByUsername(String username);
+	public Employee getOneByUsername(String username);
 
 	public int countEmail(String email);
 

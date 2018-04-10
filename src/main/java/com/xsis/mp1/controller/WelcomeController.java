@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.xsis.mp1.model.Employee;
 import com.xsis.mp1.model.EmployeeOutlet;
 import com.xsis.mp1.model.Outlet;
+import com.xsis.mp1.model.User;
 import com.xsis.mp1.service.EmployeeService;
 import com.xsis.mp1.service.OutletService;
 
@@ -34,20 +35,24 @@ public class WelcomeController {
 	
 	@RequestMapping(value="/get-one-by-username")
 	@ResponseBody
-	public List<Employee> getOneByUsername(@RequestParam(value="username", defaultValue="") String username) {
+	public Employee getOneByUsername(@RequestParam(value="username", defaultValue="") String username) {
 		return employeeService.getOneByUsername(username);
 	}
 	
 	@RequestMapping(value="/choose-outlet")
 	public String chooseOutlet(Model model, Principal principal) {
 		String username = principal.getName();
-		List<Employee> employee = employeeService.getOneByUsername(username);
-		Employee empl = new Employee();
+		Employee empl = employeeService.getOneByUsername(username);
+		User user = employeeService.getUserByEmployee(empl);
+		
+		/*Employee empl = new Employee();
 		for(Employee emp : employee) {
 			empl = emp;
-		}
+		}*/
+		
 		httpSession.setAttribute("username", username);
 		httpSession.setAttribute("employee", empl);
+		httpSession.setAttribute("usernya", user);
 		List<Outlet> outlets = employeeService.getOutletByEmployee(empl);
 		model.addAttribute("outlets", outlets);
 		return "choose-outlet";

@@ -69,11 +69,15 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		}
 	}
 
-	public List<Employee> getOneByUsername(String username) {
+	public Employee getOneByUsername(String username) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from Employee emp where emp.user.username like :username";
-		List<Employee> employee = session.createQuery(hql).setParameter("username", username).list();
-		return employee;
+		String hql = "from Employee emp where user.username=:username";
+		List<Employee> employees = session.createQuery(hql).setParameter("username", username).list();
+		if(employees.isEmpty()) {
+			return null;
+		}else {
+			return employees.get(0);
+		}
 	}
 
 	public int countEmail(String email) {
