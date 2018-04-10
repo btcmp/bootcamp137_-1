@@ -88,6 +88,7 @@ public class PRService {
 		
 		//jika data ada, modifiednya aja yg ganti
 		if(preq.getId()!=0) {
+			preq.setCreatedBy(preq.getCreatedBy());
 			preq.setModifiedBy(usr.getId());
 			preq.setModifiedOn(new Date());
 			PurchaseRequest prc = prDao.getOne(preq.getId());

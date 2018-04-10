@@ -74,7 +74,19 @@
 		<th>Created By </th>
 		<td></td>
 		<td> : </td>
-		<td>$('')</td>
+		<td id="td-create">
+			<script type="text/javascript">
+				$.ajax({
+					type : 'GET',
+					url : '${pageContext.request.contextPath}/t/ts/get-created-by?id='+${ts.createdBy },
+					dataType: 'json',
+					success : function(data){
+						console.log(data);
+						$('#td-create').append(data[0]);
+					}
+				});
+			</script>
+		</td>
 	</tr>
 	<tr>
 		<th>Transfer Status </th>

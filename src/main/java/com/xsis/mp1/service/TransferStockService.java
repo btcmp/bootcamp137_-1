@@ -3,6 +3,8 @@ package com.xsis.mp1.service;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,10 +13,13 @@ import com.xsis.mp1.dao.InventoryDao;
 import com.xsis.mp1.dao.TransferStockDao;
 import com.xsis.mp1.dao.TransferStockDetailDao;
 import com.xsis.mp1.dao.TransferStockHistoryDao;
+import com.xsis.mp1.dao.UserDao;
 import com.xsis.mp1.model.Inventory;
+import com.xsis.mp1.model.PurchaseRequest;
 import com.xsis.mp1.model.TransferStock;
 import com.xsis.mp1.model.TransferStockDetail;
 import com.xsis.mp1.model.TransferStockHistory;
+import com.xsis.mp1.model.User;
 
 @Service
 @Transactional
@@ -31,6 +36,12 @@ public class TransferStockService {
 	
 	@Autowired
 	InventoryDao inventoryDao;
+	
+	@Autowired
+	UserDao userDao;
+	
+	@Autowired
+	HttpSession httpSession;
 	
 	public List<TransferStock> selectAll() {
 		List<TransferStock> tss = tsDao.selectAll();
@@ -50,6 +61,7 @@ public class TransferStockService {
 	}
 
 	public void save(TransferStock ts) {
+		User usr = (User) httpSession.getAttribute("usernya");
 		TransferStock tfs = new TransferStock();
 		tfs.setId(ts.getId());
 		tfs.setFromOutlet(ts.getFromOutlet());
@@ -57,6 +69,16 @@ public class TransferStockService {
 		tfs.setStatus(ts.getStatus());
 		tfs.setNotes(ts.getNotes());
 		tsDao.save(tfs);
+		
+		if(tfs.getId()!=0) {
+			tfs.setModifiedBy(usr.getId());
+			tfs.setModifiedOn(new Date());
+			TransferStock tfss = tsDao.getOne(tfs.getId());
+			tfs.setCreatedOn(tfss.getCreatedOn());
+		}else {
+			tfs.setCreatedBy(usr.getId());
+			tfs.setCreatedOn(new Date());
+		}
 		
 		if(ts.getTsDetails()!=null) {
 			for(TransferStockDetail tsDetails : ts.getTsDetails()) {
@@ -73,6 +95,8 @@ public class TransferStockService {
 		TransferStockHistory tsh = new TransferStockHistory();
 		tsh.setTransfer(tfs);
 		tsh.setStatus(tfs.getStatus());
+		tsh.setCreatedBy(tfs.getCreatedBy());
+		tsh.setCreatedOn(tfs.getCreatedOn());
 		tshDao.save(tsh);
 	}
 
@@ -97,8 +121,6 @@ public class TransferStockService {
 	public void approve(long id) {
 		
 		TransferStock tstok = tsDao.getOne(id);
-		
-		//TransferStock tstok = new TransferStock();
 		
 		long idToOutlet = tstok.getToOutlet().getId();
 		long idFromOutlet = tstok.getFromOutlet().getId();
@@ -128,7 +150,6 @@ public class TransferStockService {
 			}
 		}
 		tsDao.approve(id);
-		//TransferStock ts = tsDao.getOne(id);
 		TransferStockHistory tsh = new TransferStockHistory();
 		tsh.setCreatedOn(new Date());
 		tsh.setTransfer(tstok);
@@ -158,6 +179,10 @@ public class TransferStockService {
 
 	public List<TransferStock> getTSByOutlet(long cari) {
 		return tsDao.searchTSByOutlet(cari);
+	}
+
+	public List<Object> getUsernameById(long id) {
+		return userDao.getUsernameByPrId(id);
 	}
 	
 }
