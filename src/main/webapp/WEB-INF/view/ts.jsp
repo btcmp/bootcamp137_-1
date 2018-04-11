@@ -245,7 +245,7 @@
 	  </div>
 	  <div class="col-md-2">
 	  	<div class="form-group">
-		    <button type="button" id="btn-create" class="btn btn-primary btn-block btn-adm-show">Create</button>
+		    <button type="button" id="btn-create" class="btn btn-primary btn-block">Create</button>
 		</div>
 	  </div>
 	</div>

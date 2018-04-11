@@ -34,8 +34,15 @@
 									alt="User Image">
 
 									<p>
-										${employee.firstName } ${employee.lastName } <small>Member since
-											Mar. 2018</small>
+										${employee.firstName } ${employee.lastName } 
+										<small>
+											<script type="text/javascript">
+												var rolenya = "${employee.user.role.name}";
+												rolenya = rolenya.slice(5);
+												rolenya = rolenya.replace("_", " ");
+												document.write(rolenya);
+											</script>
+										</small>
 									</p></li>
 								<!-- Menu Body -->
 								<li class="user-footer">
