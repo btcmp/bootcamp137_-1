@@ -74,6 +74,8 @@
 						'click',
 						function(evt) {
 							evt.preventDefault();
+							var matriks = $('#input-cust-dob').val().split('/');
+							var ready = matriks[2]+'-'+matriks[0]+'-'+matriks[1];
 							var form = $('#target-create-cust');
 							var valid = form.parsley().validate();
 							var customer = {
@@ -81,7 +83,7 @@
 								address : $('#input-cust-address').val(),
 								email : $('#input-cust-email').val(),
 								phone : $('#input-cust-phone').val(),
-								dob : $('#input-cust-dob').val(),
+								dob : ready,
 								province : {
 									id : $('#input-province').val()
 								},
@@ -111,7 +113,7 @@
 																	}
 																});
 												if (sameEmail > 0) {
-													alert('This email has been used');
+													$('#modal-val-email').modal(); 
 												} else {
 													$
 															.ajax({
@@ -128,17 +130,18 @@
 																					'toggle');
 																},
 																error : function() {
-																	alert('save new customer failed');
+																	/* $('#modal-failed').modal();  */
+																	alert ('failed'); 
 																}
 															});
 												}
 											},
 											error : function() {
-												alert('failed');
+												$('#modal-failed').modal(); 
 											}
 										});
 							} else {
-								alert('Complete your form ');
+								$('#modal-alert-form').modal(); 
 							}
 						});
 
@@ -156,7 +159,7 @@
 											isiTableSearchCustomer(data);
 										},
 										error : function() {
-											alert('getting failed');
+											$('#modal-failed').modal(); 
 										},
 										dataType : 'json'
 									});
@@ -220,7 +223,7 @@
 											isiTableSearchItem(data);
 										},
 										error : function(data) {
-											alert('failed search variant');
+											$('#modal-failed').modal(); 
 										},
 										dataType : 'json'
 									});
@@ -317,7 +320,7 @@
 														quantity);
 											},
 											error : function(data) {
-												alert('failed get variant');
+												$('#modal-failed').modal(); 
 											},
 											dataType : 'json',
 										});
@@ -684,6 +687,8 @@
 <%@ include file="modal/sales-order/create-cust.jsp"%>
 <%@ include file="modal/sales-order/charge.jsp"%>
 <%@ include file="modal/sales-order/done-order.jsp"%>
-
+<%@ include file="modal/modal-alert-email.jsp"%>
+<%@ include file="modal/modal-alert-form.jsp"%>
+<%@ include file="modal/modal-alert-failed.jsp"%>
 </body>
 </html>
