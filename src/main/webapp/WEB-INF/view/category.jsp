@@ -118,6 +118,28 @@
 							}
 							if (valid == true) {
 								$
+								.ajax({
+									url : '${pageContext.request.contextPath}/mst/category/get-all',
+									type : 'GET',
+									success : function(data) {
+										var sameName = 0;
+										$(data)
+												.each(
+														function(index,
+																data2) {
+															if ( category.id != data2.id){
+																if (category.name
+																		.toLowerCase() == data2.name
+																		.toLowerCase()) {
+																	sameName++;
+																}
+															}
+															
+														});
+										if (sameName > 0) {
+											alert('This name has been used');
+										} else {
+								$
 										.ajax({
 											url : '${pageContext.request.contextPath}/mst/category/update',
 											type : 'PUT',
@@ -131,6 +153,14 @@
 											}
 										});
 							}
+									},
+									error : function() {
+										alert('failed');
+									}
+								});
+					} else {
+						alert('Complete your form ');
+					}
 						});
 
 		//btn-X

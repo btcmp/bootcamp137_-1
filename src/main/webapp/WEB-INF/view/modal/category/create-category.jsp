@@ -20,9 +20,9 @@
 							class="form-control" id="input-category-name"
 							aria-describedby="emailHelp" placeholder="Category Name"
 							pattern="([A-z0-9\s]){2,50}$">
-						<p style="color: red;">
+						<!-- <p style="color: red;">
 							<small>*Required</small>
-						</p>
+						</p> -->
 					</div>
 				</div>
 				<div class="modal-footer">

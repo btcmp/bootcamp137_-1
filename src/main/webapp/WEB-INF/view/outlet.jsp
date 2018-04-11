@@ -17,9 +17,11 @@
 		});
 
 		//button-export
-		$('#btn-export').click(function() {
-			window.location='${pageContext.request.contextPath}/generate/outlet'; 
-		})
+		$('#btn-export')
+				.click(
+						function() {
+							window.location = '${pageContext.request.contextPath}/generate/outlet';
+						})
 		//btn save  
 		$('#btn-save')
 				.on(
@@ -165,16 +167,53 @@
 							if (valid == true) {
 								$
 										.ajax({
-											url : '${pageContext.request.contextPath}/mst/outlet/update',
-											type : 'PUT',
-											data : JSON.stringify(outlet),
-											contentType : 'application/json',
+											url : '${pageContext.request.contextPath}/mst/outlet/get-all',
+											type : 'GET',
 											success : function(data) {
-												window.location = '${pageContext.request.contextPath}/mst/outlet';
-												/* 	alert ('update berhasil');  */
+												var sameEmail = 0;
+												var sameName = 0;
+												$(data)
+														.each(
+																function(index,
+																		data2) {
+																	if (outlet.id != data2.id) {
+																		if (outlet.email
+																				.toLowerCase() == data2.email
+																				.toLowerCase()) {
+																			sameEmail++;
+																		} else if (outlet.name
+																				.toLowerCase() == data2.name
+																				.toLowerCase()) {
+																			sameName++;
+																		}
+																	}
+
+																});
+												if (sameEmail > 0) {
+													alert('This email has been used');
+												} else if (sameName > 0) {
+													alert('This name has been used');
+												} else {
+													$
+															.ajax({
+																url : '${pageContext.request.contextPath}/mst/outlet/update',
+																type : 'PUT',
+																data : JSON
+																		.stringify(outlet),
+																contentType : 'application/json',
+																success : function(
+																		data) {
+																	window.location = '${pageContext.request.contextPath}/mst/outlet';
+																	/* 	alert ('update berhasil');  */
+																},
+																error : function() {
+																	alert('update failed');
+																}
+															});
+												}
 											},
 											error : function() {
-												alert('update failed');
+												alert('failed');
 											}
 										});
 							}
@@ -322,7 +361,7 @@
 						'click',
 						function() {
 							var word = $('#search').val();
-window.location = '${pageContext.request.contextPath}/mst/outlet/search?search='
+							window.location = '${pageContext.request.contextPath}/mst/outlet/search?search='
 									+ word;
 						});
 	});

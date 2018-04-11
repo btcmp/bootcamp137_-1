@@ -36,11 +36,10 @@
 		} 
 		today = yyyy + '-' + mm + '-' + dd;
 		
-		$('#insert-cust-dob').daterangepicker({
+		$('#input-cust-dob').daterangepicker({
 	        singleDatePicker: true,
 	        maxDate: new Date(today),
-	        showDropdowns: true,
-	        dateFormat: 'dd-mm-yyyy'
+	        showDropdowns: true
 	    });
 	});
  

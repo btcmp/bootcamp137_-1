@@ -18,17 +18,17 @@
 						<input data-parsley-required="true" type="text"
 							class="form-control" id="input-supp-name"
 							placeholder="Supplier Name" pattern="^[0-9a-zA-Z. ]+$">
-						<p style="color: red;">
+						<!-- <p style="color: red;">
 							<small>*Letters only</small>
-						</p>
+						</p> -->
 					</div>
 					<div class="form-group">
 						<input data-parsley-required="true" type="text"
 							class="form-control" id="input-address" placeholder="Address"
 							pattern="^[0-9a-zA-Z. ]+$">
-						<p style="color: red;">
+					<!-- 	<p style="color: red;">
 							<small>*Required</small>
-						</p>
+						</p> -->
 					</div>
 					<div class="form-group">
 						<div class="row">
@@ -68,26 +68,26 @@
 								<input data-parsley-required="true" type="text"
 									class="form-control" id="input-postal-code"
 									placeholder="Postal Code" pattern="([0-9]){5,6}$">
-								<p style="color: red;">
+								<!-- <p style="color: red;">
 									<small> *number only , max length = 6 </small>
-								</p>
+								</p> -->
 							</div>
 							<div class="col-sm-4">
 								<input data-parsley-required="true" type="text"
 									class="form-control" id="input-phone" placeholder="Phone"
 									maxlength= "14">
-								<p style="color: red;">
+								<!-- <p style="color: red;">
 									<small> *number only, ex : 087651234567 </small>
-								</p>
+								</p> -->
 							</div>
 							<div class="col-sm-4">
 								<input data-parsley-required="true" type="text"
 									class="form-control" id="input-email"
 									pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
 									placeholder="Email">
-								<p style="color: red;">
+								<!-- <p style="color: red;">
 									<small>ex : abc@something.com</small>
-								</p>
+								</p> -->
 							</div>
 						</div>
 					</div>
