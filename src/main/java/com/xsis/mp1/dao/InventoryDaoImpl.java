@@ -163,5 +163,18 @@ public class InventoryDaoImpl implements InventoryDao {
 					return inventories;
 				}	
 	}
+
+	@Override
+	public Inventory searchEndingQtyByLastModifiedVariant(Long id) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from Inventory i where i.variant.id = :id and i.modifiedOn is not null order by i.modifiedOn desc";
+		List<Inventory> inventories = session.createQuery(hql).setParameter("id", id).list();
+		Inventory inv = inventories.get(0);
+		if(inventories.isEmpty()) {
+			return null;
+		}else {
+			return inv;
+		}
+	}
 	
 }

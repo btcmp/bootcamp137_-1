@@ -57,6 +57,13 @@ public class AdjustmentDaoImpl implements AdjustmentDao {
 		String hql = "update Adjustment set status='PO Created' where id = :id";
 		session.createQuery(hql).setParameter("id", id).executeUpdate();*/
 	}
+
+	@Override
+	public void setInventory(long id) {
+/*		Session session = sessionFactory.getCurrentSession();
+		String hql = "update Adjustment set status='Rejected' where id = :id";
+		session.createQuery(hql).setParameter("id", id).executeUpdate();*/
+	}
 	
 	
 }

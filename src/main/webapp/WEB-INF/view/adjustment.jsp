@@ -63,7 +63,7 @@
 					<td>${adj.notes }</td>
 					<td>${adj.status }</td>
 					<td>
-						<a id="${adj.id }" class="view btn btn-success btn-sm" href="${pageContext.request.contextPath}/adjustment/detail/${adj.id}">View</a>
+						<a id="${adj.id }" class="view btn btn-success btn-sm" href="${pageContext.request.contextPath}/t/adjustment/detail/${adj.id}">View</a>
 					</td>
 				</tr>
 			</c:forEach>

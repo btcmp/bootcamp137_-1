@@ -24,7 +24,7 @@ import com.xsis.mp1.service.OutletService;
 import com.xsis.mp1.service.PRService;
 
 @Controller
-@RequestMapping("/mst/adjustment")
+@RequestMapping("/t/adjustment")
 public class AdjustmentController {
 
 	@Autowired
@@ -89,27 +89,13 @@ public class AdjustmentController {
 	@RequestMapping(value="/approve/{id}", method=RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	public void approve(@PathVariable long id) {
+		//Adjustment adj=adjustmentService.getOne(id);
 		adjustmentService.approve(id);
-		//adjustmentService.setInventory(id);
 	}
 	
 	@RequestMapping(value="/reject/{id}", method= RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	public void reject(@PathVariable long id) {
 		adjustmentService.reject(id);
-	}
-	
-	@RequestMapping(value="/create-po/{id}", method=RequestMethod.GET)
-	@ResponseStatus(HttpStatus.OK)
-	public void createPo(@PathVariable long id) {
-		adjustmentService.createPo(id);
-	}
-	
-	
-	//get inventory
-	@RequestMapping(value="/get-inventory", method=RequestMethod.GET)
-	@ResponseBody
-	public List<Object> getInventory(@RequestParam(value="idAdj", defaultValue="") long idAdj, @RequestParam(value="idAdjd", defaultValue="") long idAdjd){
-		return adjustmentService.getInventoryByVariantAndOutlet(idAdj, idAdjd);
 	}
 }

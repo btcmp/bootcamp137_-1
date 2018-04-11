@@ -10,16 +10,13 @@
 			if(action == 'print'){
 				window.print();
 			}
-			/* else if(action=='approve'){
-				
-			} */
 			else{
 				$.ajax({
 					type : 'GET',
-					url : '${pageContext.request.contextPath}/adjustment/'+action+'/'+id,
+					url : '${pageContext.request.contextPath}/t/adjustment/'+action+'/'+id,
 					success : function(){
 						console.log('Status Updated');
-						window.location = '${pageContext.request.contextPath}/adjustment/detail/'+id;
+						window.location = '${pageContext.request.contextPath}/t/adjustment/detail/'+id;
 					},
 					error : function(){
 						console.log('Update Status Failed');

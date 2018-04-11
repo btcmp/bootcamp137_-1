@@ -47,4 +47,15 @@ public class AdjustmentDetailDaoImpl implements AdjustmentDetailDao {
 		return session.get(AdjustmentDetail.class, idAdjd);
 	}
 
+	public List<AdjustmentDetail> searchById(long id) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from AdjustmentDetail ad where ad.adjustment.id = :id";
+		List<AdjustmentDetail> detAdjustments = session.createQuery(hql).setParameter("id", id).list();
+		if(detAdjustments.isEmpty()) {
+			return null;
+		}else {
+			return detAdjustments;
+		}
+	}
+
 }

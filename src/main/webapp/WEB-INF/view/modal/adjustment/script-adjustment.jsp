@@ -91,11 +91,11 @@
 
 			 $.ajax({
 				type : 'POST',
-				url : '${pageContext.request.contextPath}/mst/adjustment/save',
+				url : '${pageContext.request.contextPath}/t/adjustment/save',
 				data : JSON.stringify(adj),
 				contentType : 'application/json',
 				success : function(data) {
-					window.location = '${pageContext.request.contextPath}/mst/adjustment';
+					window.location = '${pageContext.request.contextPath}/t/adjustment';
 					console.log(data)
 				},
 				error : function() {
@@ -109,7 +109,7 @@
 		$('.view').on('click', function(){
 			var id = $(this).attr('id');
 			console.log(id);
-			window.location = '${pageContext.request.contextPath}/mst/adjustment/detail?id=' + id;
+			window.location = '${pageContext.request.contextPath}/t/adjustment/detail?id=' + id;
 			console.log(data);
 		});
 		
@@ -124,7 +124,7 @@
 			} else {
 				$.ajax({
 					type : 'GET',
-					url : '${pageContext.request.contextPath}/mst/adjustment/search-item?search='+word,
+					url : '${pageContext.request.contextPath}/t/adjustment/search-item?search='+word,
 					dataType: 'json',
 					success : function(data){
 						console.log(data);

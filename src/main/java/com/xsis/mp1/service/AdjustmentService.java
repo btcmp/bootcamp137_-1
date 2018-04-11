@@ -14,8 +14,10 @@ import com.xsis.mp1.dao.InventoryDao;
 import com.xsis.mp1.model.Adjustment;
 import com.xsis.mp1.model.AdjustmentDetail;
 import com.xsis.mp1.model.AdjustmentHistory;
+import com.xsis.mp1.model.Inventory;
 import com.xsis.mp1.model.PurchaseRequest;
 import com.xsis.mp1.model.PurchaseRequestDetail;
+import com.xsis.mp1.model.Variant;
 
 
 @Service
@@ -153,10 +155,25 @@ public class AdjustmentService {
 		adjh.setAdjustment(adj);;
 		adjh.setStatus(adj.getStatus());
 		adjustmentHystoryDao.save(adjh);
+		
+		long idOutlet = adj.getOutlet().getId();
+		List<AdjustmentDetail> adjd=adj.getAdjustmentDetails();
+		for(AdjustmentDetail adjd2 : adjd) {
+			long idVar=adjd2.getVariant().getId();
+			adjd2.setActualStock(adjd2.getActualStock());
+			adjd2.setAdjustment(adj);
+			adjd2.setInStock(adjd2.getInStock());
+			adjd2.setCreatedBy(adjd2.getCreatedBy());
+			adjd2.setVariant(adjd2.getVariant());
+			Inventory inv=invDao.searchInventoryByVarAndOutlet(idVar, idOutlet);
+			inv.setAdjustementqty(inv.getAdjustementqty()+(inv.getEndingQty()-adjd2.getActualStock()));
+			System.out.println(inv.getEndingQty()-adjd2.getActualStock());
+			inv.setEndingQty(adjd2.getActualStock());
+		}
 	}
 
 	public void reject(long id) {
-		adjustmentDao.approve(id);
+		adjustmentDao.reject(id);
 		Adjustment adj = adjustmentDao.getOne(id);
 		AdjustmentHistory adjh = new AdjustmentHistory();
 		adjh.setCreatedOn(new Date());
@@ -165,26 +182,31 @@ public class AdjustmentService {
 		adjustmentHystoryDao.save(adjh);
 	}
 
-	public void createPo(long id) {
-		adjustmentDao.approve(id);
-		Adjustment adj = adjustmentDao.getOne(id);
-		AdjustmentHistory adjh = new AdjustmentHistory();
-		adjh.setCreatedOn(new Date());
-		adjh.setAdjustment(adj);;
-		adjh.setStatus(adj.getStatus());
-		adjustmentHystoryDao.save(adjh);
-	}
-
-	public List<Object> getInventoryByVariantAndOutlet(long idAdj, long idAdjd) {
-		Adjustment adjust = adjustmentDao.getOne(idAdj);
-		AdjustmentDetail adjustD = adjustmentDetailDao.getOne(idAdjd);
-		return invDao.searchInventoryByVariantAndOutlet(adjustD.getVariant());
-	}
+	
 
 	public void setInventory(long id) {
-		//adjustmentDao.setInventory(id);
+		List<AdjustmentDetail> detAdjustments = adjustmentDetailDao.searchById(id);
+		for(AdjustmentDetail detAdj : detAdjustments) {
+			Inventory inv = invDao.searchEndingQtyByLastModifiedVariant(detAdj.getVariant().getId());
+			
+			Inventory ii = new Inventory();
+			ii.setVariant(detAdj.getVariant());
+			ii.setEndingQty(detAdj.getActualStock());
+			ii.setAdjustementqty(detAdj.getActualStock());
+			ii.setModifiedOn(new Date());
+			if(inv != null) {
+				ii.setAlertAtQty(inv.getAlertAtQty());
+				ii.setBeginning(inv.getEndingQty());
+			}else {
+				ii.setAlertAtQty(5);
+				ii.setBeginning(50);
+			}
+			invDao.save(ii);
+		}
+		adjustmentDao.setInventory(id);
 		
 	}
 	
+
 	
 }

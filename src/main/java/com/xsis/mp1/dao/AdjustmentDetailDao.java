@@ -14,5 +14,7 @@ public interface AdjustmentDetailDao {
 	void delete(AdjustmentDetail adjustmentDetail);
 
 	AdjustmentDetail getOne(long idAdjd);
+
+	List<AdjustmentDetail> searchById(long id);
 }
  
