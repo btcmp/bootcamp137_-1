@@ -382,7 +382,7 @@
 		<div id="search-box" style="margin-top: 20px; margin-botton: 20px">
 			<span><input type="text" id="search" placeholder="search" /></span>
 			<span><a id="btn-search" href="#" class="btn btn-primary">Search</a></span>
-			<button type="button" id="btn-create" class="adm-show" class="btn btn-primary"
+			<button type="button" id="btn-create" class="adm-show btn btn-primary"
 				style="float: right; margin-right: 0px; width: 150px;" >Create</button>
 			<button type="button" id="btn-export" class="btn btn-primary"
 				style="float: right; margin-right: 50px; width: 150px;">Export</button>

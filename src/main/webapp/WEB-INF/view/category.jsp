@@ -50,7 +50,7 @@
 																	}
 																});
 												if (sameName > 0) {
-													alert('This name has been used');
+													$('#modal-val-name').modal(); 
 												} else {
 													$
 															.ajax({
@@ -212,7 +212,7 @@
 		<div id="search-box" style="margin-top: 20px; margin-botton: 20px">
 			<span><input type="text" id="search" placeholder="search" /></span> <span><a
 				id="btn-search" href="#" class="btn btn-primary">Search</a></span>
-			<button type="button" id="btn-create" class="btn btn-primary"
+			<button type="button" id="btn-create" class="adm-show btn btn-primary"
 				style="float: right; margin-right: 0px; width: 150px;">Create</button>
 			<button type="button" id="btn-export" class="btn btn-primary"
 				style="float: right; margin-right: 50px; width: 150px;">Export</button>
@@ -225,14 +225,15 @@
 	<thead class="thead-dark">
 		<th><center>Category Name</center></th>
 		<th><center>Items Stock</center></th>
-		<th><center>#</center></th>
+		<!-- <th><center>#</center></th> -->
+		<th class="adm-show"><center>#</center></th>
 	</thead>
 	<tbody>
 		<c:forEach items="${categories}" var="ctg">
 			<tr>
 				<td>${ctg.name}</td>
 				<td>${ ctg.itemStock}</td>
-				<td><center>
+				<td class="adm-show"><center>
 						<a id="${ctg.id }" class="btn-view btn btn-info" href="#">View</a>
 					</center></td>
 			</tr>
@@ -249,6 +250,6 @@
 <!-- panggil modal dari folder modal -->
 <%@ include file="modal/category/create-category.jsp"%>
 <%@ include file="modal/category/edit-category.jsp"%>
-
+<%@ include file="modal/modal-alert.jsp"%>
 </body>
 </html>
