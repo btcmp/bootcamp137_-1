@@ -16,16 +16,25 @@
 		 
 		 /* add variant */
 		 $('#btn-add-item-variant').on('click', function(){
-				var markup = "<tr class='row-add-variant'><td>" + $('#input-variant-name').val()+ 
+				var form = $('#form-variant');
+				var valid = form.parsley().validate();
+				alert ('yeay'); 
+				
+					var markup = "<tr class='row-add-variant'><td>" + $('#input-variant-name').val()+ 
 					"</td><td style='text-align:center;'>" + $('#input-variant-price').val() + 
 					"</td><td style='text-align:center;'>" + $('#input-variant-sku').val() + 
 					"</td><td style='text-align:center;'>" + $('#input-beginning-stock').val() + 
 					"</td><td style='display:none'>"+ $('#input-alert-at').val() + 
 					"</td><td style='text-align:center;'><a class='btn-add-edit-variant btn btn-info btn-sm' href='#'>Edit</a>|<a class='btn-add-remove-variant btn btn-danger btn-sm' href='#'>X</a></td></tr>";
-					
-					$("#tbody-add-variant-create-item").append(markup);
 				
-				$('#modal-add-variant').modal('hide');
+				if (valid == true){
+					$('#tbody-add-variant-create-item').append(markup);
+				
+					$('#modal-add-variant').modal('hide');
+				} else {
+					alert('Complete your form ');
+				}
+				
 
 				//console.log(inventory);
 		});

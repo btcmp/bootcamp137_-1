@@ -100,7 +100,7 @@
 							<li class="tv-tsc"><a href="${pageContext.request.contextPath}/t/po"><i class="fa fa-circle-o"></i> Purchase Order</a></li>
 							<li class="tv-tsc"><a href="${pageContext.request.contextPath}/t/adjustment"><i class="fa fa-circle-o"></i> Adjustment</a></li>
 							<li class="tv-tsc"><a href="${pageContext.request.contextPath}/t/ts"><i class="fa fa-circle-o"></i> Transfer Stock</a></li>
-							<li><a href="${pageContext.request.contextPath}/t/payment/sales-order"><i class="fa fa-circle-o"></i> Sales Order </a></li>
+							<li><a href="${pageContext.request.contextPath}/payment/sales-order"><i class="fa fa-circle-o"></i> Sales Order </a></li>
 						</ul>
 					</li>
 				</ul>

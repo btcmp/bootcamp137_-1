@@ -32,7 +32,7 @@ import com.xsis.mp1.service.SalesOrderService;
 import com.xsis.mp1.service.VariantService;
 
 @Controller
-@RequestMapping("/t/payment/sales-order")
+@RequestMapping("/payment/sales-order")
 public class SalesOrderController {
 	
 	@Autowired
