@@ -13,7 +13,6 @@
 			</div>
 			<div class="modal-body">
 				<form id="target" data-parsley-validate>
-								
 						<div class="row col-md-12">
 							<div class="col-md-4">
 								<input type='file' onchange="readURL(this);" />
@@ -22,12 +21,12 @@
 			 				<div class="col-md-8">
 								<input type="hidden" id="input-item-id"/>		
 								<div class="form-group">
-									<input type="text" class="form-control" id="input-item-name" 
+									<input type="text"  data-parsley-required="true" class="form-control" id="input-item-name" 
 									 placeholder="Item Name"aria-describedby="emailHelp" pattern="([A-z0-9\s]){2,50}$">
 									<p style = "color : red;"><small>*Required</small></p>
 								</div><br/>
 								<div class ="form-group">
-									<select id="input-item-category" style="width: 100%; height: 35px;">
+									<select id="input-item-category" data-parsley-required="true" style="width: 100%; height: 35px;">
 									<option value="" selected="selected">Category</option>
 									<c:forEach items= "${categories}" var="ctg">
 										<option value=${ctg.id}>${ctg.name}</option>
@@ -99,17 +98,19 @@
 					<input type="hidden" id="input-varian-id" name="input-id" />		
 					<div class="row">
 						<div class="form-group col-md-4">
-							<input type="text" class="form-control " id="input-variant-name" placeholder="Variant Name"
-							 aria-describedby="emailHelp" data-parsley-length="[4,20]" data-parsley-group="block1">
-							
+							<input type="text" data-parsley-required="true" class="form-control " 
+							id="input-variant-name" placeholder="Variant Name"
+							 pattern="([A-z0-9\s]){2,50}$">
 						</div>
 						<div class="form-group col-md-4">
-							<input type="text" class="form-control " id="input-variant-price" placeholder="Unit Price"
-							pattern="^\d{3,4}-\d{6,8}$" aria-describedby="emailHelp">
-							<p style = "color : red;"><small> *number only, ex : 500000 </small></p>
+							<input type="text" data-parsley-required="true" class="form-control " 
+							id="input-variant-price" placeholder="Unit Price"
+							 pattern="[0-9]{1,}">
+							<p><small> *number only, ex : 500000 </small></p>
 						</div>
 						<div class="form-group col-md-4">
-							<input type="text" class="form-control " id="input-variant-sku" placeholder="SKU">
+							<input type="text" data-parsley-required="true" class="form-control " 
+							id="input-variant-sku" placeholder="SKU" >
 						</div>			
 					</div>				
 					<div><br/><br/>
@@ -118,7 +119,8 @@
 								<h5>Set Beginning Stock</h5>
 							</div>
 							<div class="form-group col-md-3">
-						   	 <select name="title" id="input-outlet" class="form-control custom-select custom-select-md">
+						   	 <select name="title" id="input-outlet" data-parsley-required="true" 
+						   	 class="form-control custom-select custom-select-md">
 						    	<option value="">Outlet</option>
 						    	<c:forEach items= "${outlet}" var="outlet">
 									<option value="${outlet.id}">${outlet.name}</option>
@@ -130,10 +132,14 @@
 						</div><br/>
 						<div class="row" style="display: none" id="inventory-store">
 						<div class="form-group col-md-6">
-							<input type="text" class="form-control " id="input-beginning-stock" placeholder="Beginning Stock">
+							<input type="text" data-parsley-required="true"  class="form-control " 
+							id="input-beginning-stock" placeholder="Beginning Stock" 
+							data-parsley-validate="true" pattern="[0-9]{1,}">
 						</div>
 						<div class="form-group col-md-6">
-							<input type="text" class="form-control " id="input-alert-at" placeholder="Alert At">
+							<input type="text"  data-parsley-required="true"  class="form-control " 
+							id="input-alert-at" placeholder="Alert At" data-parsley-validate="true"
+							pattern="[0-9]{1,}">
 						</div>			
 					</div>	
 				</form>
@@ -154,8 +160,8 @@
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel" style="text-align: center;">Add variant</h5>
-				<input type="text" class="id-add-edit-variant">
+				<h5 class="modal-title" id="exampleModalLabel" style="text-align: center;">Edit Variant</h5>
+				<input type="text" class="id-add-edit-variant" style="display: none">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -168,13 +174,18 @@
 					<input type="hidden" id="input-edit-edit-varian-id" name="input-id" />		
 					<div class="row">
 						<div class="form-group col-md-4">
-							<input type="text" class="form-control " id="input-edit-variant-name" placeholder="Variant Name">
+							<input type="text" data-parsley-required="true" class="form-control " 
+							id="input-edit-variant-name" placeholder="Variant Name" 
+							data-parsley-validate="true" pattern="([A-z0-9\s]){2,50}$">
 						</div>
 						<div class="form-group col-md-4">
-							<input type="text" class="form-control " id="input-edit-variant-price" placeholder="Unit Price">
+							<input type="text" data-parsley-required="true" class="form-control " 
+							id="input-edit-variant-price" placeholder="Unit Price"
+							data-parsley-validate="true" pattern="[0-9]{1,}">
+							<p><small> *number only, ex : 500000 </small></p>
 						</div>
 						<div class="form-group col-md-4">
-							<input type="text" class="form-control " id="input-edit-variant-sku" placeholder="SKU">
+							<input type="text" data-parsley-required="true" class="form-control " id="input-edit-variant-sku" placeholder="SKU">
 						</div>			
 					</div>				
 					<div><br/><br/>
@@ -183,7 +194,7 @@
 								<h5>Set Beginning Stock</h5>
 							</div>
 							<div class="form-group col-md-3">
-						   	 <select name="title" id="input-edit-outlet" class="form-control custom-select custom-select-md">
+						   	 <select name="title" data-parsley-required="true" id="input-edit-outlet" class="form-control custom-select custom-select-md">
 						    	<option value="">Outlet</option>
 						    	<c:forEach items= "${outlet}" var="outlet">
 									<option value="${outlet.id}">${outlet.name}</option>
@@ -195,10 +206,14 @@
 						</div><br/>
 						<div class="row">
 						<div class="form-group col-md-6">
-							<input type="text" class="form-control " id="input-edit-beginning-stock" placeholder="Beginning Stock">
+							<input type="text" data-parsley-required="true" class="form-control " 
+							id="input-edit-beginning-stock" placeholder="Beginning Stock"
+							data-parsley-validate="true" pattern="[0-9]{1,}">
 						</div>
 						<div class="form-group col-md-6">
-							<input type="text" class="form-control " id="input-edit-alert-at" placeholder="Alert At">
+							<input type="text" data-parsley-required="true" class="form-control " 
+							id="input-edit-alert-at" placeholder="Alert At"
+							data-parsley-validate="true" pattern="[0-9]{1,}">
 						</div>			
 					</div>	
 				</form>
@@ -240,7 +255,7 @@
 							<div class="col-md-8">
 								<input type="hidden" id="edit-item-id" name="input-id" />		
 								<div class="form-group">
-									<input type="text" class="form-control" id="edit-item-name" placeholder="Item Name">
+									<input type="text" data-parsley-required="true" class="form-control" id="edit-item-name" placeholder="Item Name">
 								</div><br/>
 								<div class ="form-group">
 									<select id="edit-item-category" style="width: 100%; height: 35px;">
@@ -316,13 +331,13 @@
 					<input type="hidden" id="input-edit-add-varian-id" name="input-id" />		
 					<div class="row">
 						<div class="form-group col-md-4">
-							<input type="text" class="form-control " id="input-edit-add-variant-name" placeholder="Variant Name">
+							<input type="text" data-parsley-required="true" class="form-control " id="input-edit-add-variant-name" placeholder="Variant Name">
 						</div>
 						<div class="form-group col-md-4">
-							<input type="text" class="form-control " id="input-edit-add-variant-price" placeholder="Unit Price">
+							<input type="text" data-parsley-required="true" class="form-control " id="input-edit-add-variant-price" placeholder="Unit Price">
 						</div>
 						<div class="form-group col-md-4">
-							<input type="text" class="form-control " id="input-edit-add-variant-sku" placeholder="SKU">
+							<input type="text" data-parsley-required="true" class="form-control " id="input-edit-add-variant-sku" placeholder="SKU">
 						</div>			
 					</div>				
 					<div><br/><br/>
@@ -380,13 +395,13 @@
 					<input type="hidden" id="edit-edit-varian-id" name="input-id" />		
 					<div class="row">
 						<div class="form-group col-md-4">
-							<input type="text" class="form-control " id="edit-edit-variant-name" placeholder="Variant Name">
+							<input type="text" data-parsley-required="true" class="form-control " id="edit-edit-variant-name" placeholder="Variant Name">
 						</div>
 						<div class="form-group col-md-4">
-							<input type="text" class="form-control " id="edit-edit-variant-price" placeholder="Unit Price">
+							<input type="text" data-parsley-required="true" class="form-control " id="edit-edit-variant-price" placeholder="Unit Price">
 						</div>
 						<div class="form-group col-md-4">
-							<input type="text" class="form-control " id="edit-edit-variant-sku" placeholder="SKU">
+							<input type="text" data-parsley-required="true" class="form-control " id="edit-edit-variant-sku" placeholder="SKU">
 						</div>			
 					</div>				
 					<div><br/><br/>
@@ -404,10 +419,10 @@
 						</div><br/>
 						<div class="row">
 						<div class="form-group col-md-6">
-							<input type="text" class="form-control " id="edit-edit-beginning-stock" placeholder="Beginning Stock">
+							<input type="text" data-parsley-required="true" class="form-control " id="edit-edit-beginning-stock" placeholder="Beginning Stock">
 						</div>
 						<div class="form-group col-md-6">
-							<input type="text" class="form-control " id="edit-edit-alert-at" placeholder="Alert At">
+							<input type="text" data-parsley-required="true" class="form-control " id="edit-edit-alert-at" placeholder="Alert At">
 						</div>			
 					</div>
 					
