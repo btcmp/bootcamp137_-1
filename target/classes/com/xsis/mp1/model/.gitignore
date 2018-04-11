@@ -1,5 +1,6 @@
 /Adjustment.class
 /AdjustmentDetail.class
+/AdjustmentHistory.class
 /Category.class
 /Customer.class
 /District.class
@@ -10,6 +11,7 @@
 /Province.class
 /PurchaseOrder.class
 /PurchaseOrderDetail.class
+/PurchaseOrderHistory.class
 /PurchaseRequest.class
 /PurchaseRequestDetail.class
 /PurchaseRequestHistory.class
@@ -18,8 +20,8 @@
 /SalesOrder.class
 /SalesOrderDetail.class
 /Supplier.class
-/User.class
-/Variant.class
 /TransferStock.class
 /TransferStockDetail.class
 /TransferStockHistory.class
+/User.class
+/Variant.class

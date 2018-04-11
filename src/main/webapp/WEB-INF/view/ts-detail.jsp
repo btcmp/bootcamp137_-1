@@ -45,19 +45,19 @@
 	<div class="col-xs-3">
 		<script>
 			if('${ts.status}' == 'Submitted'){
-				document.write('<select id="action-ts" class="btn-primary form-control" key-id="${ts.id }">'
+				document.write('<select id="action-ts" class="btn-primary form-control adm-show" key-id="${ts.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve">Approve</option>'
 						+'<option value="reject">Reject</option>'
 						+'<option value="print">Print</option>');
 			}else if('${ts.status}' == 'rejected'){
-				document.write('<select id="action-ts" class="btn-primary form-control" key-id="${ts.id }">'
+				document.write('<select id="action-ts" class="btn-primary form-control adm-show" key-id="${ts.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve" disabled>Approve</option>'
 						+'<option value="reject" disabled>Reject</option>'
 						+'<option value="print">Print</option>');
 			}else if('${ts.status}' == 'Approved'){
-				document.write('<select id="action-ts" class="btn-primary form-control" key-id="${ts.id }">'
+				document.write('<select id="action-ts" class="btn-primary form-control adm-show" key-id="${ts.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve" disabled>Approve</option>'
 						+'<option value="reject" disabled>Reject</option>'

@@ -451,7 +451,7 @@
 	  </div>
 	  <div class="col-md-2">
 	  	<div class="form-group">
-		    <button type="button" id="btn-create" class="btn btn-primary btn-block">Create</button>
+		    <button type="button" id="btn-create" class="btn btn-primary btn-block btn-adm-show">Create</button>
 		</div>
 	  </div>
 	</div>
@@ -478,7 +478,7 @@
 					<td>${pr.notes }</td>
 					<td>${pr.status }</td>
 					<td>
-						<a id="${pr.id }" class="update btn btn-success btn-sm" href="#">Edit</a> |
+						<a id="${pr.id }" class="update btn btn-success btn-sm btn-adm-show" href="#">Edit</a> |
 						<a id="${pr.id }" class="view btn btn-success btn-sm" href="${pageContext.request.contextPath}/t/pr/detail/${pr.id}">View</a>
 					</td>
 				</tr>

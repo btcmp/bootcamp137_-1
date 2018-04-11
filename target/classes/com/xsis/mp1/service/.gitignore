@@ -1,3 +1,4 @@
+/AdjustmentService.class
 /CategoryService.class
 /CustomerService.class
 /DistrictService.class
@@ -10,7 +11,7 @@
 /ProvinceService.class
 /RegionService.class
 /RoleService.class
-/SupplierService.class
-/VariantService.class
 /SalesOrderService.class
+/SupplierService.class
 /TransferStockService.class
+/VariantService.class

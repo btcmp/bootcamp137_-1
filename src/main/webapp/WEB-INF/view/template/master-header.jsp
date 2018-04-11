@@ -59,6 +59,7 @@ $(document).ready(function(){
 	
 	if(roleName=='ROLE_BACK_OFFICE'){
 		$('.adm-show').hide();
+		$('.btn-adm-show').prop('disabled', true);
 	}
 })
 </script>

@@ -47,7 +47,7 @@
 	<div class="col-xs-3">
 		<script>
 			if('${pr.status}' == 'Created'){
-				document.write('<select id="action-pr" class="btn-primary form-control" key-id="${pr.id }">'
+				document.write('<select id="action-pr" class="btn-primary form-control adm-show" key-id="${pr.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="submitted">Submitted</option>'
 						+'<option value="approve" disabled>Approve</option>'
@@ -55,7 +55,7 @@
 						+'<option value="print">Print</option>'
 						+'<option value="create-po" disabled>Create PO</option>');
 			}else if('${pr.status}' == 'Submitted'){
-				document.write('<select id="action-pr" class="btn-primary form-control" key-id="${pr.id }">'
+				document.write('<select id="action-pr" class="btn-primary form-control adm-show" key-id="${pr.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="submitted" disabled>Submitted</option>'
 						+'<option value="approve">Approve</option>'
@@ -63,21 +63,21 @@
 						+'<option value="print">Print</option>'
 						+'<option value="create-po" disabled>Create PO</option>');
 			}else if('${pr.status}' == 'Approved'){
-				document.write('<select id="action-pr" class="btn-primary form-control" key-id="${pr.id }">'
+				document.write('<select id="action-pr" class="btn-primary form-control adm-show" key-id="${pr.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve" disabled>Approve</option>'
 						+'<option value="reject" disabled>Reject</option>'
 						+'<option value="print">Print</option>'
 						+'<option value="create-po">Create PO</option>');
 			}else if('${pr.status}' == 'Rejected'){
-				document.write('<select id="action-pr" class="btn-primary form-control" key-id="${pr.id }">'
+				document.write('<select id="action-pr" class="btn-primary form-control adm-show" key-id="${pr.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="submitted" disabled>Submitted</option>'
 						+'<option value="approve" disabled>Approve</option>'
 						+'<option value="print">Print</option>'
 						+'<option value="create-po" disabled>Create PO</option>');
 			}else if('${pr.status}' == 'PO Created'){
-				document.write('<select id="action-pr" class="btn-primary form-control" key-id="${pr.id }">'
+				document.write('<select id="action-pr" class="btn-primary form-control adm-show" key-id="${pr.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="submitted" disabled>Submitted</option>'
 						+'<option value="approve" disabled>Approve</option>'

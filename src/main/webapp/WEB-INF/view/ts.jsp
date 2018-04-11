@@ -245,7 +245,7 @@
 	  </div>
 	  <div class="col-md-2">
 	  	<div class="form-group">
-		    <button type="button" id="btn-create" class="btn btn-primary btn-block">Create</button>
+		    <button type="button" id="btn-create" class="btn btn-primary btn-block btn-adm-show">Create</button>
 		</div>
 	  </div>
 	</div>
@@ -343,7 +343,7 @@
 						<button type="button" id="btn-cancel-input" class="btn btn-primary btn-block" data-dismiss="modal">Cancel</button>
 					</div>
 					<div class="col-md-3">
-						<button type="button" id="btn-save" class="btn btn-primary btn-block">Save</button>
+						<button type="button" id="btn-save" class="btn btn-primary btn-block">Save & Submit</button>
 					</div>
 				</div>				
 			</div>
