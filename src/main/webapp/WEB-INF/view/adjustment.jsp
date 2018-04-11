@@ -25,7 +25,7 @@
               <div class="input-group-addon">
                 <i class="fa fa-calendar"></i>
               </div>
-              <input type="text" class="form-control pull-right" name="daterange" id="reservation">
+              <input type="text" class="form-control pull-right" name="daterange" id="src-date">
             </div>
 		</div> 
 	  </div>
@@ -50,7 +50,7 @@
 			<th><center>Status</center></th>
 			<th><center>#</center></th>
 		</thead>
-		<tbody>
+		<tbody id="tbody-adj">
 			<c:forEach items="${adj}" var="adj">
 				<tr>
 					<td>

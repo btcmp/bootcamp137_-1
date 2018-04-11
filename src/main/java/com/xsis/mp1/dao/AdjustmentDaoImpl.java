@@ -1,5 +1,6 @@
 package com.xsis.mp1.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.xsis.mp1.model.Adjustment;
+import com.xsis.mp1.model.PurchaseOrder;
 
 
 @Repository
@@ -63,6 +65,18 @@ public class AdjustmentDaoImpl implements AdjustmentDao {
 /*		Session session = sessionFactory.getCurrentSession();
 		String hql = "update Adjustment set status='Rejected' where id = :id";
 		session.createQuery(hql).setParameter("id", id).executeUpdate();*/
+	}
+
+	@Override
+	public List<Adjustment> searchAdjByDate(Date startDate, Date endDate) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from Adjustment where createdOn BETWEEN :start AND  :end";
+		List<Adjustment> adj = session.createQuery(hql).setParameter("start", startDate).setParameter("end", endDate).list();
+		if(adj.isEmpty()) {
+			return null;
+		}else {
+			return adj;
+		}
 	}
 	
 	

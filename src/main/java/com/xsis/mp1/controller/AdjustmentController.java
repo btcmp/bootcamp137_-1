@@ -1,8 +1,10 @@
 package com.xsis.mp1.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.xsis.mp1.model.Adjustment;
 import com.xsis.mp1.model.Inventory;
 import com.xsis.mp1.model.Outlet;
+import com.xsis.mp1.model.PurchaseOrder;
 import com.xsis.mp1.model.PurchaseRequest;
 import com.xsis.mp1.service.AdjustmentService;
 import com.xsis.mp1.service.InventoryService;
@@ -97,5 +100,11 @@ public class AdjustmentController {
 	@ResponseStatus(HttpStatus.OK)
 	public void reject(@PathVariable long id) {
 		adjustmentService.reject(id);
+	}
+	
+	@RequestMapping("/src-rg-date")
+	@ResponseBody
+	public List<Adjustment> getByDate(@RequestParam(value="awal", defaultValue="") @DateTimeFormat(pattern="yyyy-MM-dd") Date awal, @RequestParam(value="akhir", defaultValue="") @DateTimeFormat(pattern="yyyy-MM-dd") Date akhir){
+		return adjustmentService.getAdjByDate(awal, akhir);
 	}
 }

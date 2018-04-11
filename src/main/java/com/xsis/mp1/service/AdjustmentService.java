@@ -1,5 +1,6 @@
 package com.xsis.mp1.service;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -205,6 +206,21 @@ public class AdjustmentService {
 		}
 		adjustmentDao.setInventory(id);
 		
+	}
+
+	public List<Adjustment> getAdjByDate(Date awal, Date akhir) {
+		Date startDate = awal;
+		Calendar cal = Calendar.getInstance(); 
+		cal.setTime(startDate); 
+		cal.add(Calendar.DATE, -1);
+		startDate = cal.getTime();
+		
+		Date endDate = akhir;
+		Calendar cal2 = Calendar.getInstance(); 
+		cal2.setTime(endDate); 
+		cal2.add(Calendar.DATE, 1);
+		endDate = cal2.getTime();
+		return adjustmentDao.searchAdjByDate(startDate, endDate);
 	}
 	
 

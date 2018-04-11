@@ -1,5 +1,6 @@
 package com.xsis.mp1.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -22,5 +23,7 @@ public interface AdjustmentDao {
 	public void createPo(long id);
 
 	public void setInventory(long id);
+
+	public List<Adjustment> searchAdjByDate(Date startDate, Date endDate);
 	
 } 
