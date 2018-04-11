@@ -382,8 +382,8 @@
 		<div id="search-box" style="margin-top: 20px; margin-botton: 20px">
 			<span><input type="text" id="search" placeholder="search" /></span>
 			<span><a id="btn-search" href="#" class="btn btn-primary">Search</a></span>
-			<button type="button" id="btn-create" class="btn btn-primary"
-				style="float: right; margin-right: 0px; width: 150px;">Create</button>
+			<button type="button" id="btn-create" class="adm-show" class="btn btn-primary"
+				style="float: right; margin-right: 0px; width: 150px;" >Create</button>
 			<button type="button" id="btn-export" class="btn btn-primary"
 				style="float: right; margin-right: 50px; width: 150px;">Export</button>
 		</div>
@@ -397,7 +397,7 @@
 		<th><center>Address</center></th>
 		<th><center>Phone</center></th>
 		<th><center>Email</center></th>
-		<th><center>#</center></th>
+		<th class="adm-show"><center>#</center></th>
 	</thead>
 	<tbody>
 		<c:forEach items="${outlets}" var="outs">
@@ -406,7 +406,7 @@
 				<td>${outs.address}</td>
 				<td>${outs.phone}</td>
 				<td>${outs.email}</td>
-				<td><a id="${outs.id }" class="btn-edit btn btn-info btn-sm"
+				<td class="adm-show"><a id="${outs.id }" class="btn-edit btn btn-info btn-sm"
 					href="#">Edit</a></td>
 			</tr>
 		</c:forEach>

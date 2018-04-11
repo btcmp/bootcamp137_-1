@@ -11,8 +11,6 @@
 			ordering : false
 		});
 		
-		
-
 		$("#input-phone").keyup(
 				function() {
 					$(this).val(
@@ -382,7 +380,7 @@
 			<span><input type="text" id="search" placeholder="search"
 				 /></span>
 			<span><a id="btn-search" href="#" class="btn btn-primary">Search</a></span>
-			<button type="button" id="btn-create" class="btn btn-primary"
+			<button type="button" id="btn-create" class="adm-show" class="btn btn-primary"
 				style="float: right; margin-right: 0px; width: 150px;">Create</button>
 			<button type="button" id="btn-export" class="btn btn-primary"
 				style="float: right; margin-right: 50px; width: 150px;">Export</button>
@@ -397,7 +395,7 @@
 		<th><center>Address</center></th>
 		<th><center>Phone</center></th>
 		<th><center>Email</center></th>
-		<th><center>#</center></th>
+		<th class="adm-show"><center>#</center></th>
 	</thead>
 	<tbody>
 		<c:forEach items="${suppliers}" var="supp">
@@ -406,7 +404,7 @@
 				<td>${supp.address}</td>
 				<td>${supp.phone}</td>
 				<td>${supp.email}</td>
-				<td><center>
+				<td class="adm-show"><center>
 						<a id="${supp.id }" class="btn-edit btn btn-info btn-sm" href="#">Edit</a>
 					</center></td>
 			</tr>
