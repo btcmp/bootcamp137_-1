@@ -274,6 +274,7 @@
 				$('#insert-email').val('');
 				$('#insert-title').val('');
 				$('input[name="cb-have-account"]').prop('checked', false);
+				$('.select-outlet').prop('checked', false);
 				$('#insert-role').val('');
 				$('#insert-username').val('');
 				$('#insert-pass').val('');
@@ -306,8 +307,10 @@
 				</div>
 			</div>
 			<div class="col-md-3">
-				<div class="form-group">
+				<div class="form-group has-feedback">
+					<i class="icon fa fa-envelope form-control-feedback"></i>
 					<input type="text" data-parsley-required="true" class="form-control" id="insert-email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+					
 				</div>
 			</div>
 			<div class="col-md-3">
@@ -349,12 +352,14 @@
 			<div class="col-md-3">
 				<input type="hidden" id="insert-user-id"
 					name="insert-user-id" />
-				<div class="form-group">
+				<div class="form-group has-feedback">
+					<i class="icon fa fa-user form-control-feedback"></i>
 					<input type="text" data-parsley-required="false" class="form-control" id="insert-username" placeholder="Username">
 				</div>
 			</div>
 			<div class="col-md-3">
-				<div class="form-group">
+				<div class="form-group has-feedback">
+					<i class="icon fa fa-lock form-control-feedback"></i>
 					<input type="password" data-parsley-required="false" class="form-control" id="insert-pass" placeholder="Password">
 				</div>
 			</div>

@@ -24,7 +24,10 @@
 	        <div class="col-xs-8">
 	        </div>
 	        <div class="col-xs-4">
-	          <input type="button" class="btn btn-primary btn-block btn-flat" id="choose-outlet" value="choose"/>
+	        	<div class="form-group has-feedback">
+	        		<input type="button" class="btn btn-primary btn-block btn-flat form-control" id="choose-outlet" value="Enter"/>
+	          		<span class="glyphicon glyphicon-log-in form-control-feedback" style="color:white"></span>
+	        	</div>
 	        </div>
 	    </div>
 	  </div>
