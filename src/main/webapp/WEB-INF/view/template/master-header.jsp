@@ -56,5 +56,9 @@ $(document).ready(function(){
 		$('.treeview-mst').hide();
 		$('.tv-tsc').hide();
 	}
+	
+	if(roleName=='ROLE_BACK_OFFICE'){
+		$('.adm-show').hide();
+	}
 })
 </script>

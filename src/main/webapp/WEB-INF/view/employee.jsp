@@ -289,10 +289,10 @@
 <!-- =================================================================================================================== -->
 
 
-<hr>
-<h6>ADD EMPLOYEE</h6>
-<hr>
-	<form id="form-emp">
+<hr class="adm-show">
+<h6 class="adm-show">ADD EMPLOYEE</h6>
+<hr class="adm-show">
+	<form id="form-emp" class="adm-show">
 		<div class="row">
 			<div class="col-md-3">
 				<input type="hidden" id="insert-emp-id" name="insert-emp-id" />
@@ -386,7 +386,7 @@
 			<th><center>Have Account ?</center></th>
 			<th><center>Outlet Access</center></th>
 			<th><center>Role</center></th>
-			<th><center>#</center></th>
+			<th class="adm-show"><center>#</center></th>
 		</thead>
 		<tbody>
 			<c:forEach items="${employees }" var="emp">
@@ -431,7 +431,7 @@
 							}
 						</script>
 					</td>
-					<td><a id="${emp.id }" class="update btn btn-info btn-sm" href="#">Edit</a> | <a id="${emp.id }" class="btn-x btn btn-danger btn-sm" href="#"> X </a></td>
+					<td class="adm-show"><a id="${emp.id }" class="update btn btn-info btn-sm" href="#">Edit</a> | <a id="${emp.id }" class="btn-x btn btn-danger btn-sm" href="#"> X </a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
