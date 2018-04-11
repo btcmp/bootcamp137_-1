@@ -46,3 +46,15 @@
 <!-- Google Font -->
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+	
+	
+<script type="text/javascript">
+$(document).ready(function(){
+	var roleName = "${employee.user.role.name}";
+	
+	if(roleName=='ROLE_CASHIER'){
+		$('.treeview-mst').hide();
+		$('.tv-tsc').hide();
+	}
+})
+</script>

@@ -45,11 +45,6 @@ public class WelcomeController {
 		Employee empl = employeeService.getOneByUsername(username);
 		User user = employeeService.getUserByEmployee(empl);
 		
-		/*Employee empl = new Employee();
-		for(Employee emp : employee) {
-			empl = emp;
-		}*/
-		
 		httpSession.setAttribute("username", username);
 		httpSession.setAttribute("employee", empl);
 		httpSession.setAttribute("usernya", user);

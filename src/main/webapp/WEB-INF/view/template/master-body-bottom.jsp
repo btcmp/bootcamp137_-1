@@ -1,4 +1,4 @@
-</div>
+								</div>
 							<!-- /.box-body -->
 						</div>
 						<!-- /.box -->
@@ -53,5 +53,5 @@
 	<!-- AdminLTE for demo purposes -->
 	<script src="${url}/dist/js/demo.js"></script>
 	<!--  -->
-		<script src="${url}/js/parsley.js"></script>
+	<script src="${url}/js/parsley.js"></script>
 	<!-- page script -->

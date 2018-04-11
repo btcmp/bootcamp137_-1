@@ -12,6 +12,7 @@
 		<intercept-url pattern="/home**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/mst/**" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="/t/**" access="hasAnyRole('ROLE_BACK_OFFICE', 'ROLE_ADMIN')"/>
+		<intercept-url pattern="/payment/**" access="hasAnyRole('ROLE_BACK_OFFICE', 'ROLE_CASHIER')"/>
 		<form-login
 			login-processing-url="/j_spring_security_check"
 			login-page="/login"

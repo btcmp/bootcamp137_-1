@@ -75,7 +75,7 @@
 				<!-- /.search form -->
 				<!-- sidebar menu: : style can be found in sidebar.less -->
 				<ul class="sidebar-menu" data-widget="tree">
-					<li class="treeview active"><a href="#"> <i
+					<li class="treeview treeview-mst"><a href="#"> <i
 							class="fa fa-table"></i> <span>Master Tables</span> <span
 							class="pull-right-container"> <i
 								class="fa fa-angle-left pull-right"></i>
@@ -89,17 +89,17 @@
 							<li><a href="${pageContext.request.contextPath}/mst/category"><i class="fa fa-circle-o"></i> Category</a></li>
 						</ul>
 					</li>
-					<li class="treeview active"><a href="#"> <i
+					<li class="treeview treeview-tsc"><a href="#"> <i
 							class="fa fa-table"></i> <span>Transaction Tables</span> <span
 							class="pull-right-container"> <i
 								class="fa fa-angle-left pull-right"></i>
 						</span>
 					</a>
 						<ul class="treeview-menu">
-							<li><a href="${pageContext.request.contextPath}/t/pr"><i class="fa fa-circle-o"></i> Purchase Request </a></li>
-							<li><a href="${pageContext.request.contextPath}/t/po"><i class="fa fa-circle-o"></i> Purchase Order</a></li>
-							<li><a href="${pageContext.request.contextPath}/t/adjustment"><i class="fa fa-circle-o"></i> Adjustment</a></li>
-							<li><a href="${pageContext.request.contextPath}/t/ts"><i class="fa fa-circle-o"></i> Transfer Stock</a></li>
+							<li class="tv-tsc"><a href="${pageContext.request.contextPath}/t/pr"><i class="fa fa-circle-o"></i> Purchase Request </a></li>
+							<li class="tv-tsc"><a href="${pageContext.request.contextPath}/t/po"><i class="fa fa-circle-o"></i> Purchase Order</a></li>
+							<li class="tv-tsc"><a href="${pageContext.request.contextPath}/t/adjustment"><i class="fa fa-circle-o"></i> Adjustment</a></li>
+							<li class="tv-tsc"><a href="${pageContext.request.contextPath}/t/ts"><i class="fa fa-circle-o"></i> Transfer Stock</a></li>
 							<li><a href="${pageContext.request.contextPath}/t/payment/sales-order"><i class="fa fa-circle-o"></i> Sales Order </a></li>
 						</ul>
 					</li>
