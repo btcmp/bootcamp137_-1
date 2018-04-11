@@ -59,8 +59,8 @@ public class ItemOutletController {
 		model.addAttribute("variants", variants);
 		List<Inventory> inventories=inventoryService.selectAll();
 		model.addAttribute("inventories", inventories);
-		List<Outlet> outlet=outletService.selectAll();
-		model.addAttribute("outlet", outlet);
+//		List<Outlet> outlet=outletService.selectAll();
+//		model.addAttribute("outlet", outlet);
 		return "item-outlet";
 	}
 	
@@ -91,7 +91,6 @@ public class ItemOutletController {
 	public List<Inventory> geItem(@PathVariable long id, Model model,Outlet outlet) {
 		List<Inventory> inventories=inventoryService.selectAllByItemOulet(outlet);
 		model.addAttribute("inventories", inventories);
-		System.out.println("ada "+id);
 		return inventories;
 	}
 	
@@ -100,7 +99,6 @@ public class ItemOutletController {
 	public List<Inventory> geItemByPo(@PathVariable long id, Model model, Supplier supplier) {
 		List<Inventory> inventories=inventoryService.selectAllByItemSupplierByPo(supplier);
 		model.addAttribute("inventories", inventories);
-		System.out.println("ada "+id);
 		return inventories;
 	}
 	
@@ -108,8 +106,12 @@ public class ItemOutletController {
 	@ResponseBody
 	public List<Inventory> searchItemByOutlet(@RequestParam(value="search", defaultValue="") String search, @RequestParam(value="idOut", defaultValue="") long idOut) {
 		List<Inventory> inventories = inventoryService.searchInventoryByItemNameAndOutLet(search, idOut);
+		List<Inventory> inventories2 = inventoryService.selectAll();
 		System.out.println("search"+search+"outlet "+idOut);
-		return inventories;
+		if(inventories.isEmpty())
+			return inventories2;
+		else
+			return inventories;
 	}
 	
 	@RequestMapping(value="/update-status/{id}", method=RequestMethod.PUT)

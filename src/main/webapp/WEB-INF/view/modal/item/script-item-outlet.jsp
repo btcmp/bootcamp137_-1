@@ -4,9 +4,6 @@
 		$(document).on('input','#insert-search',function(e){
 			var word = $(this).val();
 			var idOut=$('#list-by-outlet').val();
-			if (word=="") {
-				window.location = '${pageContext.request.contextPath}/mst/item-outlet';
-			} else {
 				$.ajax({
 					type : 'GET',
 					url : '${pageContext.request.contextPath}/mst/item-outlet/search-item?search='+word+'&idOut='+idOut,
@@ -37,7 +34,7 @@
 						$
 					}
 				});
-			}
+			
 		});
 		
 		
@@ -46,9 +43,6 @@
 		 $('#list-by-outlet').on('input',function(e){
 			e.preventDefault();
 			var id = $(this).val();
-			if(id=="")
-				window.location = '${pageContext.request.contextPath}/mst/item-outlet';
-			else{
 				$.ajax({
 					type : 'PUT',
 					url : '${pageContext.request.contextPath}/mst/item-outlet/get-item/'+id,
@@ -62,8 +56,7 @@
 							var item=inventory.variant.item.name;
 							var category=inventory.variant.item.categoryId.id;
 							
-							var markup = "<tr ><td style='text-align:center;'>"+ inventory.variant.item.name+
-																				" - "+inventory.variant.name +
+							var markup = "<tr ><td style='text-align:center;'>"+ inventory.variant.item.name+" - "+inventory.variant.name +
 								"</td><td style='text-align:center;'>" + inventory.variant.item.categoryId.name + 
 								"</td><td style='text-align:center;'>" + inventory.variant.price + 
 								"</td><td style='text-align:center;'>" + inventory.beginning+ 
@@ -77,8 +70,7 @@
 					error : function(){
 						$
 					}
-				});
-			}
+				});	
 		});
 		
 		

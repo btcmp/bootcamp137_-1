@@ -80,8 +80,12 @@ public class InventoryDaoImpl implements InventoryDao {
 		String hql="from Inventory i where i.variant.item.outlet = :outlet";
 		List<Inventory> inventories=session.createQuery(hql).setParameter("outlet", outlet).list();
 		System.out.println(outlet);
-		if(inventories.isEmpty())
-			return null;
+		if(inventories.isEmpty()) {
+			if(outlet==null)
+				return session.createCriteria(Inventory.class).list();
+			else
+				return null;
+		}
 		else
 			return inventories;
 	}
