@@ -10,14 +10,14 @@
 			searching : false,
 			ordering : false
 		});
-		
+
 		$("#input-phone").keyup(
 				function() {
 					$(this).val(
 							$(this).val().replace(/^(\d{4})(\d{4})(\d{4})+$/,
 									"$1-$2-$3"));
 				});
-		
+
 		$("#edit-phone").keyup(
 				function() {
 					$(this).val(
@@ -28,20 +28,22 @@
 		$('#btn-create').click(function() {
 			$('#modal-create-supp').modal();
 		});
-		
+
 		//button export 
-		$('#btn-export').click(function(){
-			window.location = '${pageContext.request.contextPath}/generate/supplier'; 
-		})
-		
+		$('#btn-export')
+				.click(
+						function() {
+							window.location = '${pageContext.request.contextPath}/generate/supplier';
+						})
+
 		//btn save 
 		$('#btn-save')
 				.on(
 						'click',
 						function(evt) {
 							evt.preventDefault();
-							var form= $('#target'); 
-							var valid = form.parsley().validate();    
+							var form = $('#target');
+							var valid = form.parsley().validate();
 							var supplier = {
 								name : $('#input-supp-name').val(),
 								address : $('#input-address').val(),
@@ -56,54 +58,67 @@
 								},
 								district : {
 									id : $('#input-district').val()
-								}, 
-								modifiedOn : new Date(), 
+								},
+								modifiedOn : new Date(),
 							}
-							
-							  if (valid == true){
-								  $.ajax({
-										url : '${pageContext.request.contextPath}/mst/supplier/get-all', 
-										type :'GET', 
-										success : function (data){
-												var sameEmail = 0; 
-												var sameName = 0; 
-												$(data).each(function(index, data2){
-													if ( supplier.email.toLowerCase() == data2.email.toLowerCase()){
-														sameEmail ++ ; 
-													} else if (supplier.name.toLowerCase() == data2.name.toLowerCase()){
-														sameName ++ ; 
-													}
-												}); 
-												 if ( sameEmail > 0){
-													alert ('This email has been used'); 
-												} else if (sameName > 0){
-													alert ('This name has been used'); 
+
+							if (valid == true) {
+								$
+										.ajax({
+											url : '${pageContext.request.contextPath}/mst/supplier/get-all',
+											type : 'GET',
+											success : function(data) {
+												var sameEmail = 0;
+												var sameName = 0;
+												$(data)
+														.each(
+																function(index,
+																		data2) {
+																	if (supplier.email
+																			.toLowerCase() == data2.email
+																			.toLowerCase()) {
+																		sameEmail++;
+																	} else if (supplier.name
+																			.toLowerCase() == data2.name
+																			.toLowerCase()) {
+																		sameName++;
+																	}
+																});
+												if (sameEmail > 0) {
+													$('#modal-val-email')
+															.modal();
+												} else if (sameName > 0) {
+													$('#modal-val-name')
+															.modal();
+												} else {
+													$
+															.ajax({
+																url : '${pageContext.request.contextPath}/mst/supplier/save',
+																type : 'POST',
+																contentType : 'application/json',
+																data : JSON
+																		.stringify(supplier),
+																success : function(
+																		data) {
+																	//console.log(data); 
+																	window.location = "${pageContext.request.contextPath}/mst/supplier"
+																	//alert('berhasil'); 
+																},
+																error : function() {
+																	$(
+																			'#modal-failed')
+																			.modal();
+																}
+															});
 												}
-												else {
-												$.ajax({
-													url : '${pageContext.request.contextPath}/mst/supplier/save',
-													type : 'POST',
-													contentType : 'application/json',
-													data : JSON.stringify(supplier),
-													success : function(data) {
-													//console.log(data); 
-													window.location = "${pageContext.request.contextPath}/mst/supplier"
-													//alert('berhasil'); 
-													},
-													error : function() {
-													alert('save failed');
-													}
-												});
-												}  
-										}, 
-										error : function (){
-											alert ('failed'); 
-										}
-									 }); 
-								} 
-								else {
-									alert ('your form is not valid '); 
-								} 
+											},
+											error : function() {
+												$('#modal-failed').modal();
+											}
+										});
+							} else {
+								$('#modal-alert-form').modal();
+							}
 						});
 
 		function setEditSupplier(supplier) {
@@ -135,6 +150,7 @@
 											$('#modal-edit-supp').modal();
 										},
 										error : function() {
+											$('#modal-failed').modal();
 										}
 									});
 						});
@@ -145,7 +161,7 @@
 						'click',
 						function(evt) {
 							evt.preventDefault();
-							var form= $('#target-edit'); 
+							var form = $('#target-edit');
 							var valid = form.parsley().validate();
 							var supplier = {
 								id : $('#edit-id').val(),
@@ -162,54 +178,67 @@
 								},
 								district : {
 									id : $('#edit-district').val()
-								}, 
-								modifiedOn: new Date(), 
+								},
+								modifiedOn : new Date(),
 							}
-							if (valid == true){
-								 $.ajax({
-										url : '${pageContext.request.contextPath}/mst/supplier/get-all', 
-										type :'GET', 
-										success : function (data){
-												var sameEmail = 0; 
-												var sameName = 0; 
-												$(data).each(function(index, data2){
-													if (supplier.id != data2.id){
-														if ( supplier.email.toLowerCase() == data2.email.toLowerCase()){
-															sameEmail ++ ; 
-														} else if (supplier.name.toLowerCase() == data2.name.toLowerCase()){
-															sameName ++ ; 
-														}
-													}
-													
-												}); 
-												 if ( sameEmail > 0){
-													alert ('This email has been used'); 
-												} else if (sameName > 0){
-													alert ('This name has been used'); 
+							if (valid == true) {
+								$
+										.ajax({
+											url : '${pageContext.request.contextPath}/mst/supplier/get-all',
+											type : 'GET',
+											success : function(data) {
+												var sameEmail = 0;
+												var sameName = 0;
+												$(data)
+														.each(
+																function(index,
+																		data2) {
+																	if (supplier.id != data2.id) {
+																		if (supplier.email
+																				.toLowerCase() == data2.email
+																				.toLowerCase()) {
+																			sameEmail++;
+																		} else if (supplier.name
+																				.toLowerCase() == data2.name
+																				.toLowerCase()) {
+																			sameName++;
+																		}
+																	}
+
+																});
+												if (sameEmail > 0) {
+													$('#modal-val-email')
+															.modal();
+												} else if (sameName > 0) {
+													$('#modal-val-name')
+															.modal();
+												} else {
+													$
+															.ajax({
+																url : '${pageContext.request.contextPath}/mst/supplier/update',
+																type : 'PUT',
+																data : JSON
+																		.stringify(supplier),
+																contentType : 'application/json',
+																success : function(
+																		data) {
+																	window.location = '${pageContext.request.contextPath}/mst/supplier';
+																},
+																error : function() {
+																	$(
+																			'#modal-failed')
+																			.modal();
+																}
+															})
 												}
-												else {
-												$.ajax({
-										url : '${pageContext.request.contextPath}/mst/supplier/update',
-										type : 'PUT',
-										data : JSON.stringify(supplier),
-										contentType : 'application/json',
-										success : function(data) {
-													window.location = '${pageContext.request.contextPath}/mst/supplier';
-													},
-										error : function() {
-													alert('update failed');
-													}
-										})
+											},
+											error : function() {
+												$('#modal-failed').modal();
+											}
+										});
+							} else {
+								$('#modal-alert-form').modal();
 							}
-										}, 
-										error : function (){
-											alert ('failed'); 
-										}
-									 }); 
-								} 
-								else {
-									alert ('Complete your form '); 
-								} 
 						});
 
 		$('#input-province')
@@ -239,7 +268,7 @@
 												$('#input-region').html(region);
 											},
 											error : function() {
-												alert('get failed');
+												$('#modal-failed').modal();
 											}
 										})
 							}
@@ -273,7 +302,7 @@
 														district);
 											},
 											error : function() {
-												alert('get-failed');
+												$('#modal-failed').modal();
 											}
 										})
 							}
@@ -306,7 +335,7 @@
 												$('#edit-region').html(region);
 											},
 											error : function() {
-												alert('get failed');
+												$('#modal-failed').modal();
 											}
 										})
 							}
@@ -340,19 +369,22 @@
 														district);
 											},
 											error : function() {
-												alert('get-failed');
+												$('#modal-failed').modal();
 											}
 										})
 							}
 						});
 
 		//button-search
-		$('#btn-search').on('click',function() {
+		$('#btn-search')
+				.on(
+						'click',
+						function() {
 							var word = $('#search').val();
 							window.location = '${pageContext.request.contextPath}/mst/supplier/search?search='
 									+ word;
 						});
-		
+
 		/* $('#input-supp-name').parsley({
 			required : true,
 			requiredMessage : ' Code cannot be empty !!',
@@ -377,10 +409,10 @@
 <div id="save-form" style="margin-top: 20px; margin-bottom: 20px;">
 	<form action="#">
 		<div id="search-box" style="margin-top: 20px; margin-botton: 20px">
-			<span><input type="text" id="search" placeholder="search"
-				 /></span>
+			<span><input type="text" id="search" placeholder="search" /></span>
 			<span><a id="btn-search" href="#" class="btn btn-primary">Search</a></span>
-			<button type="button" id="btn-create" class="adm-show btn btn-primary"
+			<button type="button" id="btn-create"
+				class="adm-show btn btn-primary"
 				style="float: right; margin-right: 0px; width: 150px;">Create</button>
 			<button type="button" id="btn-export" class="btn btn-primary"
 				style="float: right; margin-right: 50px; width: 150px;">Export</button>
@@ -421,6 +453,9 @@
 <!-- panggil modal dari folder modal -->
 <%@ include file="modal/supplier/create-supp.jsp"%>
 <%@ include file="modal/supplier/edit-supp.jsp"%>
-
+<%@ include file="modal/modal-alert-email.jsp"%>
+<%@ include file="modal/modal-alert-name.jsp"%>
+<%@ include file="modal/modal-alert-failed.jsp"%>
+<%@ include file="modal/modal-alert-form.jsp"%>
 </body>
 </html>

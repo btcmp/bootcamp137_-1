@@ -72,9 +72,11 @@
 																	}
 																});
 												if (sameEmail > 0) {
-													alert('This email has been used');
+													$('#modal-val-email')
+															.modal();
 												} else if (sameName > 0) {
-													alert('This name has been used');
+													$('#modal-val-name')
+															.modal();
 												} else {
 													$
 															.ajax({
@@ -88,17 +90,19 @@
 																	window.location = "${pageContext.request.contextPath}/mst/outlet"
 																},
 																error : function() {
-																	alert('save failed');
+																	$(
+																			'#modal-failed')
+																			.modal();
 																}
 															});
 												}
 											},
 											error : function() {
-												alert('failed');
+												$('#modal-failed').modal();
 											}
 										});
 							} else {
-								alert('Complete your form ');
+								$('#modal-alert-form').modal();
 							}
 						});
 
@@ -119,7 +123,7 @@
 											$('#modal-edit-outlet').modal();
 										},
 										error : function() {
-											alert('failed getting data update');
+											$('#modal-failed').modal();
 										},
 										dataType : 'json'
 									});
@@ -190,9 +194,11 @@
 
 																});
 												if (sameEmail > 0) {
-													alert('This email has been used');
+													$('#modal-val-email')
+															.modal();
 												} else if (sameName > 0) {
-													alert('This name has been used');
+													$('#modal-val-name')
+															.modal();
 												} else {
 													$
 															.ajax({
@@ -207,19 +213,21 @@
 																	/* 	alert ('update berhasil');  */
 																},
 																error : function() {
-																	alert('update failed');
+																	$(
+																			'#modal-failed')
+																			.modal();
 																}
 															});
 												}
 											},
 											error : function() {
-												alert('failed');
+												$('#modal-failed').modal();
 											}
 										});
 							}
 
 							else {
-								alert('Your form not valid ');
+								$('#modal-alert-form').modal();
 							}
 						});
 		$('#input-province')
@@ -249,7 +257,7 @@
 												$('#input-region').html(region);
 											},
 											error : function() {
-												alert('get failed');
+												$('#modal-failed').modal();
 											}
 										})
 							}
@@ -283,7 +291,7 @@
 														district);
 											},
 											error : function() {
-												alert('get-failed');
+												$('#modal-failed').modal();
 											}
 										})
 							}
@@ -316,7 +324,7 @@
 												$('#edit-region').html(region);
 											},
 											error : function() {
-												alert('get failed');
+												$('#modal-failed').modal();
 											}
 										})
 							}
@@ -350,7 +358,7 @@
 														district);
 											},
 											error : function() {
-												alert('get-failed');
+												$('#modal-failed').modal();
 											}
 										})
 							}
@@ -382,8 +390,9 @@
 		<div id="search-box" style="margin-top: 20px; margin-botton: 20px">
 			<span><input type="text" id="search" placeholder="search" /></span>
 			<span><a id="btn-search" href="#" class="btn btn-primary">Search</a></span>
-			<button type="button" id="btn-create" class="adm-show btn btn-primary"
-				style="float: right; margin-right: 0px; width: 150px;" >Create</button>
+			<button type="button" id="btn-create"
+				class="adm-show btn btn-primary"
+				style="float: right; margin-right: 0px; width: 150px;">Create</button>
 			<button type="button" id="btn-export" class="btn btn-primary"
 				style="float: right; margin-right: 50px; width: 150px;">Export</button>
 		</div>
@@ -406,8 +415,8 @@
 				<td>${outs.address}</td>
 				<td>${outs.phone}</td>
 				<td>${outs.email}</td>
-				<td class="adm-show"><a id="${outs.id }" class="btn-edit btn btn-info btn-sm"
-					href="#">Edit</a></td>
+				<td class="adm-show"><a id="${outs.id }"
+					class="btn-edit btn btn-info btn-sm" href="#">Edit</a></td>
 			</tr>
 		</c:forEach>
 	</tbody>
@@ -421,5 +430,9 @@
 <!-- panggil modal dari folder modal -->
 <%@ include file="modal/outlet/create-outlet.jsp"%>
 <%@ include file="modal/outlet/edit-outlet.jsp"%>
+<%@ include file="modal/modal-alert-email.jsp"%>
+<%@ include file="modal/modal-alert-name.jsp"%>
+<%@ include file="modal/modal-alert-form.jsp"%>
+<%@ include file="modal/modal-alert-failed.jsp"%>
 </body>
 </html>

@@ -15,11 +15,13 @@
 		$('#btn-create').click(function() {
 			$('#modal-create-category').modal();
 		});
-		
+
 		//button export 
-		$('#btn-export').click(function(){
-			window.location = '${pageContext.request.contextPath}/generate/category'; 
-		}); 
+		$('#btn-export')
+				.click(
+						function() {
+							window.location = '${pageContext.request.contextPath}/generate/category';
+						});
 		//untuk ngesave 
 		$('#btn-save-cat')
 				.on(
@@ -50,7 +52,8 @@
 																	}
 																});
 												if (sameName > 0) {
-													$('#modal-val-name').modal(); 
+													$('#modal-val-name')
+															.modal();
 												} else {
 													$
 															.ajax({
@@ -64,17 +67,19 @@
 																	window.location = "${pageContext.request.contextPath}/mst/category"
 																},
 																error : function() {
-																	alert('save failed');
+																	$(
+																			'#modal-failed')
+																			.modal();
 																}
 															});
 												}
 											},
 											error : function() {
-												alert('failed');
+												$('#modal-failed').modal();
 											}
 										});
 							} else {
-								alert('Complete your form ');
+								$('#modal-alert-form').modal();
 							}
 						});
 
@@ -94,7 +99,7 @@
 											$('#modal-edit-category').modal();
 										},
 										error : function() {
-											alert('gabisa ambil data');
+											$('#modal-failed').modal();
 										},
 										dataType : 'json'
 									});
@@ -118,49 +123,54 @@
 							}
 							if (valid == true) {
 								$
-								.ajax({
-									url : '${pageContext.request.contextPath}/mst/category/get-all',
-									type : 'GET',
-									success : function(data) {
-										var sameName = 0;
-										$(data)
-												.each(
-														function(index,
-																data2) {
-															if ( category.id != data2.id){
-																if (category.name
-																		.toLowerCase() == data2.name
-																		.toLowerCase()) {
-																	sameName++;
-																}
-															}
-															
-														});
-										if (sameName > 0) {
-											alert('This name has been used');
-										} else {
-								$
 										.ajax({
-											url : '${pageContext.request.contextPath}/mst/category/update',
-											type : 'PUT',
-											data : JSON.stringify(category),
-											contentType : 'application/json',
+											url : '${pageContext.request.contextPath}/mst/category/get-all',
+											type : 'GET',
 											success : function(data) {
-												window.location = '${pageContext.request.contextPath}/mst/category';
+												var sameName = 0;
+												$(data)
+														.each(
+																function(index,
+																		data2) {
+																	if (category.id != data2.id) {
+																		if (category.name
+																				.toLowerCase() == data2.name
+																				.toLowerCase()) {
+																			sameName++;
+																		}
+																	}
+
+																});
+												if (sameName > 0) {
+													$('#modal-val-name')
+															.modal();
+												} else {
+													$
+															.ajax({
+																url : '${pageContext.request.contextPath}/mst/category/update',
+																type : 'PUT',
+																data : JSON
+																		.stringify(category),
+																contentType : 'application/json',
+																success : function(
+																		data) {
+																	window.location = '${pageContext.request.contextPath}/mst/category';
+																},
+																error : function() {
+																	$(
+																			'#modal-failed')
+																			.modal();
+																}
+															});
+												}
 											},
 											error : function() {
-												alert('update failed');
+												$('#modal-failed').modal();
 											}
 										});
+							} else {
+								$('#modal-alert-form').modal();
 							}
-									},
-									error : function() {
-										alert('failed');
-									}
-								});
-					} else {
-						alert('Complete your form ');
-					}
 						});
 
 		//btn-X
@@ -181,7 +191,7 @@
 											window.location = '${pageContext.request.contextPath}/mst/category';
 										},
 										error : function() {
-											alert('update failed');
+											$('#modal-failed').modal();
 										}
 									});
 						});
@@ -210,9 +220,10 @@
 <div id="save-form" style="margin-top: 20px; margin-bottom: 20px;">
 	<form action="#">
 		<div id="search-box" style="margin-top: 20px; margin-botton: 20px">
-			<span><input type="text" id="search" placeholder="search" /></span> <span><a
-				id="btn-search" href="#" class="btn btn-primary">Search</a></span>
-			<button type="button" id="btn-create" class="adm-show btn btn-primary"
+			<span><input type="text" id="search" placeholder="search" /></span>
+			<span><a id="btn-search" href="#" class="btn btn-primary">Search</a></span>
+			<button type="button" id="btn-create"
+				class="adm-show btn btn-primary"
 				style="float: right; margin-right: 0px; width: 150px;">Create</button>
 			<button type="button" id="btn-export" class="btn btn-primary"
 				style="float: right; margin-right: 50px; width: 150px;">Export</button>
@@ -250,6 +261,8 @@
 <!-- panggil modal dari folder modal -->
 <%@ include file="modal/category/create-category.jsp"%>
 <%@ include file="modal/category/edit-category.jsp"%>
-<%@ include file="modal/modal-alert.jsp"%>
+<%@ include file="modal/modal-alert-name.jsp"%>
+<%@ include file="modal/modal-alert-form.jsp"%>
+<%@ include file="modal/modal-alert-failed.jsp"%>
 </body>
 </html>
