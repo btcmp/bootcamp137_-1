@@ -1,6 +1,12 @@
 package com.xsis.mp1.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.util.List;
+
+import javax.imageio.ImageIO;
+import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.xsis.mp1.dao.VariantDao;
 import com.xsis.mp1.model.Category;
@@ -34,6 +41,9 @@ import com.xsis.mp1.service.VariantService;
 @RequestMapping("/mst/item-outlet")
 public class ItemOutletController {
 
+	@Autowired
+	ServletContext servletContext;
+	
 	@Autowired
 	ItemService itemService;
 	 
@@ -57,7 +67,7 @@ public class ItemOutletController {
 		model.addAttribute("categories", categories);
 		List<Variant> variants =variantService.selectAll();
 		model.addAttribute("variants", variants);
-		List<Inventory> inventories=inventoryService.selectAll();
+		List<Inventory> inventories=inventoryService.selectAllItemByOutlet();
 		model.addAttribute("inventories", inventories);
 
 		return "item-outlet";
@@ -117,5 +127,25 @@ public class ItemOutletController {
 	@ResponseStatus(HttpStatus.OK)
 	public void updateStatus(@RequestParam(value="idItem", defaultValue="") Long idItem) {
 		itemService.updateStatus(idItem); 
+	}
+	
+	@RequestMapping(value="/upload", method=RequestMethod.POST)
+	@ResponseBody
+	public String upload(@RequestParam("image") MultipartFile file) {
+		String name="";
+		try {
+			String tamp = file.getOriginalFilename().toString();
+			String[] type = tamp.split("\\.");
+			int len = type.length;
+			name = (System.currentTimeMillis())+"."+type[len-1];
+			BufferedImage src = ImageIO.read(new ByteArrayInputStream(file.getBytes()));
+		    File destination = new File(servletContext.getRealPath("/resources/img/"+name));
+		    ImageIO.write(src, type[len-1], destination);
+		    
+		    } catch(Exception e) {
+		        e.printStackTrace();
+		        
+		    }
+		return name;
 	}
 }

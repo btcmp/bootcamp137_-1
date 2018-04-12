@@ -90,6 +90,11 @@ public class InventoryService {
 		return inventoryDao.searchInventoryByItemAndVariantNameAndOutlet(search,idOut);
 	}
 
+	public List<Inventory> selectAllItemByOutlet() {
+		Outlet outlet = (Outlet) httpSession.getAttribute("outlet");
+		return inventoryDao.selectAllByItemOutlet(outlet);
+	}
+
 	 
 
 }

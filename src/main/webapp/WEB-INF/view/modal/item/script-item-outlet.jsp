@@ -184,7 +184,10 @@
 	 	 
 		 
 		/* save */
-		 $(document).on('click','#btn-save', function(){		 	
+		 $(document).on('click','#btn-save', function(){
+			 var formData = new FormData();
+			 formData.append('image', $('#images-input')[0].files[0]);
+			 
 			 var variants=[];
 			 var inventory=[];
 			 var outlet="";
@@ -213,37 +216,57 @@
 			
 			//console.log(variants);
 			 
-			 var item = {
-					//id:$('#input-item-id').val(),
-					name: $('#input-item-name').val(),
-					categoryId : {
-						id:$('#input-item-category').val(),					
-					},
-					variants:variants,
-					outlet:{
-						id:parseInt(outlet)
-					},
-			 		active: 0
-			};
+			
 			 
 		
 		 	
 		 	if (valid== true){
-		 		 $.ajax({
-						type : 'POST',
-						url : '${pageContext.request.contextPath}/mst/item-outlet/save',
-						data : JSON.stringify(item),
-						contentType : 'application/json',
-						success : function(){
-							window.location = '${pageContext.request.contextPath}/mst/item-outlet';
-							
-						}, error : function(){
-							alert('save failed');
-						} 		
-					}); 
-		 	} else {
-		 		alert ('complete your form'); 
+		 		$.ajax({
+		 			type : 'POST',
+					url : '${pageContext.request.contextPath}/mst/item-outlet/upload',
+					data : formData,
+					contentType: false,
+	        	    processData: false,
+	        	    cache: false,
+					success : function(data){
+						 var item = {
+									//id:$('#input-item-id').val(),
+									name: $('#input-item-name').val(),
+									categoryId : {
+										id:$('#input-item-category').val(),					
+									},
+									variants:variants,
+									outlet:{
+										id:parseInt(outlet)
+									},
+							 		active: 0,
+							 		image:data
+							 		
+							};
+							 	$.ajax({
+									type : 'POST',
+									url : '${pageContext.request.contextPath}/mst/item-outlet/save',
+									data : JSON.stringify(item),
+									contentType : 'application/json',
+									success : function(){
+										
+										window.location = '${pageContext.request.contextPath}/mst/item-outlet';
+										
+									}, error : function(){
+										alert('save failed');
+									} 		
+								}); 
+					 	}, 
+		 		error : function(){
+					console.log("error");
+		 		}
+		 		});
 		 	}
+		 		else {
+			 		alert ('complete your form'); 
+			 	}
+		 		
+		 		
 		 	
 	 	//var id=$(this).attr('id');
 		 	/* var row=$('#tbody-add-variant-create-item').parent().parent().find(".row-add-variant");//select one row;
@@ -273,6 +296,7 @@
 					var id=inventory.variant.item.id;
 					var item=inventory.variant.item.name;
 					var category=inventory.variant.item.categoryId.id;
+					var images=inventory.variant.item.image;
 					
 					var markup = "<tr data-id-inv='"+inventory.id+"' class='row-edit-add-variant'><td>" + inventory.variant.name +
 						"</td><td style='text-align:center;'>"+ inventory.variant.price + 
@@ -285,6 +309,7 @@
 						"</td><td style='text-align:center;'><a class='btn-edit-edit-variant btn btn-info btn-sm' href='#'>Edit</a>|<a class='btn-edit-remove-variant btn btn-danger btn-sm' href='#'>X</a></td></tr>";
 				
 					$("#tbody-variant").append(markup);
+					$("#images-edit").attr('src', '${pageContext.request.contextPath}/resources/img/'+images);
 					$(".btn-edit-delete-item").val(id);
 					//console.log(id);
 					$('#edit-item-id').val(id); 
@@ -476,4 +501,16 @@
 	function resetModalCreateItem() {
 	    document.getElementById("target").reset();
 	}
+	
+	function preview_image(event) 
+	{
+	 var reader = new FileReader();
+	 reader.onload = function()
+	 {
+	  var output = document.getElementById('output_image');
+	  output.src = reader.result;
+	 }
+	 reader.readAsDataURL(event.target.files[0]);
+	}
+	
 </script>

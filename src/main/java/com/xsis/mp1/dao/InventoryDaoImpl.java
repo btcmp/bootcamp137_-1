@@ -195,5 +195,11 @@ public class InventoryDaoImpl implements InventoryDao {
 			return inventories;
 		}
 	}
-	
+
+	/*@Override
+	public List<Inventory> selectAllItemByOutlet(Outlet outlet) {
+		Session session=sessionFactory.getCurrentSession();
+		
+	}
+	*/
 }

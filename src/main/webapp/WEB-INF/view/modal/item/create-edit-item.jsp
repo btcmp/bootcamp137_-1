@@ -12,11 +12,11 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form id="target" data-parsley-validate>
+				<form id="target" data-parsley-validate runat="server">
 						<div class="row col-md-12">
 							<div class="col-md-4">
-								<input type='file' onchange="readURL(this);" />
-								<img id="blah" src="" alt="your image" style="max-width: 100%"/>
+								<input type='file'  id="images-input" onchange="preview_image(event)"/>
+								<img id="output_image" alt="your image" style="max-width: 100%"/>
 							</div>
 			 				<div class="col-md-8">
 								<input type="hidden" id="input-item-id"/>		
@@ -239,7 +239,7 @@
 								
 						<div class="row col-md-12">
 							<div class="col-md-4">
-								<img id="image-item" src="https://www.w3schools.com/w3images/fjords.jpg" style="width: 100%;">
+								<img id="images-edit" src="" style="width: 100%;">
 							</div>
 							<div class="col-md-8">
 								<input type="hidden" id="edit-item-id" name="input-id" />		

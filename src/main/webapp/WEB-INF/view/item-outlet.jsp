@@ -55,7 +55,7 @@
 				<td>${inv.variant.item.name} - ${inv.variant.name} </td>
 				<td><center>${inv.variant.item.categoryId.name }</center></td>
 				<td><center>Rp. ${inv.variant.price}</center></td>
-				<td><center>${inv.beginning }</center></td>
+				<td><center>${inv.endingQty }</center></td>
 				<td><center>${inv.alertAtQty }</center></td>
 				<td><center>
 					<a id="${inv.variant.item.id}" class="btn-item-edit btn btn-info btn-sm" href="#">Edit</a></center>
