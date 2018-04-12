@@ -68,7 +68,6 @@ public class TransferStockService {
 		tfs.setToOutlet(ts.getToOutlet());
 		tfs.setStatus(ts.getStatus());
 		tfs.setNotes(ts.getNotes());
-		tsDao.save(tfs);
 		
 		if(tfs.getId()!=0) {
 			tfs.setModifiedOn(new Date());
@@ -80,6 +79,7 @@ public class TransferStockService {
 			tfs.setCreatedBy(usr.getId());
 			tfs.setCreatedOn(new Date());
 		}
+		tsDao.save(tfs);
 		
 		if(ts.getTsDetails()!=null) {
 			for(TransferStockDetail tsDetails : ts.getTsDetails()) {
@@ -157,11 +157,18 @@ public class TransferStockService {
 			}
 		}
 		tsDao.approve(id);
-		TransferStockHistory tsh = new TransferStockHistory();
-		tsh.setCreatedOn(new Date());
-		tsh.setTransfer(tstok);
-		tsh.setStatus(tstok.getStatus());
-		tshDao.save(tsh);
+		/*TransferStock tsk = tsDao.getOne(id);
+		System.out.println(tsk.getStatus());
+		if(tstok.getId() != 0 && tstok.getStatus().equals("Submitted")) {
+			System.out.println("blm ganti");
+		}else {*/
+			TransferStock tssk = tsDao.getOne(id);
+			TransferStockHistory tsh = new TransferStockHistory();
+			tsh.setCreatedOn(new Date());
+			tsh.setTransfer(tssk);
+			tsh.setStatus(tssk.getStatus());
+			tshDao.save(tsh);
+//		}
 	}
 
 	public void reject(long id) {

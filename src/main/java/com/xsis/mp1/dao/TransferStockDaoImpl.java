@@ -30,6 +30,7 @@ public class TransferStockDaoImpl implements TransferStockDao{
 
 	public TransferStock getOne(long id) {
 		Session session = sessionFactory.getCurrentSession();
+		session.clear();
 		return session.get(TransferStock.class, id);
 	}
 
@@ -37,12 +38,14 @@ public class TransferStockDaoImpl implements TransferStockDao{
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "update TransferStock set status='Approved' where id = :id";
 		session.createQuery(hql).setParameter("id", id).executeUpdate();
+		session.flush();
 	}
 
 	public void reject(long id) {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "update TransferStock set status='Rejected' where id = :id";
-		session.createQuery(hql).setParameter("id", id).executeUpdate();
+		session.createQuery(hql).setParameter("id", id).executeUpdate();	
+		session.flush();
 	}
 
 	public List<TransferStockDetail> getTfStockByTfStockId(long id) {
