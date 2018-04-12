@@ -2,20 +2,88 @@
 <script type="text/javascript">
 	jQuery(document).ready(function(){
 		
+//////////////////========================search-=================////
+		
+		$('input[name="daterange"]').daterangepicker(
+			      {
+			        ranges   : {
+			          'Today'       : [moment(), moment()],
+			          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+			          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+			          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+			          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+			          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+			        },
+			        startDate: moment().subtract(29, 'days'),
+			        endDate  : moment()
+			      },
+			      function (start, end) {
+			        $('input[name="daterange"]').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+			        awal = start.format('YYYY-MM-DD');
+			        akhir = end.format('YYYY-MM-DD');
+			        $.ajax({
+						type : 'GET',
+						url : '${pageContext.request.contextPath}/t/adjustment/src-rg-date?awal='+awal+'&akhir='+akhir,
+						success : function(data){
+							$('#tbody-adj').empty();
+							console.log(data);
+							$(data).each(function(key, val){
+								
+								var json_data = '/Date('+val.createdOn+')/';
+								var asAMoment = moment(json_data);
+								var tanggal = asAMoment.format('DD-MM-YYYY HH:mm:ss');
+								
+								$('#tbody-adj').append('<tr><td>'+tanggal+'</td>'
+									+'<td>'+val.notes+'</td>'
+									+'<td>'+val.status+'</td>'
+									+'<td><a href="${pageContext.request.contextPath}/t/adjustment/detail/'+val.id+'" class="view btn btn-success btn-sm" key-id="'+val.id+'">View</a></td>');
+							})
+						},
+						error : function(){
+							$('#tbody-adj').empty();
+							console.log('search failed');
+						}
+					});
+			      }
+			    )
+				
+				$(function() {
+					var today = new Date();
+					var dd = today.getDate();
+					var mm = today.getMonth()+1; //January is 0!
+					var yyyy = today.getFullYear();
+
+					if(dd<10) {
+					    dd = '0'+dd
+					} 
+					if(mm<10) {
+					    mm = '0'+mm
+					} 
+					today = yyyy + '-' + mm + '-' + dd;
+					
+					$('#insert-target').daterangepicker({
+				        singleDatePicker: true,
+				        minDate: new Date(today),
+				        showDropdowns: true
+				    });
+				});
+		
+		
+		
 		/* =================export pdf============= */
 		$('#btn-export').on('click', function(){
 			window.location = '${pageContext.request.contextPath}/generate/adjustment';
 		});
 		
-		$('#dt-table').DataTable( {
+		/* $('#dt-table').DataTable( {
 	        "searching":   false,
 	        "info":     false
-	    });
+	    }); */
 		
-		$(function() {
+		/* $(function() {
 		    $('input[name="daterange"]').daterangepicker();
 		});
-		 
+		  */
 		$(function() {
 		    $('#insert-target').daterangepicker({
 		        singleDatePicker: true,

@@ -59,8 +59,7 @@ public class ItemOutletController {
 		model.addAttribute("variants", variants);
 		List<Inventory> inventories=inventoryService.selectAll();
 		model.addAttribute("inventories", inventories);
-//		List<Outlet> outlet=outletService.selectAll();
-//		model.addAttribute("outlet", outlet);
+
 		return "item-outlet";
 	}
 	
@@ -107,7 +106,7 @@ public class ItemOutletController {
 	public List<Inventory> searchItemByOutlet(@RequestParam(value="search", defaultValue="") String search, @RequestParam(value="idOut", defaultValue="") long idOut) {
 		List<Inventory> inventories = inventoryService.searchInventoryByItemNameAndOutLet(search, idOut);
 		List<Inventory> inventories2 = inventoryService.selectAll();
-		System.out.println("search"+search+"outlet "+idOut);
+		//System.out.println("search"+search+"outlet "+idOut);
 		if(inventories.isEmpty())
 			return inventories2;
 		else

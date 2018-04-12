@@ -119,29 +119,23 @@
 								<h5>Set Beginning Stock</h5>
 							</div>
 							<div class="form-group col-md-3">
-						   	 <select name="title" id="input-outlet" data-parsley-required="true" 
-						   	 class="form-control custom-select custom-select-md">
-						    	<option value="">Outlet</option>
-						    	<c:forEach items= "${outlet}" var="outlet">
-									<option value="${outlet.id}">${outlet.name}</option>
-								</c:forEach>
-						    </select>
+								 <input type="hidden" id="input-outlet" value="${outlet.id}"/>
 							</div>
 						</div>
 						<hr widht="100%"/>
 						</div><br/>
-						<div class="row" style="display: none" id="inventory-store">
-						<div class="form-group col-md-6">
-							<input type="text" data-parsley-required="true"  class="form-control " 
-							id="input-beginning-stock" placeholder="Beginning Stock" 
-							data-parsley-validate="true" pattern="[0-9]{1,}">
-						</div>
-						<div class="form-group col-md-6">
-							<input type="text"  data-parsley-required="true"  class="form-control " 
-							id="input-alert-at" placeholder="Alert At" data-parsley-validate="true"
-							pattern="[0-9]{1,}">
-						</div>			
-					</div>	
+						<div class="row" id="inventory-store">
+							<div class="form-group col-md-6">
+								<input type="text" data-parsley-required="true"  class="form-control " 
+								id="input-beginning-stock" placeholder="Beginning Stock" 
+								data-parsley-validate="true" pattern="[0-9]{1,}">
+							</div>
+							<div class="form-group col-md-6">
+								<input type="text"  data-parsley-required="true"  class="form-control " 
+								id="input-alert-at" placeholder="Alert At" data-parsley-validate="true"
+								pattern="[0-9]{1,}">
+							</div>			
+						</div>	
 				</form>
 			</div>
 			<div class="modal-footer">
@@ -194,12 +188,7 @@
 								<h5>Set Beginning Stock</h5>
 							</div>
 							<div class="form-group col-md-3">
-						   	 <select name="title" data-parsley-required="true" id="input-edit-outlet" class="form-control custom-select custom-select-md">
-						    	<option value="">Outlet</option>
-						    	<c:forEach items= "${outlet}" var="outlet">
-									<option value="${outlet.id}">${outlet.name}</option>
-								</c:forEach>
-						    </select>
+								<input id="input-edit-outlet" type="hidden" value="${outlet.id}"/>
 							</div>
 						</div>
 						<hr widht="100%"/>
@@ -343,13 +332,7 @@
 					<div><br/><br/>
 						<h5>Set Beginning Stock</h5>
 						<div>
-						 <select name="title" id="edit-add-outlet" style="width: 20%"
-						 class="form-control custom-select custom-select-md"><br/>
-						    	<option value="">Outlet</option>
-						    	<c:forEach items= "${outlet}" var="outlet">
-									<option value="${outlet.id}">${outlet.name}</option>
-								</c:forEach>
-						    </select>
+							<input id="edit-add-outlet" value="${outlet.id}" type="hidden">
 						</div>
 						<hr widht="100%"/>
 						</div><br/>
@@ -407,13 +390,7 @@
 					<div><br/><br/>
 						<h5>Set Beginning Stock</h5>
 						<div>
-						 	<select name="title" id="edit-edit-outlet" style="width: 20%"
-						 	class="form-control custom-select custom-select-md"><br/>
-						    	<option value="">Outlet</option>
-						    	<c:forEach items= "${outlet}" var="outlet">
-									<option value="${outlet.id}">${outlet.name}</option>
-								</c:forEach>
-						    </select>
+							<input  type="hidden" id="edit-edit-outlet" value="${outlet.id}"/> 
 						</div>
 						<hr widht="100%"/>
 						</div><br/>

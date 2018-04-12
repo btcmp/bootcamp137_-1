@@ -119,9 +119,6 @@
 				//console.log(inventory);
 		});
 		 
-		 $('#input-outlet').on('change',function(){
-			 $('#inventory-store').modal('show');
-		 });
 		 
 		 /* edit variant row before save  */
 		 $('#variant-table').on('click','.btn-add-edit-variant', function(){

@@ -74,6 +74,7 @@ public class ItemService {
 		List<Variant> variants=variantDao.getVarianByItem(item);
 		if(variants != null) {
 			for(Variant variant: variants) {
+				System.out.println("delete");
 				variantDao.delete(variant);
 			}
 		}
