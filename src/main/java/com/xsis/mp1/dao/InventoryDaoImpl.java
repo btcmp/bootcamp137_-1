@@ -77,7 +77,7 @@ public class InventoryDaoImpl implements InventoryDao {
 	
 	public List<Inventory> selectAllByItemOutlet(Outlet outlet) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql="from Inventory i where i.variant.item.outlet = :outlet";
+		String hql="from Inventory i where i.outlet = :outlet";
 		List<Inventory> inventories=session.createQuery(hql).setParameter("outlet", outlet).list();
 		System.out.println(outlet);
 		if(inventories.isEmpty()) {
@@ -128,6 +128,7 @@ public class InventoryDaoImpl implements InventoryDao {
 			return inventories;
 		}
 	}
+
 
 	public Inventory getVariant(Long id) {
 		// TODO Auto-generated method stub

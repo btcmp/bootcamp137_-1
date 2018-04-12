@@ -437,16 +437,17 @@
 				 		active: 0
 				};
 		 	
-		 	console.log(item);
+		 	//console.log(item);
 			 //console.log(category);
 		 	    $.ajax({
 				type : 'PUT',
 				url : '${pageContext.request.contextPath}/mst/item-outlet/edit',
 				data : JSON.stringify(item),
 				contentType : 'application/json',
-				success : function(item){
+				success : function(data){
 					alert("sukses edit");
-					window.location = '${pageContext.request.contextPath}/mst/item-outlet';
+					console.log(data);
+					//window.location = '${pageContext.request.contextPath}/mst/item-outlet';
 				}, error : function(){
 					alert('save failed');
 				} 
