@@ -94,6 +94,7 @@ public class EmployeeService {
 			emp.setCreatedBy(usr.getId());
 			emp.setCreatedOn(new Date());
 		}
+		
 		employeeDao.saveOrUpdate(emp);
 		
 		List<EmployeeOutlet> empOutss = empOutletDao.getEmployeeOutletByEmployee(emp);
