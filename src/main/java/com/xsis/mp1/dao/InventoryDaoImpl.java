@@ -117,11 +117,11 @@ public class InventoryDaoImpl implements InventoryDao {
 		return session.get(Inventory.class, id); 
 	}
 
-	public List<Object[]> searchInventoryByItemAndVariantName(String search) {
+	public List<Object[]> searchInventoryByItemAndVariantName(Long outletId, String search) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "select i.variant.item.name, i.id, i.variant.name, i.variant.price,  min(i.endingQty) from Inventory i where lower(i.variant.item.name) like :itemName or lower(i.variant.name) like :itemName group by i.variant.item.name, i.id, i.variant.name, i.variant.price";
-		List<Object[]> inventories = session.createQuery(hql).setParameter("itemName", "%"+search.toLowerCase()+"%").list();
+		String hql = "select i.variant.item.name, i.id, i.variant.name, i.variant.price,  min(i.endingQty) from Inventory i where i.outlet.id =:outletId and (lower(i.variant.item.name) like :itemName or lower(i.variant.name) like :itemName) group by i.variant.item.name, i.id, i.variant.name, i.variant.price";
+		List<Object[]> inventories = session.createQuery(hql).setParameter("itemName", "%"+search.toLowerCase()+"%").setParameter("outletId", outletId).list();
 		if (inventories.isEmpty()) {
 			return null;
 		} else {

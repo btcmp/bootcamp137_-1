@@ -80,9 +80,9 @@ public class InventoryService {
 		return inventoryDao.getOneInvetory(id);
 	}
 
-	public List<Object[]> searchInventoryByItemAndVariantName(String search) {
+	public List<Object[]> searchInventoryByItemAndVariantName(Long outletId, String search) {
 		// TODO Auto-generated method stub
-		return inventoryDao.searchInventoryByItemAndVariantName(search);
+		return inventoryDao.searchInventoryByItemAndVariantName(outletId, search);
 	}
 
 	public List<Inventory> searchInventoryByItemNameAndOutLet(String search, long idOut) {

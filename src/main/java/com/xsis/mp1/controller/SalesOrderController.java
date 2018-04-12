@@ -2,6 +2,8 @@ package com.xsis.mp1.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.xsis.mp1.model.Customer;
 import com.xsis.mp1.model.District;
 import com.xsis.mp1.model.Inventory;
+import com.xsis.mp1.model.Outlet;
 import com.xsis.mp1.model.Province;
 import com.xsis.mp1.model.Region;
 import com.xsis.mp1.model.SalesOrder;
@@ -55,6 +58,9 @@ public class SalesOrderController {
 	
 	@Autowired
 	InventoryService inventoryService; 
+	
+	@Autowired
+	HttpSession httpSession; 
 	
 	@RequestMapping
 	public String index(Model model) {
@@ -134,10 +140,19 @@ public class SalesOrderController {
 	@ResponseBody
 	public List<Object[]> getInventoryByItemAndVariantName(@RequestParam(value="inventory", defaultValue="")String search){
 		//System.out.println("search = " + search);
-		List<Object[]> inventories = inventoryService.searchInventoryByItemAndVariantName(search); 
+		Outlet outlet = (Outlet) httpSession.getAttribute("outlet");
+		System.out.println(outlet);
+		List<Object[]> inventories = inventoryService.searchInventoryByItemAndVariantName(outlet.getId(), search); 
+//		System.out.println("outlet id " + outlet.getId()) ;
 		return inventories; 
 	}
 	
+	@RequestMapping(value="/search-item-o", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Inventory> searchInventoryByItemNameAndOutlet(@RequestParam(value="inventory", defaultValue="")String search){
+		List<Inventory> inventories = inventoryService.searchInventoryByItemNameAndOutlet(search); 
+		return inventories; 
+	}
 	@RequestMapping (value= "/get-item/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Inventory getOneInventory(@PathVariable long id) {
