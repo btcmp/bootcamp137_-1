@@ -50,5 +50,7 @@ public interface InventoryDao {
 	public List<Inventory> searchInventoryByItemAndVariantNameAndOutlet(String search, long idOut);
 
 	public Inventory searchEndingQtyByLastModifiedVariant(Long id);
+
+	public List<Inventory> searchInventoryByItemNameAndOutlet(String search, Outlet outlet);
 	
 }

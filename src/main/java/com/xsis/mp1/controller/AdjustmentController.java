@@ -84,7 +84,7 @@ public class AdjustmentController {
 	@RequestMapping(value = "/search-item", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Inventory> searchItem(@RequestParam(value="search", defaultValue="") String search) {
-		List<Inventory> inventories = inventoryService.searchInventoryByItemName(search);
+		List<Inventory> inventories = inventoryService.searchInventoryByItemNameAndOutlet(search);
 		System.out.println("search"+search);
 		return inventories;
 	}

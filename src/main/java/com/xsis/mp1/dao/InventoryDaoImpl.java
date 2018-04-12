@@ -180,5 +180,20 @@ public class InventoryDaoImpl implements InventoryDao {
 			return inv;
 		}
 	}
+
+	@Override
+	public List<Inventory> searchInventoryByItemNameAndOutlet(String search, Outlet outlet) {
+		Session session=sessionFactory.getCurrentSession();
+		String hql="from Inventory iv where (lower(iv.variant.item.name) like :itemName or "
+				+ "lower(iv.variant.name) like :itemName or "
+				+ "lower(concat(iv.variant.item.name, '-', iv.variant.name)) like :itemName) and outlet.id = :outlet";
+		List<Inventory> inventories = session.createQuery(hql).setParameter("itemName", "%"+search.toLowerCase()+"%").setParameter("outlet", outlet.getId()).list();
+		if(inventories.isEmpty()) {
+			return null;
+		}
+		else {
+			return inventories;
+		}
+	}
 	
 }

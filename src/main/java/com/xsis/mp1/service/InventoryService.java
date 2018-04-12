@@ -2,6 +2,8 @@ package com.xsis.mp1.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +22,9 @@ import com.xsis.mp1.model.Variant;
 public class InventoryService {
 	@Autowired
 	InventoryDao inventoryDao;
+	
+	@Autowired
+	HttpSession httpSession;
 
 	public void save(Inventory inventory) {
 		inventoryDao.save(inventory);
@@ -55,8 +60,9 @@ public class InventoryService {
 		return inventoryDao.selectAllByItem(item);
 	}
 
-	public List<Inventory> searchInventoryByItemName(String search) {
-		return inventoryDao.searchInventoryByItemName(search);
+	public List<Inventory> searchInventoryByItemNameAndOutlet(String search) {
+		Outlet outlet = (Outlet) httpSession.getAttribute("outlet");
+		return inventoryDao.searchInventoryByItemNameAndOutlet(search, outlet);
 	}
 
 

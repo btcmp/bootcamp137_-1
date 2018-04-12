@@ -19,14 +19,10 @@
 		});
 
 		$('#btn-add-item-var').on('click', function(){
-			if($('#tbl-add-item-transfer').empty()){
-				alert('Choose item first');
-			}else{
-				$('#modal-pr-add-item').modal('hide');
-				$('#modal-pr-input').modal('show');
-				$('#btn-save').prop('disabled', false);
-				$('#btn-submit').show();
-			}
+			$('#modal-pr-add-item').modal('hide');
+			$('#modal-pr-input').modal('show');
+			$('#btn-save').prop('disabled', false);
+			$('#btn-submit').show();
 		});
 		
 		$('#btn-cancel-add').on('click', function(){
