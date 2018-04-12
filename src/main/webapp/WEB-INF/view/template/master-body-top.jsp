@@ -42,6 +42,7 @@
 												rolenya = rolenya.replace("_", " ");
 												document.write(rolenya);
 											</script>
+											| ${outlet.name }
 										</small>
 									</p></li>
 								<!-- Menu Body -->

@@ -126,7 +126,7 @@ public class TransferStockService {
 	}
 
 	public void approve(long id) {
-		
+		User usr = (User) httpSession.getAttribute("usernya");
 		TransferStock tstok = tsDao.getOne(id);
 		
 		long idToOutlet = tstok.getToOutlet().getId();
@@ -157,18 +157,13 @@ public class TransferStockService {
 			}
 		}
 		tsDao.approve(id);
-		/*TransferStock tsk = tsDao.getOne(id);
-		System.out.println(tsk.getStatus());
-		if(tstok.getId() != 0 && tstok.getStatus().equals("Submitted")) {
-			System.out.println("blm ganti");
-		}else {*/
 			TransferStock tssk = tsDao.getOne(id);
 			TransferStockHistory tsh = new TransferStockHistory();
+			tsh.setCreatedBy(usr.getId());
 			tsh.setCreatedOn(new Date());
 			tsh.setTransfer(tssk);
 			tsh.setStatus(tssk.getStatus());
 			tshDao.save(tsh);
-//		}
 	}
 
 	public void reject(long id) {

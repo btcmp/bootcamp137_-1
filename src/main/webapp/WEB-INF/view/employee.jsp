@@ -51,7 +51,6 @@
 
 				$('.select-outlet:checked').each(function() {
 					var eo = {
-						//id : $('#insert-empout-id').val(),
 						outlet : {
 							id : $(this).val()
 						}
@@ -85,8 +84,6 @@
 					active : 0
 				};
 				console.log(employee);
-				console.log(userOK);
-				console.log(emailOK);
 				if (valid == true && emailOK==1 && userOK==1){
 					$.ajax({
 						type : 'POST',
@@ -97,19 +94,19 @@
 							window.location = '${pageContext.request.contextPath}/mst/employee';
 						},
 						error : function() {
-							alert('save failed');
+							$('#modal-failed').modal();
 						}
 
 					}); 
 					
 				 } else if(valid == true && emailOK==0 && userOK==1){
-					 alert('This email has been used');
+					 $('#modal-val-email').modal();
 				 } else if(valid == true && emailOK==1 && userOK==0){
-					 alert('This user has been used');
+					 $('#modal-val-user').modal();
 				 } else if(valid == true && emailOK==0 && userOK==0){
-					 alert('This email and user has been used');
+					 $('#modal-val-email-user').modal();
 				 } else {
-					 alert('Complete your form ');
+					 $('#modal-alert-form').modal();
 				 }
 			});
 
@@ -131,7 +128,7 @@
 							emailOK = 1;
 						}
 					}, error : function(){
-						console.log('check email failed')
+						$('#modal-failed').modal();
 					}
 				});
 			});
@@ -149,7 +146,7 @@
 							userOK = 1;
 						}
 					}, error : function(){
-						console.log('check user failed')
+						$('#modal-failed').modal();
 					}
 				});
 			});
@@ -170,7 +167,6 @@
 						emailOK = 1;
 						userOK = 1;
 						setEditEmployee(emp);
-						//$('input[name="cb-have-account"]').prop('checked', false);
 						if (emp.haveAccount != 0 && emp.user.active == 1 ) {
 							$('input[name="cb-have-account"]').prop('checked', true);
 							$('#insert-user-id').val(emp.user.id);
@@ -184,12 +180,6 @@
 							$('#insert-username').val(emp.user.username);
 							$('#insert-pass').val(emp.user.password);
 							$('#insert-role').val(emp.user.role.id);
-						/* }else if(emp.haveAccount == 0 && emp.user.active == 0){
-							$('input[name="cb-have-account"]').prop('checked', false);
-							$('#insert-user-id').val('');
-							$('#insert-username').val('');
-							$('#insert-pass').val('');
-							$('#insert-role').val(''); */
 						};
 						if (emp.empouts != null) {
 							$.each(emp.empouts,function(i, item) {
@@ -200,7 +190,7 @@
 
 					},
 					error : function() {
-						alert('fail ambil data');
+						$('#modal-failed').modal();
 					}
 				});
 			});
@@ -235,7 +225,7 @@
 						$('#delete-data').modal();
 					},
 					error : function() {
-						alert('fail ambil data');
+						$('#modal-failed').modal();
 					}
 				});
 			});
@@ -259,7 +249,7 @@
 						window.location = '${pageContext.request.contextPath}/mst/employee';
 					},
 					error : function() {
-						alert('update failed');
+						$('#modal-failed').modal();
 					}
 				});
 			});
@@ -451,6 +441,11 @@
 	<!-- Call Modal -->
 	<%@ include file="modal/employee/inactive-emp.jsp" %>
 	<%@ include file="modal/employee/assign-outlet.jsp" %>
+	<%@ include file="modal/modal-alert-email.jsp"%>
+	<%@ include file="modal/modal-alert-user.jsp"%>
+	<%@ include file="modal/modal-alert-email-user.jsp"%>
+	<%@ include file="modal/modal-alert-form.jsp"%>
+	<%@ include file="modal/modal-alert-failed.jsp"%>
 	
 </body>
 </html>
