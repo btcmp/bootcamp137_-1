@@ -12,11 +12,11 @@
 			}else{
 				$.ajax({
 					type : 'GET',
-					url : '${pageContext.request.contextPath}/mst/po/'+action+'/'+id,
+					url : '${pageContext.request.contextPath}/t/po/'+action+'/'+id,
 					success : function(){
 						console.log('Status Updated');
 						console.log(action);
-						window.location = '${pageContext.request.contextPath}/mst/po/detail/'+id;
+						window.location = '${pageContext.request.contextPath}/t/po/detail/'+id;
 					},
 					error : function(){
 						console.log('Update Status Failed');
@@ -26,7 +26,7 @@
 		});
 		
 		$('.done').on('click', function(){
-			window.location = '${pageContext.request.contextPath}/mst/po';
+			window.location = '${pageContext.request.contextPath}/t/po';
 		});
 	});
 </script>
@@ -80,19 +80,19 @@
 	</div>
 </div>
 <hr>
-<input type="text" value="PT.Supplier" disabled="disabled" style="border: none; background: none;">
+<input type="text" value="${po.supplierId.name }" disabled="disabled" style="border: none; background: none;">
 <table border="1px" style="width: 100%">
 			<tr>
-				<td >telp</td>
-				<td colspan="2">email</td>
+				<td >${po.supplierId.phone }</td>
+				<td colspan="2">${po.supplierId.email}</td>
 			</tr>
 			<tr>
-				<td colspan="3">addres</td>
+				<td colspan="3">${po.supplierId.address}</td>
 			</tr>
 			<tr>
-				<td>province</td>
-				<td>kab</td>
-				<td>noalamat</td>
+				<td>${po.supplierId.province.name}</td>
+				<td>${po.supplierId.region.name}</td>
+				<td>${po.supplierId.postalCode}</td>
 			</tr>
 		</table>
 		
@@ -135,27 +135,7 @@
 				</tfoot>
 			</table>
 
-<%-- <table>
-	<tr>
-		<th>PO Number </th>
-		<td></td>
-		<td> : </td>
-		<td>${po.poNo }</td>
-	</tr>
-	<tr>
-		<th>Created By </th>
-		<td></td>
-		<td> : </td>
-		<td>${po.createdBy }</td>
-	</tr>
 
-	<tr>
-		<th>PO Status </th>
-		<td></td>
-		<td> : </td>
-		<td>${po.status }</td>
-	</tr>
-</table> --%>
 <h5><b>Status History</b></h5>
 <hr>
 <div class="row">

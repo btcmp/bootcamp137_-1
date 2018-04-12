@@ -1,5 +1,6 @@
 package com.xsis.mp1.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -75,5 +76,40 @@ public class PODaoImpl implements PODao {
 		String hql = "update PurchaseOrder set status='Process' where id = :id";
 		session.createQuery(hql).setParameter("id", id).executeUpdate();
 	}
-	
+
+	@Override
+	public List<PurchaseOrder> searchPOByDate(Date startDate, Date endDate) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from PurchaseOrder where createdOn BETWEEN :start AND  :end";
+		List<PurchaseOrder> pos = session.createQuery(hql).setParameter("start", startDate).setParameter("end", endDate).list();
+		if(pos.isEmpty()) {
+			return null;
+		}else {
+			return pos;
+		}
+	}
+
+	@Override
+	public List<PurchaseOrder> searchPOByStatus(String status) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from PurchaseOrder where status = :status";
+		List<PurchaseOrder> pos = session.createQuery(hql).setParameter("status", status).list();
+		if(pos.isEmpty()) {
+			return null;
+		}else {
+			return pos;
+		}
+	}
+
+	@Override
+	public List<PurchaseOrder> searchPOByGlobal(String global) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from PurchaseOrder where lower(poNo) like :global or lower(status) like :global or lower(supplierId.name) like :global or lower(grandTotal) like :global";
+		List<PurchaseOrder> pos = session.createQuery(hql).setParameter("global", "%"+global.toLowerCase()+"%").list();
+		if(pos.isEmpty()) {
+			return null;
+		}else {
+			return pos;
+		}
+	}
 }

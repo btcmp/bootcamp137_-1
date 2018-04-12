@@ -249,6 +249,29 @@ public class POService {
 		supDao.getOne(sup);
 		return sup;
 	}
+
+	public List<PurchaseOrder> getPOByDate(Date awal, Date akhir) {
+		Date startDate = awal;
+		Calendar cal = Calendar.getInstance(); 
+		cal.setTime(startDate); 
+		cal.add(Calendar.DATE, -1);
+		startDate = cal.getTime();
+		
+		Date endDate = akhir;
+		Calendar cal2 = Calendar.getInstance(); 
+		cal2.setTime(endDate); 
+		cal2.add(Calendar.DATE, 1);
+		endDate = cal2.getTime();
+		return poDao.searchPOByDate(startDate, endDate);
+	}
+
+	public List<PurchaseOrder> getPOByStatus(String status) {
+		return poDao.searchPOByStatus(status);
+	}
+
+	public List<PurchaseOrder> getPOByGlobal(String global) {
+		return poDao.searchPOByGlobal(global);
+	}
 	
 	
 }

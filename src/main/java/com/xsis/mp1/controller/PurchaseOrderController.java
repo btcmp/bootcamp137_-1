@@ -1,8 +1,10 @@
 package com.xsis.mp1.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,7 +33,7 @@ import com.xsis.mp1.service.VariantService;
 
 
 @Controller
-@RequestMapping("/mst/po")
+@RequestMapping("/t/po")
 public class PurchaseOrderController {
 
 	@Autowired
@@ -133,6 +135,28 @@ public class PurchaseOrderController {
 		poService.process(id);
 	}
 	
+	@RequestMapping("/src-rg-date")
+	@ResponseBody
+	public List<PurchaseOrder> getByDate(@RequestParam(value="awal", defaultValue="") @DateTimeFormat(pattern="yyyy-MM-dd") Date awal, @RequestParam(value="akhir", defaultValue="") @DateTimeFormat(pattern="yyyy-MM-dd") Date akhir){
+		return poService.getPOByDate(awal, akhir);
+	}
+	
+	@RequestMapping(value = "/src-status", method = RequestMethod.GET)
+	@ResponseBody
+	public List<PurchaseOrder> getByStatus(@RequestParam(value="search", defaultValue="") String status){
+		List<PurchaseOrder> po= poService.getPOByStatus(status);
+		List<PurchaseOrder> po2=poService.selectAll();		
+		if(status=="all")
+			return po2;
+		else
+			return po;
+	}
+	
+	@RequestMapping(value = "/src-global", method = RequestMethod.GET)
+	@ResponseBody
+	public List<PurchaseOrder> getByGlobal(@RequestParam(value="search", defaultValue="") String global){
+		return poService.getPOByGlobal(global);
+	}
 	
 	
 }
