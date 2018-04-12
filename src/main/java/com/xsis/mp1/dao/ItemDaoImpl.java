@@ -92,7 +92,8 @@ public class ItemDaoImpl implements ItemDao {
 
 	public void updateStatus(Long idItem) {
 		Session session = sessionFactory.getCurrentSession(); 
-		String hql = "update Item  set active=1 where id=:idit"; 
+		String hql = "update Item  set active=1 where id=:idit";
+		System.out.println(idItem);
 		session.createQuery(hql).setParameter("idit", idItem).executeUpdate(); 
 		session.flush();
 	} 

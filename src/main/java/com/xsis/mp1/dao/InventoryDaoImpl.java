@@ -77,17 +77,15 @@ public class InventoryDaoImpl implements InventoryDao {
 	
 	public List<Inventory> selectAllByItemOutlet(Outlet outlet) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql="from Inventory i where i.outlet = :outlet";
+		String hql="from Inventory i where i.outlet = :outlet and i.variant.item.active=0";
 		List<Inventory> inventories=session.createQuery(hql).setParameter("outlet", outlet).list();
 		System.out.println(outlet);
 		if(inventories.isEmpty()) {
-			if(outlet==null)
-				return session.createCriteria(Inventory.class).list();
-			else
 				return null;
 		}
-		else
+		else {
 			return inventories;
+		}
 	}
 
 	public List<Inventory> selectAllByItemPo(Supplier supplier) {
@@ -161,7 +159,6 @@ public class InventoryDaoImpl implements InventoryDao {
 				Session session = sessionFactory.getCurrentSession();
 				String hql = "from Inventory inv where lower(inv.variant.item.name) like :itemName or lower(inv.variant.name) like :itemName and inv.outlet.id =:outletId";
 				List<Inventory> inventories = session.createQuery(hql).setParameter("itemName", "%"+search.toLowerCase()+"%").setParameter("outletId", idOut).list();
-				System.out.println("ini inventor"+inventories);
 				if (inventories.isEmpty()) {
 					return null;
 				} else {

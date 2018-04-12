@@ -91,7 +91,6 @@ public class ItemOutletController {
 	@ResponseBody
 	public Item edit(@RequestBody Item item) {
 		itemService.saveOrUpdate(item);
-		//System.out.println("update");
 		return item;
 	}
 	
@@ -116,16 +115,15 @@ public class ItemOutletController {
 	public List<Inventory> searchItemByOutlet(@RequestParam(value="search", defaultValue="") String search, @RequestParam(value="idOut", defaultValue="") long idOut) {
 		List<Inventory> inventories = inventoryService.searchInventoryByItemNameAndOutLet(search, idOut);
 		List<Inventory> inventories2 = inventoryService.selectAll();
-		//System.out.println("search"+search+"outlet "+idOut);
 		if(inventories.isEmpty())
 			return inventories2;
 		else
 			return inventories;
 	}
 	
-	@RequestMapping(value="/update-status/{id}", method=RequestMethod.PUT)
+	@RequestMapping(value="/update-status/{idItem}", method=RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
-	public void updateStatus(@RequestParam(value="idItem", defaultValue="") Long idItem) {
+	public void updateStatus(@PathVariable Long idItem) {
 		itemService.updateStatus(idItem); 
 	}
 	

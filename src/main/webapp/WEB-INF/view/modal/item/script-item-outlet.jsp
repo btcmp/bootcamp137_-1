@@ -467,15 +467,19 @@
 				type:'PUT',
 				contentType:'application/json',
 				success : function(result){
+					var item={};
 					$.each(result,function(k,v){
 						sumEndingQty.push(v.endingQty)
+						item=v.variant.item;
 					});
+					
 					
 					var gTotal=sumEndingQty.reduce(function(a,b){return a+b},0);
 					if(gTotal==0){
 						 $.ajax({
 								type : 'PUT',
 								url : '${pageContext.request.contextPath}/mst/item-outlet/update-status/'+idItem,
+								data: JSON.stringify(item),
 								contentType : 'application/json',
 								success : function(item){
 									alert("sukses delete");
