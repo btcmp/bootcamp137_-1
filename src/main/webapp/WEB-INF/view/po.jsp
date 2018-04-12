@@ -75,7 +75,7 @@
 		// Search by Status
 		$('#src-status').change(function(){
 			var status = $('#src-status').val();
-			console.log(status);
+			//console.log(status);
 			var keyword = '';
 				$.ajax({
 					type : 'GET',
