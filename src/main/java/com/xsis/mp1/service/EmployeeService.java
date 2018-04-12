@@ -74,8 +74,11 @@ public class EmployeeService {
 		emp.setActive(employee.isActive());
 		
 		if(emp.getId()!=0) {
-			emp.setModifiedBy(usr.getId());
 			emp.setModifiedOn(new Date());
+			Employee emplo = employeeDao.getOne(emp);
+			emp.setCreatedOn(emplo.getCreatedOn());
+			emp.setCreatedBy(emplo.getCreatedBy());
+			emp.setModifiedBy(usr.getId());
 			
 			User user = userDao.getUserByEmployee(emp);
 			if(user == null) {
@@ -95,9 +98,7 @@ public class EmployeeService {
 		
 		List<EmployeeOutlet> empOutss = empOutletDao.getEmployeeOutletByEmployee(emp);
 		if(empOutss!=null) {
-			System.out.println("masuk delete");
 			for(EmployeeOutlet empouts : empOutss) {
-				System.out.println("masuk");
 				empOutletDao.delete(empouts);
 			}
 		}
@@ -105,7 +106,6 @@ public class EmployeeService {
 		if(employee.getEmpouts()!=null) {
 			for(EmployeeOutlet empOut : employee.getEmpouts()) {
 				EmployeeOutlet empOutlet = new EmployeeOutlet();
-				//empOutlet.setId(empOut.getId());
 				empOutlet.setEmployee(emp);
 				empOutlet.setOutlet(empOut.getOutlet());
 				empOutletDao.save(empOutlet);

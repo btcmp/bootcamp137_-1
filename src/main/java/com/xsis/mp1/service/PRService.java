@@ -88,11 +88,11 @@ public class PRService {
 		
 		//jika data ada, modifiednya aja yg ganti
 		if(preq.getId()!=0) {
-			preq.setCreatedBy(preq.getCreatedBy());
-			preq.setModifiedBy(usr.getId());
 			preq.setModifiedOn(new Date());
 			PurchaseRequest prc = prDao.getOne(preq.getId());
 			preq.setCreatedOn(prc.getCreatedOn());
+			preq.setCreatedBy(prc.getCreatedBy());
+			preq.setModifiedBy(usr.getId());
 		}else {
 			preq.setCreatedBy(usr.getId());
 			preq.setCreatedOn(new Date());
@@ -143,6 +143,10 @@ public class PRService {
 				prDetail.setPr(preq);
 				prDetail.setVariant(prDetails.getVariant());
 				prDetail.setRequestQty(prDetails.getRequestQty());
+				prDetail.setCreatedBy(preq.getCreatedBy());
+				prDetail.setCreatedOn(preq.getCreatedOn());
+				prDetail.setModifiedBy(preq.getModifiedBy());
+				prDetail.setModifiedOn(preq.getModifiedOn());
 				prdDao.save(prDetail);
 			}
 		}
@@ -153,7 +157,7 @@ public class PRService {
 			PurchaseRequestHistory prh = new PurchaseRequestHistory();
 			prh.setPr(preq);
 			prh.setStatus(preq.getStatus());
-			prh.setCreatedBy(preq.getCreatedBy());
+			prh.setCreatedBy(usr.getId());
 			prh.setCreatedOn(preq.getCreatedOn());
 			prhDao.save(prh);
 		}

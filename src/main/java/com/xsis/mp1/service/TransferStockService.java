@@ -71,10 +71,11 @@ public class TransferStockService {
 		tsDao.save(tfs);
 		
 		if(tfs.getId()!=0) {
-			tfs.setModifiedBy(usr.getId());
 			tfs.setModifiedOn(new Date());
 			TransferStock tfss = tsDao.getOne(tfs.getId());
 			tfs.setCreatedOn(tfss.getCreatedOn());
+			tfs.setCreatedBy(tfss.getCreatedBy());
+			tfs.setModifiedBy(usr.getId());
 		}else {
 			tfs.setCreatedBy(usr.getId());
 			tfs.setCreatedOn(new Date());
@@ -88,16 +89,22 @@ public class TransferStockService {
 				tsDetail.setVariant(tsDetails.getVariant());
 				tsDetail.setInStock(tsDetails.getInStock());
 				tsDetail.setTransferQty(tsDetails.getTransferQty());
+				tsDetail.setCreatedBy(tfs.getCreatedBy());
+				tsDetail.setCreatedOn(tfs.getCreatedOn());
 				tsdDao.save(tsDetail);
 			}
 		}
 		
-		TransferStockHistory tsh = new TransferStockHistory();
-		tsh.setTransfer(tfs);
-		tsh.setStatus(tfs.getStatus());
-		tsh.setCreatedBy(tfs.getCreatedBy());
-		tsh.setCreatedOn(tfs.getCreatedOn());
-		tshDao.save(tsh);
+		if(ts.getId() != 0 && ts.getStatus().equals("Submitted")) {
+			
+		}else {
+			TransferStockHistory tsh = new TransferStockHistory();
+			tsh.setTransfer(tfs);
+			tsh.setStatus(tfs.getStatus());
+			tsh.setCreatedBy(usr.getId());
+			tsh.setCreatedOn(tfs.getCreatedOn());
+			tshDao.save(tsh);
+		}
 	}
 
 	public TransferStock getOne(long id) {
