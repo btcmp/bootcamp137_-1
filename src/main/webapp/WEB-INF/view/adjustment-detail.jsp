@@ -26,7 +26,7 @@
 		});
 		
 		$('.done').on('click', function(){
-			window.location = '${pageContext.request.contextPath}/adjustment';
+			window.location = '${pageContext.request.contextPath}/t/adjustment';
 			//var adjQty=
 		});
 	});

@@ -260,7 +260,7 @@
 			 $('#tbody-add-item').empty();
 			$.ajax({
 				type : 'GET',
-				url : '${pageContext.request.contextPath}/mst/adjustment/get-one/'+id,
+				url : '${pageContext.request.contextPath}/t/adjustment/get-one/'+id,
 				dataType: 'json',
 				success : function(data){
 					console.log(data);
