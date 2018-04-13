@@ -6,6 +6,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,6 +44,9 @@ public class POService {
 	
 	@Autowired
 	SupplierDao supDao;
+	
+	@Autowired
+	HttpSession httpSession;
 
 	public List<PurchaseOrder> selectAll() {
 		List<PurchaseOrder> pos = poDao.selectAll();

@@ -260,7 +260,7 @@
 					notes : $('#input-notes').val(),
 					status : "created",
 					outletId : {
-						id : parseInt(outid),
+						id : '${outlet.id}'
 					},
 					purchaseOrderDetails : poDet,
 					poNo:poNo,
