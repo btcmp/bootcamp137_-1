@@ -199,7 +199,7 @@
 						var idInv=0;
 						$.ajax({
 							type : 'GET',
-							url : '${pageContext.request.contextPath}/pr/get-inventory?idPr='+data.id+'&idPrd='+val.id,
+							url : '${pageContext.request.contextPath}/t/pr/get-inventory?idPr='+data.id+'&idPrd='+val.id,
 							dataType: 'json',
 							success : function(inventory){
 								console.log(inventory[0]);
@@ -212,8 +212,8 @@
 						 $('#tbody-edit-po').append(
 							'<tr id-var="'+val.variant.id+'" class="item"><td>'+val.variant.item.name+'-'+val.variant.name+
 							'</td><td id="quantity'+val.id+'"></td><td>'+val.requestQty+
-							'</td><td>Rp. '+val.variant.price+ 
-							'</td><td>Rp. '+subTotal+'</td></tr>');
+							'</td><td>'+val.variant.price+ 
+							'</td><td>'+subTotal+'</td></tr>');
 						//}
 						 
 					});
@@ -281,7 +281,7 @@
 				data : JSON.stringify(po),
 				success : function(){
 					console.log("save")
-					//window.location = '${pageContext.request.contextPath}/t/po';
+					window.location = '${pageContext.request.contextPath}/t/po';
 				},error:function(){
 					alert("error");
 				}
@@ -373,7 +373,7 @@
 				<td><center>${po.createdOn }</center></td>
 				<td>${po.supplierId.name }</td>
 				<td>${po.poNo }</td>
-				<td>${po.grandTotal}</td>
+				<td>Rp. ${po.grandTotal}</td>
 				<td>${po.status}</td>
 				<td><center>
 					<a id="${po.prId.id }" class="btn-edit-po btn btn-info btn-sm" name="${po.id}" poNo="${po.poNo }" href="#">Edit</a>
