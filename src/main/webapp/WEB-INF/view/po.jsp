@@ -239,15 +239,15 @@
 			var total=$("#input-total").val();
 			var poDet=[];
 			$('#tbody-edit-po > .item').each(function(index, data) {
-				var unitCost=parseInt($(this).find('td').eq(3).text());
-				var subTotal=parseInt($(this).find('td').eq(4).text());
+				var unitCost=$(this).find('td').eq(3).text();
+				var subTotal=$(this).find('td').eq(4).text();
 				console.log(unitCost);
 				//var unit=unitCost.split(".");
 				//console.log(unit[0]);
 				var detail = {
-						requestQty : parseInt($(this).find('td').eq(2).text()),
+						requestQty : $(this).find('td').eq(2).text(),
 						variant : {
-							id : parseInt($(this).attr('id-var'))
+							id : $(this).attr('id-var')
 						},
 						subTotal : subTotal,
 						unitCost :  unitCost
@@ -256,7 +256,7 @@
 				
 			});
 			var po = {
-					id : parseInt(id),
+					id : id,
 					notes : $('#input-notes').val(),
 					status : "created",
 					outletId : {
@@ -264,12 +264,12 @@
 					},
 					purchaseOrderDetails : poDet,
 					poNo:poNo,
-					grandTotal:parseInt(total),
+					grandTotal:total,
 					prId:{
-						id:parseInt(prid)
+						id:prid
 					},
 					supplierId:{
-						id:parseInt(supplier)
+						id:supplier
 					}
 				};
 				console.log(po);

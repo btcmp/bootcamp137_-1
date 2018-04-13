@@ -60,8 +60,6 @@ public class PurchaseOrderController {
 		List<Supplier> suppliers = supplierService.selectAll();
 		model.addAttribute("pos", pos);
 		model.addAttribute("suppliers", suppliers);
-		List<Outlet> outlet = outletService.selectAll();
-		model.addAttribute("outlet", outlet);
 		return "po";
 	}
 	
