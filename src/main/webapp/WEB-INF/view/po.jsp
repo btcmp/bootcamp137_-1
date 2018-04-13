@@ -271,7 +271,7 @@
 					supplierId:{
 						id:supplier
 					}
-				};
+				}; 
 				console.log(po);
 			
 			  $.ajax({
