@@ -15,12 +15,8 @@
 				<form id="target" data-parsley-validate>
 					<input type="hidden" id="input-id" name="input-id" />
 					<div class="form-group">
-						<label for="input-name">CREATE NEW PR : </label>
-						<select name="role" id="input-outlet">
-							<c:forEach var="out" items="${outlets }">
-								<option value="${out.id }">${out.name }</option>
-							</c:forEach>
-				 		</select>
+						<label for="input-name">CREATE NEW ADJUSTMENT : ${outlet.name}</label>
+						
 					</div>
 					<div class="form-group">
 		 				

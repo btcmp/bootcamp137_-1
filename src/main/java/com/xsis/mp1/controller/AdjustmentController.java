@@ -42,11 +42,9 @@ public class AdjustmentController {
 	@RequestMapping
 	public String index(Model model) {
 		List<Adjustment> adj = adjustmentService.selectAll();
-		List<Outlet> outlets = outletService.selectAll();
 		List<Inventory> inventories=inventoryService.selectAll();
 		model.addAttribute("inventories", inventories);
 		model.addAttribute("adj", adj);
-		model.addAttribute("outlets", outlets);
 		return "adjustment";
 	}
 	
@@ -106,5 +104,11 @@ public class AdjustmentController {
 	@ResponseBody
 	public List<Adjustment> getByDate(@RequestParam(value="awal", defaultValue="") @DateTimeFormat(pattern="yyyy-MM-dd") Date awal, @RequestParam(value="akhir", defaultValue="") @DateTimeFormat(pattern="yyyy-MM-dd") Date akhir){
 		return adjustmentService.getAdjByDate(awal, akhir);
+	}
+	
+	@RequestMapping(value="/get-created-by", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Object> getCreatedBy(@RequestParam(value="id", defaultValue="") long id){
+		return adjustmentService.getUsernameByAdjId(id);
 	}
 }

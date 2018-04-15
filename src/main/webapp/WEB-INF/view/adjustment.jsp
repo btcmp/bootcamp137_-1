@@ -21,7 +21,7 @@
 	  <div class="col-md-3">
 	  	<div class="form-group">
 			<!-- <input type="text" class="form-control" id="insert-date" name="daterange" value="01/01/2018 - 01/31/2018"> -->
-			<div class="input-group">
+			<div class="input-group" style="    width: 132%;">
               <div class="input-group-addon">
                 <i class="fa fa-calendar"></i>
               </div>
@@ -52,7 +52,7 @@
 		</thead>
 		<tbody id="tbody-adj">
 			<c:forEach items="${adj}" var="adj">
-				<tr>
+				<tr style="text-align: center;">
 					<td>
 						<script>
 							var times = '${adj.createdOn }';

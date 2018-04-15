@@ -200,7 +200,7 @@
 						$.each(data, function(key, val) {
 							var oTableItem = "<tr>"+
 								'<td>'+ val.variant.item.name +'-'+ val.variant.name +'</td>' +
-								'<td id="inStock'+ val.id +'">'+ val.beginning +'</td>' +
+								'<td id="inStock'+ val.id +'">'+ val.endingQty +'</td>' +
 								'<td id="td-qty'+ val.id +'"><input type="number" id="add-qty'+ val.id +'" value="1" /></td>' +
 								'<td><button type="button" id="'+ val.id +'" class="btn-add-item'+val.id +' btn-add-item btn btn-primary" id-var="'+val.variant.id+'">Add</button></td>' +
 								"</tr>";
@@ -270,11 +270,11 @@
 					var dates = date[1]+'/'+date[2]+'/'+date[0];
 					$('#insert-target').val(dates);
 					
-					$(data.prDetails).each(function(key, val){
+					$(data.AdjustmentDetail).each(function(key, val){
 						$('#tbody-add-item').append(
 							'<tr id-var="'+val.variant.id+'"><td>'+val.variant.item.name+'-'+val.variant.name+'</td>'
 							+'<td>12</td>'
-							+'<td>'+val.requestQty+'</td>'
+							+'<td>'+val.actualStock+'</td>'
 							+'<td><button type="button" class="btn btn-danger btn-cancel-item" id="btn-del'+id+'" id-var="'+id+'">&times;</button>'
 						);
 					})

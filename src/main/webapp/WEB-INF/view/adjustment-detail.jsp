@@ -86,10 +86,23 @@
 		<th>Created By </th>
 		<td></td>
 		<td> : </td>
-		<td>${adj.createdBy }</td>
+		<td id="td-create">
+			<script type="text/javascript">
+				$.ajax({
+					type : 'GET',
+					url : '${pageContext.request.contextPath}/t/adjustment/get-created-by?id='+${adj.createdBy },
+					dataType: 'json',
+					success : function(data){
+						console.log(data);
+						$('#td-create').append(data[0]);
+						//document.write('${data.username}');
+					}
+				});
+			</script>
+		</td>
 	</tr>
 	<tr>
-		<th>PR Status </th>
+		<th>Adjustment Status </th>
 		<td></td>
 		<td> : </td>
 		<td>${adj.status }</td>

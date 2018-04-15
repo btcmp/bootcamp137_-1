@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,12 +14,15 @@ import com.xsis.mp1.dao.AdjustmentDao;
 import com.xsis.mp1.dao.AdjustmentDetailDao;
 import com.xsis.mp1.dao.AdjustmentHistoryDao;
 import com.xsis.mp1.dao.InventoryDao;
+import com.xsis.mp1.dao.UserDao;
 import com.xsis.mp1.model.Adjustment;
 import com.xsis.mp1.model.AdjustmentDetail;
 import com.xsis.mp1.model.AdjustmentHistory;
 import com.xsis.mp1.model.Inventory;
+import com.xsis.mp1.model.Outlet;
 import com.xsis.mp1.model.PurchaseRequest;
 import com.xsis.mp1.model.PurchaseRequestDetail;
+import com.xsis.mp1.model.User;
 import com.xsis.mp1.model.Variant;
 
 
@@ -36,6 +41,12 @@ public class AdjustmentService {
 	
 	@Autowired
 	InventoryDao invDao;
+	
+	@Autowired
+	UserDao userDao;
+	
+	@Autowired
+	HttpSession httpSession;
 
 	public List<Adjustment> selectAll() {
 		List<Adjustment> adj = adjustmentDao.selectAll();
@@ -55,17 +66,21 @@ public class AdjustmentService {
 	}
 
 	public void save(Adjustment adjustment) {
+		User user = (User) httpSession.getAttribute("usernya");
+		Outlet outlet = (Outlet) httpSession.getAttribute("outlet");
 		Adjustment adj = new Adjustment();
-		adj.setOutlet(adjustment.getOutlet());
+		adj.setOutlet(outlet);
 		adj.setStatus(adjustment.getStatus());
 		adj.setNotes(adjustment.getNotes());
 		
 		//jika data ada, modifiednya aja yg ganti
 		if(adj.getId()!=0) {
 			adj.setModifiedOn(new Date());
+			adj.setModifiedBy(user.getId());
 			Adjustment adj2 = adjustmentDao.getOne(adj.getId());
 			adj.setCreatedOn(adj2.getCreatedOn());
 		}else {
+			adj.setCreatedBy(user.getId());
 			adj.setCreatedOn(new Date());
 		}
 		
@@ -221,6 +236,10 @@ public class AdjustmentService {
 		cal2.add(Calendar.DATE, 1);
 		endDate = cal2.getTime();
 		return adjustmentDao.searchAdjByDate(startDate, endDate);
+	}
+
+	public List<Object> getUsernameByAdjId(long id) {
+		return userDao.getUsernameByAdjId(id);
 	}
 	
 
