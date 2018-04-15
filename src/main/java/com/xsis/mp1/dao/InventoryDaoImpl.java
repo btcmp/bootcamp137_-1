@@ -166,7 +166,7 @@ public class InventoryDaoImpl implements InventoryDao {
 				}	
 	}
 
-	@Override
+	
 	public Inventory searchEndingQtyByLastModifiedVariant(Long id) {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "from Inventory i where i.variant.id = :id and i.modifiedOn is not null order by i.modifiedOn desc";
@@ -179,7 +179,6 @@ public class InventoryDaoImpl implements InventoryDao {
 		}
 	}
 
-	@Override
 	public List<Inventory> searchInventoryByItemNameAndOutlet(String search, Outlet outlet) {
 		Session session=sessionFactory.getCurrentSession();
 		String hql="from Inventory iv where (lower(iv.variant.item.name) like :itemName or "

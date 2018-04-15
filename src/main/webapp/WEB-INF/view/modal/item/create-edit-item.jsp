@@ -16,7 +16,7 @@
 						<div class="row col-md-12">
 							<div class="col-md-4">
 								<input type='file'  id="images-input" onchange="preview_image(event)"/>
-								<img id="output_image" alt="your image" style="max-width: 100%"/>
+								<img id="output_image" alt="your image" style="max-width: 100%" height="159px"/>
 							</div>
 			 				<div class="col-md-8">
 								<input type="hidden" id="input-item-id"/>		
@@ -239,7 +239,8 @@
 								
 						<div class="row col-md-12">
 							<div class="col-md-4">
-								<img id="images-edit" src="" style="width: 100%;">
+								<input type='file'  id="images-input-edit" onchange="preview_image_edit(event)"/>
+								<img id="images-edit" src="" style="width: 100%; height: 159px">
 							</div>
 							<div class="col-md-8">
 								<input type="hidden" id="edit-item-id" name="input-id" />		

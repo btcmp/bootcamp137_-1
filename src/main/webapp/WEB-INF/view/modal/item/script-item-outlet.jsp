@@ -98,12 +98,13 @@
 			 var form = $('#form-variant');
 				var valid = form.parsley().validate();
 				var markup = "<tr class='row-add-variant'><td>" + $('#input-variant-name').val()+ 
-					"</td><td style='text-align:center;'>" + $('#input-variant-price').val() + 
+					"</td><td style='text-align:center;'>Rp. " + $('#input-variant-price').val() + 
 					"</td><td style='text-align:center;'>" + $('#input-variant-sku').val() + 
 					"</td><td style='text-align:center;'>" + $('#input-beginning-stock').val() + 
 					"</td><td>"+ $('#input-alert-at').val() + 
 					"</td><td style='display:none'>"+ $('#input-beginning-stock').val() + 
-					"</td><td style='display:none'>"+ $('#input-outlet').val() + 
+					"</td><td style='display:none'>"+ $('#input-outlet').val() +
+					"</td><td style='text-align:center; display: none'>" + $('#input-variant-price').val() + 
 					"</td><td style='text-align:center;'><a class='btn-add-edit-variant btn btn-info btn-sm' href='#'>Edit</a>|<a class='btn-add-remove-variant btn btn-danger btn-sm' href='#'>X</a></td></tr>";
 				
 					if (valid== true){
@@ -125,7 +126,7 @@
 			 $('#modal-create-item').modal('hide');
 				var element=$(this).parent().parent().find("td");
 				var varname=element.eq(0).text();
-				var uprice=element.eq(1).text();
+				var uprice=element.eq(7).text();
 				var sku=element.eq(2).text();
 				var bstock=element.eq(3).text();
 				var alert=element.eq(4).text()
@@ -139,6 +140,14 @@
 			$('#input-edit-alert-at').val(alert);
 			$('#input-edit-outlet').val(outlet);
 			
+			
+			/* hidden  */
+			$('#input-edit-variant-name-2').val(varname);
+			$('#input-edit-variant-price-2').val(uprice);
+			$('#input-edit-variant-sku-2').val(sku);
+			$('#input-edit-beginning-stock-2').val(bstock);
+			$('#input-edit-alert-at-2').val(alert);
+			$('#input-edit-outlet-2').val(outlet);
 		 });
 		 
 		 $(document).on('click','.btn-add-edit-update-variant', function(){
@@ -149,12 +158,13 @@
 			 
 				$('#modal-create-item').modal('show');
 				var markup = "<tr class='row-add-variant'><td>" + $('#input-edit-variant-name').val() + 
-				"</td><td style='text-align:center;'>" + $('#input-edit-variant-price').val() + 
+				"</td><td style='text-align:center;'>Rp. " + $('#input-edit-variant-price').val() + 
 				"</td><td style='text-align:center;'>" + $('#input-edit-variant-sku').val() + 
 				"</td><td style='text-align:center;'>" + $('#input-edit-beginning-stock').val() + 
 				"</td><td>"+ $('#input-edit-alert-at').val() +
 				"</td><td style='text-align:center; display:none;'>" + $('#input-edit-beginning-stock').val() + 
 				"</td><td style='display:none'>"+ $('#input-edit-outlet').val() + 
+				"</td><td style='text-align:center;'>" + $('#input-edit-variant-price').val() + 
 				"</td><td style='text-align:center;'><a class='btn-add-edit-variant btn btn-info btn-sm' href='#'>Edit</a>|<a class='btn-add-remove-variant btn btn-danger btn-sm' href='#'>X</a></td></tr>";
 				
 				
@@ -165,14 +175,29 @@
 				} else { 
 					alert ('complete your form'); 
 					$('#modal-add-edit-variant').modal('show');
-					
 				}
 				
 				
 		 });
 		 
-		 $(document).on('click','#btn-add-edit-cancel-update', function(){
+		 $(document).on('click','.btn-add-edit-cancel-update', function(){
 			 $('#modal-create-item').modal('show');
+			 $('#modal-add-edit-variant').modal('hide');
+			 
+				$('#modal-create-item').modal('show');
+				var markup = "<tr class='row-add-variant'><td>" + $('#input-edit-variant-name-2').val() + 
+				"</td><td style='text-align:center;'>Rp. " + $('#input-edit-variant-price-2').val() + 
+				"</td><td style='text-align:center;'>" + $('#input-edit-variant-sku-2').val() + 
+				"</td><td style='text-align:center;'>" + $('#input-edit-beginning-stock-2').val() + 
+				"</td><td>"+ $('#input-edit-alert-at-2').val() +
+				"</td><td style='text-align:center; display:none;'>" + $('#input-edit-beginning-stock-2').val() + 
+				"</td><td style='display:none'>"+ $('#input-edit-outlet-2').val() + 
+				"</td><td style='text-align:center;'>" + $('#input-edit-variant-price-2').val() + 
+				"</td><td style='text-align:center;'><a class='btn-add-edit-variant btn btn-info btn-sm' href='#'>Edit</a>|<a class='btn-add-remove-variant btn btn-danger btn-sm' href='#'>X</a></td></tr>";
+				
+				$("#tbody-add-variant-create-item").append(markup);
+				$('#modal-create-item').modal('show');
+				
 			 document.getElementById("form-edit-variant").reset();
 		 });
 	
@@ -205,7 +230,7 @@
 				 }
 				 var variant={
 							name: $(data).find('td').eq(0).text(),
-							price : $(data).find('td').eq(1).text(),
+							price : $(data).find('td').eq(7).text(),
 							sku: $(data).find('td').eq(2).text(),
 							active:0,
 							inventories:[inventory]
@@ -276,7 +301,7 @@
 		
 		
 		 
-	/*=========================================EDIT ITEM===================================  */
+	/*=========================================================================== EDIT ITEM ====================================================================  */
 	
 	/* edit item */
 	$(document).on('click','.btn-item-edit', function(evt){
@@ -299,13 +324,14 @@
 					var images=inventory.variant.item.image;
 					
 					var markup = "<tr data-id-inv='"+inventory.id+"' class='row-edit-add-variant'><td>" + inventory.variant.name +
-						"</td><td style='text-align:center;'>"+ inventory.variant.price + 
+						"</td><td style='text-align:center;'>Rp. "+ inventory.variant.price + 
 						"</td><td style='text-align:center;'>" + inventory.variant.sku + 
 						"</td><td style='text-align:center;'>" + inventory.beginning + 
 						"</td><td style='display:none'>" + inventory.alertAtQty+ 
 						"</td><td style='display:none'>" + inventory.endingQty+ 
 						"</td><td style='display:none'>" + inventory.variant.id+
 						"</td><td style='display:none'>"+ inventory.outlet.id+
+						"</td><td style='text-align:center; display:none'>"+ inventory.variant.price + 
 						"</td><td style='text-align:center;'><a class='btn-edit-edit-variant btn btn-info btn-sm' href='#'>Edit</a>|<a class='btn-edit-remove-variant btn btn-danger btn-sm' href='#'>X</a></td></tr>";
 				
 					$("#tbody-variant").append(markup);
@@ -326,21 +352,39 @@
 	/* edit add variant  */
 	 
 	 $(document).on('click', '#btn-edit-add-add-item-variant',function(){
+		 	var form = $('#form-edit-add-variant');
+			var valid = form.parsley().validate();
+		 
 			var markup = "<tr class='row-edit-add-variant' ><td>" + $('#input-edit-add-variant-name').val() + 
-				"</td><td style='text-align:center;'>" + $('#input-edit-add-variant-price').val() + 
+				"</td><td style='text-align:center;'>Rp. " + $('#input-edit-add-variant-price').val() + 
 				"</td><td style='text-align:center;'>" + $('#input-edit-add-variant-sku').val() + 
 				"</td><td style='text-align:center;'>" + $('#input-edit-add-beginning-stock').val() + 
 				"</td><td style='display:none'>"+ $('#input-edit-add-alert-at').val() + 
 				"</td><td style='display:none'>" + $('#input-edit-add-beginning-stock').val() + 
 				"</td><td style='display:none'>"+" "+ 
 				"</td><td style='display:none'>"+ $('#edit-add-outlet').val() + 
+				"</td><td style='text-align:center; display:none'>" + $('#input-edit-add-variant-price').val() + 
 				"</td><td style='text-align:center;'><a class='btn-edit-edit-variant btn btn-info btn-sm' href='#'>Edit</a><a class='btn-edit-remove-variant btn btn-danger btn-sm' href='#'>X</a></center></td></tr>";
-			$("#tbody-variant").append(markup);
-			$('#modal-edit-add-variant').modal('hide');
-			$('#modal-edit-item').modal('show');
+			
 
-			//console.log(variant);
-			//console.log(inventory);
+			if(valid==true){
+				$("#tbody-variant").append(markup);
+				$('#modal-edit-add-variant').modal('hide');
+				$('#modal-edit-item').modal('show');
+				document.getElementById("form-edit-add-variant").reset();
+			}
+			else{
+				alert("Complete Your Form!");
+				$('#modal-edit-add-variant').modal('show');
+			}
+			 
+		});
+	
+	 	$(document).on('click', '#btn-edit-add-cancel-item-variant',function(){
+				$('#modal-edit-add-variant').modal('hide');
+				$('#modal-edit-item').modal('show');
+				document.getElementById("form-edit-add-variant").reset();
+			 
 		});
 		
 		 /***** edit-edit variant model  *****/
@@ -353,7 +397,7 @@
 			 
 				var element=$(this).parent().parent().find("td");
 				var varname=element.eq(0).text();
-				var uprice=element.eq(1).text();
+				var uprice=element.eq(8).text();
 				var sku=element.eq(2).text();
 				var bstock=element.eq(3).text();
 				var alert=element.eq(4).text(); 
@@ -368,23 +412,59 @@
 			$('#edit-edit-alert-at').val(alert);
 			$('#edit-edit-outlet').val(outlet);
 			
+			/* hidden */
+			$('#edit-edit-variant-name-2').val(varname);
+			$('#edit-edit-variant-price-2').val(uprice);
+			$('#edit-edit-variant-sku-2').val(sku);
+			$('#edit-edit-beginning-stock-2').val(bstock);
+			$('#edit-edit-alert-at-2').val(alert);
+			$('#edit-edit-outlet-2').val(outlet);
 		 });
 		 
 		 $(document).on('click','#btn-edit-edit-update-variant', function(){
-			 $('#modal-edit-edit-variant').modal('hide');
-				$('#modal-edit-item').modal('show');
+				var form=$("#form-edit-edit-update");
+				var valid=form.parsley().validate();
+				
 				var markup = "<tr class='row-edit-add-variant' ><td>" + $('#edit-edit-variant-name').val() + 
-				"</td><td style='text-align:center;'>" + $('#edit-edit-variant-price').val() + 
+				"</td><td style='text-align:center;'>Rp. " + $('#edit-edit-variant-price').val() + 
 				"</td><td style='text-align:center;'>" + $('#edit-edit-variant-sku').val() + 
 				"</td><td style='text-align:center;'>" + $('#edit-edit-beginning-stock').val() + 
 				"</td><td style='display:none'>"+ $('#edit-edit-alert-at').val() + 
 				"</td><td style='display:none'>" + $('#edit-edit-beginning-stock').val() +
 				"</td><td style='display:none'>" +
 				"</td><td style='display:none'>"+ $('#edit-edit-outlet').val() + 
+				"</td><td style='text-align:center; display:none'>" + $('#edit-edit-variant-price').val() + 
 				"</td><td style='text-align:center;'><a class='btn-edit-edit-variant btn btn-info btn-sm' href='#'>Edit</a>|<a class='btn-add-remove-variant btn btn-danger btn-sm' href='#'>X</a></td></tr>";
+
+				if(valid==true){
+					$("#tbody-variant").append(markup);
+					$('#modal-edit-edit-variant').modal('hide');
+					$('#modal-edit-item').modal('show');
+				}
+				else{
+					alert("Complete Your Form!");
+					$('#modal-edit-edit-variant').modal('show');
+				}
+		 });
+		 
+		 $(document).on('click','#btn-cancel-edit-edit', function(){
 				
-				$("#tbody-variant").append(markup);
-				$('#modal-edit-item').modal('show');
+				var markup = "<tr class='row-edit-add-variant' ><td>" + $('#edit-edit-variant-name-2').val() + 
+				"</td><td style='text-align:center;'>Rp. " + $('#edit-edit-variant-price-2').val() + 
+				"</td><td style='text-align:center;'>" + $('#edit-edit-variant-sku-2').val() + 
+				"</td><td style='text-align:center;'>" + $('#edit-edit-beginning-stock-2').val() + 
+				"</td><td style='display:none'>"+ $('#edit-edit-alert-at-2').val() + 
+				"</td><td style='display:none'>" + $('#edit-edit-beginning-stock-2').val() +
+				"</td><td style='display:none'>" +
+				"</td><td style='display:none'>"+ $('#edit-edit-outlet-2').val() + 
+				"</td><td style='text-align:center; display:none '>" + $('#edit-edit-variant-price-2').val() + 
+				"</td><td style='text-align:center;'><a class='btn-edit-edit-variant btn btn-info btn-sm' href='#'>Edit</a>|<a class='btn-add-remove-variant btn btn-danger btn-sm' href='#'>X</a></td></tr>";
+
+					$("#tbody-variant").append(markup);
+					$('#modal-edit-edit-variant').modal('hide');
+					$('#modal-edit-item').modal('show');
+				
+				
 		 });
 		
 		
@@ -401,6 +481,9 @@
 		
 		/* save edit */
 		$('#btn-save-edit').on('click', function(){
+			
+			var formData = new FormData();
+			 formData.append('image', $('#images-input-edit')[0].files[0]);
 			 	 var variants=[];
 			 	 /* var inventories=[]; */
 			 	 var i=0;
@@ -414,11 +497,11 @@
 					    	 	id:$(data).find('td').eq(7).text()
 					     	}
 					 };
-					 console.log($(data).find('td').eq(7).text());
+					 console.log($(data).find('td').eq(8).text());
 					 //inventories.push(inventory);
 					  var variant={
 								name: $(data).find('td').eq(0).text(),
-								price : $(data).find('td').eq(1).text(),
+								price : $(data).find('td').eq(8).text(),
 								sku: $(data).find('td').eq(2).text(),
 								active:0,
 								inventories:[inventory],
@@ -427,31 +510,42 @@
 					variants.push(variant);
 				});
 				
-				 var item = {
-						id:parseInt($('#edit-item-id').val()),
-						name: $('#edit-item-name').val(),
-						categoryId : {
-							id:parseInt($('#edit-item-category').val()),					
-						},
-						variants:variants,
-				 		active: 0
-				};
-		 	
-		 	//console.log(item);
-			 //console.log(category);
-		 	    $.ajax({
-				type : 'PUT',
-				url : '${pageContext.request.contextPath}/mst/item-outlet/edit',
-				data : JSON.stringify(item),
-				contentType : 'application/json',
+			
+		
+	 		$.ajax({
+	 			type : 'POST',
+				url : '${pageContext.request.contextPath}/mst/item-outlet/upload',
+				data : formData,
+				contentType: false,
+        	    processData: false,
+        	    cache: false,
 				success : function(data){
-					alert("sukses edit");
-					console.log(data);
-					//window.location = '${pageContext.request.contextPath}/mst/item-outlet';
-				}, error : function(){
-					alert('save failed');
-				} 
-			});
+					
+					 var item = {
+								id:parseInt($('#edit-item-id').val()),
+								name: $('#edit-item-name').val(),
+								categoryId : {
+									id:parseInt($('#edit-item-category').val()),					
+								},
+								variants:variants,
+						 		active: 0,
+						 		image:data
+						};
+				
+				 	    $.ajax({
+						type : 'PUT',
+						url : '${pageContext.request.contextPath}/mst/item-outlet/edit',
+						data : JSON.stringify(item),
+						contentType : 'application/json',
+						success : function(dataku){
+							alert("sukses edit");
+							window.location = '${pageContext.request.contextPath}/mst/item-outlet';
+						}, error : function(){
+							alert('save failed');
+						} 
+					});
+				}
+	 		});
 		});
 		
 		$('#btn-edit-add-variant').on('click', function(){
@@ -490,7 +584,7 @@
 						 });
 					};
 					if(gTotal!=0){
-						console.log("stock masih ada");
+						alert("stock masih ada");
 					};
 				}
 			});
@@ -513,6 +607,17 @@
 	 reader.onload = function()
 	 {
 	  var output = document.getElementById('output_image');
+	  output.src = reader.result;
+	 }
+	 reader.readAsDataURL(event.target.files[0]);
+	}
+	/* ================================================================= */
+	function preview_image_edit(event) 
+	{
+	 var reader = new FileReader();
+	 reader.onload = function()
+	 {
+	  var output = document.getElementById('images-edit');
 	  output.src = reader.result;
 	 }
 	 reader.readAsDataURL(event.target.files[0]);

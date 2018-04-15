@@ -69,13 +69,14 @@ public class ItemDaoImpl implements ItemDao {
 	public void updateItemByName(Item item) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession(); 
-		String hql = "update Item set name =:name, categoryId=:cId where id=:id";
+		String hql = "update Item set name =:name, categoryId=:cId, image=:img where id=:id";
 		
 		Query query=session.createQuery(hql);
 		
 		query.setParameter("name", item.getName());
 		query.setParameter("cId",item.getCategoryId());
 		query.setParameter("id", item.getId());
+		query.setParameter("img", item.getImage());
 		query.executeUpdate();
 		session.flush();
 	}

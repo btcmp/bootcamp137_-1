@@ -78,7 +78,7 @@ public class ItemService {
 	}
 	
 	public void saveOrUpdate(Item item) {
-		User user = (User) httpSession.getAttribute("user");
+		User user = (User) httpSession.getAttribute("usernya");
 		
 		itemDao.updateItemByName(item);
 		List<Variant> variant2 = item.getVariants();

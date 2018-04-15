@@ -180,11 +180,10 @@
 									var i=0;
 									$.ajax({
 										type : 'GET',
-										url : '${pageContext.request.contextPath}/mst/po/get-inventory?idPo='+${po.id}+'&idPod='+${pod.id},
+										url : '${pageContext.request.contextPath}/t/po/get-inventory?idPo='+${po.id}+'&idPod='+${pod.id},
 										dataType: 'json',
 										success : function(inventory){
 											$('#td${pod.id}').append(inventory[0]);
-											//console.log("test");
 										}
 									});
 								</script>
@@ -217,7 +216,7 @@
 <br>
 <div class="row">
 	<div class="col-xs-11"></div>
-	<div class="col-xs-1"><a href="#" class="done btn btn-primary btn-block">Done</a></div>
+	<div class="col-xs-1" style="width: 15%;float: right;"><a href="#" class="done btn btn-primary btn-block" >Done</a></div>
 </div>
 
 <!-- ======================================================================================================================= -->
