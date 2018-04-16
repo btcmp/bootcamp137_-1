@@ -10,9 +10,10 @@ import org.springframework.web.servlet.view.document.AbstractPdfView;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.Element;
+import com.lowagie.text.Paragraph;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
-import com.xsis.mp1.model.SalesOrder;
+import com.xsis.mp1.model.SalesOrderDetail;
 
 public class SalesOrderPDFView extends AbstractPdfView{
 
@@ -21,21 +22,26 @@ public class SalesOrderPDFView extends AbstractPdfView{
 	protected void buildPdfDocument(Map<String, Object> model, Document doc, PdfWriter writer, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
-		List<SalesOrder> salesOrders = (List<SalesOrder>) model.get("salesOrders");
-		   
+		List<SalesOrderDetail> salesOrderDetails = (List<SalesOrderDetail>) model.get("salesOrderDetails");
+		   System.out.println("sod : "+salesOrderDetails.get(0).getId());
 		   PdfPTable table = new PdfPTable(3);
 			table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.getDefaultCell().setVerticalAlignment(Element.ALIGN_MIDDLE);
 
-			table.addCell("Created Date");
-			table.addCell("Customer ");
-			table.addCell("Grand Total");
-
-			for (SalesOrder so : salesOrders) {
-				table.addCell(String.valueOf(so.getCreatedOn()));
-				table.addCell((so.getCustomer().getName())); 
-				table.addCell(String.valueOf(so.getGrandTotal())); 
+			table.addCell("Variant Name");
+			table.addCell("Qty ");
+			table.addCell("Sub Total");
+			
+			for (SalesOrderDetail  sod : salesOrderDetails) {
+				table.addCell(String.valueOf(sod.getVariant().getItem().getName()+"-"+ sod.getVariant().getName()));
+				table.addCell(sod.getQty()+""); 
+				table.addCell(String.valueOf(sod.getSubTotal())); 
 			}
+			
+			doc.add(new Paragraph("Customer : " + salesOrderDetails.get(0).getSalesOrder().getCustomer().getName().toUpperCase()));
+			doc.add(new Paragraph("Address : " + salesOrderDetails.get(0).getSalesOrder().getCustomer().getAddress())); 
+			doc.add(new Paragraph("Email :" + salesOrderDetails.get(0).getSalesOrder().getCustomer().getEmail())); 
+			doc.add(new Paragraph(" ")); 
 			doc.add(table);
 	}
 

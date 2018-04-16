@@ -1,6 +1,7 @@
 package com.xsis.mp1.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +21,7 @@ import com.xsis.mp1.model.Outlet;
 import com.xsis.mp1.model.PurchaseOrder;
 import com.xsis.mp1.model.PurchaseRequest;
 import com.xsis.mp1.model.SalesOrder;
+import com.xsis.mp1.model.SalesOrderDetail;
 import com.xsis.mp1.model.Supplier;
 import com.xsis.mp1.model.TransferStock;
 import com.xsis.mp1.service.AdjustmentService;
@@ -29,6 +31,7 @@ import com.xsis.mp1.service.ItemService;
 import com.xsis.mp1.service.OutletService;
 import com.xsis.mp1.service.POService;
 import com.xsis.mp1.service.PRService;
+import com.xsis.mp1.service.SalesOrderDetailService;
 import com.xsis.mp1.service.SalesOrderService;
 import com.xsis.mp1.service.SupplierService;
 import com.xsis.mp1.service.TransferStockService;
@@ -62,7 +65,7 @@ public class ExportPDFController {
 	CategoryService categoryService; 
 	
 	@Autowired
-	SalesOrderService salesOrderService; 
+	SalesOrderDetailService salesOrderDetailService; 
 	
 	@RequestMapping(value = "/supplier", method = RequestMethod.GET)
 	ModelAndView generatePdf(HttpServletRequest request,
@@ -159,15 +162,15 @@ public class ExportPDFController {
 	return new ModelAndView("pdfViewCategory","categories",categories);
  	}
 	
-	@RequestMapping(value = "/sales-order", method = RequestMethod.GET)
-	ModelAndView generatePdfSalesOrder(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@RequestMapping(value = "/sales-order/{id}", method = RequestMethod.GET)
+	ModelAndView generatePdfSalesOrder(HttpServletRequest request, HttpServletResponse response, @PathVariable long id) throws Exception {
 		System.out.println("Calling generatePdf()...");
 		//user data
 		response.setHeader("Content-Disposition", "attachment; filename=\"sales-order.pdf\"");
 		response.setContentType("application/pdf");
-		java.util.List<SalesOrder> salesOrders = salesOrderService.selectAll();
+		List<SalesOrderDetail> salesOrderDetails = salesOrderDetailService.selectAll(id);
 
-	return new ModelAndView("pdfViewSalesOrder","salesOrders",salesOrders);
+	return new ModelAndView("pdfViewSalesOrder","salesOrderDetails",salesOrderDetails);
  	}
 	
 	@RequestMapping(value = "/adjustment", method = RequestMethod.GET)

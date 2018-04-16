@@ -203,6 +203,7 @@
 			var name = $('#customer-name' + id).text();
 			$('.btn-choosecust').text(name);
 			$('.btn-choosecust').attr("id", id);
+			/* $('.btn-choosecust').attr("name", id); */
 			console.log(id);
 		});
 
@@ -243,10 +244,7 @@
 									rawData += value[0] + " - " + value[2];
 									rawData += "</td>";
 									rawData += "<td>";
-									rawData += "Rp.";
-									rawData += "</td>";
-									rawData += "<td>";
-									rawData += value[3];
+									rawData += "Rp." + value[3];
 									rawData += "</td>";
 									rawData += "<td id='td-qty "+ value[1] +"' >";
 									rawData += "<input type='number' class='add-item-qty"+value[1]+"' value='1' min ='1' max='"+value[4]+"'/>";
@@ -266,10 +264,7 @@
 									rawData += value[0] + " - " + value[2];
 									rawData += "</td>";
 									rawData += "<td>";
-									rawData += "Rp.";
-									rawData += "</td>";
-									rawData += "<td>";
-									rawData += value[3];
+									rawData += "Rp." + value[3];
 									rawData += "</td>";
 									rawData += "<td id='td-qty "+ value[1] +"' >";
 									rawData += addQty[a];
@@ -516,7 +511,9 @@
 		 $('#btn-print-pdf')
 				.click(
 						function() {
-							window.location = '${pageContext.request.contextPath}/generate/sales-order';
+				var idCust = 	$('.btn-choosecust').attr('id'); 
+				console.log("ya :" + idCust); 
+						 window.location = '${pageContext.request.contextPath}/generate/sales-order/' + idCust;
 						})
 		
 		$('#btn-no-thx').click(function(){
@@ -591,8 +588,9 @@
 										})
 							}
 						});
-
+		
 	});
+	
 </script>
 
 <!-- =================================================================================================================== -->
@@ -621,7 +619,6 @@
 					<thead>
 						<tr>
 							<th>Item</th>
-							<th></th>
 							<th>Price</th>
 							<th>Qty</th>
 							<th>#</th>

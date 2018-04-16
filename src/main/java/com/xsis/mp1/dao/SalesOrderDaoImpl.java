@@ -26,5 +26,17 @@ public class SalesOrderDaoImpl implements SalesOrderDao{
 		Session session = sessionFactory.getCurrentSession(); 
 		return session.createCriteria(SalesOrder.class).list();
 	}
-
+	@Override
+	public long getIdSalesOrder(long idCustomer) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "select so.id from SalesOrder so where so.customer.id = :id order by so.modifiedOn desc";
+		List<Long> id =  session.createQuery(hql).setParameter("id", idCustomer).list();
+		long idSo = id.get(0);
+		if(id.isEmpty()) {
+			return 0;
+		}else {
+			return idSo;
+		}
+	}
 }

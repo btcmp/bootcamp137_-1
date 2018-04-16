@@ -10,4 +10,6 @@ public interface SalesOrderDao {
 
 	public List<SalesOrder> selectAll();
 
+	public long getIdSalesOrder(long idCustomer);
+
 }
