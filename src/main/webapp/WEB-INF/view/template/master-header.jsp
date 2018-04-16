@@ -46,7 +46,22 @@
 <!-- Google Font -->
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-	
+
+<style type="text/css">
+#header {visibility: hidden;}
+#footer{
+	visibility: hidden;
+	float: right;
+}
+
+@media print {
+	@page { margin: 0; }
+    	#header, #footer {visibility: visible;}
+    	hr{visibility: hidden;}
+    	.main-footer {visibility: hidden;}
+  }
+
+</style>
 	
 <script type="text/javascript">
 $(document).ready(function(){
