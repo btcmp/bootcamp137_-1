@@ -55,7 +55,6 @@
 				},
 				error : function(){
 					$('#dt-table-pr').empty();
-					console.log('search failed');
 				}
 			});
 	      }
@@ -173,19 +172,23 @@
 			};
 			console.log(pr);
 
-			$.ajax({
-				type : 'POST',
-				url : '${pageContext.request.contextPath}/t/pr/save',
-				data : JSON.stringify(pr),
-				contentType : 'application/json',
-				success : function() {
-					window.location = '${pageContext.request.contextPath}/t/pr';
-				},
-				error : function() {
-					alert('save failed');
-				}
+			if(prDet[0] != null){
+				$.ajax({
+					type : 'POST',
+					url : '${pageContext.request.contextPath}/t/pr/save',
+					data : JSON.stringify(pr),
+					contentType : 'application/json',
+					success : function() {
+						window.location = '${pageContext.request.contextPath}/t/pr';
+					},
+					error : function() {
+						$('#modal-failed').modal();
+					}
 
-			});	
+				});
+			}else{
+				alert('Please add item first!');
+			}
 	    }
 		
 		//view detail
@@ -274,7 +277,8 @@
 		
 		//edit PR
 		$('#dt-table').on('click', '.update', function(){
-			$('#btn-save').prop('disabled', true);
+			
+			$('#btn-save').prop('disabled', false);
 			var id = $(this).attr('id');
 			$('#tbody-add-item').empty();
 			$.ajax({
@@ -282,38 +286,49 @@
 				url : '${pageContext.request.contextPath}/t/pr/get-one/'+id,
 				dataType: 'json',
 				success : function(data){
-					console.log(data);
-					$('#input-id').val(data.id);
-					$('#input-note').val(data.notes);
-					$('#input-prNo').val(data.prNo);
-					var date = data.readyTime.split('-');
-					var dates = date[1]+'/'+date[2]+'/'+date[0];
-					$('#insert-target').val(dates);
-					
-					$(data.prDetails).each(function(key, val){
-						added.push(''+val.variant.id+'');
-						$('#tbody-add-item').append(
-							'<tr id-var="'+val.variant.id+'" id="'+val.variant.id+'"><td>'+val.variant.item.name+'-'+val.variant.name+'</td>'
-							+'<td id="td'+val.id+'"></td>'
-							+'<td>'+val.requestQty+'</td>'
-							+'<td><button type="button" class="btn btn-danger btn-cancel-item" id="btn-del'+id+'" id-var="'+id+'">&times;</button>'
-						);
+					var pr = data.status;
+					if(pr=='Submitted'){
+						alert('PR has been Submitted');
+					}else if(pr=='Approved'){
+						alert('PR has been Approved');
+					}else if(pr=='Rejected'){
+						alert('PR has been Rejected');
+					}else if(pr=='PO Created'){
+						alert('PR has been PO Created');
+					}else{
+						$('#input-id').val(data.id);
+						$('#input-note').val(data.notes);
+						$('#input-prNo').val(data.prNo);
+						var date = data.readyTime.split('-');
+						var dates = date[1]+'/'+date[2]+'/'+date[0];
+						$('#insert-target').val(dates);
 						
-						// get inStock from inventory
-						$.ajax({
-							type : 'GET',
-							url : '${pageContext.request.contextPath}/t/pr/get-inventory?idPr='+id+'&idPrd='+val.id,
-							dataType: 'json',
-							success : function(inventory){
-								console.log(inventory);
-								$('#td'+val.id).append(inventory[0]);
-							}
+						$(data.prDetails).each(function(key, val){
+							added.push(''+val.variant.id+'');
+							$('#tbody-add-item').append(
+								'<tr id-var="'+val.variant.id+'" id="'+val.variant.id+'"><td>'+val.variant.item.name+'-'+val.variant.name+'</td>'
+								+'<td id="td'+val.id+'"></td>'
+								+'<td>'+val.requestQty+'</td>'
+								+'<td><button type="button" class="btn btn-danger btn-cancel-item" id="btn-del'+id+'" id-var="'+id+'">&times;</button>'
+							);
+							
+							// get inStock from inventory
+							$.ajax({
+								type : 'GET',
+								url : '${pageContext.request.contextPath}/t/pr/get-inventory?idPr='+id+'&idPrd='+val.id,
+								dataType: 'json',
+								success : function(inventory){
+									console.log(inventory);
+									$('#td'+val.id).append(inventory[0]);
+								}
+							});
 						});
-					});
-					$('#modal-pr-input').modal();
+
+						$('#modal-pr-input').modal();
+					}
 				},
 				error : function(){
-					console.log('get data failed');
+					$('#modal-failed').modal();
 				}
 			});
 		});
@@ -499,6 +514,7 @@
 			<div class="modal-body">
 				<form id="target" data-parsley-validate>
 					<input type="hidden" id="input-id" name="input-id" />
+					<input type="hidden" id="input-status" name="input-status" />
 					<div class="form-group">
 						<label for="input-name">CREATE NEW PR : </label> ${outlet.name}
 					</div>
@@ -608,6 +624,8 @@
 	<!-- ======================================================================================================================= -->
 	
 	<!-- Call Modal -->
+	<%@ include file="modal/modal-alert-form.jsp"%>
+	<%@ include file="modal/modal-alert-failed.jsp"%>
 	
 </body>
 </html>

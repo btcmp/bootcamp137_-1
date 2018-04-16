@@ -70,19 +70,23 @@
 				};
 				console.log(ts);
 
-				$.ajax({
-					type : 'POST',
-					url : '${pageContext.request.contextPath}/t/ts/save',
-					data : JSON.stringify(ts),
-					contentType : 'application/json',
-					success : function() {
-						window.location = '${pageContext.request.contextPath}/t/ts';
-					},
-					error : function() {
-						alert('save failed');
-					}
+				if(tsDet[0] != null){
+					$.ajax({
+						type : 'POST',
+						url : '${pageContext.request.contextPath}/t/ts/save',
+						data : JSON.stringify(ts),
+						contentType : 'application/json',
+						success : function() {
+							window.location = '${pageContext.request.contextPath}/t/ts';
+						},
+						error : function() {
+							alert('save failed');
+						}
 
-				});	
+					});
+				}else{
+					alert('Please add item first!');
+				}
 			}
 		});
 		

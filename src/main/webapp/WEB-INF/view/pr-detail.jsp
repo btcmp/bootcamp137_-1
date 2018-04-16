@@ -59,7 +59,7 @@
 						+'<option disabled selected>More</option>'
 						+'<option value="submitted" disabled>Submitted</option>'
 						+'<option value="approve">Approve</option>'
-						+'<option value="reject" disabled>Reject</option>'
+						+'<option value="reject">Reject</option>'
 						+'<option value="print">Print</option>'
 						+'<option value="create-po" disabled>Create PO</option>');
 			}else if('${pr.status}' == 'Approved'){
