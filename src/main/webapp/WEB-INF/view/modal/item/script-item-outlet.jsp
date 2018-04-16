@@ -192,7 +192,7 @@
 				"</td><td>"+ $('#input-edit-alert-at-2').val() +
 				"</td><td style='text-align:center; display:none;'>" + $('#input-edit-beginning-stock-2').val() + 
 				"</td><td style='display:none'>"+ $('#input-edit-outlet-2').val() + 
-				"</td><td style='text-align:center;'>" + $('#input-edit-variant-price-2').val() + 
+				"</td><td style='text-align:center;display:none' >" + $('#input-edit-variant-price-2').val() + 
 				"</td><td style='text-align:center;'><a class='btn-add-edit-variant btn btn-info btn-sm' href='#'>Edit</a>|<a class='btn-add-remove-variant btn btn-danger btn-sm' href='#'>X</a></td></tr>";
 				
 				$("#tbody-add-variant-create-item").append(markup);
@@ -422,7 +422,7 @@
 		 });
 		 
 		 $(document).on('click','#btn-edit-edit-update-variant', function(){
-				var form=$("#form-edit-edit-update");
+				var form=$("#form-edit-edit-update-variant");
 				var valid=form.parsley().validate();
 				
 				var markup = "<tr class='row-edit-add-variant' ><td>" + $('#edit-edit-variant-name').val() + 

@@ -140,7 +140,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" id="btn-add-item-variant" class="btn btn-primary" style="float:right; margin-right: 0px; width: 30%;">Add</button>
-				<button type="button" id="btn-cancel-add" class="btn btn-primary" style="float:right; margin-right: 31px; width:30%;" data-dismiss="modal">Cancel</button>
+				<button type="button" id="btn-cancel-add" class="btn btn-primary" style="float:right; margin-right: 31px; width:30%;">Cancel</button>
 			</div>
 		</div>
 	</div>
@@ -171,15 +171,18 @@
 							<input type="text" data-parsley-required="true" class="form-control " 
 							id="input-edit-variant-name" placeholder="Variant Name" 
 							data-parsley-validate="true" pattern="([A-z0-9\s]){2,50}$">
+							 <input type="text" id="input-edit-variant-name-2" style="display: none"/>
 						</div>
 						<div class="form-group col-md-4">
 							<input type="text" data-parsley-required="true" class="form-control " 
 							id="input-edit-variant-price" placeholder="Unit Price"
 							data-parsley-validate="true" pattern="[0-9]{1,}">
+							 <input type="text" id="input-edit-variant-price-2" style="display: none"/>
 							<p><small> *number only, ex : 500000 </small></p>
 						</div>
 						<div class="form-group col-md-4">
 							<input type="text" data-parsley-required="true" class="form-control " id="input-edit-variant-sku" placeholder="SKU">
+							<input type="text" id="input-edit-variant-sku-2"  style="display:none; "/>
 						</div>			
 					</div>				
 					<div><br/><br/>
@@ -189,6 +192,7 @@
 							</div>
 							<div class="form-group col-md-3">
 								<input id="input-edit-outlet" type="hidden" value="${outlet.id}"/>
+								<input id="input-edit-outlet-2" type="hidden" value="${outlet.id}"/>
 							</div>
 						</div>
 						<hr widht="100%"/>
@@ -198,18 +202,20 @@
 							<input type="text" data-parsley-required="true" class="form-control " 
 							id="input-edit-beginning-stock" placeholder="Beginning Stock"
 							data-parsley-validate="true" pattern="[0-9]{1,}">
+							<input type="text"id="input-edit-beginning-stock-2" style="display: none;"/>
 						</div>
 						<div class="form-group col-md-6">
 							<input type="text" data-parsley-required="true" class="form-control " 
 							id="input-edit-alert-at" placeholder="Alert At"
 							data-parsley-validate="true" pattern="[0-9]{1,}">
+							<input type="text" id="input-edit-alert-at-2" style="display: none "/>
 						</div>			
 					</div>	
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" id="btn-add-edit-cancel-update" class="btn btn-primary" style="float:right; margin-right: 31px; width:150px;" data-dismiss="modal">Cancel</button>
 				<button type="button" id="" class="btn-add-edit-update-variant btn btn-primary" style="float:right; margin-right: 0px; width: 150px;">Update</button>
+				<button type="button" id="" class="btn-add-edit-cancel-update btn btn-primary" style="float:right; margin-right: 31px; width:150px;">Cancel</button>
 			</div>
 		</div>
 	</div>
@@ -321,10 +327,12 @@
 					<input type="hidden" id="input-edit-add-varian-id" name="input-id" />		
 					<div class="row">
 						<div class="form-group col-md-4">
-							<input type="text" data-parsley-required="true" class="form-control " id="input-edit-add-variant-name" placeholder="Variant Name">
+							<input type="text" data-parsley-required="true" class="form-control " id="input-edit-add-variant-name" 
+								class="form-control " placeholder="Variant Name" data-parsley-validate="true" pattern="([A-z0-9\s]){2,50}$">
 						</div>
 						<div class="form-group col-md-4">
-							<input type="text" data-parsley-required="true" class="form-control " id="input-edit-add-variant-price" placeholder="Unit Price">
+							<input type="text" data-parsley-required="true" class="form-control " id="input-edit-add-variant-price" 
+							class="form-control " placeholder="Unit Price" data-parsley-validate="true" pattern="[0-9]{1,}">
 						</div>
 						<div class="form-group col-md-4">
 							<input type="text" data-parsley-required="true" class="form-control " id="input-edit-add-variant-sku" placeholder="SKU">
@@ -340,10 +348,12 @@
 						
 						<div class="row">
 						<div class="form-group col-md-6">
-							<input type="text"  data-parsley-required="true" class="form-control " id="input-edit-add-beginning-stock" placeholder="Beginning Stock">
+							<input type="text"  data-parsley-required="true" class="form-control " id="input-edit-add-beginning-stock" 
+							 placeholder="Beginning Stock"	data-parsley-validate="true" pattern="[0-9]{1,}">
 						</div>
 						<div class="form-group col-md-6">
-							<input type="text"  data-parsley-required="true" class="form-control " id="input-edit-add-alert-at" placeholder="Alert At">
+							<input type="text"  data-parsley-required="true" class="form-control " id="input-edit-add-alert-at" placeholder="Alert At"
+								data-parsley-validate="true" pattern="[0-9]{1,}">
 						</div>			
 					</div>
 					
@@ -375,32 +385,42 @@
 			
 			
 			<div class="modal-body">
-				<form id="target" data-parsley-validate>
+				<form id="form-edit-edit-update-variant" data-parsley-validate>
 					<input type="hidden" id="edit-edit-varian-id" name="input-id" />		
 					<div class="row">
 						<div class="form-group col-md-4">
-							<input type="text" data-parsley-required="true" class="form-control " id="edit-edit-variant-name" placeholder="Variant Name">
+							<input type="text" data-parsley-required="true" class="form-control " id="edit-edit-variant-name" placeholder="Variant Name"
+							data-parsley-validate="true" pattern="([A-z0-9\s]){2,50}$"/>
+							<input type="text" id="edit-edit-variant-name-2" style="display: none;"/>
 						</div>
 						<div class="form-group col-md-4">
-							<input type="text" data-parsley-required="true" class="form-control " id="edit-edit-variant-price" placeholder="Unit Price">
+							<input type="text" data-parsley-required="true" class="form-control " id="edit-edit-variant-price" placeholder="Unit Price"
+							data-parsley-validate="true" pattern="[0-9]{1,}">
+							<input type="text" id="edit-edit-variant-price-2" style="display: none;"/>
 						</div>
 						<div class="form-group col-md-4">
 							<input type="text" data-parsley-required="true" class="form-control " id="edit-edit-variant-sku" placeholder="SKU">
+							<input type="text" id="edit-edit-variant-sku-2"style="display: none;" />
 						</div>			
 					</div>				
 					<div><br/><br/>
 						<h5>Set Beginning Stock</h5>
 						<div>
 							<input  type="hidden" id="edit-edit-outlet" value="${outlet.id}"/> 
+							<input  type="hidden" id="edit-edit-outlet-2" value="${outlet.id}"/> 
 						</div>
 						<hr widht="100%"/>
 						</div><br/>
 						<div class="row">
 						<div class="form-group col-md-6">
-							<input type="text" data-parsley-required="true" class="form-control " id="edit-edit-beginning-stock" placeholder="Beginning Stock">
+							<input type="text" data-parsley-required="true" class="form-control " id="edit-edit-beginning-stock" placeholder="Beginning Stock"
+							data-parsley-validate="true" pattern="[0-9]{1,}">
+							<input type="text" id="edit-edit-beginning-stock-2"style="display: none;" />
 						</div>
 						<div class="form-group col-md-6">
-							<input type="text" data-parsley-required="true" class="form-control " id="edit-edit-alert-at" placeholder="Alert At">
+							<input type="text" data-parsley-required="true" class="form-control " id="edit-edit-alert-at" placeholder="Alert At"
+							data-parsley-validate="true" pattern="[0-9]{1,}">
+							<input type="text" id="edit-edit-alert-at-2" style="display: none;"/>
 						</div>			
 					</div>
 					
