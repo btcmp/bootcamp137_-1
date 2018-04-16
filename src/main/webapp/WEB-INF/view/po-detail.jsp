@@ -46,28 +46,28 @@
 	<div class="col-xs-3">
 		<script>
 			if('${po.status}' == 'created'){
-				document.write('<select id="action-po" class="btn-primary form-control" key-id="${po.id }">'
+				document.write('<select id="action-po" class="btn-primary form-control adm-show" key-id="${po.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve">Approve</option>'
 						+'<option value="reject">Reject</option>'
 						+'<option value="process" disabled selected>Process</option>'
 						+'<option value="print" disabled selected>Print</option>');
 			}else if('${po.status}' == 'Rejected'){
-				document.write('<select id="action-po" class="btn-primary form-control" key-id="${po.id }">'
+				document.write('<select id="action-po" class="btn-primary form-control adm-show" key-id="${po.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve" disabled selected>Approve</option>'
 						+'<option value="reject" disabled selected>Reject</option>'
 						+'<option value="process" disabled selected>Process</option>'
 						+'<option value="print">Print</option>');
 			}else if('${po.status}' == 'Approved'){
-				document.write('<select id="action-po" class="btn-primary form-control" key-id="${po.id }">'
+				document.write('<select id="action-po" class="btn-primary form-control adm-show" key-id="${po.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve" disabled selected>Approve</option>'
 						+'<option value="reject" >Reject</option>'
 						+'<option value="process">Process</option>'
 						+'<option value="print">Print</option>');
 			}else if('${po.status}' == 'Process'){
-				document.write('<select id="action-po" class="btn-primary form-control" key-id="${po.id }">'
+				document.write('<select id="action-po" class="btn-primary form-control adm-show" key-id="${po.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve" disabled selected>Approve</option>'
 						+'<option value="reject" disabled selected>Reject</option>'
