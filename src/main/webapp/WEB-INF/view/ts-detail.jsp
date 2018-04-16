@@ -8,6 +8,8 @@
 			var action = $(this).val();
 			var id = $(this).attr('key-id');
 			if(action == 'print'){
+				$('#action-ts').hide();
+				$('.done').hide();
 				window.print();
 			}else{
 				$.ajax({

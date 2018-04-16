@@ -91,10 +91,21 @@
 						data : JSON.stringify(employee),
 						contentType : 'application/json',
 						success : function() {
-							window.location = '${pageContext.request.contextPath}/mst/employee';
+							$('#show-alert').removeClass('alert-gagal').addClass('alert-success');
+							$('#show-alert').html('<strong>Sukses!</strong> Berhasil Menyimpan ke Database');
+							$('#div-alert').fadeIn();
+							setTimeout(function() {
+								window.location = '${pageContext.request.contextPath}/mst/employee';
+							}, 3000);
+							
 						},
 						error : function() {
-							$('#modal-failed').modal();
+							$('#show-alert').removeClass('alert-success').addClass('alert-gagal');
+							$('#show-alert').html('<strong>Error!</strong> Gagal Menyimpan ke Database');
+							$('#div-alert').fadeIn();
+							setTimeout(function(){
+								$('#div-alert').fadeOut();
+							}, 4000);
 						}
 
 					}); 
@@ -284,6 +295,18 @@
 <h6 class="adm-show">ADD EMPLOYEE</h6>
 <hr class="adm-show">
 	<form id="form-emp" class="adm-show">
+		<div class="row" id="div-alert" style="display:none;">
+			<div class="col-xs-12">
+				<div class="alert alert-success" role="alert" id="show-alert">
+				  <strong>Sukses!</strong> Data Berhasil Disimpan.
+				</div>
+				<div class="alert alert-info alert-dismissible" role="alert" id="show-alert1">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-info"></i> Success!</h4>
+                Employee Status has Changed.
+              </div>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-md-3">
 				<input type="hidden" id="insert-emp-id" name="insert-emp-id" />
