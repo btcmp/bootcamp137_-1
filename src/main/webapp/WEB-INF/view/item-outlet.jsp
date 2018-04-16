@@ -19,10 +19,8 @@
 							<input type="text" class="form-control" id="insert-search" placeholder="Search">
 				 	 </div>
 				 	 <div class="form-group col-md-2">
-				 	 	<input id="list-by-outlet" value="${outlet.id }" style="display:none" />
-				 	 	 
-				 	 </div>
-				  	
+				 	 	<input id="list-by-outlet" value="${outlet.id }" style="display:none" /> 
+				 	 </div>	
 				</div>
 				<div class="col-md-1">
 				</div>
@@ -71,9 +69,11 @@
 	<%@ include file="/WEB-INF/view/template/master-body-bottom.jsp"%>
 	
 	<!-- ======================================================================================================================= -->
+
 <!-- call modal -->
 	<%@ include file="modal/item/create-edit-item.jsp" %>
-
-	
+	<%@ include file="modal/modal-alert-form.jsp" %>
+	<%@ include file="modal/modal-alert-failed.jsp" %>
+	<%@ include file="modal/modal-alert-sukses.jsp" %>
 </body>
 </html>

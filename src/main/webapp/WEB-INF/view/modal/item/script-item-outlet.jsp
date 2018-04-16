@@ -113,7 +113,7 @@
 						 document.getElementById("form-variant").reset();
 					$('#modal-add-variant').modal('hide');
 					} else { 
-						alert ('complete your form'); 
+						$('#modal-alert-form').modal();
 					}
 					
  
@@ -173,7 +173,7 @@
 					$('#modal-create-item').modal('show');
 				
 				} else { 
-					alert ('complete your form'); 
+					$('#modal-alert-form').modal(); 
 					$('#modal-add-edit-variant').modal('show');
 				}
 				
@@ -278,7 +278,7 @@
 										window.location = '${pageContext.request.contextPath}/mst/item-outlet';
 										
 									}, error : function(){
-										alert('save failed');
+										$('#modal-failed').modal(); 
 									} 		
 								}); 
 					 	}, 
@@ -288,7 +288,7 @@
 		 		});
 		 	}
 		 		else {
-			 		alert ('complete your form'); 
+			 		$('#modal-alert-form').modal(); 
 			 	}
 		 		
 		 		
@@ -344,7 +344,7 @@
 				});
 			 //console.log(inventory);
 			}, error : function(){
-				alert ('update failed'); 
+				$('#modal-alert-form').modal(); 
 			}
 		});
 	});
@@ -352,7 +352,7 @@
 	/* edit add variant  */
 	 
 	 $(document).on('click', '#btn-edit-add-add-item-variant',function(){
-		 	var form = $('#form-edit-add-variant');
+		 	var form = $('#edit-add-add-item-variant');
 			var valid = form.parsley().validate();
 		 
 			var markup = "<tr class='row-edit-add-variant' ><td>" + $('#input-edit-add-variant-name').val() + 
@@ -374,7 +374,7 @@
 				document.getElementById("form-edit-add-variant").reset();
 			}
 			else{
-				alert("Complete Your Form!");
+				$('#modal-alert-form').modal(); 
 				$('#modal-edit-add-variant').modal('show');
 			}
 			 
@@ -442,7 +442,7 @@
 					$('#modal-edit-item').modal('show');
 				}
 				else{
-					alert("Complete Your Form!");
+					$('#modal-alert-form').modal(); 
 					$('#modal-edit-edit-variant').modal('show');
 				}
 		 });
@@ -538,10 +538,10 @@
 						data : JSON.stringify(item),
 						contentType : 'application/json',
 						success : function(dataku){
-							alert("sukses edit");
+							$('#modal-sukses').modal(); 
 							window.location = '${pageContext.request.contextPath}/mst/item-outlet';
 						}, error : function(){
-							alert('save failed');
+							$('#modal-failed').modal(); 
 						} 
 					});
 				}
@@ -576,10 +576,10 @@
 								data: JSON.stringify(item),
 								contentType : 'application/json',
 								success : function(item){
-									alert("sukses delete");
+									$('#modal-sukses').modal(); 
 									
 								}, error : function(){
-									alert('delete failed');
+									$('#modal-failed').modal();
 								} 
 						 });
 					};

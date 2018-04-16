@@ -317,7 +317,7 @@
 			
 			
 			<div class="modal-body">
-				<form id="target" data-parsley-validate>
+				<form id="edit-add-add-item-variant" data-parsley-validate>
 					<input type="hidden" id="input-edit-add-varian-id" name="input-id" />		
 					<div class="row">
 						<div class="form-group col-md-4">
@@ -340,20 +340,20 @@
 						
 						<div class="row">
 						<div class="form-group col-md-6">
-							<input type="text" class="form-control " id="input-edit-add-beginning-stock" placeholder="Beginning Stock">
+							<input type="text"  data-parsley-required="true" class="form-control " id="input-edit-add-beginning-stock" placeholder="Beginning Stock">
 						</div>
 						<div class="form-group col-md-6">
-							<input type="text" class="form-control " id="input-edit-add-alert-at" placeholder="Alert At">
+							<input type="text"  data-parsley-required="true" class="form-control " id="input-edit-add-alert-at" placeholder="Alert At">
 						</div>			
 					</div>
 					
-					
-				</form>
-			</div>
-			<div class="modal-footer">
+					<div class="modal-footer">
 				<button type="button" id="btn-cancel-add-edit-item-variant" class="btn btn-primary" style="width:20%;">Cancel</button>
 				<button type="button" id="btn-edit-add-add-item-variant" class="btn btn-primary" style="width:20%;" >Add</button>
 			</div>
+				</form>
+			</div>
+			
 		</div>
 	</div>
 </div>
