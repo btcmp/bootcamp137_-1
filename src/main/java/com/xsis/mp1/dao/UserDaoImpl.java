@@ -77,7 +77,7 @@ public class UserDaoImpl implements UserDao {
 	}
 	public List<Object> getUsernameByPOId(long id) {
 		Session session = sessionFactory.getCurrentSession(); 
-		String hql = "select username, employee from User where id=:id";
+		String hql = "from Employee e where e.user.id=:id";
 		List<Object> users = session.createQuery(hql).setParameter("id", id).list();
 		if (users.isEmpty()) {
 			return null; 

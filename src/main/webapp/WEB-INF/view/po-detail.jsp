@@ -118,16 +118,41 @@
 					dataType: 'json',
 					success : function(data){
 						//console.log(data);
-						$('#td-create').append(data[0]);
-						console.log(data[0].employee.id);
+						$('#td-create').append(data[0].user.username);
+						$('#td-email').append(data[0].email);
 					}
 				});
 			</script>
 		</td>
 	</tr>
+	<tr>
+		<td>Email </td>
+		<td>:</td>
+		<td id="td-email"> </td>
+	</tr>
+	<tr>
+		<td>Outlet </td>
+		<td>:</td>
+		<td> ${po.outletId.name }</td>
+	</tr>
+	<tr>
+		<td>Phone </td>
+		<td>:</td>
+		<td> ${po.outletId.phone }</td>
+	</tr>
+	<tr>
+		<td>Outlet </td>
+		<td>:</td>
+		<td> ${po.outletId.address }</td>
+	</tr>
+	<tr>
+		<td>PO Status </td>
+		<td>:</td>
+		<td> ${po.status}</td>
+	</tr>
 </table>
 
-
+<br/>
 <h5><b>Status History</b></h5>
 <hr>
 <div class="row">
