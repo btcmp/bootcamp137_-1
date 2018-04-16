@@ -156,6 +156,12 @@ public class PurchaseOrderController {
 		return poService.getPOByGlobal(global);
 	}
 	
+	@RequestMapping(value="/get-created-by", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Object> getCreatedBy(@RequestParam(value="id", defaultValue="") long id){
+		return poService.getUsernameByPOId(id);
+	}
+	
 	
 }
 

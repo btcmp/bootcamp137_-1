@@ -14,8 +14,8 @@
 					type : 'GET',
 					url : '${pageContext.request.contextPath}/t/po/'+action+'/'+id,
 					success : function(){
-						console.log('Status Updated');
-						console.log(action);
+						//console.log('Status Updated');
+						//console.log(action);
 						window.location = '${pageContext.request.contextPath}/t/po/detail/'+id;
 					},
 					error : function(){
@@ -101,39 +101,31 @@
 	<textarea class="form-control" id="input-note" rows="5" disabled="disabled">${po.notes }</textarea>
 </div>
 
-
-
-<table id="item-poe" class="table table-sm table-striped table-bordered" cellspacing="0" width="100%">
-				<thead class="thead-dark">
-					<th>Item</th>
-					<th>In Stock</th>
-				</thead>
-				<tbody id="tbody-detail-po">
-					<c:forEach items="${pos}" var ="po">
-						<tr>
-							<td>iasdf</td>
-							<td id="td${pod.id}">
-								 <script type="text/javascript">
-									var i=0;
-									$.ajax({
-										type : 'GET',
-										url : '${pageContext.request.contextPath}/mst/po/get-inventory?idPo='+${po.id}+'&idPod='+${po.supplierId.id},
-										dataType: 'json',
-										success : function(data){
-											//$('#td${pod.id}').append(inventory[0]);
-											console.log("test");
-										}
-									});
-								</script>
-							</td>
-							
-						</tr>
-					</c:forEach>
-				</tbody>
-				<tfoot>
-				
-				</tfoot>
-			</table>
+<table>
+	<tr>
+		<td>PO Number </td>
+		<td>:</td>
+		<td> ${po.poNo }</td>
+	</tr>
+	<tr>
+		<td>Created By </td>
+		<td> : </td>
+		<td id="td-create">
+			<script type="text/javascript">
+				$.ajax({
+					type : 'GET',
+					url : '${pageContext.request.contextPath}/t/po/get-created-by?id='+${po.createdBy },
+					dataType: 'json',
+					success : function(data){
+						//console.log(data);
+						$('#td-create').append(data[0]);
+						console.log(data[0].employee.id);
+					}
+				});
+			</script>
+		</td>
+	</tr>
+</table>
 
 
 <h5><b>Status History</b></h5>

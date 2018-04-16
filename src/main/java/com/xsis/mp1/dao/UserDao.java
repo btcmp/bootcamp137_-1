@@ -17,4 +17,8 @@ public interface UserDao {
 	public void setInactive(long id);
 
 	public List<Object> getUsernameByPrId(long id);
+
+	public List<Object> getUsernameByAdjId(long id);
+
+	public List<Object> getUsernameByPOId(long id);
 }

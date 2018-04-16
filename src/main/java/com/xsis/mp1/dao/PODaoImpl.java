@@ -89,7 +89,7 @@ public class PODaoImpl implements PODao {
 		}
 	}
 
-	@Override
+	
 	public List<PurchaseOrder> searchPOByStatus(String status) {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "from PurchaseOrder where status = :status";
@@ -101,7 +101,7 @@ public class PODaoImpl implements PODao {
 		}
 	}
 
-	@Override
+
 	public List<PurchaseOrder> searchPOByGlobal(String global) {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "from PurchaseOrder where lower(poNo) like :global or lower(status) like :global or lower(supplierId.name) like :global or lower(grandTotal) like :global";

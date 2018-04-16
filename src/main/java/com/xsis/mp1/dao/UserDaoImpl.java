@@ -64,5 +64,26 @@ public class UserDaoImpl implements UserDao {
 			return users;
 		}
 	}
+	
+	public List<Object> getUsernameByAdjId(long id) {
+		Session session = sessionFactory.getCurrentSession(); 
+		String hql = "select username from User where id=:id";
+		List<Object> users = session.createQuery(hql).setParameter("id", id).list();
+		if (users.isEmpty()) {
+			return null; 
+		} else {
+			return users;
+		}
+	}
+	public List<Object> getUsernameByPOId(long id) {
+		Session session = sessionFactory.getCurrentSession(); 
+		String hql = "select username, employee from User where id=:id";
+		List<Object> users = session.createQuery(hql).setParameter("id", id).list();
+		if (users.isEmpty()) {
+			return null; 
+		} else {
+			return users;
+		}
+	}
 
 }

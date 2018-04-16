@@ -18,6 +18,8 @@ import com.xsis.mp1.dao.PODetailDao;
 import com.xsis.mp1.dao.POHistoryDao;
 import com.xsis.mp1.dao.PRDetailDao;
 import com.xsis.mp1.dao.SupplierDao;
+import com.xsis.mp1.dao.UserDao;
+import com.xsis.mp1.model.Outlet;
 import com.xsis.mp1.model.PurchaseOrder;
 import com.xsis.mp1.model.PurchaseOrderDetail;
 import com.xsis.mp1.model.PurchaseOrderHistory;
@@ -25,6 +27,7 @@ import com.xsis.mp1.model.PurchaseRequest;
 import com.xsis.mp1.model.PurchaseRequestDetail;
 import com.xsis.mp1.model.PurchaseRequestHistory;
 import com.xsis.mp1.model.Supplier;
+import com.xsis.mp1.model.User;
 
 @Service
 @Transactional
@@ -47,8 +50,12 @@ public class POService {
 	
 	@Autowired
 	HttpSession httpSession;
+	
+	@Autowired
+	UserDao userDao;
 
 	public List<PurchaseOrder> selectAll() {
+		
 		List<PurchaseOrder> pos = poDao.selectAll();
 		if(pos.isEmpty()) {
 			return null;
@@ -66,6 +73,7 @@ public class POService {
 	}
 
 	public void save(PurchaseOrder po) {
+		User user = (User) httpSession.getAttribute("usernya");
 		PurchaseOrder po2 = new PurchaseOrder();
 		po2.setId(po.getId());
 		po2.setOutletId(po.getOutletId());
@@ -75,10 +83,12 @@ public class POService {
 		
 		//jika data ada, modifiednya aja yg ganti
 		if(po2.getId()!=0) {
+			po2.setModifiedBy(user.getId());
 			po2.setModifiedOn(new Date());
 			PurchaseOrder po3 = poDao.getOne(po2.getId());
 			po2.setCreatedOn(po3.getCreatedOn());
 		}else {
+			po2.setCreatedBy(user.getId());
 			po2.setCreatedOn(new Date());
 		}
 		
@@ -98,6 +108,7 @@ public class POService {
 			for(PurchaseOrderDetail poDetails : po.getPurchaseOrderDetails()) {
 				PurchaseOrderDetail poDetail = new PurchaseOrderDetail();
 				poDetail.setId(poDetails.getId());
+				poDetail.setCreatedBy(user.getId());
 				poDetail.setPurchaseOrder(po2);
 				poDetail.setVariant(poDetails.getVariant());
 				podDao.save(poDetail);
@@ -109,6 +120,7 @@ public class POService {
 		}else {
 			PurchaseOrderHistory poh = new PurchaseOrderHistory();
 			poh.setPurchaseOrder(po2);
+			poh.setCreatedBy(user.getId());
 			poh.setStatus(po2.getStatus());
 			poh.setCreatedOn(po2.getCreatedOn());
 			pohDao.save(poh);
@@ -138,26 +150,31 @@ public class POService {
 	}
 
 	public void approve(long id) {
+		User user = (User) httpSession.getAttribute("usernya");
 		poDao.approve(id);
 		PurchaseOrder po = poDao.getOne(id);
 		PurchaseOrderHistory poh = new PurchaseOrderHistory();
 		poh.setCreatedOn(new Date());
 		poh.setPurchaseOrder(po);
 		poh.setStatus(po.getStatus());
+		poh.setCreatedBy(user.getId());
 		pohDao.save(poh);
 	}
 
 	public void reject(long id) {
+		User user = (User) httpSession.getAttribute("usernya");
 		poDao.reject(id);
 		PurchaseOrder po = poDao.getOne(id);
 		PurchaseOrderHistory poh = new PurchaseOrderHistory();
 		poh.setCreatedOn(new Date());
 		poh.setPurchaseOrder(po);
 		poh.setStatus(po.getStatus());
+		poh.setCreatedBy(user.getId());
 		pohDao.save(poh);
 	}
 
 	public void process(long id) {
+		User user = (User) httpSession.getAttribute("user");
 		poDao.process(id);
 		PurchaseOrder po = poDao.getOne(id);
 		
@@ -167,6 +184,7 @@ public class POService {
 			
 		}else {
 			po.setPurchaseOrderDetails(pods);
+			po.setCreatedBy(user.getId());
 		}
 		
 		
@@ -201,6 +219,8 @@ public class POService {
 	}
 
 	public void update(PurchaseOrder po) {
+		User user = (User) httpSession.getAttribute("usernya");
+		
 		PurchaseOrder po2 = new PurchaseOrder();
 		po2.setId(po.getId());
 		po2.setOutletId(po.getOutletId());
@@ -209,6 +229,7 @@ public class POService {
 		po2.setNotes(po.getNotes());
 		po2.setModifiedOn(new Date());
 		PurchaseOrder po3 = poDao.getOne(po2.getId());
+		po.setCreatedBy(user.getId());
 		po2.setCreatedOn(po3.getCreatedOn());
 		po2.setPoNo(po3.getPoNo());
 		po2.setSupplierId(po.getSupplierId());
@@ -236,6 +257,7 @@ public class POService {
 				pod2.setRequestQty(pod.getRequestQty());
 				pod2.setSubTotal(pod.getSubTotal());
 				pod2.setUnitCost(pod.getUnitCost());
+				pod2.setCreatedBy(user.getId());
 				podDao.save(pod2);
 			}
 		}
@@ -276,6 +298,10 @@ public class POService {
 
 	public List<PurchaseOrder> getPOByGlobal(String global) {
 		return poDao.searchPOByGlobal(global);
+	}
+
+	public List<Object> getUsernameByPOId(long id) {
+		return userDao.getUsernameByPOId(id);
 	}
 	
 	
