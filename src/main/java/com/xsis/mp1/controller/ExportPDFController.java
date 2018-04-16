@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -98,6 +99,14 @@ public class ExportPDFController {
 	return new ModelAndView("pdfViewPR","prs",prs);
  	}
 	
+	@RequestMapping(value = "/pr-detail/{id}", method = RequestMethod.GET)
+	ModelAndView generatePdfPRD(HttpServletRequest request, @PathVariable long id, HttpServletResponse response) throws Exception{
+		response.setHeader("Content-Disposition", "attachment; filename=\"pr_detail.pdf\"");
+		response.setContentType("application/pdf");
+		PurchaseRequest pr = prService.getOne(id);
+		return new ModelAndView("pdfViewPRDetail", "pr", pr);
+	}
+	
 	@RequestMapping(value = "/po", method = RequestMethod.GET)
 	ModelAndView generatePdfPO(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("Calling generatePdf()...");
@@ -119,6 +128,14 @@ public class ExportPDFController {
 
 	return new ModelAndView("pdfViewTS","tss",tss);
  	}
+	
+	/*@RequestMapping(value = "/ts-detail/{id}", method = RequestMethod.GET)
+	ModelAndView generatePdfTSD(HttpServletRequest request, @PathVariable long id, HttpServletResponse response) throws Exception{
+		response.setHeader("Content-Disposition", "attachment; filename=\"ts_detail.pdf\"");
+		response.setContentType("application/pdf");
+		TransferStock ts = tsService.getOne(id);
+		return new ModelAndView("pdfViewTSDetail", "ts", ts);
+	}*/
 	
 	@RequestMapping(value = "/outlet", method = RequestMethod.GET)
 	ModelAndView generatePdfOutlet(HttpServletRequest request, HttpServletResponse response) throws Exception {
