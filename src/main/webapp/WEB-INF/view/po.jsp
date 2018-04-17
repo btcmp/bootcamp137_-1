@@ -40,6 +40,17 @@
 									+'<td>'+val.status+'</td>'
 									+'<td><input type="button" class="update btn btn-success btn-sm" value="Edit" id="'+val.id+'" pr-status="'+val.status+'"> | '
 									+'<a href="${pageContext.request.contextPath}/t/pr/detail/'+val.id+'" class="view btn btn-success btn-sm" key-id="'+val.id+'">View</a></td>');
+									
+								if(val.status=="Approved"){
+									$("#"+val.id).hide();
+								}
+								else if(val.status=="Rejected"){
+									$("#"+val.id).hide();
+								}
+								else if(val.status =="Process"){
+									$("#"+val.id).hide();
+								}
+							
 							})
 						},
 						error : function(){
@@ -96,6 +107,15 @@
 								+'<td>'+val.status+'</td>'
 								+'<td><input type="button" class="update btn btn-success btn-sm" value="Edit" id="'+val.id+'" pr-status="'+val.status+'"> | '
 								+'<a href="${pageContext.request.contextPath}/t/pr/detail/'+val.id+'" class="view btn btn-success btn-sm" key-id="'+val.id+'">View</a></td>');
+							if(val.status=="Approved"){
+								$("#"+val.id).hide();
+							}
+							else if(val.status=="Rejected"){
+								$("#"+val.id).hide();
+							}
+							else if(val.status =="Process"){
+								$("#"+val.id).hide();
+							}
 						})
 					},
 					error : function(){
@@ -131,7 +151,17 @@
 							+'<td>'+val.status+'</td>'
 							+'<td><input type="button" class="update btn btn-success btn-sm" value="Edit" id="'+val.id+'" pr-status="'+val.status+'"> | '
 							+'<a href="${pageContext.request.contextPath}/t/pr/detail/'+val.id+'" class="view btn btn-success btn-sm" key-id="'+val.id+'">View</a></td>');
-					})
+						if(val.status=="Approved"){
+							$("#"+val.id).hide();
+						}
+						else if(val.status=="Rejected"){
+							$("#"+val.id).hide();
+						}
+						else if(val.status =="Process"){
+							$("#"+val.id).hide();
+						};
+						
+						})
 						
 					},
 					error : function(){
@@ -283,7 +313,8 @@
 					console.log("save")
 					window.location = '${pageContext.request.contextPath}/t/po';
 				},error:function(){
-					alert("error");
+					$('#modal-val-user').modal();
+					$('#modal-edit-po').modal('show');
 				}
 			});  
 		});
@@ -362,23 +393,44 @@
 			<th>Create Date</th>
 			<th>Supplier</th>
 			<th>PO No.</th>
-			<th>Total</th>
+			<th >Total</th>
 			<th>Status</th>
-			<th><center>#</center></th>
+			<th ><center>#</center></th>
 		</thead>
 		<tbody id="tbody-po">
 		<c:forEach items="${pos}" var="po">
 			<tr id="${po.prId }">
 				<td style="display: none">${po.id }</td>
-				<td><center>${po.createdOn }</center></td>
+				<td><center><script>
+							var times = '${po.createdOn }';
+							var time = times.split(':');
+							document.write(time[0]+':'+time[1]);
+						</script></center></td>
 				<td>${po.supplierId.name }</td>
 				<td>${po.poNo }</td>
-				<td>Rp. ${po.grandTotal}</td>
+				<td>Rp.<script>
+							var times = '${po.grandTotal }';
+							var time = times.split('.');
+							document.write(time[0]);
+						</script></td>
 				<td>${po.status}</td>
+
 				<td><center>
-					<a id="${po.prId.id }" class="btn-edit-po btn btn-info btn-sm" name="${po.id}" poNo="${po.poNo }" href="#">Edit</a>
-					<a id="${po.id}" class="btn-view-po btn btn-info btn-sm" href="#">View</a></center>
+					<a id="${po.prId.id }" class="btn-edit-po btn btn-success btn-sm" name="${po.id}" poNo="${po.poNo }" href="#">Edit</a>
+					<a id="${po.id}" class="btn-view-po btn btn-success btn-sm" href="#">View</a></center>
+						<script>
+					 if('${po.status}'=="Approved"){
+						$("#${po.prId.id }").hide();
+					}
+					else if('${po.status}'=="Rejected"){
+						$("#${po.prId.id }").hide();
+					}
+					else if('${po.status}'=="Process"){
+						$("#${po.prId.id }").hide();
+					}
+				</script>
 				</td>
+				
 			</tr>
 		</c:forEach>
 		</tbody>
@@ -393,6 +445,21 @@
 <!-- call modal -->
 	<%@ include file="modal/purchase-order/form-edit-po.jsp" %>
 	
+	<!-- Modal -->
+		<div class="modal fade" id="modal-val-user" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+						<h4><i class="icon fa fa-warning"></i> Supplier is unselected</h4>
+		                You must select Supplier to save this Purchase Order
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">OK </button>
+					</div>
+				</div>
+			</div>
+		</div>
 	
 </body>
 </html>

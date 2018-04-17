@@ -174,7 +174,7 @@ public class POService {
 	}
 
 	public void process(long id) {
-		User user = (User) httpSession.getAttribute("user");
+		User user = (User) httpSession.getAttribute("usernya");
 		poDao.process(id);
 		PurchaseOrder po = poDao.getOne(id);
 		
@@ -229,7 +229,7 @@ public class POService {
 		po2.setNotes(po.getNotes());
 		po2.setModifiedOn(new Date());
 		PurchaseOrder po3 = poDao.getOne(po2.getId());
-		po.setCreatedBy(user.getId());
+		po2.setCreatedBy(user.getId());
 		po2.setCreatedOn(po3.getCreatedOn());
 		po2.setPoNo(po3.getPoNo());
 		po2.setSupplierId(po.getSupplierId());

@@ -143,8 +143,8 @@ public class PurchaseOrderController {
 	@ResponseBody
 	public List<PurchaseOrder> getByStatus(@RequestParam(value="search", defaultValue="") String status){
 		List<PurchaseOrder> po= poService.getPOByStatus(status);
-		List<PurchaseOrder> po2=poService.selectAll();		
-		if(status=="all")
+		List<PurchaseOrder> po2=poService.selectAll();
+		if(status.equals("all"))
 			return po2;
 		else
 			return po;
