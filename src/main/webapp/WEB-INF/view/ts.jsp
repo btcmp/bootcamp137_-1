@@ -110,7 +110,7 @@
 							var oTableItem = "<tr>"+
 								'<td>'+ val.variant.item.name +'-'+ val.variant.name +'</td>' +
 								'<td id="inStock'+ val.id +'">'+ val.endingQty +'</td>' +
-								'<td id="td-qty'+ val.id +'"><input type="number" id="add-qty'+ val.id +'" value="1" /></td>' +
+								'<td id="td-qty'+ val.id +'"><input type="number" id="add-qty'+ val.id +'" value="1" min="1" /></td>' +
 								'<td><button type="button" id="'+ val.id +'" class="btn-add-item'+val.id +' btn-add-item btn btn-primary" id-var="'+val.variant.id+'">Add</button></td>' +
 								"</tr>";
 							
@@ -147,6 +147,10 @@
 				var newReqQty = parseInt(oldReqQty)+parseInt(trfQty);
 				trItem.find('td').eq(2).text(newReqQty);
 			}
+			$('#div-alert-modal').fadeIn();
+			setTimeout(function(){
+				$('#div-alert-modal').fadeOut();
+			}, 1000);
 		});
 		
 		
@@ -307,8 +311,7 @@
 				<form id="target" data-parsley-validate>
 					<div class="row" id="div-alert" style="display:none;">
 						<div class="col-xs-12">
-							<div class="alert alert-info alert-dismissible" role="alert" id="show-alert1">
-			                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							<div class="alert alert-success alert-dismissible" role="alert" id="show-alert1" style="padding: 5px">
 			                <p><i class="icon fa fa-check"></i> Data saved!</p>
 			              </div>
 						</div>
@@ -385,6 +388,13 @@
 			
 			<div class="modal-body">
 				<form id="target" data-parsley-validate>
+					<div class="row" id="div-alert-modal" style="display:none;">
+						<div class="col-xs-12">
+							<div class="alert alert-info alert-dismissible" role="alert" id="show-alert2" style="padding: 5px">
+			                <p><i class="icon fa fa-check"></i> Item added!</p>
+			              </div>
+						</div>
+					</div>
 					<input type="hidden" id="input-id" name="input-id" />
 					<div class="form-group">
 						<input type="text" id="src-item-variant" class="form-control" placeholder="Search Item Name - Variant Name" />
