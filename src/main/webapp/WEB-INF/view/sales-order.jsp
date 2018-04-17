@@ -514,6 +514,8 @@
 				var idCust = 	$('.btn-choosecust').attr('id'); 
 				console.log("ya :" + idCust); 
 						 window.location = '${pageContext.request.contextPath}/generate/sales-order/' + idCust;
+				/* window.location = '${pageContext.request.contextPath}/payment/sales-order'; */
+				window.open("${pageContext.request.contextPath}/payment/sales-order") ; 
 						})
 		
 		$('#btn-no-thx').click(function(){
