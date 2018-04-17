@@ -91,17 +91,15 @@
 						data : JSON.stringify(employee),
 						contentType : 'application/json',
 						success : function() {
-							$('#show-alert').removeClass('alert-gagal').addClass('alert-success');
-							$('#show-alert').html('<strong>Sukses!</strong> Berhasil Menyimpan ke Database');
 							$('#div-alert').fadeIn();
 							setTimeout(function() {
 								window.location = '${pageContext.request.contextPath}/mst/employee';
-							}, 3000);
+							}, 2000);
 							
 						},
 						error : function() {
-							$('#show-alert').removeClass('alert-success').addClass('alert-gagal');
-							$('#show-alert').html('<strong>Error!</strong> Gagal Menyimpan ke Database');
+							$('#show-alert1').removeClass('alert-success').addClass('alert-gagal');
+							$('#show-alert1').html('<strong>Error!</strong> Save Failed!');
 							$('#div-alert').fadeIn();
 							setTimeout(function(){
 								$('#div-alert').fadeOut();
@@ -297,13 +295,8 @@
 	<form id="form-emp" class="adm-show">
 		<div class="row" id="div-alert" style="display:none;">
 			<div class="col-xs-12">
-				<div class="alert alert-success" role="alert" id="show-alert">
-				  <strong>Sukses!</strong> Data Berhasil Disimpan.
-				</div>
-				<div class="alert alert-info alert-dismissible" role="alert" id="show-alert1">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <h4><i class="icon fa fa-info"></i> Success!</h4>
-                Employee Status has Changed.
+				<div class="alert alert-success alert-dismissible" role="alert" id="show-alert1" style="padding: 5px">
+                <p><i class="icon fa fa-check"></i> Data saved!</p>
               </div>
 			</div>
 		</div>

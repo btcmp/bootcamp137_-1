@@ -14,7 +14,6 @@
 		});
 		
 		$('#btn-add-item').on('click', function(){
-			$('#modal-pr-input').modal('hide');
 			$('#modal-pr-add-item').modal();
 		});
 
@@ -27,11 +26,12 @@
 		
 		$('#btn-cancel-add').on('click', function(){
 			$('#modal-pr-input').modal();
-			$('#btn-submit').hide();
+			clearFormSrc();
 		});
 		
 		$('#btn-cancel-input').on('click', function(){
 			$('#btn-submit').hide();
+			clearForm();
 		});
 		
 		$('#btn-save').prop('disabled', true);
@@ -208,6 +208,16 @@
 				});
 			}
 		});
+		
+		function clearForm() {
+			$('#input-note').val('');
+			$('#tbody-add-item').empty();
+		}
+		
+		function clearFormSrc() {
+			$('#src-item-variant').val('');
+			$('#tbl-add-item-transfer').empty();
+		}
 	});
 </script>
 
@@ -280,7 +290,9 @@
 	</table>
 
 <!-- Call modal -->
-<!-- Modal Purchase Input -->
+
+<!------------------------------------------------------ Modal Transfer Input --------------------------------------------------->
+
 <div class="modal fade" id="modal-pr-input" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
@@ -293,6 +305,14 @@
 			
 			<div class="modal-body">
 				<form id="target" data-parsley-validate>
+					<div class="row" id="div-alert" style="display:none;">
+						<div class="col-xs-12">
+							<div class="alert alert-info alert-dismissible" role="alert" id="show-alert1">
+			                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			                <p><i class="icon fa fa-check"></i> Data saved!</p>
+			              </div>
+						</div>
+					</div>
 					<input type="hidden" id="input-id" name="input-id" />
 					<div class="form-group">
 						<label for="input-from">CREATE NEW TRANSFER STOCK FROM : </label> ${outlet.name}
@@ -351,7 +371,8 @@
 	</div>
 </div>
 
-<!-- Modal Add Item -->
+<!----------------------------------------------------- Modal Add Item ------------------------------------------------------------>
+
 <div class="modal fade" id="modal-pr-add-item" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -397,13 +418,13 @@
 	</div>
 </div>
 
-	<!-- ======================================================================================================================= -->
-	
-	<%@ include file="/WEB-INF/view/template/master-body-bottom.jsp"%>
-	
-	<!-- ======================================================================================================================= -->
-	
-	<!-- Call Modal -->
+<!-- ======================================================================================================================= -->
+
+<%@ include file="/WEB-INF/view/template/master-body-bottom.jsp"%>
+
+<!-- ======================================================================================================================= -->
+
+<!-- Call Modal -->
 	
 </body>
 </html>

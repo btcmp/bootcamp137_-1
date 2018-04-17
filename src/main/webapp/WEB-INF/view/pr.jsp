@@ -29,10 +29,13 @@
 	        startDate: moment().subtract(29, 'days'),
 	        endDate  : moment()
 	      },
+	      
 	      function (start, end) {
 	        $('input[name="daterange"]').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
 	        awal = start.format('YYYY-MM-DD');
 	        akhir = end.format('YYYY-MM-DD');
+	        console.log(awal);
+		    console.log(akhir);
 	        $.ajax({
 				type : 'GET',
 				url : '${pageContext.request.contextPath}/t/pr/src-rg-date?awal='+awal+'&akhir='+akhir,
@@ -86,7 +89,6 @@
 		});
 		
 		$('#btn-add-item').on('click', function(){
-			$('#modal-pr-input').modal('hide');
 			$('#modal-pr-add-item').modal();
 		});
 
@@ -179,10 +181,18 @@
 					data : JSON.stringify(pr),
 					contentType : 'application/json',
 					success : function() {
-						window.location = '${pageContext.request.contextPath}/t/pr';
+						$('#div-alert').fadeIn();
+						setTimeout(function() {
+							window.location = '${pageContext.request.contextPath}/t/pr';
+						}, 2000);
 					},
 					error : function() {
-						$('#modal-failed').modal();
+						$('#show-alert1').removeClass('alert-info').addClass('alert-gagal');
+						$('#show-alert1').html('<strong>Error!</strong> Save Failed!');
+						$('#div-alert').fadeIn();
+						setTimeout(function(){
+							$('#div-alert').fadeOut();
+						}, 4000);
 					}
 
 				});
@@ -223,7 +233,7 @@
 							var oTableItem = "<tr>"+
 								'<td>'+ val.variant.item.name +'-'+ val.variant.name +'</td>' +
 								'<td id="inStock'+ val.id +'">'+ val.endingQty +'</td>' +
-								'<td id="td-qty'+ val.id +'"><input type="number" id="add-qty'+ val.id +'" value="1" /></td>' +
+								'<td id="td-qty'+ val.id +'"><input type="number" id="add-qty'+ val.id +'" value="1" min="1" /></td>' +
 								'<td><button type="button" id="'+ val.id +'" class="btn-add-item'+val.id +' btn-add-item btn btn-primary" id-var="'+val.variant.id+'">Add</button></td>' +
 								"</tr>";
 							
@@ -254,12 +264,17 @@
 					'</tr>';
 				$('#tbody-add-item').append(oTableAddItem);
 				added.push(idVar);
+				
 			}else{
 				var trItem = $('#tbody-add-item > #'+idVar+'');
 				var oldReqQty = trItem.find('td').eq(2).text();
 				var newReqQty = parseInt(oldReqQty)+parseInt(reqQty);
 				trItem.find('td').eq(2).text(newReqQty);
 			}
+			$('#div-alert-modal').fadeIn();
+			setTimeout(function(){
+				$('#div-alert-modal').fadeOut();
+			}, 1000);
 		});
 		
 		
@@ -513,6 +528,13 @@
 			
 			<div class="modal-body">
 				<form id="target" data-parsley-validate>
+					<div class="row" id="div-alert" style="display:none;">
+						<div class="col-xs-12">
+							<div class="alert alert-info alert-dismissible" role="alert" id="show-alert1" style="padding: 5px">
+			                <p><i class="icon fa fa-check"></i> Data saved!</p>
+			              </div>
+						</div>
+					</div>
 					<input type="hidden" id="input-id" name="input-id" />
 					<input type="hidden" id="input-status" name="input-status" />
 					<div class="form-group">
@@ -584,6 +606,13 @@
 			
 			<div class="modal-body">
 				<form id="target" data-parsley-validate>
+					<div class="row" id="div-alert-modal" style="display:none;">
+						<div class="col-xs-12">
+							<div class="alert alert-info alert-dismissible" role="alert" id="show-alert2" style="padding: 5px">
+			                <p><i class="icon fa fa-check"></i> Item added!</p>
+			              </div>
+						</div>
+					</div>
 					<input type="hidden" id="input-id" name="input-id" />
 					<div class="form-group">
 						<input type="text" id="src-item-variant" class="form-control" placeholder="Search Item Name - Variant Name" />
@@ -617,15 +646,15 @@
 	</div>
 </div>
 
-	<!-- ======================================================================================================================= -->
-	
-	<%@ include file="/WEB-INF/view/template/master-body-bottom.jsp"%>
-	
-	<!-- ======================================================================================================================= -->
-	
-	<!-- Call Modal -->
-	<%@ include file="modal/modal-alert-form.jsp"%>
-	<%@ include file="modal/modal-alert-failed.jsp"%>
+<!-- ======================================================================================================================= -->
+
+<%@ include file="/WEB-INF/view/template/master-body-bottom.jsp"%>
+
+<!-- ======================================================================================================================= -->
+
+<!-- Call Modal -->
+<%@ include file="modal/modal-alert-form.jsp"%>
+<%@ include file="modal/modal-alert-failed.jsp"%>
 	
 </body>
 </html>
