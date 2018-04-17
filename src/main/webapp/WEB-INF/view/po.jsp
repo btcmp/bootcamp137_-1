@@ -254,16 +254,13 @@
 		});
 		
 		/* btn save */
-		$('#btn-save').on('click',function(evt){
+		$(document).on('click','#btn-save',function(evt){
 			evt.preventDefault;
 			var id=$("#input-po-id").val();
 			var poNo=$("#input-po-no").val();
 			var outid=$("#input-outlet-id").val();
 			var prid=$('#input-pr-id').val();
-			
-			
-			
-			$('#modal-edit-po').modal('hide');
+		
 			var supplier=$("#input-supplier").val();
 
 			var total=$("#input-total").val();
@@ -310,8 +307,12 @@
 				contentType:'application/json',
 				data : JSON.stringify(po),
 				success : function(){
-					console.log("save")
-					window.location = '${pageContext.request.contextPath}/t/po';
+					$('#div-alert').fadeIn();
+					setTimeout(function() {
+						window.location = '${pageContext.request.contextPath}/t/po';
+
+						console.log("berhasil");
+					}, 2000);
 				},error:function(){
 					$('#modal-val-user').modal();
 					$('#modal-edit-po').modal('show');

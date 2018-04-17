@@ -10,9 +10,22 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div> 
-			
+			<div class="row" id="div-alert" style="display:none;">
+				<div class="col-xs-12">
+					<div class="alert alert-info alert-dismissible" role="alert" id="show-alert1" style="padding: 5px">
+			             <p><i class="icon fa fa-check"></i> Data saved!</p>
+			         </div>
+				</div>
+			</div>
 			<div class="modal-body">
 				<form id="target" data-parsley-validate>
+					<div class="row" id="div-alert" style="display:none;">
+						<div class="col-xs-12">
+							<div class="alert alert-info alert-dismissible" role="alert" id="show-alert1" style="padding: 5px">
+			                <p><i class="icon fa fa-check"></i> Data saved!</p>
+			              </div>
+						</div>
+					</div>
 					<input type="hidden" id="input-id" name="input-id" />
 					<div class="form-group">
 						<label for="input-name">CREATE NEW ADJUSTMENT : ${outlet.name}</label>
@@ -73,7 +86,13 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			
+			<div class="row" id="div-alert-modal" style="display:none;">
+				<div class="col-xs-12">
+						<div class="alert alert-info alert-dismissible" role="alert" id="show-alert2" style="padding: 5px">
+			              <p><i class="icon fa fa-check"></i> Item added!</p>
+			          </div>
+				</div>
+			</div>
 			<div class="modal-body">
 				<form id="target" data-parsley-validate>
 					<input type="hidden" id="input-id" name="input-id" />

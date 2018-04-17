@@ -14,9 +14,15 @@
 			</div>
 			
 			
-			
 			<div class="modal-body">
 				<form id="target" data-parsley-validate>
+					<div class="row" id="div-alert" style="display:none;">
+						<div class="col-xs-12">
+							<div class="alert alert-info alert-dismissible" role="alert" id="show-alert1" style="padding: 5px">
+			                <p><i class="icon fa fa-check"></i> Data saved!</p>
+			              </div>
+						</div>
+					</div>
 					<h5>EDIT NEW PO: <input id="input-outlet" style="border: none"/><input id="input-outlet-id" style="display: none"/>
 					</h5>
 					<hr/>

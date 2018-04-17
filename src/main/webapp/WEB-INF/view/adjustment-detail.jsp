@@ -57,19 +57,19 @@
 	<div class="col-xs-3">
 		<script>
 			if('${adj.status}' == 'Submitted'){
-				document.write('<select id="action-adj" class="btn-primary form-control" key-id="${adj.id }">'
+				document.write('<select id="action-adj" class="btn-primary adm-show form-control" key-id="${adj.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve"d>Approve</option>'
 						+'<option value="reject">Reject</option>'
 						+'<option value="print">Print</option>');
 			}else if('${adj.status}' == 'Approved'){
-				document.write('<select id="action-adj" class="btn-primary form-control" key-id="${adj.id }">'
+				document.write('<select id="action-adj" class="btn-primary adm-show form-control" key-id="${adj.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve" disabled selected>Approve</option>'
 						+'<option value="reject">Reject</option>'
 						+'<option value="print">Print</option>');
 			}else if('${adj.status}' == 'Rejected'){
-				document.write('<select id="action-adj" class="btn-primary form-control" key-id="${adj.id }">'
+				document.write('<select id="action-adj" class="btn-primary adm-show form-control" key-id="${adj.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve"disabled selected>Approve</option>'
 						+'<option value="reject" disabled selected>Reject</option>'
@@ -113,7 +113,6 @@
 	<textarea class="form-control" id="input-note" rows="5" disabled="disabled">${adj.notes }</textarea>
 </div>
 <h5><b>Status History</b></h5>
-<hr>
 <div class="row">
 	<div class="col-xs-5">
 		<table id="dt-history" class="table table-hover" border="0px">

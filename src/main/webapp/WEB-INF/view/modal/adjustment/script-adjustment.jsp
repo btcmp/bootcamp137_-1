@@ -2,6 +2,7 @@
 <script type="text/javascript">
 	jQuery(document).ready(function(){
 		
+		
 //////////////////========================search-=================////
 		
 		$('input[name="daterange"]').daterangepicker(
@@ -92,8 +93,13 @@
 		    });
 		});
 		
-		$('#btn-create').on('click', function(){
+		  /* ====================================MODAL ADD ADJUSTMENT============================================== */
+		  
+		$(document).on('click','#btn-create', function(){
 			$('#modal-adj-input').modal();
+			if($("#tbody-add-item").children().length==0){
+			  document.getElementById("btn-save").disabled=true;
+		  }
 		});
 		
 		$('#btn-add-item').on('click', function(){
@@ -101,10 +107,14 @@
 			$('#modal-adj-add-item').modal();
 		});
  
-		$('#btn-add-item-var').on('click', function(){
+		$(document).on('click','#btn-add-item-var', function(){
 			$('#modal-adj-add-item').modal('hide');
 			$('#modal-adj-input').modal('show');
 			$('#btn-submit').show();
+			
+			if($("#tbody-add-item").children().length>0){
+				  document.getElementById("btn-save").disabled=false;
+			}
 		});
 		
 		$('#btn-cancel-add').on('click', function(){
@@ -163,11 +173,18 @@
 				data : JSON.stringify(adj),
 				contentType : 'application/json',
 				success : function(data) {
-					window.location = '${pageContext.request.contextPath}/t/adjustment';
-					console.log(data)
+					$('#div-alert').fadeIn();
+					setTimeout(function() {
+						window.location = '${pageContext.request.contextPath}/t/adjustment';
+					}, 2000);
 				},
 				error : function() {
-					alert('save failed');
+					$('#show-alert1').removeClass('alert-info').addClass('alert-gagal');
+					$('#show-alert1').html('<strong>Error!</strong> Save Failed!');
+					$('#div-alert').fadeIn();
+					setTimeout(function(){
+						$('#div-alert').fadeOut();
+					}, 4000);
 				}
 
 			});  
@@ -238,6 +255,11 @@
 				var newReqQty = parseInt(oldReqQty)+parseInt(reqQty);
 				trItem.find('td').eq(2).text(newReqQty);
 			}
+			$('#div-alert-modal').fadeIn();
+			setTimeout(function(){
+				$('#div-alert-modal').fadeOut();
+			}, 1000);
+			
 		});
 		
 		
