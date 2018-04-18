@@ -166,6 +166,11 @@ public class PurchaseOrderController {
 		return poService.getUsernameByPOId(id);
 	}
 	
+	@RequestMapping("/get-po-need")
+	@ResponseBody
+	public int getPoNeed(){
+		return poService.getPoNeedAction();
+	}
 	
 }
 

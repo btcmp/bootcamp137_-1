@@ -13,7 +13,7 @@
 
 <br><br>
 
-<div class="row">
+<div class="row main-show">
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
             <span class="info-box-icon bg-aqua"><i class="fa fa-ticket"></i></span>
@@ -32,7 +32,7 @@
 						}
 					});
 				</script>
-				<input type="text" readonly id="pr-need" style="border:none;" />
+				<input type="text" class="form-control" readonly id="pr-need" style="border:none; background:white; font-size: 2em;" />
               </span> 
                action needed
             </div>
@@ -47,7 +47,20 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Purchase Order</span>
-              <span class="info-box-number">4</span> action needed
+              <span class="info-box-number">
+              	<script type="text/javascript">
+					$.ajax({
+						type : 'GET',
+						url : '${pageContext.request.contextPath}/t/po/get-po-need',
+						dataType: 'json',
+						success : function(data){
+							console.log(data);
+							$('#po-need').val(data);
+						}
+					});
+				</script>
+				<input type="text" class="form-control" readonly id="po-need" style="border:none; background:white; font-size: 2em;" />
+              </span> action needed
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -72,7 +85,7 @@
 						}
 					});
 				</script>
-				<input type="text" readonly id="adj-need" style="border:none;" />
+				<input type="text" class="form-control" readonly id="adj-need" style="border:none; background:white; font-size: 2em;" />
               </span> action needed
             </div>
             <!-- /.info-box-content -->
@@ -98,7 +111,7 @@
 						}
 					});
 				</script>
-				<input type="text" readonly id="ts-need" style="border:none;" />
+				<input type="text" class="form-control" readonly id="ts-need" style="border:none; background:white; font-size: 2em;" />
               </span> action needed
             </div>
             <!-- /.info-box-content -->

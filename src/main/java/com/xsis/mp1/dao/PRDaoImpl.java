@@ -111,7 +111,7 @@ public class PRDaoImpl implements PRDao {
 	@Override
 	public int getPrNeedAction() {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from PurchaseRequest where status!='PO Created' AND status!='Created'";
+		String hql = "from PurchaseRequest where status!='PO Created' AND status!='Created' AND status!='Rejected'";
 		List<PurchaseRequest> prs = session.createQuery(hql).list();
 		if(prs.isEmpty()) {
 			return 0;

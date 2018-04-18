@@ -70,10 +70,12 @@ $(document).ready(function(){
 	if(roleName=='ROLE_CASHIER'){
 		$('.treeview-mst').hide();
 		$('.tv-tsc').hide();
+		$('.main-show').hide();
 	}
 	
 	if(roleName=='ROLE_BACK_OFFICE'){
 		$('.adm-show').hide();
+		$('.main-show').hide();
 		$('.btn-adm-show').prop('disabled', true);
 	}
 })

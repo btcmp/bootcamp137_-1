@@ -304,6 +304,11 @@ public class POService {
 		return userDao.getUsernameByPOId(id);
 	}
 
+	public int getPoNeedAction() {
+		// TODO Auto-generated method stub
+		return poDao.getPoNeedAction();
+	}
+
 	
 	
 }

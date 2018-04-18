@@ -112,4 +112,15 @@ public class PODaoImpl implements PODao {
 			return pos;
 		}
 	}
+
+	@Override
+	public int getPoNeedAction() {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from PurchaseOrder where status!='Rejected' AND status!='Process'";
+		List<PurchaseOrder> pro = session.createQuery(hql).list();
+		if(pro.isEmpty()) {
+			return 0;
+		}
+		return pro.size();
+	}
 }

@@ -317,25 +317,25 @@
 				success : function(data){
 					var pr = data.status;
 					if(pr=='Submitted'){
-						$('#div-alert-sbm').fadeIn();
+						/* $('#div-alert-sbm').fadeIn();
 						$('#div-alert-apr').fadeOut();
 						$('#div-alert-rej').fadeOut();
-						$('#div-alert-po').fadeOut();
+						$('#div-alert-po').fadeOut(); */
 					}else if(pr=='Approved'){
-						$('#div-alert-sbm').fadeOut();
+						/* $('#div-alert-sbm').fadeOut();
 						$('#div-alert-apr').fadeIn();
 						$('#div-alert-rej').fadeOut();
-						$('#div-alert-po').fadeOut();
+						$('#div-alert-po').fadeOut(); */
 					}else if(pr=='Rejected'){
-						$('#div-alert-sbm').fadeOut();
+						/* $('#div-alert-sbm').fadeOut();
 						$('#div-alert-apr').fadeOut();
 						$('#div-alert-rej').fadeIn();
-						$('#div-alert-po').fadeOut();
+						$('#div-alert-po').fadeOut(); */
 					}else if(pr=='PO Created'){
-						$('#div-alert-sbm').fadeOut();
+						/* $('#div-alert-sbm').fadeOut();
 						$('#div-alert-apr').fadeOut();
 						$('#div-alert-rej').fadeOut();
-						$('#div-alert-po').fadeIn();
+						$('#div-alert-po').fadeIn(); */
 					}else{
 						$('#input-id').val(data.id);
 						$('#input-note').val(data.notes);
@@ -369,7 +369,7 @@
 					}
 				},
 				error : function(){
-					$('#modal-failed').modal();
+					console.log('failed');
 				}
 			});
 		});
@@ -563,8 +563,33 @@
 					<td>${pr.notes }</td>
 					<td>${pr.status }</td>
 					<td>
-						<a id="${pr.id }" class="update btn btn-success btn-sm" href="#">Edit</a> |
+						<a id="${pr.id }" class="${pr.id } update btn btn-success btn-sm" href="#">Edit</a> |
 						<a id="${pr.id }" class="view btn btn-success btn-sm" href="${pageContext.request.contextPath}/t/pr/detail/${pr.id}">View</a>
+						<script>
+							if('${pr.status}'=="Approved"){
+								$('.${pr.id }').attr('id',"u" );
+								 var s =document.getElementById('u');
+								s.setAttribute("disabled", "disabled");
+								$('#u').attr('id',"${pr.id }" );
+							}
+							else  if('${pr.status}'=="Rejected"){
+								$('.${pr.id }').attr('id',"i" );
+								var a =document.getElementById('i');
+								a.setAttribute("disabled", "disabled");
+								$('#i').attr('id',"${pr.id }" );
+							}
+							 else if('${pr.status}'=="Submitted"){
+								$('.${pr.id }').attr('id',"c" );
+								 var e =document.getElementById('c');
+								e.setAttribute("disabled", "disabled");
+								$('#c').attr('id',"${pr.id }" );
+							}else if('${pr.status}'=="PO Created"){
+								$('.${pr.id }').attr('id',"d" );
+								 var e =document.getElementById('d');
+								e.setAttribute("disabled", "true");
+								$('#d').attr('id',"${pr.id }" );
+							}
+						</script>
 					</td>
 				</tr>
 			</c:forEach>

@@ -32,5 +32,7 @@ public interface PODao {
 
 	public List<PurchaseOrder> searchPOByGlobal(String global);
 
+	public int getPoNeedAction();
+
 }
  
