@@ -233,7 +233,7 @@
 							var oTableItem = "<tr>"+
 								'<td>'+ val.variant.item.name +'-'+ val.variant.name +'</td>' +
 								'<td id="inStock'+ val.id +'">'+ val.endingQty +'</td>' +
-								'<td id="td-qty'+ val.id +'"><input type="number" id="add-qty'+ val.id +'" value="1" min="1" /></td>' +
+								'<td id="td-qty'+ val.id +'"><input type="number" id="add-qty'+ val.id +'" value="1" min="1" pattern="([0-9])" /></td>' +
 								'<td><button type="button" id="'+ val.id +'" class="btn-add-item'+val.id +' btn-add-item btn btn-primary" id-var="'+val.variant.id+'">Add</button></td>' +
 								"</tr>";
 							
@@ -257,7 +257,13 @@
 			var reqQty = $('#add-qty'+id).val();
 			
 			if(added.indexOf(idVar.toString()) == -1) {
-				var oTableAddItem = '<tr id-var="'+idVar+'" id="'+idVar+'"><td>'+itemVar+'</td>' +
+				if(reqQty < 1){
+					$('#div-warn-item').fadeIn();
+					setTimeout(function(){
+						$('#div-warn-item').fadeOut();
+					}, 1000);
+				}else{
+					var oTableAddItem = '<tr id-var="'+idVar+'" id="'+idVar+'"><td>'+itemVar+'</td>' +
 					'<td>'+inStock+'</td>' +
 					'<td>'+reqQty+'</td>' +
 					'<td><button type="button" class="btn-cancel-item btn btn-danger" id="btn-del'+id+'" id-var="'+id+'">&times;</button>'
@@ -265,16 +271,24 @@
 				$('#tbody-add-item').append(oTableAddItem);
 				added.push(idVar);
 				
+				$('#div-alert-modal').fadeIn();
+				setTimeout(function(){
+					$('#div-alert-modal').fadeOut();
+				}, 1000);
+				}
+				
 			}else{
 				var trItem = $('#tbody-add-item > #'+idVar+'');
 				var oldReqQty = trItem.find('td').eq(2).text();
 				var newReqQty = parseInt(oldReqQty)+parseInt(reqQty);
 				trItem.find('td').eq(2).text(newReqQty);
+				
+				$('#div-alert-modal').fadeIn();
+				setTimeout(function(){
+					$('#div-alert-modal').fadeOut();
+				}, 1000);
 			}
-			$('#div-alert-modal').fadeIn();
-			setTimeout(function(){
-				$('#div-alert-modal').fadeOut();
-			}, 1000);
+			
 		});
 		
 		
@@ -303,13 +317,25 @@
 				success : function(data){
 					var pr = data.status;
 					if(pr=='Submitted'){
-						alert('PR has been Submitted');
+						$('#div-alert-sbm').fadeIn();
+						$('#div-alert-apr').fadeOut();
+						$('#div-alert-rej').fadeOut();
+						$('#div-alert-po').fadeOut();
 					}else if(pr=='Approved'){
-						alert('PR has been Approved');
+						$('#div-alert-sbm').fadeOut();
+						$('#div-alert-apr').fadeIn();
+						$('#div-alert-rej').fadeOut();
+						$('#div-alert-po').fadeOut();
 					}else if(pr=='Rejected'){
-						alert('PR has been Rejected');
+						$('#div-alert-sbm').fadeOut();
+						$('#div-alert-apr').fadeOut();
+						$('#div-alert-rej').fadeIn();
+						$('#div-alert-po').fadeOut();
 					}else if(pr=='PO Created'){
-						alert('PR has been PO Created');
+						$('#div-alert-sbm').fadeOut();
+						$('#div-alert-apr').fadeOut();
+						$('#div-alert-rej').fadeOut();
+						$('#div-alert-po').fadeIn();
 					}else{
 						$('#input-id').val(data.id);
 						$('#input-note').val(data.notes);
@@ -440,10 +466,41 @@
 <hr>
 <h6><b>PURCHASE REQUEST</b></h6>
 <hr>
+	<div class="row" id="div-alert-sbm" style="display:none;">
+		<div class="col-xs-12">
+			<div class="alert alert-info alert-dismissible" role="alert" id="show-alert-sbm" style="padding: 5px">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true" style="right: 0px">&times;</button>
+	        	<p><i class="icon fa fa-info"></i><b>Can't Edit !</b> PR has been Submitted.</p>
+	        </div>
+		</div>
+	</div>
+	<div class="row" id="div-alert-apr" style="display:none;">
+		<div class="col-xs-12">
+			<div class="alert alert-info alert-dismissible" role="alert" id="show-alert-apr" style="padding: 5px">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true" style="right: 0px">&times;</button>
+	        	<p><i class="icon fa fa-info"></i><b>Can't Edit !</b> PR has been Approved.</p>
+	        </div>
+		</div>
+	</div>
+	<div class="row" id="div-alert-rej" style="display:none;">
+		<div class="col-xs-12">
+			<div class="alert alert-info alert-dismissible" role="alert" id="show-alert-rej" style="padding: 5px">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true" style="right: 0px">&times;</button>
+	        	<p><i class="icon fa fa-info"></i><b>Can't Edit !</b> PR has been Rejected.</p>
+	        </div>
+		</div>
+	</div>
+	<div class="row" id="div-alert-po" style="display:none;">
+		<div class="col-xs-12">
+			<div class="alert alert-info alert-dismissible" role="alert" id="show-alert-po" style="padding: 5px">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true" style="right: 0px">&times;</button>
+	        	<p><i class="icon fa fa-info"></i><b>Can't Edit !</b> PO has been created.</p>
+	        </div>
+		</div>
+	</div>
 	<div class="row">
 	  <div class="col-md-3">
 	  	<div class="form-group">
-			<!-- <input type="text" class="form-control" id="insert-date" name="daterange" value="01/01/2018 - 01/31/2018"> -->
 			<div class="input-group">
               <div class="input-group-addon">
                 <i class="fa fa-calendar"></i>
@@ -538,16 +595,21 @@
 					<input type="hidden" id="input-id" name="input-id" />
 					<input type="hidden" id="input-status" name="input-status" />
 					<div class="form-group">
-						<label for="input-name">CREATE NEW PR : </label> ${outlet.name}
+						<label for="input-name">CREATE NEW PR : </label> <span style="color: red;">${outlet.name}</span>
 					</div>
 					<div class="form-group">
 						
 					</div>
 					<div class="form-group">
-						<label for="input-name">Target Waktu Item Ready</label>
-						<input type="text" class="form-control" id="insert-target" name="target-pr" value="03/18/2018" min="04/03/2018" required>
-					</div>
-					
+		                <label>Target Waktu Item Ready</label>
+		                <div class="input-group date">
+		                  <div class="input-group-addon">
+		                    <i class="fa fa-calendar"></i>
+		                  </div>
+		                  <input type="text" class="form-control" id="insert-target" name="target-pr" min="04/03/2018" required>
+		                </div>
+		                <!-- /.input group -->
+		            </div>
 					<div class="form-group">
 						<label for="input-note">Notes</label>
 						<textarea class="form-control" id="input-note" rows="5"></textarea>
@@ -610,6 +672,13 @@
 						<div class="col-xs-12">
 							<div class="alert alert-info alert-dismissible" role="alert" id="show-alert2" style="padding: 5px">
 			                <p><i class="icon fa fa-check"></i> Item added!</p>
+			              </div>
+						</div>
+					</div>
+					<div class="row" id="div-warn-item" style="display:none;">
+						<div class="col-xs-12">
+							<div class="alert alert-danger alert-dismissible" role="alert" id="show-alert1" style="padding: 5px">
+			                <p><i class="icon fa fa-ban"></i> Minimal 1 item!</p>
 			              </div>
 						</div>
 					</div>

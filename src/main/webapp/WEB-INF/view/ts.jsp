@@ -134,23 +134,37 @@
 			var trfQty = $('#add-qty'+id).val();
 			
 			if(added.indexOf(id.toString()) == -1) {
-				var oTableAddItem = '<tr id-var="'+idVar+'" id="'+id+'"><td>'+itemVar+'</td>' +
+				if(trfQty < 1){
+					$('#div-warn-item').fadeIn();
+					setTimeout(function(){
+						$('#div-warn-item').fadeOut();
+					}, 1000);
+				}else{
+					var oTableAddItem = '<tr id-var="'+idVar+'" id="'+id+'"><td>'+itemVar+'</td>' +
 					'<td>'+inStock+'</td>' +
 					'<td>'+trfQty+'</td>' +
 					'<td><button type="button" class="btn-cancel-item btn btn-danger" id="btn-del'+id+'" id-var="'+id+'">&times;</button>'
 					'</tr>';
 				$('#tbody-add-item').append(oTableAddItem);
 				added.push(id);
+				
+				$('#div-alert-modal').fadeIn();
+				setTimeout(function(){
+					$('#div-alert-modal').fadeOut();
+				}, 1000);
+				}
 			}else{
 				var trItem = $('#tbody-add-item > #'+id+'');
 				var oldReqQty = trItem.find('td').eq(2).text();
 				var newReqQty = parseInt(oldReqQty)+parseInt(trfQty);
 				trItem.find('td').eq(2).text(newReqQty);
+				
+				$('#div-alert-modal').fadeIn();
+				setTimeout(function(){
+					$('#div-alert-modal').fadeOut();
+				}, 1000);
 			}
-			$('#div-alert-modal').fadeIn();
-			setTimeout(function(){
-				$('#div-alert-modal').fadeOut();
-			}, 1000);
+			
 		});
 		
 		
@@ -318,7 +332,7 @@
 					</div>
 					<input type="hidden" id="input-id" name="input-id" />
 					<div class="form-group">
-						<label for="input-from">CREATE NEW TRANSFER STOCK FROM : </label> ${outlet.name}
+						<label for="input-from">CREATE NEW TRANSFER STOCK FROM : </label> <span style="color: red;">${outlet.name}</span>
 					</div>
 					<div class="form-group">
 						
@@ -392,6 +406,13 @@
 						<div class="col-xs-12">
 							<div class="alert alert-info alert-dismissible" role="alert" id="show-alert2" style="padding: 5px">
 			                <p><i class="icon fa fa-check"></i> Item added!</p>
+			              </div>
+						</div>
+					</div>
+					<div class="row" id="div-warn-item" style="display:none;">
+						<div class="col-xs-12">
+							<div class="alert alert-danger alert-dismissible" role="alert" id="show-alert1" style="padding: 5px">
+			                <p><i class="icon fa fa-ban"></i> Minimal 1 item!</p>
 			              </div>
 						</div>
 					</div>
