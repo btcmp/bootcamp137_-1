@@ -164,7 +164,7 @@
 				"</td><td>"+ $('#input-edit-alert-at').val() +
 				"</td><td style='text-align:center; display:none;'>" + $('#input-edit-beginning-stock').val() + 
 				"</td><td style='display:none'>"+ $('#input-edit-outlet').val() + 
-				"</td><td style='text-align:center;'>" + $('#input-edit-variant-price').val() + 
+				"</td><td style='text-align:center;display:none'>" + $('#input-edit-variant-price').val() + 
 				"</td><td style='text-align:center;'><a class='btn-add-edit-variant btn btn-info btn-sm' href='#'>Edit</a>|<a class='btn-add-remove-variant btn btn-danger btn-sm' href='#'>X</a></td></tr>";
 				
 				

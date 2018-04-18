@@ -77,6 +77,12 @@ public class PurchaseOrderController {
 		return poService.getOne(id);
 	}
 	
+	@RequestMapping(value="/submit", method=RequestMethod.PUT)
+	@ResponseStatus(HttpStatus.OK)
+	public void submit(@RequestBody PurchaseOrder po) {
+		poService.update(po);
+	}
+	
 	@RequestMapping(value="/update", method=RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
 	public void update(@RequestBody PurchaseOrder po) {
@@ -112,8 +118,6 @@ public class PurchaseOrderController {
 	
 	
 //	status PO
-	
-	
 	
 	@RequestMapping(value="/approve/{id}", method=RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)

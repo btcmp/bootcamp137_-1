@@ -32,25 +32,41 @@
 								var json_data = '/Date('+val.createdOn+')/';
 								var asAMoment = moment(json_data);
 								var tanggal = asAMoment.format('DD-MM-YYYY HH:mm:ss');
-								
+								if(val.supplierId==null){
+									$("#supplier"+val.id).val("");
+								}
+								else
+									$("#supplier"+val.id).val("val.supplierId.name");
+								if(val.grandTotal==null){
+									val.grandTotal="";
+								}
 								$('#tbody-po').append('<tr><td>'+tanggal+'</td>'
-									+'<td>'+val.supplierId.name+'</td>'	
-									+'<td>'+val.poNo+'</td>'
-									+'<td>'+val.total+'</td>'
+									+'<td id="supplier'+val.id"></td>'	
+									+'<td> '+val.poNo+'</td>'
+									+'<td>'+val.grandTotal+'</td>'
 									+'<td>'+val.status+'</td>'
 									+'<td><input type="button" class="update btn btn-success btn-sm" value="Edit" id="'+val.id+'" pr-status="'+val.status+'"> | '
 									+'<a href="${pageContext.request.contextPath}/t/pr/detail/'+val.id+'" class="view btn btn-success btn-sm" key-id="'+val.id+'">View</a></td>');
 									
-								if(val.status=="Approved"){
-									$("#"+val.id).hide();
-								}
-								else if(val.status=="Rejected"){
-									$("#"+val.id).hide();
-								}
-								else if(val.status =="Process"){
-									$("#"+val.id).hide();
-								}
-							
+								 	if(val.status=="Approved"){
+										$("#"+val.id+"").attr('id',"a" );
+										var q =document.getElementById('a');
+										q.setAttribute("disabled", "disabled");
+										$('#a').attr('id',"z" );
+									}
+								 	else if(val.status=="Rejected"){
+										$("#"+val.id+"").attr('id',"s" );
+										var w =document.getElementById('s');
+										w.setAttribute("disabled", "disabled");
+										$('#s').attr('id',"x" );
+									}
+								 	else if(val.status=="Process"){
+										$("#"+val.id+"").attr('id',"d" );
+										var e =document.getElementById('d');
+										e.setAttribute("disabled", "disabled");
+										$('#d').attr('id',"c" );
+									}
+					
 							})
 						},
 						error : function(){
@@ -103,18 +119,28 @@
 							$('#tbody-po').append('<tr><td>'+tanggal+'</td>'
 								+'<td>'+val.supplierId.name+'</td>'	
 								+'<td>'+val.poNo+'</td>'
-								+'<td>'+val.total+'</td>'
+								+'<td>'+val.grandTotal+'</td>'
 								+'<td>'+val.status+'</td>'
 								+'<td><input type="button" class="update btn btn-success btn-sm" value="Edit" id="'+val.id+'" pr-status="'+val.status+'"> | '
 								+'<a href="${pageContext.request.contextPath}/t/pr/detail/'+val.id+'" class="view btn btn-success btn-sm" key-id="'+val.id+'">View</a></td>');
+							
 							if(val.status=="Approved"){
-								$("#"+val.id).hide();
+								$("#"+val.id+"").attr('id',"a" );
+								var q =document.getElementById('a');
+								q.setAttribute("disabled", "disabled");
+								$('#a').attr('id',"z" );
 							}
-							else if(val.status=="Rejected"){
-								$("#"+val.id).hide();
+						 	else if(val.status=="Rejected"){
+								$("#"+val.id+"").attr('id',"s" );
+								var w =document.getElementById('s');
+								w.setAttribute("disabled", "disabled");
+								$('#s').attr('id',"x" );
 							}
-							else if(val.status =="Process"){
-								$("#"+val.id).hide();
+						 	else if(val.status=="Process"){
+								$("#"+val.id+"").attr('id',"d" );
+								var e =document.getElementById('d');
+								e.setAttribute("disabled", "disabled");
+								$('#d').attr('id',"c" );
 							}
 						})
 					},
@@ -147,19 +173,29 @@
 						$('#tbody-po').append('<tr><td>'+tanggal+'</td>'
 							+'<td>'+val.supplierId.name+'</td>'	
 							+'<td>'+val.poNo+'</td>'
-							+'<td>'+val.total+'</td>'
+							+'<td>'+val.grandTotal+'</td>'
 							+'<td>'+val.status+'</td>'
 							+'<td><input type="button" class="update btn btn-success btn-sm" value="Edit" id="'+val.id+'" pr-status="'+val.status+'"> | '
 							+'<a href="${pageContext.request.contextPath}/t/pr/detail/'+val.id+'" class="view btn btn-success btn-sm" key-id="'+val.id+'">View</a></td>');
+
 						if(val.status=="Approved"){
-							$("#"+val.id).hide();
+							$("#"+val.id+"").attr('id',"a" );
+							var q =document.getElementById('a');
+							q.setAttribute("disabled", "disabled");
+							$('#a').attr('id',"z" );
 						}
-						else if(val.status=="Rejected"){
-							$("#"+val.id).hide();
+					 	else if(val.status=="Rejected"){
+							$("#"+val.id+"").attr('id',"s" );
+							var w =document.getElementById('s');
+							w.setAttribute("disabled", "disabled");
+							$('#s').attr('id',"x" );
 						}
-						else if(val.status =="Process"){
-							$("#"+val.id).hide();
-						};
+					 	else if(val.status=="Process"){
+							$("#"+val.id+"").attr('id',"d" );
+							var e =document.getElementById('d');
+							e.setAttribute("disabled", "disabled");
+							$('#d').attr('id',"c" );
+						}
 						
 						})
 						
@@ -251,6 +287,69 @@
 					$("#input-total").val(gTotal);
 				}
 			}); 
+		});
+		
+		/* btn-submit  */
+		$(document).on('click','#btn-submit',function(evt){
+			evt.preventDefault;
+			var id=$("#input-po-id").val();
+			var poNo=$("#input-po-no").val();
+			var outid=$("#input-outlet-id").val();
+			var prid=$('#input-pr-id').val();
+			var supplier=$("#input-supplier").val();
+
+			var total=$("#input-total").val();
+			var poDet=[];
+			$('#tbody-edit-po > .item').each(function(index, data) {
+				var unitCost=$(this).find('td').eq(3).text();
+				var subTotal=$(this).find('td').eq(4).text();
+				var detail = {
+						requestQty : $(this).find('td').eq(2).text(),
+						variant : {
+							id : $(this).attr('id-var')
+						},
+						subTotal : subTotal,
+						unitCost :  unitCost
+				};
+				poDet.push(detail);
+				
+			});
+			var po = {
+					id : id,
+					notes : $('#input-notes').val(),
+					status : "Process",
+					outletId : {
+						id : '${outlet.id}'
+					},
+					purchaseOrderDetails : poDet,
+					poNo:poNo,
+					grandTotal:total,
+					prId:{
+						id:prid
+					},
+					supplierId:{
+						id:supplier
+					}
+				}; 
+			console.log(po);
+			var action="process";
+			  $.ajax({
+				url : '${pageContext.request.contextPath}/t/po/submit',
+				type:'PUT',
+				contentType:'application/json',
+				data : JSON.stringify(po),
+				success : function(){
+					$('#div-alert').fadeIn();
+					setTimeout(function() {
+						window.location = '${pageContext.request.contextPath}/t/po';
+
+						console.log("berhasil");
+					}, 2000);
+				},error:function(){
+					$('#modal-val-user').modal();
+					$('#modal-edit-po').modal('show');
+				}
+			});  
 		});
 		
 		/* btn save */
@@ -400,7 +499,7 @@
 		</thead>
 		<tbody id="tbody-po">
 		<c:forEach items="${pos}" var="po">
-			<tr id="${po.prId }">
+			<tr id="${po.prId.id }">
 				<td style="display: none">${po.id }</td>
 				<td><center><script>
 							var times = '${po.createdOn }';
@@ -417,18 +516,28 @@
 				<td>${po.status}</td>
 
 				<td><center>
-					<a id="${po.prId.id }" class="btn-edit-po btn btn-success btn-sm" name="${po.id}" poNo="${po.poNo }" href="#">Edit</a>
+					<a id="${po.prId.id }"  class="${po.prId.id } btn-edit-po btn btn-success btn-sm" name="${po.id}" poNo="${po.poNo }" href="#">Edit</a>
 					<a id="${po.id}" class="btn-view-po btn btn-success btn-sm" href="#">View</a></center>
 						<script>
-					 if('${po.status}'=="Approved"){
-						$("#${po.prId.id }").hide();
+					  if('${po.status}'=="Approved"){
+						$('.${po.prId.id }').attr('id',"u" );
+						 var s =document.getElementById('u');
+						s.setAttribute("disabled", "disabled");
+						$('#u').attr('id',"q" );
 					}
-					else if('${po.status}'=="Rejected"){
-						$("#${po.prId.id }").hide();
+					else  if('${po.status}'=="Rejected"){
+						$('.${po.prId.id }').attr('id',"i" );
+						var a =document.getElementById('i');
+						a.setAttribute("disabled", "disabled");
+						$('#i').attr('id',"w" );
 					}
-					else if('${po.status}'=="Process"){
-						$("#${po.prId.id }").hide();
-					}
+					 else if('${po.status}'=="Process"){
+						$('.${po.prId.id }').attr('id',"c" );
+						 var e =document.getElementById('c');
+						e.setAttribute("disabled", "disabled");
+						$('#c').attr('id',"r" );
+					} 
+					 
 				</script>
 				</td>
 				
