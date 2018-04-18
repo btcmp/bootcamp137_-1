@@ -14,13 +14,22 @@
 			<form id="target-edit" data-parsley-validate>
 			<div class="modal-body">
 					<input type="hidden" id="edit-id" name="input-id" />
+					<div class="row" id="div-alert-modal-edit" style="display:none;">
+						<div class="col-xs-12">
+							<div class="alert alert-info alert-dismissible" role="alert" id="show-alert2" style="padding: 5px">
+			                <p><i class="icon fa fa-check"></i> Supplier update!</p>
+			              </div>
+						</div>
+					</div>
 					<div class="form-group">
+						<label>Supplier Name</label>
 						<input type="text" data-parsley-required="true"
 							class="form-control" id="edit-supp-name"
 							placeholder="Supplier Name" pattern="^[0-9a-zA-Z. ]+$">
 						<!-- 	<p style = "color : red;"><small>*Letters only </small></p> -->
 					</div>
 					<div class="form-group" >
+					<label>Address</label>
 						<input type="text" data-parsley-required="true"
 							class="form-control" id="edit-address" 
 							placeholder="Address" pattern="^[0-9a-zA-Z. ]+$">
@@ -29,6 +38,7 @@
 					<div class="form-group">
 					<div class= "row">			
 						<div class ="col-sm-4" >
+						<label>Province</label>
 							<select data-parsley-required="true" name = "countries" id="edit-province"
 							style="width: 210px; margin-right: 30px;">
 							<option value="" selected="selected">CHOOSE PROVINCE</option>
@@ -38,6 +48,7 @@
 							</select>
 						</div>
 						<div class="col-sm-4">
+						<label>Region</label>
 							<select data-parsley-required="true" name = "countries" id="edit-region"
 							style="width: 210px; margin-right: 30px;">
 							<option value="" selected="selected">CHOOSE REGION</option>
@@ -47,6 +58,7 @@
 							</select>
 						</div>
 						<div class="col-sm-4"> 
+						<label>District</label>
 							<select data-parsley-required="true" name = "countries" id="edit-district"
 							style="width: 210px; margin-right: 30px;">
 							<option value="" selected="selected">CHOOSE DISTRICT</option>
@@ -60,18 +72,21 @@
 					 <div class="from-group">
 					<div class= "row">
 					<div class="col-sm-4">
+					<label>Postal Code</label>
 						<input type="text" data-parsley-required="true"
 							class="form-control" id="edit-postal-code" 
 							placeholder="Postal Code" pattern="([0-9]){5,6}$">
 						<!-- 	<p style = "color : red; "><small> *number only , max length = 6 </small></p> -->
 					</div>
 					<div class="col-sm-4">
+					<label>Phone Number</label>
 						<input type="text" data-parsley-required="true"
 							class="form-control" id="edit-phone" 
 							placeholder="Phone" maxlength= "14">
 							<!-- 	<p style = "color : red;"><small> *number only, ex : 087651234567 </small></p> -->
 					</div>
 					<div class="col-sm-4">
+					<label>Email</label>
 						<input type="text" data-parsley-required="true"
 							class="form-control" id="edit-email" 
 							placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">

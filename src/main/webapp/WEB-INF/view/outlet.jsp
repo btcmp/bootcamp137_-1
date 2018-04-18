@@ -22,6 +22,20 @@
 						function() {
 							window.location = '${pageContext.request.contextPath}/generate/outlet';
 						})
+
+		$("#input-phone").keyup(
+				function() {
+					$(this).val(
+							$(this).val().replace(/^(\d{3,4})(\d{6,8})+$/,
+									"$1-$2"));
+				});
+
+		$("#edit-phone").keyup(
+				function() {
+					$(this).val(
+							$(this).val().replace(/^(\d{3,4})(\d{6,8})+$/,
+									"$1-$2"));
+				});
 		//btn save  
 		$('#btn-save')
 				.on(
@@ -94,8 +108,14 @@
 																			'#modal-failed')
 																			.modal();
 																}
+
 															});
 												}
+												$('#div-alert-modal').fadeIn();
+												setTimeout(function() {
+													$('#div-alert-modal')
+															.fadeOut();
+												}, 1000);
 											},
 											error : function() {
 												$('#modal-failed').modal();
@@ -219,6 +239,12 @@
 																}
 															});
 												}
+												$('#div-alert-modal-edit')
+														.fadeIn();
+												setTimeout(function() {
+													$('#div-alert-modal-edit')
+															.fadeOut();
+												}, 1000);
 											},
 											error : function() {
 												$('#modal-failed').modal();
@@ -391,30 +417,33 @@
 			<div class="col-md-3">
 				<div class="form-group">
 					<!--   <div id="search-box" style="margin-top: 20px; margin-botton: 20px"> -->
-					<input type="text" id="search" placeholder="search" class="form-control" />
+					<input type="text" id="search" placeholder="search"
+						class="form-control" />
 				</div>
 			</div>
 			<div class="col-md-3">
 				<div class="form-group ">
-					<button type="button" id="btn-search" class="btn btn-primary">Search</button>
-					<!-- <a id="btn-search" href="#" class="btn btn-primary">Search</a></span> -->
+					<button type="button" id="btn-search" class="btn btn-success">Search</button>
+					<!-- <a id="btn-search" href="#" class="btn btn-success">Search</a></span> -->
 				</div>
 			</div>
 			<div class="col-md-3">
 				<div class="form-group">
-					<button type="button" id="btn-export" class="btn btn-primary btn-block">Export</button>
+					<button type="button" id="btn-export"
+						class="btn btn-success btn-block">Export</button>
 				</div>
 			</div>
 			<div class="col-md-3">
 				<div class="form-group">
-					<button type="button" id="btn-create" class="adm-show btn btn-primary btn-block">Create</button>
+					<button type="button" id="btn-create"
+						class="adm-show btn btn-success btn-block">Create</button>
 				</div>
 			</div>
-			
+
 		</div>
 	</form>
 </div>
-	
+
 <table id="outlet-tbl"
 	class="table table-sm table-striped table-bordered" width="100%"
 	cellspacing="0">

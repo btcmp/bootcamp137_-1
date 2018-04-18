@@ -14,6 +14,13 @@
 
 			<form id="target" data-parsley-validate>
 				<div class="modal-body">
+					<div class="row" id="div-alert-modal" style="display:none;">
+						<div class="col-xs-12">
+							<div class="alert alert-info alert-dismissible" role="alert" id="show-alert2" style="padding: 5px">
+			                <p><i class="icon fa fa-check"></i> Category added!</p>
+			              </div>
+						</div>
+					</div>
 					<input type="hidden" id="input-id" name="input-id" />
 					<div class="form-group">
 						<input type="text" data-parsley-required="true"
