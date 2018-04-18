@@ -64,4 +64,15 @@ public class TransferStockDaoImpl implements TransferStockDao{
 		}
 	}
 
+	@Override
+	public int getTsNeedAction() {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from TransferStock where status!='Submitted'";
+		List<TransferStock> tfs = session.createQuery(hql).list();
+		if(tfs.isEmpty()) {
+			return 0;
+		}
+		return tfs.size();
+	}
+
 }

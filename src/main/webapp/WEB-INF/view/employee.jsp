@@ -402,7 +402,7 @@
 		<tbody>
 			<c:forEach items="${employees }" var="emp">
 				<tr>
-					<td>${emp.firstName }</td>
+					<td>${emp.firstName } ${emp.lastName }</td>
 					<td>${emp.email }</td>
 					<td><center>
 							<script type="text/javascript">

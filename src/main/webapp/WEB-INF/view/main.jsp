@@ -86,7 +86,20 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Transfer Stock</span>
-              <span class="info-box-number">2</span> action needed
+              <span class="info-box-number">
+              	<script type="text/javascript">
+					$.ajax({
+						type : 'GET',
+						url : '${pageContext.request.contextPath}/t/ts/get-ts-need',
+						dataType: 'json',
+						success : function(data){
+							console.log(data);
+							$('#ts-need').val(data);
+						}
+					});
+				</script>
+				<input type="text" readonly id="ts-need" style="border:none;" />
+              </span> action needed
             </div>
             <!-- /.info-box-content -->
           </div>

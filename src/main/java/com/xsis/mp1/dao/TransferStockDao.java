@@ -21,4 +21,6 @@ public interface TransferStockDao {
 
 	List<TransferStock> searchTSByOutlet(long cari);
 
+	int getTsNeedAction();
+
 }

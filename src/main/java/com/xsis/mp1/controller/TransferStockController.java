@@ -96,4 +96,10 @@ public class TransferStockController {
 	public List<Object> getCreatedBy(@RequestParam(value="id", defaultValue="") long id){
 		return tsService.getUsernameById(id);
 	}
+	
+	@RequestMapping("/get-ts-need")
+	@ResponseBody
+	public int getTsNeed(){
+		return tsService.getTsNeedAction();
+	}
 }

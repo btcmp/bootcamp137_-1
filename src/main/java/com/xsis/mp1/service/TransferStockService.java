@@ -193,5 +193,10 @@ public class TransferStockService {
 	public List<Object> getUsernameById(long id) {
 		return userDao.getUsernameByPrId(id);
 	}
+
+	public int getTsNeedAction() {
+		// TODO Auto-generated method stub
+		return tsDao.getTsNeedAction();
+	}
 	
 }
