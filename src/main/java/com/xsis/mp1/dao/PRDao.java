@@ -31,4 +31,6 @@ public interface PRDao {
 
 	public List<PurchaseRequest> searchPRByDate(Date startDate, Date endDate);
 
+	public int getPrNeedAction();
+
 }

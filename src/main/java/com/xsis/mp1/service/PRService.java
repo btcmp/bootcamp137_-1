@@ -317,6 +317,11 @@ public class PRService {
 		endDate = cal2.getTime();
 		return prDao.searchPRByDate(startDate, endDate);
 	}
+
+	public int getPrNeedAction() {
+		// TODO Auto-generated method stub
+		return prDao.getPrNeedAction();
+	}
 	
 	
 }

@@ -111,4 +111,10 @@ public class AdjustmentController {
 	public List<Object> getCreatedBy(@RequestParam(value="id", defaultValue="") long id){
 		return adjustmentService.getUsernameByAdjId(id);
 	}
+	
+	@RequestMapping("/get-adj-need")
+	@ResponseBody
+	public int getAdjNeed(){
+		return adjustmentService.getAdjNeedAction();
+	}
 }

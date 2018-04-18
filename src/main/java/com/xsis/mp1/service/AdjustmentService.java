@@ -241,6 +241,11 @@ public class AdjustmentService {
 	public List<Object> getUsernameByAdjId(long id) {
 		return userDao.getUsernameByAdjId(id);
 	}
+
+	public int getAdjNeedAction() {
+		// TODO Auto-generated method stub
+		return adjustmentDao.getAdjNeedAction();
+	}
 	
 
 	

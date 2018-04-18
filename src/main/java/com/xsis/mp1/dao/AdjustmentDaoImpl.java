@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.xsis.mp1.model.Adjustment;
 import com.xsis.mp1.model.PurchaseOrder;
+import com.xsis.mp1.model.PurchaseRequest;
 
 
 @Repository
@@ -77,6 +78,17 @@ public class AdjustmentDaoImpl implements AdjustmentDao {
 		}else {
 			return adj;
 		}
+	}
+
+	@Override
+	public int getAdjNeedAction() {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from Adjustment where status!='Submitted'";
+		List<Adjustment> adjs = session.createQuery(hql).list();
+		if(adjs.isEmpty()) {
+			return 0;
+		}
+		return adjs.size();
 	}
 	
 	

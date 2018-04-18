@@ -25,5 +25,7 @@ public interface AdjustmentDao {
 	public void setInventory(long id);
 
 	public List<Adjustment> searchAdjByDate(Date startDate, Date endDate);
+
+	public int getAdjNeedAction();
 	
 } 

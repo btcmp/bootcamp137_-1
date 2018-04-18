@@ -20,7 +20,21 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Purchase Request</span>
-              <span class="info-box-number">10</span> action needed
+              <span class="info-box-number">
+              	<script type="text/javascript">
+					$.ajax({
+						type : 'GET',
+						url : '${pageContext.request.contextPath}/t/pr/get-pr-need',
+						dataType: 'json',
+						success : function(data){
+							console.log(data);
+							$('#pr-need').val(data);
+						}
+					});
+				</script>
+				<input type="text" readonly id="pr-need" style="border:none;" />
+              </span> 
+               action needed
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -46,7 +60,20 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Adjustment</span>
-              <span class="info-box-number">1</span> action needed
+              <span class="info-box-number">
+              	<script type="text/javascript">
+					$.ajax({
+						type : 'GET',
+						url : '${pageContext.request.contextPath}/t/adjustment/get-adj-need',
+						dataType: 'json',
+						success : function(data){
+							console.log(data);
+							$('#adj-need').val(data);
+						}
+					});
+				</script>
+				<input type="text" readonly id="adj-need" style="border:none;" />
+              </span> action needed
             </div>
             <!-- /.info-box-content -->
           </div>

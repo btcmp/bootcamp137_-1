@@ -146,4 +146,10 @@ public class PRController {
 		return prService.getUsernameByPrId(id);
 	}
 	
+	@RequestMapping("/get-pr-need")
+	@ResponseBody
+	public int getPrNeed(){
+		return prService.getPrNeedAction();
+	}
+	
 }
