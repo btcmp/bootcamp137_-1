@@ -111,6 +111,7 @@ public class ItemService {
 					inventory3.setBeginning(inventory.getBeginning());
 					inventory3.setEndingQty(inventory.getEndingQty());
 					inventory3.setOutlet(inventory.getOutlet());
+					System.out.println(inventory.getCreatedBy());
 					inventory3.setCreatedBy(inventory.getCreatedBy());
 					inventory3.setCreatedOn(inventory.getCreatedOn());
 					inventory3.setModifiedBy(user.getId());

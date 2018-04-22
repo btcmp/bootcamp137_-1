@@ -245,8 +245,10 @@
 								
 						<div class="row col-md-12">
 							<div class="col-md-4">
-								<input type='file' data-parsley-required="true" id="images-input-edit" onchange="preview_image_edit(event)"/>
+								<input type='file' data-parsley-required="false" id="images-input-edit" onchange="preview_image_edit(event)"/>
 								<img id="images-edit" src="" style="width: 100%; height: 159px">
+									<input type='input' data-parsley-required="false" id="images-input-edit-hidden" style="display: none"/>
+								
 							</div>
 							<div class="col-md-8">
 								<input type="hidden" id="edit-item-id" name="input-id" />		

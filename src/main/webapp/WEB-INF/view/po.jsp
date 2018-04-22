@@ -41,7 +41,7 @@
 									val.grandTotal="";
 								}
 								$('#tbody-po').append('<tr><td>'+tanggal+'</td>'
-									+'<td id="supplier'+val.id"></td>'	
+									+'<td id="supplier'+val.id+'"></td>'	
 									+'<td> '+val.poNo+'</td>'
 									+'<td>'+val.grandTotal+'</td>'
 									+'<td>'+val.status+'</td>'
@@ -49,7 +49,7 @@
 									+'<a href="${pageContext.request.contextPath}/t/pr/detail/'+val.id+'" class="view btn btn-success btn-sm" key-id="'+val.id+'">View</a></td>');
 									
 								 	if(val.status=="Approved"){
-										$("#"+val.id+"").attr('id',"a" );
+										$('#'+val.id).attr('id',"a" );
 										var q =document.getElementById('a');
 										q.setAttribute("disabled", "disabled");
 										$('#a').attr('id',"z" );
@@ -430,11 +430,7 @@
 				console.log(data);
 		});
 		
-		
 	
-		
-		
-		
 	});
 </script>
 

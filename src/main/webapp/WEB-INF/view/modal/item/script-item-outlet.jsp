@@ -334,8 +334,10 @@
 						"</td><td style='text-align:center; display:none'>"+ inventory.variant.price + 
 						"</td><td style='text-align:center;'><a class='btn-edit-edit-variant btn btn-info btn-sm' href='#'>Edit</a>|<a class='btn-edit-remove-variant btn btn-danger btn-sm' href='#'>X</a></td></tr>";
 				
+					
 					$("#tbody-variant").append(markup);
 					$("#images-edit").attr('src', '${pageContext.request.contextPath}/resources/img/'+images);
+					$('#images-input-edit-hidden').val(images);
 					$(".btn-edit-delete-item").val(id);
 					//console.log(id);
 					$('#edit-item-id').val(id); 
@@ -497,7 +499,6 @@
 					    	 	id:$(data).find('td').eq(7).text()
 					     	}
 					 };
-					 console.log($(data).find('td').eq(8).text());
 					 //inventories.push(inventory);
 					  var variant={
 								name: $(data).find('td').eq(0).text(),
@@ -510,42 +511,68 @@
 					variants.push(variant);
 				});
 				
-			
+			var images=$('#images-input-edit').val();
+			if(images==''){
+				var item = {
+						id:parseInt($('#edit-item-id').val()),
+						name: $('#edit-item-name').val(),
+						categoryId : {
+							id:parseInt($('#edit-item-category').val()),					
+						},
+						variants:variants,
+				 		active: 0,
+				 		image:$('#images-input-edit-hidden').val()
+				};
 		
-	 		$.ajax({
-	 			type : 'POST',
-				url : '${pageContext.request.contextPath}/mst/item-outlet/upload',
-				data : formData,
-				contentType: false,
-        	    processData: false,
-        	    cache: false,
-				success : function(data){
+		 	    $.ajax({
+					type : 'PUT',
+					url : '${pageContext.request.contextPath}/mst/item-outlet/edit',
+					data : JSON.stringify(item),
+					contentType : 'application/json',
+					success : function(dataku){
+						$('#modal-sukses').modal(); 
+						window.location = '${pageContext.request.contextPath}/mst/item-outlet';
+					}, error : function(){
+						$('#modal-failed').modal(); 
+					} 
+				});
+			}
+			else{
+		 		$.ajax({
+		 			type : 'POST',
+					url : '${pageContext.request.contextPath}/mst/item-outlet/upload',
+					data : formData,
+					contentType: false,
+	        	    processData: false,
+	        	    cache: false,
+					success : function(data){
+						
+						 var item = {
+									id:parseInt($('#edit-item-id').val()),
+									name: $('#edit-item-name').val(),
+									categoryId : {
+										id:parseInt($('#edit-item-category').val()),					
+									},
+									variants:variants,
+							 		active: 0,
+							 		image:data
+							};
 					
-					 var item = {
-								id:parseInt($('#edit-item-id').val()),
-								name: $('#edit-item-name').val(),
-								categoryId : {
-									id:parseInt($('#edit-item-category').val()),					
-								},
-								variants:variants,
-						 		active: 0,
-						 		image:data
-						};
-				
-				 	    $.ajax({
-						type : 'PUT',
-						url : '${pageContext.request.contextPath}/mst/item-outlet/edit',
-						data : JSON.stringify(item),
-						contentType : 'application/json',
-						success : function(dataku){
-							$('#modal-sukses').modal(); 
-							window.location = '${pageContext.request.contextPath}/mst/item-outlet';
-						}, error : function(){
-							$('#modal-failed').modal(); 
-						} 
-					});
-				}
-	 		});
+					 	    $.ajax({
+							type : 'PUT',
+							url : '${pageContext.request.contextPath}/mst/item-outlet/edit',
+							data : JSON.stringify(item),
+							contentType : 'application/json',
+							success : function(dataku){
+								$('#modal-sukses').modal(); 
+								window.location = '${pageContext.request.contextPath}/mst/item-outlet';
+							}, error : function(){
+								$('#modal-failed').modal(); 
+							} 
+						});
+					}
+		 		});
+			}
 		});
 		
 		$('#btn-edit-add-variant').on('click', function(){
