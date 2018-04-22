@@ -523,7 +523,7 @@
 				 		active: 0,
 				 		image:$('#images-input-edit-hidden').val()
 				};
-		
+		 
 		 	    $.ajax({
 					type : 'PUT',
 					url : '${pageContext.request.contextPath}/mst/item-outlet/edit',
