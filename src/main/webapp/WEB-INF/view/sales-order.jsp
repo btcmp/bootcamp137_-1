@@ -124,10 +124,10 @@
 																		.stringify(customer),
 																success : function(
 																		data) {
-																	$(
-																			'#modal-create-cust')
-																			.modal(
-																					'toggle');
+																	$('#div-alert-modal').fadeIn();
+																	setTimeout(function(){
+																		$('#modal-create-cust').modal('toggle');
+																	}, 1000);
 																},
 																error : function() {
 																	/* $('#modal-failed').modal();  */

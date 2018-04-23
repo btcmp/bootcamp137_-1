@@ -64,7 +64,10 @@
 																		.stringify(category),
 																success : function(
 																		data) {
-																	window.location = "${pageContext.request.contextPath}/mst/category"
+																	$('#div-alert-modal').fadeIn();
+																	setTimeout(function(){
+																		window.location = '${pageContext.request.contextPath}/mst/category';
+																	}, 1000);
 																},
 																error : function() {
 																	$(
@@ -155,7 +158,11 @@
 																contentType : 'application/json',
 																success : function(
 																		data) {
-																	window.location = '${pageContext.request.contextPath}/mst/category';
+																	
+																	$('#div-alert-modal-edit').fadeIn();
+																	setTimeout(function(){
+																		window.location = '${pageContext.request.contextPath}/mst/category';
+																	}, 1000);
 																},
 																error : function() {
 																	$(
@@ -163,7 +170,7 @@
 																			.modal();
 																}
 															});
-												}
+												} 
 											},
 											error : function() {
 												$('#modal-failed').modal();

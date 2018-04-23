@@ -101,7 +101,11 @@
 																		.stringify(outlet),
 																success : function(
 																		data) {
-																	window.location = "${pageContext.request.contextPath}/mst/outlet"
+																	$('#div-alert-modal').fadeIn();
+																	setTimeout(function() {
+																		window.location = "${pageContext.request.contextPath}/mst/outlet";
+																	}, 1000);
+																	
 																},
 																error : function() {
 																	$(
@@ -111,11 +115,7 @@
 
 															});
 												}
-												$('#div-alert-modal').fadeIn();
-												setTimeout(function() {
-													$('#div-alert-modal')
-															.fadeOut();
-												}, 1000);
+												
 											},
 											error : function() {
 												$('#modal-failed').modal();
@@ -229,7 +229,12 @@
 																contentType : 'application/json',
 																success : function(
 																		data) {
-																	window.location = '${pageContext.request.contextPath}/mst/outlet';
+																	$('#div-alert-modal-edit')
+																	.fadeIn();
+															setTimeout(function() {
+																window.location = '${pageContext.request.contextPath}/mst/outlet';
+															}, 1000);
+																	
 																	/* 	alert ('update berhasil');  */
 																},
 																error : function() {
@@ -239,12 +244,7 @@
 																}
 															});
 												}
-												$('#div-alert-modal-edit')
-														.fadeIn();
-												setTimeout(function() {
-													$('#div-alert-modal-edit')
-															.fadeOut();
-												}, 1000);
+												
 											},
 											error : function() {
 												$('#modal-failed').modal();

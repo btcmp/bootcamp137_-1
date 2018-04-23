@@ -14,6 +14,13 @@
 			</div>
 			<form id="target-edit" data-parsley-validate>
 				<div class="modal-body">
+				<div class="row" id="div-alert-modal-edit" style="display:none;">
+						<div class="col-xs-12">
+							<div class="alert alert-info alert-dismissible" role="alert" id="show-alert2" style="padding: 5px">
+			                <p><i class="icon fa fa-check"></i> Category update!</p>
+			              </div>
+						</div>
+					</div>
 					<input type="hidden" id="edit-id" name="input-id" />
 					<div class="form-group">
 						<input type="text" data-parsley-required="true"

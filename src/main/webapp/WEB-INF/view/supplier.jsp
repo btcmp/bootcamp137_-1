@@ -101,7 +101,11 @@
 																success : function(
 																		data) {
 																	//console.log(data); 
-																	window.location = "${pageContext.request.contextPath}/mst/supplier"
+																	$('#div-alert-modal').fadeIn();
+												setTimeout(function(){
+													window.location = "${pageContext.request.contextPath}/mst/supplier";
+												}, 1000);
+																	
 																	//alert('berhasil'); 
 																},
 																error : function() {
@@ -111,10 +115,7 @@
 																}
 															});
 												}
-												$('#div-alert-modal').fadeIn();
-												setTimeout(function(){
-													$('#div-alert-modal').fadeOut();
-												}, 1000);
+												
 											},
 											error : function() {
 												$('#modal-failed').modal();
@@ -226,7 +227,10 @@
 																contentType : 'application/json',
 																success : function(
 																		data) {
-																	window.location = '${pageContext.request.contextPath}/mst/supplier';
+																	$('#div-alert-modal-edit').fadeIn();
+																	setTimeout(function(){
+																		window.location = '${pageContext.request.contextPath}/mst/supplier';
+																	}, 1000);
 																},
 																error : function() {
 																	$(
@@ -235,10 +239,6 @@
 																}
 															})
 												}
-												$('#div-alert-modal-edit').fadeIn();
-												setTimeout(function(){
-													$('#div-alert-modal-edit').fadeOut();
-												}, 1000);
 											},
 											error : function() {
 												$('#modal-failed').modal();

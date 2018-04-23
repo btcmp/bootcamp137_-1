@@ -15,6 +15,13 @@
 			</div>
 			<div class="modal-body">
 				<form id="target-create-cust" data-parsley-validate>
+				<div class="row" id="div-alert-modal" style="display:none;">
+						<div class="col-xs-12">
+							<div class="alert alert-info alert-dismissible" role="alert" id="show-alert2" style="padding: 5px">
+			                <p><i class="icon fa fa-check"></i> Success add new customer! </p>
+			              </div>
+						</div>
+					</div>
 					<input type="hidden" id="input-id" name="input-id" />
 					<div class="form-group">
 						<h5>PROFILE</h5>
