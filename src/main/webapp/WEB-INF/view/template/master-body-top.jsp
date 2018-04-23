@@ -44,6 +44,9 @@
 								</li>
 								<!-- Menu Body -->
 								<li class="user-footer">
+									<div class="pull-left">
+										<a href="#" class="btn profile btn-default btn-flat">Profile</a>
+									</div>
 									<div class="pull-right">
 										<c:url value="/j_spring_security_logout" var="logoutUrl" />
 											<!-- csrt for log out-->

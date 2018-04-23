@@ -78,5 +78,10 @@ $(document).ready(function(){
 		$('.main-show').hide();
 		$('.btn-adm-show').prop('disabled', true);
 	}
+	
+	$('.profile').on('click', function(){
+		var id = "${employee.id}";
+		window.location = '${pageContext.request.contextPath}/mst/employee/profile/'+id;
+	})
 })
 </script>

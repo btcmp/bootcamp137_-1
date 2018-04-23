@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.xsis.mp1.model.Employee;
 import com.xsis.mp1.model.EmployeeOutlet;
 import com.xsis.mp1.model.Outlet;
+import com.xsis.mp1.model.PurchaseRequest;
 import com.xsis.mp1.model.Role;
 import com.xsis.mp1.service.EmployeeService;
 import com.xsis.mp1.service.OutletService;
@@ -38,10 +39,8 @@ public class EmployeeController {
 	
 	@RequestMapping
 	public String index(Model model) {
-		//List<Employee> employees = employeeService.selectAll();
 		List<Employee> employees = employeeService.getListByStatus();
 		List<Outlet> outlets = outletService.selectAll();
-//		List<Outlet> listOutlets = outletService.getOutletByEmployeeId(EmployeeOutlet);
 		List<Role> roles = roleService.selectAll();
 		model.addAttribute("employees", employees);
 		model.addAttribute("outlets", outlets);
@@ -83,6 +82,14 @@ public class EmployeeController {
 	@ResponseStatus(HttpStatus.OK)
 	public void updateStatus(@RequestBody Employee employee) {
 		employeeService.updateStatus(employee); 
+	}
+	
+	@RequestMapping(value="/profile/{id}", method = RequestMethod.GET)
+	public String cari(@PathVariable long id, Model model) {
+		System.out.println("id emp =" + id);
+		Employee emp = employeeService.getOne(id);
+		model.addAttribute("emp", emp);
+		return "profile";
 	}
 	
 	@RequestMapping("/check-email")

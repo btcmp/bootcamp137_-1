@@ -16,8 +16,9 @@
 <div class="row main-show">
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon bg-aqua"><i class="fa fa-ticket"></i></span>
-
+            <a href="${pageContext.request.contextPath}/t/pr">
+            	<span class="info-box-icon bg-aqua"><i class="fa fa-ticket"></i></span>
+            </a>
             <div class="info-box-content">
               <span class="info-box-text">Purchase Request</span>
               <span class="info-box-number">
@@ -27,7 +28,6 @@
 						url : '${pageContext.request.contextPath}/t/pr/get-pr-need',
 						dataType: 'json',
 						success : function(data){
-							console.log(data);
 							$('#pr-need').val(data);
 						}
 					});
@@ -43,8 +43,9 @@
         <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon bg-green"><i class="fa fa-dollar"></i></span>
-
+            <a href="${pageContext.request.contextPath}/t/po">
+            	<span class="info-box-icon bg-green"><i class="fa fa-dollar"></i></span>
+            </a>
             <div class="info-box-content">
               <span class="info-box-text">Purchase Order</span>
               <span class="info-box-number">
@@ -54,7 +55,6 @@
 						url : '${pageContext.request.contextPath}/t/po/get-po-need',
 						dataType: 'json',
 						success : function(data){
-							console.log(data);
 							$('#po-need').val(data);
 						}
 					});
@@ -69,8 +69,9 @@
         <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon bg-yellow"><i class="fa fa-edit"></i></span>
-
+            <a href="${pageContext.request.contextPath}/t/adjustment">
+            	<span class="info-box-icon bg-yellow"><i class="fa fa-edit"></i></span>
+            </a>
             <div class="info-box-content">
               <span class="info-box-text">Adjustment</span>
               <span class="info-box-number">
@@ -80,7 +81,6 @@
 						url : '${pageContext.request.contextPath}/t/adjustment/get-adj-need',
 						dataType: 'json',
 						success : function(data){
-							console.log(data);
 							$('#adj-need').val(data);
 						}
 					});
@@ -95,8 +95,9 @@
         <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon bg-red"><i class="fa fa-retweet"></i></span>
-
+            <a href="${pageContext.request.contextPath}/t/ts">
+            	<span class="info-box-icon bg-red"><i class="fa fa-retweet"></i></span>
+			</a>
             <div class="info-box-content">
               <span class="info-box-text">Transfer Stock</span>
               <span class="info-box-number">
@@ -106,7 +107,6 @@
 						url : '${pageContext.request.contextPath}/t/ts/get-ts-need',
 						dataType: 'json',
 						success : function(data){
-							console.log(data);
 							$('#ts-need').val(data);
 						}
 					});
