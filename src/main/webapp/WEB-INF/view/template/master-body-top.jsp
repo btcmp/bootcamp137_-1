@@ -22,19 +22,15 @@
 				<div class="navbar-custom-menu">
 					<ul class="nav navbar-nav">
 						<!-- User Account: style can be found in dropdown.less -->
-						<li class="dropdown user user-menu"><a href="#"
-							class="dropdown-toggle" data-toggle="dropdown"> <img
-								src="${url}/dist/img/user2-160x160.jpg" class="user-image"
-								alt="User Image"> <span class="hidden-xs">${employee.user.username }</span>
+						<li class="dropdown user user-menu">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"> 
+							<img src="${url}/dist/img/user2-160x160.jpg" class="user-image" alt="User Image"> 
+							<span class="hidden-xs">${employee.user.username }</span>
 						</a>
 							<ul class="dropdown-menu">
 								<!-- User image -->
-								<li class="user-header"><img
-									src="${url}/dist/img/user2-160x160.jpg" class="img-circle"
-									alt="User Image">
-
-									<p>
-										${employee.firstName } ${employee.lastName } 
+								<li class="user-header"><img src="${url}/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+									<p>${employee.firstName } ${employee.lastName } 
 										<small>
 											<script type="text/javascript">
 												var rolenya = "${employee.user.role.name}";
@@ -44,7 +40,8 @@
 											</script>
 											| ${outlet.name }
 										</small>
-									</p></li>
+									</p>
+								</li>
 								<!-- Menu Body -->
 								<li class="user-footer">
 									<div class="pull-right">
@@ -56,11 +53,10 @@
 												value="${_csrf.token}" />
 												<input type="submit" class="btn btn-default btn-flat" name="logout" value="Sign Out"/>
 											</form>
-										
-										<!-- <a href="#" class="btn btn-default btn-flat">Sign out</a> -->
 									</div>
 								</li>
-							</ul></li>
+							</ul>
+						</li>
 					</ul>
 				</div>
 			</nav>

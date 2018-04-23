@@ -8,8 +8,8 @@
 
 <!-- =================================================================================================================== -->
 
-<p>Welcome ${employee.firstName} ${employee.lastName}</p>
-<p>Outlet : ${outlet.name}</p>
+<p>Welcome <b class="text-uppercase">${employee.firstName} ${employee.lastName}</b></p>
+<p>Outlet Active : <b>${outlet.name}</b></p>
 
 <br><br>
 
@@ -43,7 +43,7 @@
         <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon bg-green"><i class="fa fa-flag-o"></i></span>
+            <span class="info-box-icon bg-green"><i class="fa fa-dollar"></i></span>
 
             <div class="info-box-content">
               <span class="info-box-text">Purchase Order</span>
